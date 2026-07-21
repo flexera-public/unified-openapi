@@ -1,0 +1,28 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'generator/v*'   # generator tool tags: generator/v0.1.0, ...
+
+jobs:
+  release-generator:
+    if: startsWith(github.ref, 'refs/tags/generator/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: generator/go.mod
+          #cache: true
+      - name: Build generator binary
+        working-directory: generator
+        run: go build -o generator .
+      - name: Run tests
+        working-directory: generator
+        run: go test ./...
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: generator
+          path: generator/generator

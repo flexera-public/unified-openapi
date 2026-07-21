@@ -1,0 +1,212 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Flexera Global Resource Service",
+    "description": "DEPRECATED / LEGACY — hand-curated OpenAPI subset for the Flexera Global Resource Service (GRS).\n\nGRS is a legacy internal Praxis (Ruby) application in the process of being deprecated. It does not publish a real upstream OpenAPI document.\n\nThis file is hand-maintained and intentionally documents only the GRS endpoints that the unified Flexera One SDK helpers depend on (currently project/org lookup by user). Add new endpoints only when an SDK helper requires them; remove this spec once GRS is fully deprecated and no helpers depend on it.",
+    "version": "2.0",
+    "x-flexera-deprecated": true,
+    "x-flexera-spec-source": "hand-curated"
+  },
+  "servers": [
+    {
+      "url": "https://api.flexera.{zone}",
+      "description": "Flexera One API",
+      "variables": {
+        "zone": {
+          "default": "com",
+          "enum": [
+            "com",
+            "eu",
+            "au"
+          ],
+          "description": "com = NAM, eu = EU, au = APAC"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/grs/users/{userId}/projects": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "Flexera user ID (numeric). For a user-issued access token this is the integer suffix of the JWT 'sub' claim (`u-{userId}`) or the legacy 'user' claim. Service-account tokens cannot call this endpoint.",
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "X-Api-Version",
+          "in": "header",
+          "required": false,
+          "description": "API version. Defaults to 2.0.",
+          "schema": {
+            "type": "string",
+            "default": "2.0"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "Project#indexForOrg",
+        "summary": "List projects accessible by the authenticated user",
+        "description": "Returns the projects accessible by the user identified by `{userId}`. The authoritative project ID for legacy Flexera APIs is `legacy.account_id` when present (fall back to top-level `id` when `legacy.account_id` is absent).\n\nNOTE: This endpoint is served by the legacy GRS service, which is being deprecated. Prefer newer Flexera One APIs when available.",
+        "tags": [
+          "Project"
+        ],
+        "deprecated": true,
+        "responses": {
+          "200": {
+            "description": "List of accessible projects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Project"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/grs/users/{userId}/orgs": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "Flexera user ID (numeric). For a user-issued access token this is the integer suffix of the JWT 'sub' claim (`u-{userId}`) or the legacy 'user' claim. Service-account tokens cannot call this endpoint.",
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "X-Api-Version",
+          "in": "header",
+          "required": false,
+          "description": "API version. Defaults to 2.0.",
+          "schema": {
+            "type": "string",
+            "default": "2.0"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "User#orgIndex",
+        "summary": "List organizations the authenticated user can access",
+        "description": "Returns the Flexera One organizations that the user identified by `{userId}` has access to with the caller's credentials. This endpoint is the canonical 'who am I and what orgs do I belong to?' lookup for user-issued tokens (refresh-token grant) and is the recommended first call to validate that a CLI/SDK is configured correctly.\n\nThis endpoint requires a user-scoped access token. Service-account tokens (subject prefix `sa-`) do not have a user identity and cannot call this route — callers should detect that case before issuing the request and surface a clear error.\n\nNOTE: Served by the legacy GRS service, which is being deprecated. Prefer newer Flexera One identity APIs when available.",
+        "tags": [
+          "User"
+        ],
+        "deprecated": true,
+        "responses": {
+          "200": {
+            "description": "List of organizations the user can access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Org"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden (e.g. service-account token)"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Project": {
+        "type": "object",
+        "description": "Flexera One project resource (subset).",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Project ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Project name."
+          },
+          "orgId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Organization ID the project belongs to."
+          },
+          "description": {
+            "type": "string",
+            "description": "Project description."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Org": {
+        "type": "object",
+        "description": "Flexera One organization resource (subset returned by GRS user-org index).",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Organization ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Organization name."
+          },
+          "href": {
+            "type": "string",
+            "description": "Canonical GRS href for the organization (e.g. `/grs/orgs/{orgId}`)."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Resource kind, typically `org`."
+          }
+        }
+      }
+    }
+  }
+}

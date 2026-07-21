@@ -1,0 +1,1084 @@
+components:
+    schemas:
+        DataFieldResponse:
+            description: Extended details data field
+            example:
+                label: Net Savings
+                value: 1
+            properties:
+                label:
+                    description: Field Label
+                    example: Net Savings
+                    type: string
+                value:
+                    description: Field Value
+                    example: 1
+                    format: binary
+                    type: string
+            required:
+                - label
+                - value
+            title: DataFieldResponse
+            type: object
+        RecommendationResultResponse:
+            description: A cost-saving recommendation. (default view)
+            example:
+                accountID: 1234-5678-9012
+                accountName: Test Account
+                billingCenterID: o5g6iXY0AQADmckH0gjaAi
+                billingCenterName: Marketing
+                createdAt: "2021-08-22T00:00:00Z"
+                customTagDimensions:
+                    tag_1: demoMachine
+                    tag_2: randomName
+                databaseEngine: MySQL
+                details:
+                    Location: centralus
+                    Net Savings: "50.98"
+                    Total RI Quantity to Purchase: 1
+                detailsExtended:
+                    location:
+                        label: Location
+                        value: centralus
+                    quantityToPurchase:
+                        label: Total RI Quantity to Purchase
+                        value: 1
+                    savings:
+                        label: Net Savings
+                        value: "50.98"
+                id: C94ACE00-272B-4ADE-B6C2-3C2C0869E130
+                incidentID: 66db5ea9d7048a1c94c09636
+                kind: optima#recommendation
+                policySet: Idle Compute Instances
+                quantityToPurchase: 3
+                recommendation: AWS Savings Plan
+                region: US West (Oregon)
+                resourceGroup: RS-DEFAULT-EASTUS
+                resourceID: vol-0475890d8fc70a26f
+                resourceType: m5.2xlarge
+                ruleBasedDimensions:
+                    rbd_1: demoMachine
+                    rbd_2: randomName
+                savings: 361.5
+                service: EC2
+                snoozedTargetDate: "2025-01-30"
+                status: active
+                statusReason: Moved to snoozed since it is not relevant for now
+                statusUpdatedAt: "2021-08-22T00:00:00Z"
+                tags:
+                    - env=production
+                type: Rate Reduction
+                updatedAt: "2021-08-22T00:00:00Z"
+                vendor: AWS
+            properties:
+                accountID:
+                    description: The account ID
+                    example: 1234-5678-9012
+                    type: string
+                accountName:
+                    description: The account name
+                    example: Test Account
+                    type: string
+                billingCenterID:
+                    description: The ID of the top-level billing center this recommendation is assigned to
+                    example: o5g6iXY0AQADmckH0gjaAi
+                    type: string
+                billingCenterName:
+                    description: The name of the top-level billing center this recommendation is assigned to
+                    example: Marketing
+                    type: string
+                createdAt:
+                    description: Timestamp when the recommendation was created.
+                    example: "2021-08-22T00:00:00Z"
+                    format: date-time
+                    type: string
+                customTagDimensions:
+                    additionalProperties:
+                        example: Voluptatem velit sint esse.
+                        type: string
+                    description: The custom tag dimensions that could be populated by the raw tags of the recommendation.
+                    example:
+                        tag_1: demoMachine
+                        tag_2: randomName
+                    type: object
+                databaseEngine:
+                    description: The database engine to purchase
+                    example: MySQL
+                    type: string
+                details:
+                    additionalProperties: true
+                    description: Additional details about the recommendation.
+                    example:
+                        Location: centralus
+                        Net Savings: "50.98"
+                        Total RI Quantity to Purchase: 1
+                    type: object
+                detailsExtended:
+                    additionalProperties:
+                        $ref: '#/components/schemas/DataFieldResponse'
+                    description: Extended details about the recommendation.
+                    example:
+                        location:
+                            label: Location
+                            value: centralus
+                        quantityToPurchase:
+                            label: Total RI Quantity to Purchase
+                            value: 1
+                        savings:
+                            label: Net Savings
+                            value: "50.98"
+                    type: object
+                id:
+                    description: The ID of the recommendation
+                    example: C94ACE00-272B-4ADE-B6C2-3C2C0869E130
+                    type: string
+                incidentID:
+                    description: ID of the incident that recommendation belongs to
+                    example: 66db5ea9d7048a1c94c09636
+                    type: string
+                kind:
+                    description: The kind of object
+                    enum:
+                        - optima#recommendation
+                    example: optima#recommendation
+                    type: string
+                policySet:
+                    description: The policy set, as a way to group similar policies together
+                    example: Idle Compute Instances
+                    type: string
+                quantityToPurchase:
+                    description: Quantity to purchase (e.g. number of reserved instances)
+                    example: 3
+                    format: double
+                    type: number
+                recommendation:
+                    description: This is the name or category of recommendation
+                    example: AWS Savings Plan
+                    type: string
+                region:
+                    description: The region in which to purchase
+                    example: US West (Oregon)
+                    type: string
+                resourceGroup:
+                    description: Azure Resource Group
+                    example: RS-DEFAULT-EASTUS
+                    type: string
+                resourceID:
+                    description: The ID of a resource identified in the recommendation
+                    example: vol-0475890d8fc70a26f
+                    type: string
+                resourceType:
+                    description: The resource type, which might be an instance type or volume type, etc.
+                    example: m5.2xlarge
+                    type: string
+                ruleBasedDimensions:
+                    additionalProperties:
+                        example: Aperiam voluptatem sint.
+                        type: string
+                    description: The rule based dimensions that are populated in recommendation once rules execute.
+                    example:
+                        rbd_1: demoMachine
+                        rbd_2: randomName
+                    type: object
+                savings:
+                    description: Expected dollar savings
+                    example: 361.5
+                    format: double
+                    type: number
+                service:
+                    description: The relevant service in which to purchase
+                    example: EC2
+                    type: string
+                snoozedTargetDate:
+                    description: Target date to move recommendation from snoozed to active again
+                    example: "2025-01-30"
+                    format: date
+                    type: string
+                status:
+                    default: active
+                    description: Current status of the recommendation
+                    example: active
+                    type: string
+                statusReason:
+                    description: Extra field to put extra reason once we change “status” value
+                    example: Moved to snoozed since it is not relevant for now
+                    type: string
+                statusUpdatedAt:
+                    description: Date when status was updated
+                    example: "2021-08-22T00:00:00Z"
+                    format: date-time
+                    type: string
+                tags:
+                    description: The tags found on the resource
+                    example:
+                        - env=production
+                    items:
+                        example: Et eum unde temporibus earum et quia.
+                        type: string
+                    type: array
+                type:
+                    description: Categorizes the type of recommendation
+                    enum:
+                        - Rate Reduction
+                        - Usage Reduction
+                    example: Rate Reduction
+                    type: string
+                updatedAt:
+                    description: Timestamp when the recommendation was updated.
+                    example: "2021-08-22T00:00:00Z"
+                    format: date-time
+                    type: string
+                vendor:
+                    description: The name of the cloud vendor
+                    example: AWS
+                    type: string
+            required:
+                - kind
+                - id
+                - recommendation
+                - type
+                - createdAt
+                - updatedAt
+                - vendor
+                - policySet
+                - accountID
+                - accountName
+                - tags
+                - resourceID
+                - resourceType
+                - region
+                - service
+                - databaseEngine
+                - billingCenterName
+                - billingCenterID
+                - savings
+                - quantityToPurchase
+                - incidentID
+                - status
+            title: 'Mediatype identifier: application/vnd.flexera.optima.recommendation+json; view=default'
+            type: object
+        RecommendationsIndexBadGatewayResponseBody:
+            description: index_bad_gateway_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsIndexBadRequestResponseBody:
+            description: index_bad_request_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsIndexConflictResponseBody:
+            description: index_conflict_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsIndexForbiddenResponseBody:
+            description: index_forbidden_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsIndexNotFoundResponseBody:
+            description: index_not_found_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsRecommendationResultResponseCollection:
+            description: IndexResponseBody is the result type for an array of RecommendationResultResponse (default view)
+            example:
+                - accountID: 1234-5678-9012
+                  accountName: Test Account
+                  billingCenterID: o5g6iXY0AQADmckH0gjaAi
+                  billingCenterName: Marketing
+                  createdAt: "2021-08-22T00:00:00Z"
+                  customTagDimensions:
+                    tag_1: demoMachine
+                    tag_2: randomName
+                  databaseEngine: MySQL
+                  details:
+                    Location: centralus
+                    Net Savings: "50.98"
+                    Total RI Quantity to Purchase: 1
+                  detailsExtended:
+                    location:
+                        label: Location
+                        value: centralus
+                    quantityToPurchase:
+                        label: Total RI Quantity to Purchase
+                        value: 1
+                    savings:
+                        label: Net Savings
+                        value: "50.98"
+                  id: C94ACE00-272B-4ADE-B6C2-3C2C0869E130
+                  incidentID: 66db5ea9d7048a1c94c09636
+                  kind: optima#recommendation
+                  policySet: Idle Compute Instances
+                  quantityToPurchase: 3
+                  recommendation: AWS Savings Plan
+                  region: US West (Oregon)
+                  resourceGroup: RS-DEFAULT-EASTUS
+                  resourceID: vol-0475890d8fc70a26f
+                  resourceType: m5.2xlarge
+                  ruleBasedDimensions:
+                    rbd_1: demoMachine
+                    rbd_2: randomName
+                  savings: 361.5
+                  service: EC2
+                  snoozedTargetDate: "2025-01-30"
+                  status: active
+                  statusReason: Moved to snoozed since it is not relevant for now
+                  statusUpdatedAt: "2021-08-22T00:00:00Z"
+                  tags:
+                    - env=production
+                  type: Rate Reduction
+                  updatedAt: "2021-08-22T00:00:00Z"
+                  vendor: AWS
+                - accountID: 1234-5678-9012
+                  accountName: Test Account
+                  billingCenterID: o5g6iXY0AQADmckH0gjaAi
+                  billingCenterName: Marketing
+                  createdAt: "2021-08-22T00:00:00Z"
+                  customTagDimensions:
+                    tag_1: demoMachine
+                    tag_2: randomName
+                  databaseEngine: MySQL
+                  details:
+                    Location: centralus
+                    Net Savings: "50.98"
+                    Total RI Quantity to Purchase: 1
+                  detailsExtended:
+                    location:
+                        label: Location
+                        value: centralus
+                    quantityToPurchase:
+                        label: Total RI Quantity to Purchase
+                        value: 1
+                    savings:
+                        label: Net Savings
+                        value: "50.98"
+                  id: C94ACE00-272B-4ADE-B6C2-3C2C0869E130
+                  incidentID: 66db5ea9d7048a1c94c09636
+                  kind: optima#recommendation
+                  policySet: Idle Compute Instances
+                  quantityToPurchase: 3
+                  recommendation: AWS Savings Plan
+                  region: US West (Oregon)
+                  resourceGroup: RS-DEFAULT-EASTUS
+                  resourceID: vol-0475890d8fc70a26f
+                  resourceType: m5.2xlarge
+                  ruleBasedDimensions:
+                    rbd_1: demoMachine
+                    rbd_2: randomName
+                  savings: 361.5
+                  service: EC2
+                  snoozedTargetDate: "2025-01-30"
+                  status: active
+                  statusReason: Moved to snoozed since it is not relevant for now
+                  statusUpdatedAt: "2021-08-22T00:00:00Z"
+                  tags:
+                    - env=production
+                  type: Rate Reduction
+                  updatedAt: "2021-08-22T00:00:00Z"
+                  vendor: AWS
+                - accountID: 1234-5678-9012
+                  accountName: Test Account
+                  billingCenterID: o5g6iXY0AQADmckH0gjaAi
+                  billingCenterName: Marketing
+                  createdAt: "2021-08-22T00:00:00Z"
+                  customTagDimensions:
+                    tag_1: demoMachine
+                    tag_2: randomName
+                  databaseEngine: MySQL
+                  details:
+                    Location: centralus
+                    Net Savings: "50.98"
+                    Total RI Quantity to Purchase: 1
+                  detailsExtended:
+                    location:
+                        label: Location
+                        value: centralus
+                    quantityToPurchase:
+                        label: Total RI Quantity to Purchase
+                        value: 1
+                    savings:
+                        label: Net Savings
+                        value: "50.98"
+                  id: C94ACE00-272B-4ADE-B6C2-3C2C0869E130
+                  incidentID: 66db5ea9d7048a1c94c09636
+                  kind: optima#recommendation
+                  policySet: Idle Compute Instances
+                  quantityToPurchase: 3
+                  recommendation: AWS Savings Plan
+                  region: US West (Oregon)
+                  resourceGroup: RS-DEFAULT-EASTUS
+                  resourceID: vol-0475890d8fc70a26f
+                  resourceType: m5.2xlarge
+                  ruleBasedDimensions:
+                    rbd_1: demoMachine
+                    rbd_2: randomName
+                  savings: 361.5
+                  service: EC2
+                  snoozedTargetDate: "2025-01-30"
+                  status: active
+                  statusReason: Moved to snoozed since it is not relevant for now
+                  statusUpdatedAt: "2021-08-22T00:00:00Z"
+                  tags:
+                    - env=production
+                  type: Rate Reduction
+                  updatedAt: "2021-08-22T00:00:00Z"
+                  vendor: AWS
+                - accountID: 1234-5678-9012
+                  accountName: Test Account
+                  billingCenterID: o5g6iXY0AQADmckH0gjaAi
+                  billingCenterName: Marketing
+                  createdAt: "2021-08-22T00:00:00Z"
+                  customTagDimensions:
+                    tag_1: demoMachine
+                    tag_2: randomName
+                  databaseEngine: MySQL
+                  details:
+                    Location: centralus
+                    Net Savings: "50.98"
+                    Total RI Quantity to Purchase: 1
+                  detailsExtended:
+                    location:
+                        label: Location
+                        value: centralus
+                    quantityToPurchase:
+                        label: Total RI Quantity to Purchase
+                        value: 1
+                    savings:
+                        label: Net Savings
+                        value: "50.98"
+                  id: C94ACE00-272B-4ADE-B6C2-3C2C0869E130
+                  incidentID: 66db5ea9d7048a1c94c09636
+                  kind: optima#recommendation
+                  policySet: Idle Compute Instances
+                  quantityToPurchase: 3
+                  recommendation: AWS Savings Plan
+                  region: US West (Oregon)
+                  resourceGroup: RS-DEFAULT-EASTUS
+                  resourceID: vol-0475890d8fc70a26f
+                  resourceType: m5.2xlarge
+                  ruleBasedDimensions:
+                    rbd_1: demoMachine
+                    rbd_2: randomName
+                  savings: 361.5
+                  service: EC2
+                  snoozedTargetDate: "2025-01-30"
+                  status: active
+                  statusReason: Moved to snoozed since it is not relevant for now
+                  statusUpdatedAt: "2021-08-22T00:00:00Z"
+                  tags:
+                    - env=production
+                  type: Rate Reduction
+                  updatedAt: "2021-08-22T00:00:00Z"
+                  vendor: AWS
+            items:
+                $ref: '#/components/schemas/RecommendationResultResponse'
+            title: 'Mediatype identifier: application/vnd.flexera.optima.recommendation+json; type=collection; view=default'
+            type: array
+        RecommendationsUpdateStatusBadGatewayResponseBody:
+            description: updateStatus_bad_gateway_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsUpdateStatusBadRequestResponseBody:
+            description: updateStatus_bad_request_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsUpdateStatusConflictResponseBody:
+            description: updateStatus_conflict_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsUpdateStatusForbiddenResponseBody:
+            description: updateStatus_forbidden_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsUpdateStatusNotFoundResponseBody:
+            description: updateStatus_not_found_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        RecommendationsUpdateStatusRequestBody:
+            example:
+                id: 676f0f2c838a081da3f7cd61_vol-06fa6937d41c139eb
+                snoozedTargetDate: "2025-01-30"
+                status: realized
+                statusReason: Recommendation isn't relevant right now
+            properties:
+                id:
+                    description: Recommendation unique ID
+                    example: 676f0f2c838a081da3f7cd61_vol-06fa6937d41c139eb
+                    type: string
+                snoozedTargetDate:
+                    description: Target date to move recommendation from snoozed to active again
+                    example: "2025-01-30"
+                    type: string
+                status:
+                    description: New status of recommendation
+                    enum:
+                        - active
+                        - snoozed
+                        - rejected
+                        - realized
+                    example: realized
+                    type: string
+                statusReason:
+                    description: Reason of new status of recommendation
+                    example: Recommendation isn't relevant right now
+                    type: string
+            required:
+                - id
+                - status
+            title: RecommendationsUpdateStatusRequestBody
+            type: object
+info:
+    description: |
+        An API for recommendations that identify areas where you can save costs.
+
+        The API is available at the following endpoints:
+        * (NAM)  https://api.optima.flexeraeng.com
+        * (EMEA) https://api.optima-eu.flexeraeng.com
+        * (APAC) https://api.optima-apac.flexeraeng.com
+
+        ## Auth
+        Flexera Recommendations API uses rsauth-style tokens for both inbound authentication/authorization.
+        The following are the scopes defined in this service:
+        * optima:recommendation:index+common:org:own - Used for listing recommendations
+    title: Flexera Cloud Cost Optimization Recommendations API
+    version: ""
+openapi: 3.0.0
+paths:
+    /recommendations/orgs/{orgID}/recommendations:
+        get:
+            description: |-
+                List all recommendations.
+                User must have the 'optima:recommendation:index' privilege on the org or on the specified billing center(s) to make this call.
+
+                **Required security scopes for GlobalSession**:
+                  * `common:org:affiliated+common:org:own`
+            operationId: Recommendations#index
+            parameters:
+                - collectionFormat: multi
+                  description: IDs of BillingCenters to get recommendations for. It is not allowed for any of the BillingCenterIDs to be an ancestor of another specified BillingCenterID.
+                  in: query
+                  name: billingCenterIDs
+                  required: false
+                  schema:
+                    items:
+                        type: string
+                    type: array
+                - description: An optional parameter that controls the level of detail returned about policy violation data. Depending on it the data is returned in the `details` or `detailsExtended` field
+                  in: query
+                  name: view
+                  required: false
+                  schema:
+                    default: default
+                    enum:
+                        - default
+                        - extended
+                    type: string
+                - collectionFormat: multi
+                  description: Recommendation statuses to get
+                  in: query
+                  name: statuses
+                  required: false
+                  schema:
+                    default:
+                        - active
+                    items:
+                        enum:
+                            - active
+                            - snoozed
+                            - rejected
+                            - realized
+                        type: string
+                    type: array
+                - description: The organization ID
+                  in: path
+                  name: orgID
+                  required: true
+                  schema:
+                    type: integer
+                - description: JWT token used to perform authorization
+                  in: header
+                  name: Authorization
+                  required: false
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsRecommendationResultResponseCollection'
+                "400":
+                    description: Bad Request response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsIndexBadRequestResponseBody'
+                "403":
+                    description: Forbidden response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsIndexForbiddenResponseBody'
+                "404":
+                    description: Not Found response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsIndexNotFoundResponseBody'
+                "409":
+                    description: Conflict response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsIndexConflictResponseBody'
+                "502":
+                    description: Bad Gateway response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsIndexBadGatewayResponseBody'
+            schemes:
+                - http
+            security:
+                - GlobalSession_header_Authorization: []
+            summary: List all recommendations
+            tags:
+                - Recommendations
+    /recommendations/orgs/{orgID}/recommendations/updatestatus:
+        put:
+            description: |-
+                Update the status of a recommendation
+
+                **Required security scopes for GlobalSession**:
+                  * `common:org:affiliated+common:org:own`
+            operationId: Recommendations#updateStatus
+            parameters:
+                - description: Organization ID
+                  in: path
+                  name: orgID
+                  required: true
+                  schema:
+                    type: integer
+                - description: JWT token used to perform authorization
+                  in: header
+                  name: Authorization
+                  required: false
+                  schema:
+                    type: string
+                - in: body
+                  name: UpdateStatusRequestBody
+                  required: true
+                  schema:
+                    $ref: '#/components/schemas/RecommendationsUpdateStatusRequestBody'
+                    required:
+                        - id
+                        - status
+            responses:
+                "200":
+                    description: OK response.
+                "400":
+                    description: Bad Request response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsUpdateStatusBadRequestResponseBody'
+                "403":
+                    description: Forbidden response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsUpdateStatusForbiddenResponseBody'
+                "404":
+                    description: Not Found response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsUpdateStatusNotFoundResponseBody'
+                "409":
+                    description: Conflict response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsUpdateStatusConflictResponseBody'
+                "502":
+                    description: Bad Gateway response.
+                    schema:
+                        $ref: '#/components/schemas/RecommendationsUpdateStatusBadGatewayResponseBody'
+            schemes:
+                - http
+            security:
+                - GlobalSession_header_Authorization: []
+            summary: updateStatus Recommendations
+            tags:
+                - Recommendations
+servers:
+    - url: https://localhost:80

@@ -1,0 +1,410 @@
+# OpenAPI Specification Configuration
+# Defines all API specs, their sources, and processing requirements
+
+specs:
+  # Flexera APIs
+  - id: flexera-budget-v1
+    name: "Flexera Budget API"
+    vendor: flexera
+    service: budget
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/finops-analytics/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/budget/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
+  - id: flexera-policy-v1
+    name: "Flexera Policy API"
+    vendor: flexera
+    service: policy
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/policy/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/policy/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+      - type: sed-replace
+        pattern: "AppliedPolicyStatus"
+        replacement: "AppliedPolicyStatusDetail"
+        reason: "Fix duplicate typename 'AppliedPolicyStatus' in spec"
+
+  - id: flexera-graphql-v1
+    name: "Flexera GraphQL API"
+    vendor: flexera
+    service: graphql
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/graphql/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/graphql/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
+  - id: flexera-saas-v1
+    name: "Flexera SaaS API"
+    vendor: flexera
+    service: saas
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/saas/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/saas/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
+  - id: flexera-cred-v2
+    name: "Flexera Credential API"
+    vendor: flexera
+    service: cred
+    version: v2
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/cred/v2/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/cred/v2"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
+  - id: flexera-finops-customizations-v1
+    name: "Flexera FinOps Customizations API"
+    vendor: flexera
+    service: finops_customizations
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/finops-customizations/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/finops_customizations/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
+  - id: flexera-finops-onboarding-v1
+    name: "Flexera FinOps Onboarding API"
+    vendor: flexera
+    service: finops_onboarding
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/finops-onboarding/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/finops_onboarding/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
+  - id: flexera-grs
+    name: "Flexera Global Resource Service API"
+    vendor: flexera
+    service: grs
+    version: v2
+    source:
+      type: manual
+      description: "Hand-curated minimal OpenAPI subset for the Flexera Global Resource Service (GRS). GRS is a legacy internal Praxis Ruby app being deprecated; it does not publish a real upstream spec. This file documents only the GRS endpoints that the unified Flexera One SDK helpers depend on (currently project/org lookup by user). Add new endpoints only when an SDK helper requires them; remove this spec once GRS is fully deprecated."
+    format: openapi3-json
+    output:
+      path: "sources/flexera/grs/v2"
+      filename: "openapi.json"
+    processing:
+      - type: manual
+        notes: "Hand-maintained in-repo. Add new endpoints only when a unified SDK helper requires them; remove once GRS is fully deprecated and no helpers depend on it."
+
+  # RightScale APIs
+  - id: rightscale-governance
+    name: "RightScale Governance Policies API"
+    vendor: rightscale
+    service: governance
+    version: ""
+    source:
+      type: url
+      url: "https://reference.rightscale.com/governance-policies/swagger.json"
+    format: swagger2-json
+    output:
+      path: "sources/rightscale/governance"
+      filename: "openapi.yaml"
+    processing:
+      - type: download
+        output: "swagger.json"
+      - type: convert
+        from: "swagger2"
+        to: "openapi3"
+        input: "swagger.json"
+        output: "openapi.yaml"
+        format: yaml
+
+  - id: rightscale-optima-recommendations
+    name: "RightScale Optima Recommendations API"
+    vendor: rightscale
+    service: optima_recommendations
+    version: ""
+    source:
+      type: url
+      url: "https://reference.rightscale.com/optima-recommendations/swagger.json"
+    format: swagger2-json
+    output:
+      path: "sources/rightscale/optima_recommendations"
+      filename: "openapi.yaml"
+    processing:
+      - type: download
+        output: "swagger.json"
+      - type: convert
+        from: "swagger2"
+        to: "openapi3"
+        input: "swagger.json"
+        output: "openapi.yaml"
+        format: yaml
+
+  - id: rightscale-billing-center
+    name: "RightScale Billing Center API"
+    vendor: rightscale
+    service: billing_center_service
+    version: ""
+    source:
+      type: url
+      url: "https://reference.rightscale.com/billing_center/swagger.json"
+    format: swagger2-json
+    output:
+      path: "sources/rightscale/billing_center_service"
+      filename: "openapi.yaml"
+    processing:
+      - type: download
+        output: "swagger.json"
+      - type: convert
+        from: "swagger2"
+        to: "openapi3"
+        input: "swagger.json"
+        output: "openapi.yaml"
+        format: yaml
+
+  - id: rightscale-bill-analysis
+    name: "RightScale Bill Analysis API"
+    vendor: rightscale
+    service: bill_analysis
+    version: ""
+    source:
+      type: url
+      url: "https://reference.rightscale.com/bill_analysis/swagger.json"
+    format: swagger2-json
+    output:
+      path: "sources/rightscale/bill_analysis"
+      filename: "openapi.yaml"
+    processing:
+      - type: download
+        output: "swagger.json"
+      - type: convert
+        from: "swagger2"
+        to: "openapi3"
+        input: "swagger.json"
+        output: "openapi.json"
+        format: json
+
+  # Additional Flexera One APIs (from developer.flexera.com)
+  - id: flexera-iam-v1
+    name: "Flexera Identity and Access Management API"
+    vendor: flexera
+    service: iam
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/iam/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/iam/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
+  - id: flexera-data-inventory-v1
+    name: "Flexera Data Inventory API"
+    vendor: flexera
+    service: divnt
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/divnt/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/divnt/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
+  # - id: flexera-cloud-v1
+  #   name: "Flexera Cloud Services API"
+  #   vendor: flexera
+  #   service: cloud
+  #   version: v1
+  #   source:
+  #     type: url
+  #     url: "https://developer.flexera.com/openapi/services/cloud/v1/openapi.json"
+  #   format: openapi3-json
+  #   output:
+  #     path: "sources/flexera/cloud/v1"
+  #     filename: "openapi.json"
+  #   processing:
+  #     - type: download
+
+  # - id: flexera-connect-mgt-v1
+  #   name: "Flexera Connect API"
+  #   vendor: flexera
+  #   service: connect_mgt
+  #   version: v1
+  #   source:
+  #     type: url
+  #     url: "https://developer.flexera.com/openapi/services/connect-mgt/v1/openapi.json"
+  #   format: openapi3-json
+  #   output:
+  #     path: "sources/flexera/connect_mgt/v1"
+  #     filename: "openapi.json"
+  #   processing:
+  #     - type: download
+
+  # - id: flexera-cds-v1
+  #   name: "Flexera Contextual Data Store API"
+  #   vendor: flexera
+  #   service: cds
+  #   version: v1
+  #   source:
+  #     type: url
+  #     url: "https://developer.flexera.com/openapi/services/cds/v1/openapi.json"
+  #   format: openapi3-json
+  #   output:
+  #     path: "sources/flexera/cds/v1"
+  #     filename: "openapi.json"
+  #   processing:
+  #     - type: download
+
+  # - id: flexera-fnms-v1
+  #   name: "Flexera IT Asset Management API"
+  #   vendor: flexera
+  #   service: fnms
+  #   version: v1
+  #   source:
+  #     type: url
+  #     url: "https://developer.flexera.com/openapi/services/fnms/v1/openapi.json"
+  #   format: openapi3-json
+  #   output:
+  #     path: "sources/flexera/fnms/v1"
+  #     filename: "openapi.json"
+  #   processing:
+  #     - type: download
+
+  - id: flexera-vis-v2
+    name: "Flexera IT Visibility Insights API"
+    vendor: flexera
+    service: vis
+    version: v2
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/vis/v2/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/vis/v2"
+      filename: "openapi.json"
+    processing:
+      - type: download
+      - type: sed-replace
+        pattern: "\"Download returns the specified export file.\",\"operationId\":\"Export \""
+        replacement: "\"Download returns the specified export file.\",\"operationId\":\"ExportDownload\""
+        reason: "Upstream vis spec uses the same operationId 'Export ' for both GET /exports and GET /exports/files/{id}; disambiguate the download endpoint first."
+      - type: sed-replace
+        pattern: "\"operationId\":\"Export \""
+        replacement: "\"operationId\":\"ExportIndex\""
+        reason: "Rename the remaining 'Export ' (list endpoint) so unique-operationId validation passes after Vis_ prefixing."
+
+  # - id: flexera-inventory-v1
+  #   name: "Flexera Inventory Device State Management API"
+  #   vendor: flexera
+  #   service: inventory
+  #   version: v1
+  #   source:
+  #     type: url
+  #     url: "https://developer.flexera.com/openapi/services/inventory/v1/openapi.json"
+  #   format: openapi3-json
+  #   output:
+  #     path: "sources/flexera/inventory/v1"
+  #     filename: "openapi.json"
+  #   processing:
+  #     - type: download
+
+  # - id: flexera-content-private-v1
+  #   name: "Flexera Private Catalog API"
+  #   vendor: flexera
+  #   service: content_private
+  #   version: v1
+  #   source:
+  #     type: url
+  #     url: "https://developer.flexera.com/openapi/services/content-private/v1/openapi.json"
+  #   format: openapi3-json
+  #   output:
+  #     path: "sources/flexera/content_private/v1"
+  #     filename: "openapi.json"
+  #   processing:
+  #     - type: download
+
+  - id: flexera-risk-v1
+    name: "Flexera Risk Management API"
+    vendor: flexera
+    service: risk
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/risk/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/risk/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+      - type: sed-replace
+        pattern: "\"name\":\"org_id\",\"required\":true,\"schema\":{\"description\":\"Organization ID\",\"title\":\"Org Id\",\"type\":\"string\"}"
+        replacement: "\"name\":\"orgId\",\"required\":true,\"schema\":{\"description\":\"Organization ID\",\"title\":\"Org Id\",\"type\":\"string\"}"
+        reason: "Upstream risk spec declares path /risk/v1/orgs/{orgId}/compliances/ but names its path parameter 'org_id', breaking oapi-codegen path/parameter resolution; align the parameter name with the path template."
+      - type: sed-replace
+        pattern: ",{\"type\":\"null\"}]"
+        replacement: "]"
+        reason: "Risk spec is OpenAPI 3.1 and uses `anyOf:[..., {type:null}]` for nullable fields; oapi-codegen v2.5 rejects the null variant. Strip the trailing null variant from anyOf arrays."
+      - type: sed-replace
+        pattern: "{\"type\":\"null\"},"
+        replacement: ""
+        reason: "Strip leading/middle null variants from anyOf arrays for the same reason."
+      - type: sed-replace
+        pattern: ",{\"items\":{\"const\":\"all\",\"type\":\"string\"},\"type\":\"array\"}"
+        replacement: ""
+        reason: "Risk spec models `['all']` sentinel as a second `anyOf` array variant alongside the plain string-array; oapi-codegen names both `Providers0` etc. and fails on duplicate typenames. Drop the const-'all' variant since callers can still pass the literal value within the string array."
+      - type: unwrap-single-anyof
+        reason: "Risk spec uses `anyOf:[X]` (singletons after null-variant stripping) as a placeholder for non-required fields; oapi-codegen generates index-suffixed types per anyOf variant that collide on titles like 'Providers'. Collapse singleton anyOf wrappers."
+
+  # - id: flexera-content-v2
+  #   name: "Flexera Technopedia API"
+  #   vendor: flexera
+  #   service: content
+  #   version: v2
+  #   source:
+  #     type: url
+  #     url: "https://developer.flexera.com/openapi/services/content/v2/openapi.json"
+  #   format: openapi3-json
+  #   output:
+  #     path: "sources/flexera/content/v2"
+  #     filename: "openapi.json"
+  #   processing:
+  #     - type: download

@@ -1,0 +1,33 @@
+name: test
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: generator/go.mod
+
+      - name: Test generator
+        working-directory: generator
+        run: go test ./...
+
+      - name: Build generator
+        working-directory: generator
+        run: go build ./...
+
+      - name: Smoke-test merge (verify openapi3.json unchanged)
+        run: |
+          make merge
+          if ! git diff --quiet -- openapi3.json openapi3.yaml; then
+            echo "::error::merge produced different output; committed spec is out of date."
+            git diff --stat -- openapi3.json openapi3.yaml
+            exit 1
+          fi

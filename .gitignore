@@ -1,0 +1,25 @@
+# Compiled generator binary
+generator/generator
+
+# Active Terraform provider overrides (copy from tf-overrides.yaml.example)
+generator/tf-overrides.yaml
+
+# Go test artifacts
+*.test
+*.out
+coverage.txt
+
+# Go module download cache / vendor
+vendor/
+
+# Secret scan reports
+gitleaks-report.json
+
+# OS artifacts
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
