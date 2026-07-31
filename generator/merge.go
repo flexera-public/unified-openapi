@@ -94,10 +94,14 @@ func buildUnifiedSpec(baseDir string, specs []SpecConfig) (map[string]interface{
 			return nil, fmt.Errorf("load %s: %w", spec.ID, err)
 		}
 
+		applyMergeExcludePaths(doc, spec.MergeExcludePaths)
+
 		normalized, err := normalizeServiceDocument(doc, spec)
 		if err != nil {
 			return nil, fmt.Errorf("normalize %s: %w", spec.ID, err)
 		}
+
+		applyMergeServers(normalized, spec.MergeServers)
 
 		if err := mergeDocumentIntoUnified(normalized, paths, components, tagsByName); err != nil {
 			return nil, fmt.Errorf("merge %s: %w", spec.ID, err)
@@ -260,12 +264,21 @@ func zoneVariables() map[string]interface{} {
 	}
 }
 
+// isSpecMergeEligible reports whether a spec should be included in the
+// unified merge output. All Flexera-vendor specs are always eligible;
+// specs from other vendors (e.g. rightscale) must explicitly opt in via
+// `include_in_merge: true` in specs.yaml once reviewed for overlap with
+// existing Flexera endpoints.
+func isSpecMergeEligible(spec SpecConfig) bool {
+	return spec.Vendor == "flexera" || spec.IncludeInMerge
+}
+
 func selectFlexeraSpecsForMerge(config *Config, target string) ([]SpecConfig, error) {
 	var specs []SpecConfig
 	switch target {
 	case "all", "enabled-flexera":
 		for _, spec := range config.Specs {
-			if spec.Vendor == "flexera" {
+			if isSpecMergeEligible(spec) {
 				specs = append(specs, spec)
 			}
 		}
@@ -274,16 +287,82 @@ func selectFlexeraSpecsForMerge(config *Config, target string) ([]SpecConfig, er
 		if spec == nil {
 			return nil, fmt.Errorf("spec not found: %s", target)
 		}
-		if spec.Vendor != "flexera" {
-			return nil, fmt.Errorf("merge only supports Flexera specs, got vendor %s", spec.Vendor)
+		if !isSpecMergeEligible(*spec) {
+			return nil, fmt.Errorf("spec %s (vendor %s) is not merge-eligible; set include_in_merge: true in specs.yaml", spec.ID, spec.Vendor)
 		}
 		specs = append(specs, *spec)
 	}
 
 	if len(specs) == 0 {
-		return nil, fmt.Errorf("no Flexera specs selected")
+		return nil, fmt.Errorf("no specs selected for merge")
 	}
 	return specs, nil
+}
+
+// applyMergeExcludePaths removes the configured path templates from doc's
+// "paths" object in place. Used to drop endpoints that duplicate
+// functionality already migrated to an equivalent Flexera API.
+func applyMergeExcludePaths(doc map[string]interface{}, excludes []MergeExcludePath) {
+	if len(excludes) == 0 {
+		return
+	}
+	paths, ok := doc["paths"].(map[string]interface{})
+	if !ok {
+		return
+	}
+	for _, exclude := range excludes {
+		delete(paths, exclude.Path)
+	}
+}
+
+// applyMergeServers stamps a path-item-level "servers" override onto every
+// path contributed by doc. This is required when a spec's real upstream
+// host differs from the unified spec's default canonical server (e.g.
+// api.flexera.{zone}) — per the OpenAPI 3 spec, a path item's "servers"
+// array takes precedence over the document-level one for its operations.
+func applyMergeServers(doc map[string]interface{}, servers []ServerConfig) {
+	if len(servers) == 0 {
+		return
+	}
+	paths, ok := doc["paths"].(map[string]interface{})
+	if !ok {
+		return
+	}
+
+	serverObjects := make([]interface{}, 0, len(servers))
+	for _, server := range servers {
+		serverObj := map[string]interface{}{"url": server.URL}
+		if server.Description != "" {
+			serverObj["description"] = server.Description
+		}
+		if len(server.Variables) > 0 {
+			variables := map[string]interface{}{}
+			for name, variable := range server.Variables {
+				variableObj := map[string]interface{}{"default": variable.Default}
+				if len(variable.Enum) > 0 {
+					enum := make([]interface{}, len(variable.Enum))
+					for i, v := range variable.Enum {
+						enum[i] = v
+					}
+					variableObj["enum"] = enum
+				}
+				if variable.Description != "" {
+					variableObj["description"] = variable.Description
+				}
+				variables[name] = variableObj
+			}
+			serverObj["variables"] = variables
+		}
+		serverObjects = append(serverObjects, serverObj)
+	}
+
+	for _, pathItemValue := range paths {
+		pathItem, ok := pathItemValue.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		pathItem["servers"] = cloneInterfaceSlice(serverObjects)
+	}
 }
 
 func loadOpenAPIDocument(path string) (map[string]interface{}, error) {
@@ -293,8 +372,15 @@ func loadOpenAPIDocument(path string) (map[string]interface{}, error) {
 	}
 
 	var doc map[string]interface{}
-	if err := json.Unmarshal(data, &doc); err != nil {
-		return nil, err
+	switch strings.ToLower(filepath.Ext(path)) {
+	case ".yaml", ".yml":
+		if err := yaml.Unmarshal(data, &doc); err != nil {
+			return nil, err
+		}
+	default:
+		if err := json.Unmarshal(data, &doc); err != nil {
+			return nil, err
+		}
 	}
 	return doc, nil
 }
@@ -315,6 +401,7 @@ func normalizeServiceDocument(doc map[string]interface{}, spec SpecConfig) (map[
 	normalizeOperationTags(clone, spec.Name)
 	applyBearerSecurity(clone)
 	removeSourceSecuritySchemes(clone)
+	removeRedundantAuthorizationHeaderParams(clone)
 	return clone, nil
 }
 
@@ -601,6 +688,55 @@ func removeSourceSecuritySchemes(doc map[string]interface{}) {
 		return
 	}
 	delete(components, "securitySchemes")
+}
+
+// removeRedundantAuthorizationHeaderParams drops explicit "Authorization"
+// header parameters from operations. Some source specs (e.g. goa-generated
+// RightScale services) declare this header directly as a parameter in
+// addition to their security scheme; once applyBearerSecurity has stamped
+// every operation with FlexeraBearerAuth, the header parameter is redundant
+// and would otherwise show up twice (once as a parameter, once implied by
+// the bearer security requirement).
+func removeRedundantAuthorizationHeaderParams(doc map[string]interface{}) {
+	paths, ok := doc["paths"].(map[string]interface{})
+	if !ok {
+		return
+	}
+	for _, pathItemValue := range paths {
+		pathItem, ok := pathItemValue.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		for _, method := range operationMethods {
+			operation, ok := pathItem[method].(map[string]interface{})
+			if !ok {
+				continue
+			}
+			params, ok := operation["parameters"].([]interface{})
+			if !ok {
+				continue
+			}
+			remaining := make([]interface{}, 0, len(params))
+			for _, paramValue := range params {
+				param, ok := paramValue.(map[string]interface{})
+				if !ok {
+					remaining = append(remaining, paramValue)
+					continue
+				}
+				name, _ := param["name"].(string)
+				in, _ := param["in"].(string)
+				if in == "header" && strings.EqualFold(name, "Authorization") {
+					continue
+				}
+				remaining = append(remaining, paramValue)
+			}
+			if len(remaining) > 0 {
+				operation["parameters"] = remaining
+			} else {
+				delete(operation, "parameters")
+			}
+		}
+	}
 }
 
 func mergeDocumentIntoUnified(doc map[string]interface{}, unifiedPaths map[string]interface{}, unifiedComponents map[string]interface{}, tagsByName map[string]map[string]interface{}) error {

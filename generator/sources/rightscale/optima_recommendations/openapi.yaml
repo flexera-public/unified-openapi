@@ -1042,14 +1042,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: UpdateStatusRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/RecommendationsUpdateStatusRequestBody'
-                    required:
-                        - id
-                        - status
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/RecommendationsUpdateStatusRequestBody'
+                            required:
+                                - id
+                                - status
+                required: true
             responses:
                 "200":
                     description: OK response.

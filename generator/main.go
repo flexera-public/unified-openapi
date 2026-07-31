@@ -116,6 +116,49 @@ type SpecConfig struct {
 	Format     string           `yaml:"format"`
 	Output     OutputConfig     `yaml:"output"`
 	Processing []ProcessingStep `yaml:"processing"`
+
+	// IncludeInMerge opts a non-Flexera-vendor spec into the unified merge
+	// output. Flexera-vendor specs are always merge-eligible and do not need
+	// to set this; it exists so specs from other vendors (e.g. rightscale)
+	// can be merged in individually once their endpoints have been reviewed
+	// for overlap with existing Flexera equivalents.
+	IncludeInMerge bool `yaml:"include_in_merge,omitempty"`
+
+	// MergeExcludePaths lists source-document path templates (as they
+	// appear in this spec's own `paths` object, e.g. "/orgs/{org}/budgets")
+	// that should be dropped before merging into the unified spec. Use this
+	// to omit endpoints that have already been migrated/replaced by an
+	// equivalent Flexera API and would otherwise duplicate functionality.
+	MergeExcludePaths []MergeExcludePath `yaml:"merge_exclude_paths,omitempty"`
+
+	// MergeServers overrides the unified spec's canonical `servers` entry
+	// for every path contributed by this spec. Use this when a spec's real
+	// upstream host differs from the default Flexera One API gateway (e.g.
+	// api.flexera.{zone}) — the override is stamped onto each path item so
+	// it takes precedence over the document-level `servers` array per the
+	// OpenAPI 3 spec.
+	MergeServers []ServerConfig `yaml:"merge_servers,omitempty"`
+}
+
+// ServerConfig represents an OpenAPI Server Object.
+type ServerConfig struct {
+	URL         string                    `yaml:"url"`
+	Description string                    `yaml:"description,omitempty"`
+	Variables   map[string]ServerVariable `yaml:"variables,omitempty"`
+}
+
+// ServerVariable represents an OpenAPI Server Variable Object.
+type ServerVariable struct {
+	Default     string   `yaml:"default"`
+	Enum        []string `yaml:"enum,omitempty"`
+	Description string   `yaml:"description,omitempty"`
+}
+
+// MergeExcludePath documents a single path dropped from the merged spec,
+// along with the reason (typically pointing at the replacing Flexera API).
+type MergeExcludePath struct {
+	Path   string `yaml:"path"`
+	Reason string `yaml:"reason"`
 }
 
 // SourceConfig represents the source of the API spec
@@ -448,10 +491,68 @@ func convertSwagger2ToOpenAPI3(swagger map[string]interface{}) map[string]interf
 	// Update all $ref pointers from #/definitions/ to #/components/schemas/
 	updateRefs(openapi)
 
+	// Convert Swagger 2.0 "in": "body" parameters into OpenAPI 3.0
+	// requestBody objects (must run before convertParameters below).
+	convertRequestBodies(openapi)
+
 	// Convert Swagger 2.0 parameters to OpenAPI 3.0 format
 	convertParameters(openapi)
 
 	return openapi
+}
+
+// convertRequestBodies converts Swagger 2.0 "in": "body" operation
+// parameters into OpenAPI 3.0 requestBody objects. Swagger 2.0 allows at
+// most one body parameter per operation; its "schema" becomes the
+// requestBody's application/json schema and its "required" flag carries
+// over directly.
+func convertRequestBodies(openapi map[string]interface{}) {
+	paths, ok := openapi["paths"].(map[string]interface{})
+	if !ok {
+		return
+	}
+	for _, pathItemValue := range paths {
+		pathItem, ok := pathItemValue.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		for _, method := range operationMethods {
+			operation, ok := pathItem[method].(map[string]interface{})
+			if !ok {
+				continue
+			}
+			params, ok := operation["parameters"].([]interface{})
+			if !ok {
+				continue
+			}
+			remaining := make([]interface{}, 0, len(params))
+			for _, paramValue := range params {
+				param, ok := paramValue.(map[string]interface{})
+				if !ok {
+					remaining = append(remaining, paramValue)
+					continue
+				}
+				if in, _ := param["in"].(string); in == "body" {
+					required, _ := param["required"].(bool)
+					operation["requestBody"] = map[string]interface{}{
+						"required": required,
+						"content": map[string]interface{}{
+							"application/json": map[string]interface{}{
+								"schema": param["schema"],
+							},
+						},
+					}
+					continue
+				}
+				remaining = append(remaining, paramValue)
+			}
+			if len(remaining) > 0 {
+				operation["parameters"] = remaining
+			} else {
+				delete(operation, "parameters")
+			}
+		}
+	}
 }
 
 // updateRefs recursively updates all $ref pointers from Swagger 2.0 to OpenAPI 3.0 format

@@ -205,6 +205,29 @@ resources:
 
   # ---- IAM ------------------------------------------------------------
 
+  # ---------------------------------------------------------------------
+  # access-rule — non-standard PUT-verb CRUD (grant/revoke)
+  #
+  # The access-rule resource uses non-standard PUT verbs for its CRUD.
+  # Creation is via `PUT /grant` and revocation/deletion is via
+  # `PUT /revoke`. These are mapped to the standard TF verbs create and
+  # delete. The resource is non-mutating for `role`, `scope`, and
+  # `subject`; any change to these requires a forced destroy+create.
+  # ---------------------------------------------------------------------
+  access-rule:
+    crud:
+      create: Iam_Access_Rule_grant   # PUT /grant (grant/create; 204 regardless of prior existence)
+      read:   Iam_Access_Rule_index   # GET /access-rules?filter=... returns values[] (0 or 1 for this flow)
+      delete: Iam_Access_Rule_revoke  # PUT /revoke (revocation/delete)
+    id_field: id
+    # synthetic id generated at provider level; keep id_field stable for TF state slot wiring
+    import_id: "{orgId}/{role.name}/{scope.ref}/{subject.ref}"
+    immutable:
+      - role      # any change mandates recreation
+      - scope     # any change mandates recreation
+      - subject   # any change mandates recreation
+    list_resource: true   # signals gentf to synthesize a single entity from list/search response
+
   contract:
     crud:
       create: Iam_Contracts_create
@@ -326,7 +349,38 @@ resources:
     import_id: "{orgId}/{id}"
     # No immutable/sensitive/write_only pins required.
 
+  service-account-clients:
+    # Resource lifecycle is create/read/delete under a parent
+    # service-account scope. The create op in the unified spec is
+    # tagged as a generic action, so we pin CRUD explicitly here to
+    # ensure regentf includes this resource for generation.
+    crud:
+      create: Iam_Service_Account_Client_Create
+      read:   Iam_Service_Account_Client_Show
+      delete: Iam_Service_Account_Client_Delete
+    id_field: clientId
+    # Path /iam/v1/orgs/{orgId}/service-accounts/{serviceAccountId}/clients/{clientId}
+    import_id: "{orgId}/{serviceAccountId}/{clientId}"
+    sensitive:
+      - clientSecret
+    write_only:
+      - clientSecret
+
   # ---- FinOps (analytics, onboarding, customizations, saas) ----------
+
+  rule-based-dimension:
+    # The create endpoint is POST on an item path
+    # (/rule-based-dimensions/{id}), so heuristic action derivation marks
+    # it as "action". Pin CRUD explicitly so regentf/gentf treat it as a
+    # normal resource lifecycle.
+    crud:
+      create: FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_create
+      read:   FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_show
+      update: FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_update
+      delete: FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_delete
+    id_field: id
+    # Path /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}
+    import_id: "{orgId}/{id}"
 
   rule-based-dimension-rules-list:
     crud:
@@ -393,6 +447,74 @@ resources:
       # `costs` is in the create body but not in the replace body —
       # server computes/owns this field after creation.
       - costs
+
+  usage-group-costs:
+    # Cost subresource lifecycle uses createCost/showCost/updateCost/
+    # deleteCost, with create labeled as action in the upstream spec.
+    crud:
+      create: Saas_Usage_Group_createCost
+      read:   Saas_Usage_Group_showCost
+      update: Saas_Usage_Group_updateCost
+      delete: Saas_Usage_Group_deleteCost
+    id_field: costId
+    # Path /saas/v1/orgs/{orgId}/usage-groups/{usageGroupID}/costs/{costId}
+    import_id: "{orgId}/{usageGroupID}/{costId}"
+
+  customization-value:
+    # Upsert endpoint is modeled as replace (PUT on item path), not create.
+    crud:
+      create: Policy_Customization_Value_upsert
+      read:   Policy_Customization_Value_show
+      delete: Policy_Customization_Value_delete
+    id_field: customizationTypeId
+    # Path /policy/v1/orgs/{orgId}/customization-values/{customizationTypeId}
+    import_id: "{orgId}/{customizationTypeId}"
+
+  # ---- ITAM (SaaS license lifecycle sub-resources) -------------------
+
+  licens-fees:
+    # Create is tagged as action (POST collection); pin explicit CRUD.
+    crud:
+      create: Saas_License_fee_create
+      read:   Saas_License_fee_show
+      update: Saas_License_fee_update
+      delete: Saas_License_fee_delete
+    id_field: feeId
+    # Path /saas/v1/orgs/{orgId}/licenses/{licenseId}/fees/{feeId}
+    import_id: "{orgId}/{licenseId}/{feeId}"
+
+  licens-notes:
+    # Create is tagged as action (POST collection); update is replace (PUT item).
+    crud:
+      create: Saas_License_note_create
+      read:   Saas_License_note_show
+      update: Saas_License_note_update
+      delete: Saas_License_note_delete
+    id_field: id
+    # Path /saas/v1/orgs/{orgId}/licenses/{licenseId}/notes/{id}
+    import_id: "{orgId}/{licenseId}/{id}"
+
+  licens-terms:
+    # Create is tagged as action (POST collection); pin explicit CRUD.
+    crud:
+      create: Saas_License_term_create
+      read:   Saas_License_term_show
+      update: Saas_License_term_update
+      delete: Saas_License_term_delete
+    id_field: termId
+    # Path /saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}
+    import_id: "{orgId}/{licenseId}/{termId}"
+
+  licens-terms-purchases:
+    # Create is tagged as action (POST collection); pin explicit CRUD.
+    crud:
+      create: Saas_License_purchase_create
+      read:   Saas_License_purchase_show
+      update: Saas_License_purchase_update
+      delete: Saas_License_purchase_delete
+    id_field: id
+    # Path /saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}/purchases/{id}
+    import_id: "{orgId}/{licenseId}/{termId}/{id}"
 
   # ---- AWS bill-connects (split-lifecycle, see Phase 10) -------------
   #
@@ -699,16 +821,18 @@ resources:
       - password
 
   credential-oauth2:
-    # SKIPPED: spec uses different types for create-body vs update-body
-    # for the OAuth2 credential's `clientCredentials`, `jwtBearer`, and
-    # `refreshToken` flows (e.g. `CredClientCredentialsCreateParams` vs
-    # `CredClientCredentialsUpdateParams`). The generator's body
-    # builder reuses the create-body type for update which produces a
-    # type-mismatch on the unified client call. Closing this requires
-    # the recursive polymorphic-converter generator extension (gaps.md
-    # §2.2). The remaining 7 credential types (basic, aws-sts, api-key,
-    # aws, digest, ntlm, oracle) compose cleanly with Phase 14.
-    skip: true
+    # OAuth2 create/update payloads diverge (schema polymorphism); the
+    # generator's body builder reuses the create-body type for update
+    # which produces a type-mismatch on the unified client call.
+    # Sidestepped by pinning ONLY create/read/delete (no `update` key)
+    # so the resource generates as a NoUpdate/immutable-after-create
+    # lifecycle instead of being skipped entirely.
+    crud:
+      create: Cred_OAuth2_Credential_create_org
+      read:   Cred_OAuth2_Credential_show_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
 
   credential-oracle:
     crud:
@@ -718,6 +842,187 @@ resources:
       delete: Cred_Credential_delete_org
     id_field: id
     import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  # ---- Credential resources by explicit org/project scope -----------
+  #
+  # The OpenAPI uses shared x-flexera-resource labels (credential-*) for
+  # both org and project endpoints. Define virtual resource entries here
+  # (org-*/project-*) with pinned CRUD opIds so Terraform emits distinct
+  # resource types matching existing datasource naming conventions.
+
+  org-api-key-credential:
+    crud:
+      create: Cred_API_Key_Credential_create_org
+      read:   Cred_API_Key_Credential_show_org
+      update: Cred_API_Key_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+
+  org-aws-credential:
+    crud:
+      create: Cred_AWS_Credential_create_org
+      read:   Cred_AWS_Credential_show_org
+      update: Cred_AWS_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - accessKey
+      - secretKey
+
+  org-aws-sts-credential:
+    crud:
+      create: Cred_AWS_STS_Credential_create_org
+      read:   Cred_AWS_STS_Credential_show_org
+      update: Cred_AWS_STS_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - accessKey
+      - secretKey
+
+  org-basic-credential:
+    crud:
+      create: Cred_Basic_Credential_create_org
+      read:   Cred_Basic_Credential_show_org
+      update: Cred_Basic_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  org-digest-credential:
+    crud:
+      create: Cred_Digest_Credential_create_org
+      read:   Cred_Digest_Credential_show_org
+      update: Cred_Digest_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  org-ntlm-credential:
+    crud:
+      create: Cred_NTLM_Credential_create_org
+      read:   Cred_NTLM_Credential_show_org
+      update: Cred_NTLM_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  org-oauth2-credential:
+    # OAuth2 create/update payloads diverge (schema polymorphism); pin
+    # create/read/delete only (see credential-oauth2 above).
+    crud:
+      create: Cred_OAuth2_Credential_create_org
+      read:   Cred_OAuth2_Credential_show_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+
+  org-oracle-credential:
+    crud:
+      create: Cred_Oracle_Credential_create_org
+      read:   Cred_Oracle_Credential_show_org
+      update: Cred_Oracle_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  project-api-key-credential:
+    crud:
+      create: Cred_API_Key_Credential_create_project
+      read:   Cred_API_Key_Credential_show_project
+      update: Cred_API_Key_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+
+  project-aws-credential:
+    crud:
+      create: Cred_AWS_Credential_create_project
+      read:   Cred_AWS_Credential_show_project
+      update: Cred_AWS_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - accessKey
+      - secretKey
+
+  project-aws-sts-credential:
+    crud:
+      create: Cred_AWS_STS_Credential_create_project
+      read:   Cred_AWS_STS_Credential_show_project
+      update: Cred_AWS_STS_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - accessKey
+      - secretKey
+
+  project-basic-credential:
+    crud:
+      create: Cred_Basic_Credential_create_project
+      read:   Cred_Basic_Credential_show_project
+      update: Cred_Basic_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - password
+
+  project-digest-credential:
+    crud:
+      create: Cred_Digest_Credential_create_project
+      read:   Cred_Digest_Credential_show_project
+      update: Cred_Digest_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - password
+
+  project-ntlm-credential:
+    crud:
+      create: Cred_NTLM_Credential_create_project
+      read:   Cred_NTLM_Credential_show_project
+      update: Cred_NTLM_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - password
+
+  project-oauth2-credential:
+    # OAuth2 create/update payloads diverge (schema polymorphism); pin
+    # create/read/delete only (see credential-oauth2 above).
+    crud:
+      create: Cred_OAuth2_Credential_create_project
+      read:   Cred_OAuth2_Credential_show_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+
+  project-oracle-credential:
+    crud:
+      create: Cred_Oracle_Credential_create_project
+      read:   Cred_Oracle_Credential_show_project
+      update: Cred_Oracle_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
     sensitive:
       - password
 

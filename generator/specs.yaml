@@ -156,6 +156,7 @@ specs:
     vendor: rightscale
     service: optima_recommendations
     version: ""
+    include_in_merge: true
     source:
       type: url
       url: "https://reference.rightscale.com/optima-recommendations/swagger.json"
@@ -172,12 +173,25 @@ specs:
         input: "swagger.json"
         output: "openapi.yaml"
         format: yaml
+    # Confirmed via infra-optima's optima-api-virtualservice Istio config
+    # (production-{us,eu,au}/optima-ba/ingresses): the /recommendations route
+    # is served on api.optima(-eu|-apac).flexeraeng.com, not the default
+    # Flexera One api.flexera.{zone} gateway host used by other merged specs.
+    merge_servers:
+      - url: "https://api.optima{zone}.flexeraeng.com"
+        description: "Flexera Optima Recommendations API"
+        variables:
+          zone:
+            default: ""
+            enum: ["", "-eu", "-apac"]
+            description: "'' = NAM, -eu = EMEA, -apac = APAC"
 
   - id: rightscale-billing-center
     name: "RightScale Billing Center API"
     vendor: rightscale
     service: billing_center_service
     version: ""
+    include_in_merge: true
     source:
       type: url
       url: "https://reference.rightscale.com/billing_center/swagger.json"
@@ -194,19 +208,45 @@ specs:
         input: "swagger.json"
         output: "openapi.yaml"
         format: yaml
+    # Upstream spec's own description only documents NAM/EU, but the
+    # `/analytics` route is served by the same optima-api-virtualservice
+    # (same host, all 3 regions) as bill_analysis and optima_recommendations
+    # in infra-optima's production-{us,eu,au} Istio configs, confirming
+    # APAC (api.optima-apac.flexeraeng.com) is also live for this service.
+    merge_servers:
+      - url: "https://api.optima{zone}.flexeraeng.com"
+        description: "Flexera Optima Billing Center API"
+        variables:
+          zone:
+            default: ""
+            enum: ["", "-eu", "-apac"]
+            description: "'' = NAM, -eu = EU, -apac = APAC"
 
   - id: rightscale-bill-analysis
     name: "RightScale Bill Analysis API"
     vendor: rightscale
     service: bill_analysis
     version: ""
+    include_in_merge: true
     source:
       type: url
       url: "https://reference.rightscale.com/bill_analysis/swagger.json"
     format: swagger2-json
     output:
       path: "sources/rightscale/bill_analysis"
-      filename: "openapi.yaml"
+      filename: "openapi.json"
+    # Confirmed via infra-optima's optima-api-virtualservice Istio config
+    # (production-{us,eu,au}/optima-ba/ingresses): the /bill-analysis route
+    # is served on api.optima(-eu|-apac).flexeraeng.com, not the default
+    # Flexera One api.flexera.{zone} gateway host used by other merged specs.
+    merge_servers:
+      - url: "https://api.optima{zone}.flexeraeng.com/bill-analysis"
+        description: "Flexera Optima Bill Analysis API"
+        variables:
+          zone:
+            default: ""
+            enum: ["", "-eu", "-apac"]
+            description: "'' = NAM, -eu = EU, -apac = APAC"
     processing:
       - type: download
         output: "swagger.json"
@@ -216,6 +256,19 @@ specs:
         input: "swagger.json"
         output: "openapi.json"
         format: json
+    merge_exclude_paths:
+      - path: "/orgs/{org}/budgets"
+        reason: "Migrated to Flexera Budget API: GET/POST /finops-analytics/v1/orgs/{orgId}/budgets (Budget_Budget_index/create)."
+      - path: "/orgs/{org}/budgets/{id}"
+        reason: "Migrated to Flexera Budget API: GET/PUT/DELETE /finops-analytics/v1/orgs/{orgId}/budgets/{id} (Budget_Budget_show/update/delete)."
+      - path: "/orgs/{org}/budgets/{id}/report"
+        reason: "Migrated to Flexera Budget API: GET /finops-analytics/v1/orgs/{orgId}/budgets/{id}/report (Budget_Budget_report)."
+      - path: "/orgs/{org}/settings/rule_based_dimensions"
+        reason: "Migrated to Flexera FinOps Customizations API: GET/PUT /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions (FinopsCustomizations_Rule_Based_Dimension_index, upsert via create/update)."
+      - path: "/orgs/{org}/settings/rule_based_dimensions/{id}"
+        reason: "Migrated to Flexera FinOps Customizations API: CRUD on /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}."
+      - path: "/orgs/{org}/settings/rule_based_dimensions/{id}/rules/{effective_at}"
+        reason: "Migrated to Flexera FinOps Customizations API: /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}/rules/{effectiveAt} (rules_list_show/replace/delete)."
 
   # Additional Flexera One APIs (from developer.flexera.com)
   - id: flexera-iam-v1

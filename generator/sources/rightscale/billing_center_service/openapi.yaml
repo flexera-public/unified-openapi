@@ -6058,13 +6058,14 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: UpsertRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/AllocationTableUpsertRequestBody'
-                    required:
-                        - allocation_rules
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/AllocationTableUpsertRequestBody'
+                            required:
+                                - allocation_rules
+                required: true
             responses:
                 "204":
                     description: No Content response.
@@ -6208,14 +6209,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: CreateRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/BillingCentersCreateRequestBody'
-                    required:
-                        - name
-                        - description
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BillingCentersCreateRequestBody'
+                            required:
+                                - name
+                                - description
+                required: true
             responses:
                 "201":
                     description: Created response.
@@ -6450,14 +6452,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: UpdateRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/BillingCentersUpdateRequestBody'
-                    required:
-                        - name
-                        - description
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BillingCentersUpdateRequestBody'
+                            required:
+                                - name
+                                - description
+                required: true
             responses:
                 "204":
                     description: No Content response.
@@ -6539,14 +6542,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: GrantRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/BillingCenterAccessRulesGrantRequestBody'
-                    required:
-                        - subject
-                        - role
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BillingCenterAccessRulesGrantRequestBody'
+                            required:
+                                - subject
+                                - role
+                required: true
             responses:
                 "204":
                     description: No Content response.
@@ -6676,14 +6680,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: RevokeRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/BillingCenterAccessRulesRevokeRequestBody'
-                    required:
-                        - subject
-                        - role
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BillingCenterAccessRulesRevokeRequestBody'
+                            required:
+                                - subject
+                                - role
+                required: true
             responses:
                 "204":
                     description: No Content response.
@@ -6819,13 +6824,14 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: upsert_allocation_table_request_body
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/BillingCentersUpsertAllocationTableRequestBody'
-                    required:
-                        - allocation_rules
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BillingCentersUpsertAllocationTableRequestBody'
+                            required:
+                                - allocation_rules
+                required: true
             responses:
                 "204":
                     description: No Content response.
