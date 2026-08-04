@@ -15148,19 +15148,21 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "UpdateRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/AdjustmentDefinitionUpdateRequestBody",
-              "required": [
-                "dated_adjustment_lists"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdjustmentDefinitionUpdateRequestBody",
+                "required": [
+                  "dated_adjustment_lists"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "204": {
             "description": "No Content response."
@@ -15238,24 +15240,26 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "ReportRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/AnomaliesReportRequestBody",
-              "required": [
-                "billingCenterIds",
-                "windowSize",
-                "standardDeviations",
-                "metric",
-                "startAt",
-                "endAt"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnomaliesReportRequestBody",
+                "required": [
+                  "billingCenterIds",
+                  "windowSize",
+                  "standardDeviations",
+                  "metric",
+                  "startAt",
+                  "endAt"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK response.",
@@ -15416,23 +15420,25 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "CreateRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/BudgetsCreateRequestBody",
-              "required": [
-                "name",
-                "metric",
-                "dimensions",
-                "yearMonths",
-                "segments"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BudgetsCreateRequestBody",
+                "required": [
+                  "name",
+                  "metric",
+                  "dimensions",
+                  "yearMonths",
+                  "segments"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "description": "Created response.",
@@ -15715,23 +15721,25 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "UpdateRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/BudgetsUpdateRequestBody",
-              "required": [
-                "name",
-                "metric",
-                "dimensions",
-                "yearMonths",
-                "segments"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BudgetsUpdateRequestBody",
+                "required": [
+                  "name",
+                  "metric",
+                  "dimensions",
+                  "yearMonths",
+                  "segments"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "204": {
             "description": "No Content response."
@@ -15830,20 +15838,22 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "ReportRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/BudgetsReportRequestBody",
-              "required": [
-                "startAt",
-                "endAt"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BudgetsReportRequestBody",
+                "required": [
+                  "startAt",
+                  "endAt"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK response.",
@@ -15933,22 +15943,24 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "AggregatedRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/CostsAggregatedRequestBody",
-              "required": [
-                "billing_center_ids",
-                "metrics",
-                "start_at",
-                "end_at"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CostsAggregatedRequestBody",
+                "required": [
+                  "billing_center_ids",
+                  "metrics",
+                  "start_at",
+                  "end_at"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK response.",
@@ -16243,24 +16255,26 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "SelectRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/CostsSelectRequestBody",
-              "required": [
-                "billing_center_ids",
-                "metrics",
-                "dimensions",
-                "start_at",
-                "end_at",
-                "limit"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CostsSelectRequestBody",
+                "required": [
+                  "billing_center_ids",
+                  "metrics",
+                  "dimensions",
+                  "start_at",
+                  "end_at",
+                  "limit"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK response.",
@@ -16347,25 +16361,27 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "ReportRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/ForecastsReportRequestBody",
-              "required": [
-                "billingCenterIds",
-                "lookbackPeriod",
-                "dimensions",
-                "granularity",
-                "metric",
-                "startAt",
-                "endAt"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForecastsReportRequestBody",
+                "required": [
+                  "billingCenterIds",
+                  "lookbackPeriod",
+                  "dimensions",
+                  "granularity",
+                  "metric",
+                  "startAt",
+                  "endAt"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK response.",
@@ -16529,19 +16545,21 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "UpdateRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/CurrencySettingUpdateRequestBody",
-              "required": [
-                "value"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrencySettingUpdateRequestBody",
+                "required": [
+                  "value"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "204": {
             "description": "No Content response."
@@ -16702,19 +16720,21 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "UpdateRequestBody",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/RuleBasedDimensionsUpdateRequestBody",
-              "required": [
-                "rule_based_dimensions"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuleBasedDimensionsUpdateRequestBody",
+                "required": [
+                  "rule_based_dimensions"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "204": {
             "description": "No Content response."
@@ -16994,16 +17014,18 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "rbd_update_request_body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/RuleBasedDimensionsRbdUpdateRequestBody"
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuleBasedDimensionsRbdUpdateRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "204": {
             "description": "No Content response."
@@ -17095,20 +17117,22 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "rbd_create_request_body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/RuleBasedDimensionsRbdCreateRequestBody",
-              "required": [
-                "name",
-                "dated_rules"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuleBasedDimensionsRbdCreateRequestBody",
+                "required": [
+                  "name",
+                  "dated_rules"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "description": "Created response."
@@ -17424,19 +17448,21 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "in": "body",
-            "name": "rules_list_replace_request_body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/RuleBasedDimensionsRulesListReplaceRequestBody",
-              "required": [
-                "rules"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuleBasedDimensionsRulesListReplaceRequestBody",
+                "required": [
+                  "rules"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "204": {
             "description": "No Content response."

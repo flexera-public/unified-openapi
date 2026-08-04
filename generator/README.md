@@ -81,6 +81,17 @@ specs:
         reason: "Fix duplicate typename"
 ```
 
+Two additional fields control merge-time behavior:
+
+```yaml
+  - id: rightscale-bill-analysis
+    vendor: rightscale
+    include_in_merge: true         # opt a non-Flexera spec into `merge` (Flexera specs are always eligible)
+    merge_exclude_paths:           # drop specific source paths that duplicate an existing Flexera endpoint
+      - path: "/orgs/{org}/budgets"
+        reason: "Migrated to Flexera Budget API: GET/POST /finops-analytics/v1/orgs/{orgId}/budgets"
+```
+
 ### Processing step types
 
 | Type | Description |
@@ -116,8 +127,12 @@ cd generator && go run . validate enabled-flexera
 
 ## What the merge pipeline does
 
-1. Reads `specs.yaml` and loads each enabled source from `sources/`.
-2. Applies any `sed-replace` / `unwrap-single-anyof` patches from `specs.yaml`.
+1. Reads `specs.yaml` and loads each enabled source from `sources/`. All
+   `vendor: flexera` specs are merged automatically; specs from other
+   vendors (e.g. `rightscale`) are only merged if they set
+   `include_in_merge: true`, once reviewed for overlap with existing
+   Flexera endpoints.
+2. Applies any `sed-replace` / `unwrap-single-anyof` patches from `specs.yaml`, and drops any `merge_exclude_paths` entries (endpoints superseded by an equivalent Flexera API).
 3. Converts Swagger 2 sources to OpenAPI 3 via the built-in converter.
 4. Normalises each service document:
    - strips per-service `servers` blocks (replaced by a single canonical server)

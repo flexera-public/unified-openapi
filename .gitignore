@@ -1,9 +1,6 @@
 # Compiled generator binary
 generator/generator
 
-# Active Terraform provider overrides (copy from tf-overrides.yaml.example)
-generator/tf-overrides.yaml
-
 # Go test artifacts
 *.test
 *.out

@@ -26710,14 +26710,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: CreateRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/PolicyAggregateCreateRequestBody'
-                    required:
-                        - name
-                        - template_href
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PolicyAggregateCreateRequestBody'
+                            required:
+                                - name
+                                - template_href
+                required: true
             responses:
                 "202":
                     description: Accepted response.
@@ -26937,11 +26938,12 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: UpdateRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/PolicyAggregateUpdateRequestBody'
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PolicyAggregateUpdateRequestBody'
+                required: true
             responses:
                 "202":
                     description: Accepted response.
@@ -27162,13 +27164,14 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: CreateRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/PublishedTemplateCreateRequestBody'
-                    required:
-                        - template_href
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PublishedTemplateCreateRequestBody'
+                            required:
+                                - template_href
+                required: true
             responses:
                 "200":
                     description: OK response.
@@ -27397,13 +27400,14 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: UpdateRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/PublishedTemplateUpdateRequestBody'
-                    required:
-                        - template_href
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PublishedTemplateUpdateRequestBody'
+                            required:
+                                - template_href
+                required: true
             responses:
                 "200":
                     description: OK response.
@@ -27875,14 +27879,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: CreateRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/AppliedPolicyCreateRequestBody'
-                    required:
-                        - name
-                        - template_href
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/AppliedPolicyCreateRequestBody'
+                            required:
+                                - name
+                                - template_href
+                required: true
             responses:
                 "200":
                     description: OK response.
@@ -28101,11 +28106,12 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: UpdateRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/AppliedPolicyUpdateRequestBody'
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/AppliedPolicyUpdateRequestBody'
+                required: true
             responses:
                 "204":
                     description: No Content response.
@@ -28608,11 +28614,12 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: ApproveRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/ApprovalApproveRequestBody'
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ApprovalApproveRequestBody'
+                required: true
             responses:
                 "202":
                     description: Accepted response.
@@ -28682,11 +28689,12 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: DenyRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/ApprovalDenyRequestBody'
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ApprovalDenyRequestBody'
+                required: true
             responses:
                 "202":
                     description: Accepted response.
@@ -29310,11 +29318,12 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: run_action_request_body
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/IncidentRunActionRequestBody'
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/IncidentRunActionRequestBody'
+                required: true
             responses:
                 "202":
                     description: Accepted response.
@@ -29702,14 +29711,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: UploadRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/PolicyTemplateUploadRequestBody'
-                    required:
-                        - filename
-                        - source
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PolicyTemplateUploadRequestBody'
+                            required:
+                                - filename
+                                - source
+                required: true
             responses:
                 "200":
                     description: OK response.
@@ -29936,14 +29946,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: UpdateRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/PolicyTemplateUpdateRequestBody'
-                    required:
-                        - filename
-                        - source
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PolicyTemplateUpdateRequestBody'
+                            required:
+                                - filename
+                                - source
+                required: true
             responses:
                 "200":
                     description: OK response.
@@ -30019,11 +30030,12 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: retrieve_data_request_body
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/PolicyTemplateRetrieveDataRequestBody'
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PolicyTemplateRetrieveDataRequestBody'
+                required: true
             responses:
                 "200":
                     description: OK response.
@@ -30091,14 +30103,15 @@ paths:
                   required: false
                   schema:
                     type: string
-                - in: body
-                  name: CompileRequestBody
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/PolicyTemplateCompileRequestBody'
-                    required:
-                        - filename
-                        - source
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PolicyTemplateCompileRequestBody'
+                            required:
+                                - filename
+                                - source
+                required: true
             responses:
                 "200":
                     description: OK response.

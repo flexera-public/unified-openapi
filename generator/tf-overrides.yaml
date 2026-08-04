@@ -1,0 +1,1033 @@
+# tf-overrides.yaml
+#
+# This file is consumed by `applyTFOverrides` in tf_overrides.go AFTER
+# the heuristic `annotateForCLI` pass during `merge`. Entries are
+# stamped onto the unified spec as `x-flexera-tf-*` extensions so any
+# downstream generator (Terraform, CLI, MCP, SDKs) sees the same
+# corrections.
+#
+# Validation is strict: unknown keys, typos, and references to
+# resources/operations that do not exist in the unified spec all cause
+# `merge` to fail loudly.
+
+version: 1
+
+resources:
+  # ---------------------------------------------------------------------
+  # applied-policy — REAL OVERRIDE (worked example)
+  #
+  # Why this entry exists:
+  #   The applied-policy resource takes a `credentials` map at create
+  #   time. The Goa update body (PATCH) does NOT accept `credentials` —
+  #   server-side it is immutable. The naive "create-vs-update body diff"
+  #   heuristic correctly infers RequiresReplace on `credentials` here,
+  #   but we pin it explicitly for two reasons:
+  #     1. The credentials block is also sensitive (cloud creds, API
+  #        keys), so we want it Sensitive in the TF schema.
+  #     2. Documenting the immutable contract here means later spec
+  #        churn (e.g. someone adds `credentials` to the PATCH body)
+  #        does NOT silently flip TF behavior to "update in place".
+  #
+  # Behaviorally: changing `credentials` in HCL forces destroy + create.
+  # ---------------------------------------------------------------------
+  applied-policy:
+    crud:
+      create: Policy_Applied_Policy_create
+      read:   Policy_Applied_Policy_show
+      update: Policy_Applied_Policy_update   # PATCH; partial update only
+      delete: Policy_Applied_Policy_delete
+    id_field: id
+    # Path is /policy/v1/orgs/{orgId}/projects/{projectId}/applied-policies/{appliedPolicyId}
+    import_id: "{orgId}/{projectId}/{appliedPolicyId}"
+    immutable:
+      - credentials      # immutable server-side; change → destroy + recreate
+    sensitive:
+      - credentials      # cloud creds / API keys; mask in plan + state
+    # write_only suppresses the hydrator's response-to-model copy for
+    # credentials. The live API redacts/normalizes the credentials map
+    # on GET responses, so without this flag the prior state's value
+    # is overwritten with the redacted form on every refresh, then
+    # combines with `immutable: [credentials]` (RequiresReplace) to
+    # plan a destroy+create on every step that doesn't even touch
+    # credentials. With write_only set, the user-supplied value flows
+    # through the model unchanged. Schema, body builder, and plan
+    # modifiers are unaffected — the body builder still sends the
+    # value on Create/Update.
+    write_only:
+      - credentials
+      - templateRef     # server returns resolved policy_template/published_template object, not the input ref string
+
+  # ---------------------------------------------------------------------
+  # budget — DEFENSIVE PINS (documentation-as-code)
+  #
+  # Why this entry exists:
+  #   Unlike applied-policy (which pins a real immutability contract),
+  #   the budget resource is fully mutable. Its only update verb is
+  #   PUT (`Budget_Budget_update`, x-flexera-action: replace) and the
+  #   replace body schema is identical to the create body schema —
+  #   so the create-vs-update body-diff heuristic correctly produces
+  #   ZERO RequiresReplace plan modifiers. Every field is mutable.
+  #
+  #   This entry is therefore NOT a heuristic correction. It pins the
+  #   CRUD op-id binding, the response id field, and the import-id
+  #   template explicitly so:
+  #     1. Future spec evolution that introduces a divergent PATCH
+  #        operation cannot silently flip TF behavior — the pinned
+  #        update op-id locks in the contract.
+  #     2. Any test that runs the override-stamping pipeline can
+  #        verify the budget resource shape end-to-end.
+  #     3. The example file documents the org-scoped (non-project)
+  #        import-id template `{orgId}/{id}`, distinct from
+  #        applied-policy's `{orgId}/{projectId}/{appliedPolicyId}`.
+  #
+  # Behaviorally:
+  #   - Activating these pins produces byte-identical generated output
+  #     to the heuristic-only pass (verified by phase 3).
+  #   - Intentionally NO `immutable:` entry — budget has no immutable
+  #     fields by design.
+  #   - Intentionally NO `sensitive:` entry — budget carries no
+  #     credentials or tokens.
+  # ---------------------------------------------------------------------
+  budget:
+    crud:
+      create: Budget_Budget_create
+      read:   Budget_Budget_show
+      update: Budget_Budget_update     # PUT; full-body replace
+      delete: Budget_Budget_delete
+    id_field: id
+    # Path is /finops-analytics/v1/orgs/{orgId}/budgets/{id}
+    import_id: "{orgId}/{id}"
+
+  # ---------------------------------------------------------------------
+  # policy-aggregate — RESERVED-NAME RENAME (required for the provider
+  # to load).
+  #
+  # Why this entry exists:
+  #   The Goa-emitted spec exposes a `count` property at the top level
+  #   of the policy-aggregate resource. Terraform reserves these
+  #   meta-argument names at the resource-block level and rejects them
+  #   as schema attribute keys with `"<name>" is a reserved root
+  #   attribute/block name`:
+  #     count, for_each, provider, lifecycle, depends_on, connection,
+  #     provisioner.
+  #
+  #   The rename below tells gentf to expose the property as
+  #   `total_count` in HCL/state while keeping the wire-side JSON name
+  #   `count` and the unified Go client field selector `Count`
+  #   unchanged. End users write `total_count = ...` in HCL; the
+  #   provider sends/receives `count` over the wire.
+  #
+  #   Discovered by the live sandbox dry-run after Phase 3.5
+  #   (recursive-schema fix). See phase3.6-tfprovider-rename-attr.md.
+  # ---------------------------------------------------------------------
+  policy-aggregate:
+    crud:
+      create: Policy_Policy_Aggregate_create
+      read:   Policy_Policy_Aggregate_show
+      update: Policy_Policy_Aggregate_update
+      delete: Policy_Policy_Aggregate_delete
+    id_field: id
+    import_id: "{orgId}/{policyAggregateId}"
+    rename:
+      count: total_count    # 'count' is a Terraform reserved meta-argument
+    immutable:
+      - credentials       # not in PATCH body → server-side immutable
+      - allProjects       # same; flipping scope requires recreate
+    sensitive:
+      - credentials       # cloud creds + API keys
+    write_only:
+      - credentials       # server redacts on GET responses
+      - templateRef       # server returns resolved template object instead
+
+  # ---------------------------------------------------------------------
+  # policy-manager — RESERVED-NAME RENAME (same rationale as
+  # policy-aggregate above).
+  # ---------------------------------------------------------------------
+  policy-manager:
+    crud:
+      create: Policy_Policy_Manager_create
+      read:   Policy_Policy_Manager_show
+      update: Policy_Policy_Manager_update
+      delete: Policy_Policy_Manager_delete
+    id_field: id
+    import_id: "{orgId}/{id}"
+    rename:
+      count: total_count    # 'count' is a Terraform reserved meta-argument
+    immutable:
+      - credentials       # not in PATCH body → server-side immutable
+    sensitive:
+      - credentials
+    write_only:
+      - credentials       # server redacts on GET responses
+      - templateRef       # server returns resolved template object instead
+
+  # ---------------------------------------------------------------------
+  # Phase 6 wide rollout — HIGH-tier resources per Flexera product domain
+  # ---------------------------------------------------------------------
+  #
+  # Per user direction (2026-06-11): IAM (incl. customers, idp, etc.),
+  # all FinOps APIs, Credentials API, and Automation API are HIGH-priority
+  # for Terraform management. The 14 entries below pin the contract for
+  # every HIGH-tier currently-generated CRUD-quad resource that wasn't
+  # already pinned by Phase 2-5. ITAM (`licens`) is skipped per the LOW-
+  # tier classification at the bottom of this file.
+  #
+  # Each entry pins:
+  #   * crud      — explicit operationId binding so future spec churn
+  #                 (e.g. an added PATCH on a previously-PUT resource)
+  #                 cannot silently flip TF semantics.
+  #   * id_field  — currently always `id`; documented for clarity.
+  #   * import_id — path-segment shape for `terraform import`.
+  #
+  # Optional pins (only present where applicable):
+  #   * immutable  — properties that are in the create body but not the
+  #                  update body ("in create, not in update" → server-side
+  #                  immutable). Per Phase 4 narrowing, the heuristic
+  #                  ForceNew rule fires ONLY for Required fields; for
+  #                  Optional+Computed fields with this property, we MUST
+  #                  pin them explicitly here or TF will plan in-place
+  #                  updates that the API will reject.
+  #   * sensitive  — secrets / credentials / tokens. Heuristic detects
+  #                  field names that match (?i)(secret|password|token|
+  #                  api[_-]?key|credential|private[_-]?key); we still
+  #                  pin them defensively for documentation.
+  #   * write_only — properties whose GET response is redacted/empty by
+  #                  the server (cloud credentials, API keys). Without
+  #                  this, the hydrator overwrites state with the
+  #                  redacted form, which combined with `immutable`
+  #                  triggers a destroy+create on every refresh.
+  # ---------------------------------------------------------------------
+
+  # ---- IAM ------------------------------------------------------------
+
+  # ---------------------------------------------------------------------
+  # access-rule — non-standard PUT-verb CRUD (grant/revoke)
+  #
+  # The access-rule resource uses non-standard PUT verbs for its CRUD.
+  # Creation is via `PUT /grant` and revocation/deletion is via
+  # `PUT /revoke`. These are mapped to the standard TF verbs create and
+  # delete. The resource is non-mutating for `role`, `scope`, and
+  # `subject`; any change to these requires a forced destroy+create.
+  # ---------------------------------------------------------------------
+  access-rule:
+    crud:
+      create: Iam_Access_Rule_grant   # PUT /grant (grant/create; 204 regardless of prior existence)
+      read:   Iam_Access_Rule_index   # GET /access-rules?filter=... returns values[] (0 or 1 for this flow)
+      delete: Iam_Access_Rule_revoke  # PUT /revoke (revocation/delete)
+    id_field: id
+    # synthetic id generated at provider level; keep id_field stable for TF state slot wiring
+    import_id: "{orgId}/{role.name}/{scope.ref}/{subject.ref}"
+    immutable:
+      - role      # any change mandates recreation
+      - scope     # any change mandates recreation
+      - subject   # any change mandates recreation
+    list_resource: true   # signals gentf to synthesize a single entity from list/search response
+
+  contract:
+    crud:
+      create: Iam_Contracts_create
+      read:   Iam_Contracts_show
+      update: Iam_Contracts_update
+      delete: Iam_Contracts_delete
+    id_field: id
+    # Path /iam/v1/orgs/{orgId}/contracts/{id}
+    import_id: "{orgId}/{id}"
+    immutable:
+      # `description` is in the create body but NOT in the update body —
+      # heuristic correctly flags it as immutable, but it's Optional+
+      # Computed so we MUST pin it here (Phase 4 narrowed heuristic
+      # ForceNew to Required-only). Required immutables (target_org_id,
+      # title, allowed_capabilities) get ForceNew automatically.
+      - description
+
+  customer:
+    crud:
+      create: Iam_MSP_Customer_V2_CreateV2
+      read:   Iam_MSP_Customer_V2_ShowV2
+      update: Iam_MSP_Customer_V2_UpdateV2
+      delete: Iam_MSP_Customer_V2_DeleteV2
+    id_field: id
+    # Path /msp/v2/orgs/{orgId}/customers/{customerId}
+    import_id: "{orgId}/{customerId}"
+    # No immutable/sensitive/write_only pins required — the create body
+    # subset of update body and no secrets in the body.
+
+  group:
+    crud:
+      create: Iam_Group_create
+      read:   Iam_Group_show
+      update: Iam_Group_update
+      delete: Iam_Group_Delete
+    id_field: id
+    # Path /iam/v1/orgs/{orgId}/groups/{id}
+    import_id: "{orgId}/{id}"
+    # No immutable pins. NOTE: the Goa spec lists `id` in the create body
+    # required[] which is unusual (most APIs server-assign id). Test
+    # fixture must therefore provide an id explicitly; document in test.
+
+  idp:
+    # ⚠️  IdP/SAML2 SSO is REQUIRED for most enterprise customers. The live
+    # acceptance test (TestAccIdp_basic) is currently DEFERRED — it must be
+    # run before 1.0 release. See the test file's header for prereqs.
+    crud:
+      create: Iam_SAML2_Identity_Provider_create
+      read:   Iam_SAML2_Identity_Provider_show
+      update: Iam_SAML2_Identity_Provider_update
+      delete: Iam_SAML2_Identity_Provider_delete
+    id_field: id
+    # Path /iam/v1/orgs/{orgId}/idps/{id}
+    import_id: "{orgId}/{id}"
+    sensitive:
+      # SAML2 IdP signing certificate is sensitive material; mask it in
+      # plan/state output.
+      - certificatePublicKey
+    write_only:
+      # The show response is expected to redact or summarize the cert
+      # rather than echo it byte-for-byte (Goa pattern for secrets).
+      # Defensive pin so the user-supplied value flows through refresh
+      # cleanly. To be confirmed during live validation; widen this list
+      # if iteration finds other fields the show response strips.
+      - certificatePublicKey
+
+  idp-domains:
+    # SAML2 IdP-domain registration. Lifecycle:
+    #   POST   /iam/v1/orgs/{orgId}/idps/{identityProviderId}/domains/register   (label: idp-domains-register)
+    #   GET    /iam/v1/orgs/{orgId}/idps/{identityProviderId}/domains/{name}     (label: idp-domains)
+    #   DELETE /iam/v1/orgs/{orgId}/idps/{identityProviderId}/domains/{name}     (label: idp-domains)
+    # The create op carries x-flexera-resource=idp-domains-register; Phase 10
+    # cross-label aliasing (x-flexera-tf-resource-aliases) routes it under the
+    # idp-domains label here. There is no update/replace endpoint, so gentf
+    # detects updateOp==nil and sets Resource.NoUpdate=true: every user-input
+    # field becomes ForceNew so any HCL change triggers destroy+recreate.
+    crud:
+      create: Iam_SAML2_Domain_register
+      read:   Iam_SAML2_Domain_show
+      delete: Iam_SAML2_Domain_delete
+    # The domain name doubles as the resource id (the path param is {name}).
+    id_field: name
+    # ImportState ID format: {orgId}/{identityProviderId}/{name}.
+    import_id: "{orgId}/{identityProviderId}/{name}"
+
+  invitation:
+    crud:
+      create: Iam_Organization_Invitation_create
+      read:   Iam_Organization_Invitation_show
+      # The invitation API has no PATCH body — the only "update" verb
+      # is `resend` (re-email the invitation). We bind it as the
+      # update op so the generator emits the lifecycle, but every
+      # body field is effectively immutable. Marked below.
+      update: Iam_Organization_Invitation_resend
+      delete: Iam_Organization_Invitation_delete
+    id_field: id
+    # Path /iam/v1/orgs/{orgId}/invitations/{id}
+    import_id: "{orgId}/{id}"
+    immutable:
+      # The resend body has zero overlap with the create body — EVERY
+      # invitation field is server-side immutable after creation. Pin
+      # the Optional+Computed ones here (Required ones get heuristic).
+      - groupIds
+      - inviteeFirstName
+      - inviteeLastName
+      - isSso
+      - orgRoleIds
+      - projects
+      - skipEmailNotification
+
+  service-account:
+    crud:
+      create: Iam_Service_Account_Create
+      read:   Iam_Service_Account_Show
+      update: Iam_Service_Account_Update
+      delete: Iam_Service_Account_Delete
+    id_field: id
+    # Path /iam/v1/orgs/{orgId}/service-accounts/{id}
+    import_id: "{orgId}/{id}"
+    # No immutable/sensitive/write_only pins required.
+
+  service-account-clients:
+    # Resource lifecycle is create/read/delete under a parent
+    # service-account scope. The create op in the unified spec is
+    # tagged as a generic action, so we pin CRUD explicitly here to
+    # ensure regentf includes this resource for generation.
+    crud:
+      create: Iam_Service_Account_Client_Create
+      read:   Iam_Service_Account_Client_Show
+      delete: Iam_Service_Account_Client_Delete
+    id_field: clientId
+    # Path /iam/v1/orgs/{orgId}/service-accounts/{serviceAccountId}/clients/{clientId}
+    import_id: "{orgId}/{serviceAccountId}/{clientId}"
+    sensitive:
+      - clientSecret
+    write_only:
+      - clientSecret
+
+  # ---- FinOps (analytics, onboarding, customizations, saas) ----------
+
+  rule-based-dimension:
+    # The create endpoint is POST on an item path
+    # (/rule-based-dimensions/{id}), so heuristic action derivation marks
+    # it as "action". Pin CRUD explicitly so regentf/gentf treat it as a
+    # normal resource lifecycle.
+    crud:
+      create: FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_create
+      read:   FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_show
+      update: FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_update
+      delete: FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_delete
+    id_field: id
+    # Path /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}
+    import_id: "{orgId}/{id}"
+
+  rule-based-dimension-rules-list:
+    crud:
+      create: FinopsCustomizations_Rule_Based_Dimension_rules_list_replace
+      read:   FinopsCustomizations_Rule_Based_Dimension_rules_list_show
+      update: FinopsCustomizations_Rule_Based_Dimension_rules_list_replace
+      delete: FinopsCustomizations_Rule_Based_Dimension_rules_list_delete
+    id_field: effectiveAt
+    # Path /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}/rules/{effectiveAt}
+    import_id: "{orgId}/{dimension}/{effectiveAt}"
+    scope_vars:
+      # API path var is "{id}", but semantically this is the selected
+      # rule-based-dimension identifier. Expose and source it as
+      # top-level TF attribute `dimension`.
+      id: dimension
+    immutable:
+      # Scope var from the path; selecting a different dimension id must
+      # be modeled as replacement.
+      - dimension
+
+  tag-dimension:
+    crud:
+      create: FinopsCustomizations_Tag_Dimension_create
+      read:   FinopsCustomizations_Tag_Dimension_show
+      update: FinopsCustomizations_Tag_Dimension_update    # PUT replace
+      delete: FinopsCustomizations_Tag_Dimension_delete
+    id_field: id
+    # Path /finops-customizations/v1/orgs/{orgId}/tag-dimensions/{id}
+    import_id: "{orgId}/{id}"
+    # No pins required — PUT replace = full body, all fields mutable.
+
+  user:
+    crud:
+      create: Iam_User_create
+      read:   Iam_User_show
+      delete: Iam_User_Delete
+    id_field: id
+    # Path /iam/v1/orgs/{orgId}/users/{id}
+    import_id: "{orgId}/{id}"
+    # No update/replace endpoint in the spec — gentf detects this and
+    # sets Resource.NoUpdate=true. Every user-input field (email,
+    # first_name, last_name) is automatically marked ForceNew so any
+    # HCL change triggers destroy+recreate. The Update method is
+    # emitted but returns an error diagnostic; with all fields
+    # ForceNew, plugin-framework should never invoke it.
+    #
+    # Note on field names: the create body uses snake_case
+    # (email, first_name, last_name) while the read response uses
+    # camelCase (email, firstName, lastName). gentf treats these as
+    # distinct attributes (one Optional from create body, one
+    # Computed-only from response). Tests should set ONLY email and
+    # let firstName/lastName populate from the response.
+
+  usage-group:
+    crud:
+      create: Saas_Usage_Group_create
+      read:   Saas_Usage_Group_show
+      update: Saas_Usage_Group_update                       # PUT replace
+      delete: Saas_Usage_Group_delete
+    id_field: id
+    # Path /saas-data/v1/orgs/{orgId}/usage-groups/{id}
+    import_id: "{orgId}/{id}"
+    immutable:
+      # `costs` is in the create body but not in the replace body —
+      # server computes/owns this field after creation.
+      - costs
+
+  usage-group-costs:
+    # Cost subresource lifecycle uses createCost/showCost/updateCost/
+    # deleteCost, with create labeled as action in the upstream spec.
+    crud:
+      create: Saas_Usage_Group_createCost
+      read:   Saas_Usage_Group_showCost
+      update: Saas_Usage_Group_updateCost
+      delete: Saas_Usage_Group_deleteCost
+    id_field: costId
+    # Path /saas/v1/orgs/{orgId}/usage-groups/{usageGroupID}/costs/{costId}
+    import_id: "{orgId}/{usageGroupID}/{costId}"
+
+  customization-value:
+    # Upsert endpoint is modeled as replace (PUT on item path), not create.
+    crud:
+      create: Policy_Customization_Value_upsert
+      read:   Policy_Customization_Value_show
+      delete: Policy_Customization_Value_delete
+    id_field: customizationTypeId
+    # Path /policy/v1/orgs/{orgId}/customization-values/{customizationTypeId}
+    import_id: "{orgId}/{customizationTypeId}"
+
+  # ---- ITAM (SaaS license lifecycle sub-resources) -------------------
+
+  licens-fees:
+    # Create is tagged as action (POST collection); pin explicit CRUD.
+    crud:
+      create: Saas_License_fee_create
+      read:   Saas_License_fee_show
+      update: Saas_License_fee_update
+      delete: Saas_License_fee_delete
+    id_field: feeId
+    # Path /saas/v1/orgs/{orgId}/licenses/{licenseId}/fees/{feeId}
+    import_id: "{orgId}/{licenseId}/{feeId}"
+
+  licens-notes:
+    # Create is tagged as action (POST collection); update is replace (PUT item).
+    crud:
+      create: Saas_License_note_create
+      read:   Saas_License_note_show
+      update: Saas_License_note_update
+      delete: Saas_License_note_delete
+    id_field: id
+    # Path /saas/v1/orgs/{orgId}/licenses/{licenseId}/notes/{id}
+    import_id: "{orgId}/{licenseId}/{id}"
+
+  licens-terms:
+    # Create is tagged as action (POST collection); pin explicit CRUD.
+    crud:
+      create: Saas_License_term_create
+      read:   Saas_License_term_show
+      update: Saas_License_term_update
+      delete: Saas_License_term_delete
+    id_field: termId
+    # Path /saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}
+    import_id: "{orgId}/{licenseId}/{termId}"
+
+  licens-terms-purchases:
+    # Create is tagged as action (POST collection); pin explicit CRUD.
+    crud:
+      create: Saas_License_purchase_create
+      read:   Saas_License_purchase_show
+      update: Saas_License_purchase_update
+      delete: Saas_License_purchase_delete
+    id_field: id
+    # Path /saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}/purchases/{id}
+    import_id: "{orgId}/{licenseId}/{termId}/{id}"
+
+  # ---- AWS bill-connects (split-lifecycle, see Phase 10) -------------
+  #
+  # The AWS bill-connect API splits its lifecycle across THREE distinct
+  # x-flexera-resource labels that all share one {id} namespace:
+  #
+  #   bill-connect-aws-iam-role : POST /aws/iam-role  +  PATCH /aws/iam-role/{id}
+  #   bill-connect-aws-iam-user : POST /aws/iam-user  +  PATCH /aws/iam-user/{id}
+  #   bill-connect-aws          : GET  /aws/{id}      +  DELETE /aws/{id}
+  #
+  # Neither iam-role nor iam-user has a native read/delete op, so the
+  # default heuristic CRUD-quad detection skips them. The `crud:`
+  # override below pins all four lifecycle opIds explicitly. The applier
+  # detects that show + delete come from a different x-flexera-resource
+  # label (bill-connect-aws) and stamps `x-flexera-tf-resource-aliases`
+  # on those ops so both regentf discovery and gentf op-enumeration
+  # treat the borrowed ops as belonging to the iam-role / iam-user
+  # resources for generation purposes (many-to-one safe — the same
+  # show/delete pair is aliased to BOTH iam-role and iam-user).
+
+  bill-connect-aws-iam-role:
+    crud:
+      create: FinopsOnboarding_Bill_Connect_AWS_createIAMRole
+      read:   FinopsOnboarding_Bill_Connect_AWS_show
+      update: FinopsOnboarding_Bill_Connect_AWS_updateIAMRole
+      delete: FinopsOnboarding_Bill_Connect_AWS_delete
+    id_field: id
+    # Path /finops-onboarding/v1/orgs/{orgId}/bill-connects/aws/{id}
+    import_id: "{orgId}/{id}"
+    sensitive:
+      # stsExternalId, when used, is the shared secret that proves an
+      # AWS account belongs to the customer. Mark sensitive so it is
+      # masked in plan/state output.
+      - stsExternalId
+
+  bill-connect-aws-iam-user:
+    crud:
+      create: FinopsOnboarding_Bill_Connect_AWS_createIAMUser
+      read:   FinopsOnboarding_Bill_Connect_AWS_show
+      update: FinopsOnboarding_Bill_Connect_AWS_updateIAMUser
+      delete: FinopsOnboarding_Bill_Connect_AWS_delete
+    id_field: id
+    # Path /finops-onboarding/v1/orgs/{orgId}/bill-connects/aws/{id}
+    import_id: "{orgId}/{id}"
+    sensitive:
+      # IAM-user creds are by definition long-lived secrets.
+      - accessKey
+      - secretAccessKey
+    write_only:
+      # The show op redacts these on read; preserve user-supplied
+      # values through state to avoid spurious diffs on every refresh.
+      - accessKey
+      - secretAccessKey
+
+  bill-connect-azure-csp:
+    crud:
+      create: FinopsOnboarding_Bill_Connect_Azure_CSP_create
+      read:   FinopsOnboarding_Bill_Connect_Azure_CSP_show
+      update: FinopsOnboarding_Bill_Connect_Azure_CSP_update
+      delete: FinopsOnboarding_Bill_Connect_Azure_CSP_delete
+    id_field: id
+    # Path /finops-onboarding/v1/orgs/{orgId}/bill-connects/azure-csp/{id}
+    import_id: "{orgId}/{id}"
+    immutable:
+      # scopeDetails (object) is in create body but not update body. The
+      # binding to a specific Azure tenant scope is set once.
+      - scopeDetails
+    sensitive:
+      - clientSecret    # Azure SP secret
+    write_only:
+      - clientSecret    # server redacts on GET responses
+
+  bill-connect-azure-ea-management:
+    crud:
+      create: FinopsOnboarding_Bill_Connect_Azure_EA_Management_create
+      read:   FinopsOnboarding_Bill_Connect_Azure_EA_Management_show
+      update: FinopsOnboarding_Bill_Connect_Azure_EA_Management_update
+      delete: FinopsOnboarding_Bill_Connect_Azure_EA_Management_delete
+    id_field: id
+    # Path /finops-onboarding/v1/orgs/{orgId}/bill-connects/azure-ea-management/{id}
+    import_id: "{orgId}/{id}"
+    immutable:
+      - scopeDetails
+    sensitive:
+      - clientSecret    # Azure SP secret
+    write_only:
+      - clientSecret
+
+  bill-connect-azure-mca:
+    crud:
+      create: FinopsOnboarding_Bill_Connect_Azure_MCA_createMcaBillConnect
+      read:   FinopsOnboarding_Bill_Connect_Azure_MCA_show
+      update: FinopsOnboarding_Bill_Connect_Azure_MCA_updateMcaBillConnect
+      delete: FinopsOnboarding_Bill_Connect_Azure_MCA_delete
+    id_field: id
+    # Path /finops-onboarding/v1/orgs/{orgId}/bill-connects/azure-mca/{id}
+    import_id: "{orgId}/{id}"
+    immutable:
+      - scopeDetails
+      - cloudInstance      # Azure cloud (AzurePublic/AzureChina/AzureGov...)
+    sensitive:
+      - clientSecret
+    write_only:
+      - clientSecret
+
+  bill-connect-cbi:
+    crud:
+      create: FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_create
+      read:   FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_show
+      update: FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_update
+      delete: FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_delete
+    id_field: id
+    # Path /finops-onboarding/v1/orgs/{orgId}/bill-connects/cbi/{id}
+    import_id: "{orgId}/{id}"
+    # billIdentifier and integrationId are Required → heuristic catches.
+    # No sensitive/write_only — CBI body uses generic params, no fixed
+    # secret-shaped fields at the top level. (Sub-fields inside `params`
+    # may be sensitive per integration; users should override the
+    # specific param name as needed once it's known.)
+    #
+    # `cbi` is a server-derived response envelope that wraps the create
+    # body (FinopsOnboarding_CBIBillConnect: {cbi: {name, billIdentifier,
+    # integrationId, params}, id, kind, ...}). Its contents change
+    # whenever the user updates name/params, so UseStateForUnknown
+    # carries stale T1 values into Update plans and plugin-framework
+    # rejects the T2 apply with "inconsistent result". Mark volatile so
+    # the plan modifier is suppressed.
+    volatile:
+      - cbi
+
+  bill-connect-databricks:
+    crud:
+      create: FinopsOnboarding_Bill_Connect_Databricks_create
+      read:   FinopsOnboarding_Bill_Connect_Databricks_show
+      update: FinopsOnboarding_Bill_Connect_Databricks_update
+      delete: FinopsOnboarding_Bill_Connect_Databricks_delete
+    id_field: id
+    # Path /finops-onboarding/v1/orgs/{orgId}/bill-connects/databricks/{id}
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - clientSecret    # Databricks SP secret
+    write_only:
+      - clientSecret
+
+  bill-connect-gcp:
+    crud:
+      create: FinopsOnboarding_Bill_Connect_GCP_create
+      read:   FinopsOnboarding_Bill_Connect_GCP_show
+      update: FinopsOnboarding_Bill_Connect_GCP_update
+      delete: FinopsOnboarding_Bill_Connect_GCP_delete
+    id_field: id
+    # Path /finops-onboarding/v1/orgs/{orgId}/bill-connects/gcp/{id}
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - credentials     # GCP service account JSON
+    write_only:
+      - credentials
+
+  # ---- Automation / Policy -------------------------------------------
+
+  policy-template:
+    crud:
+      create: Policy_Policy_Template_create
+      read:   Policy_Policy_Template_show
+      update: Policy_Policy_Template_update                # PUT replace
+      delete: Policy_Policy_Template_delete
+    id_field: id
+    # Path /policy/v1/orgs/{orgId}/projects/{projectId}/policy-templates/{policyTemplateId}
+    import_id: "{orgId}/{projectId}/{policyTemplateId}"
+    # source is sent on create/update but the show response normalizes
+    # it (parsed AST, not the original .pt text). Mark write_only so the
+    # hydrator preserves the user-supplied value through refresh and
+    # update apply doesn't fail consistency check.
+    write_only:
+      - source
+      - filename
+
+  published-template:
+    crud:
+      create: Policy_Published_Template_create
+      read:   Policy_Published_Template_show
+      update: Policy_Published_Template_update             # PUT replace
+      delete: Policy_Published_Template_delete
+    id_field: id
+    # Path /policy/v1/orgs/{orgId}/published-templates/{publishedTemplateId}
+    import_id: "{orgId}/{publishedTemplateId}"
+    # PUT replace = full body, all fields mutable. No pins required.
+
+  # ---- ITAM / LOW priority — SKIP -------------------------------------
+
+  # licens — SKIPPED ENTIRELY (`skip: true` removes from generated output)
+  #
+  # Why this entry exists with skip:true:
+  #   1. The kebab-case name `licens` is the result of a heuristic
+  #      singularization bug: the path segment is `/saas-data/v1/orgs/
+  #      {orgId}/licenses/{id}`, and openapi_specs/annotate.go's
+  #      `singularize` helper trims a trailing 's' → "licens". This is a
+  #      generator-side bug that we'll fix in a follow-up; until then,
+  #      this entry stops the broken name from leaking into TF.
+  #   2. Per the user direction (Phase 6 product-domain triage), ITAM
+  #      lifecycle resources are LOW priority — they're not typically
+  #      managed via Terraform; customers consume them through the
+  #      FlexeraOne UI. Even with a fixed name, this resource is not
+  #      a Phase 6 deliverable.
+  #
+  # Behaviorally:
+  #   - With overrides activated, regentf reports licens under "skipped
+  #     (override skip:true)" and does NOT emit licens_resource_gen.go.
+  #   - With overrides off (default heuristic mode), licens still emits
+  #     as before — the skip is opt-in.
+  licens:
+    skip: true
+
+  # ---- Credentials API (Phase 14 PUT-as-create) ----------------------
+  #
+  # Common shape (all 8 credential types):
+  #   PUT    /cred/v2/orgs/{orgId}/credentials/<scheme>/{id}   replace = create-or-replace
+  #   PATCH  /cred/v2/orgs/{orgId}/credentials/<scheme>/{id}   update
+  #   GET    /cred/v2/orgs/{orgId}/credentials/<scheme>/{id}   show
+  #   DELETE /cred/v2/orgs/{orgId}/credentials/{scheme}/{id}   delete (umbrella `credential` label)
+  #
+  # The PUT carries `x-flexera-action: replace`; there is NO POST
+  # collection. The user supplies the resource id (e.g. `flexera-shawn`)
+  # as the trailing path segment. Pinning the PUT as `crud.create:`
+  # triggers the IDInCreatePath generator path: the id attribute is
+  # marked Required + ForceNew (NOT Computed), and the Create method
+  # passes plan.Id into the URL.
+  #
+  # The DELETE is on the umbrella `credential` resource label and uses
+  # `{scheme}` as a path discriminator. Cross-label aliasing pulls it
+  # in. The {scheme} value (`basic`, `aws-sts`, ...) is filled by the
+  # generator's structural-alignment of read vs delete paths.
+  #
+  # Show response carries server-stamped fields the create body does
+  # not (createdAt, createdBy, kind, ref, scheme, updatedAt, updatedBy,
+  # orgId). These are auto-classified as Computed.
+
+  credential-basic:
+    crud:
+      create: Cred_Basic_Credential_create_org   # PUT replace = create-or-replace
+      read:   Cred_Basic_Credential_show_org
+      update: Cred_Basic_Credential_update_org
+      delete: Cred_Credential_delete_org          # cross-label, umbrella
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  credential-aws-sts:
+    crud:
+      create: Cred_AWS_STS_Credential_create_org
+      read:   Cred_AWS_STS_Credential_show_org
+      update: Cred_AWS_STS_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    # accessKey/secretKey are present for the legacy access-key flow;
+    # the role-arn flow leaves them empty. Mark sensitive defensively.
+    sensitive:
+      - accessKey
+      - secretKey
+
+  credential-api-key:
+    crud:
+      create: Cred_API_Key_Credential_create_org
+      read:   Cred_API_Key_Credential_show_org
+      update: Cred_API_Key_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+
+  credential-aws:
+    crud:
+      create: Cred_AWS_Credential_create_org
+      read:   Cred_AWS_Credential_show_org
+      update: Cred_AWS_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - accessKey
+      - secretKey
+
+  credential-digest:
+    crud:
+      create: Cred_Digest_Credential_create_org
+      read:   Cred_Digest_Credential_show_org
+      update: Cred_Digest_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  credential-ntlm:
+    crud:
+      create: Cred_NTLM_Credential_create_org
+      read:   Cred_NTLM_Credential_show_org
+      update: Cred_NTLM_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  credential-oauth2:
+    # OAuth2 create/update payloads diverge (schema polymorphism); the
+    # generator's body builder reuses the create-body type for update
+    # which produces a type-mismatch on the unified client call.
+    # Sidestepped by pinning ONLY create/read/delete (no `update` key)
+    # so the resource generates as a NoUpdate/immutable-after-create
+    # lifecycle instead of being skipped entirely.
+    crud:
+      create: Cred_OAuth2_Credential_create_org
+      read:   Cred_OAuth2_Credential_show_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+
+  credential-oracle:
+    crud:
+      create: Cred_Oracle_Credential_create_org
+      read:   Cred_Oracle_Credential_show_org
+      update: Cred_Oracle_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  # ---- Credential resources by explicit org/project scope -----------
+  #
+  # The OpenAPI uses shared x-flexera-resource labels (credential-*) for
+  # both org and project endpoints. Define virtual resource entries here
+  # (org-*/project-*) with pinned CRUD opIds so Terraform emits distinct
+  # resource types matching existing datasource naming conventions.
+
+  org-api-key-credential:
+    crud:
+      create: Cred_API_Key_Credential_create_org
+      read:   Cred_API_Key_Credential_show_org
+      update: Cred_API_Key_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+
+  org-aws-credential:
+    crud:
+      create: Cred_AWS_Credential_create_org
+      read:   Cred_AWS_Credential_show_org
+      update: Cred_AWS_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - accessKey
+      - secretKey
+
+  org-aws-sts-credential:
+    crud:
+      create: Cred_AWS_STS_Credential_create_org
+      read:   Cred_AWS_STS_Credential_show_org
+      update: Cred_AWS_STS_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - accessKey
+      - secretKey
+
+  org-basic-credential:
+    crud:
+      create: Cred_Basic_Credential_create_org
+      read:   Cred_Basic_Credential_show_org
+      update: Cred_Basic_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  org-digest-credential:
+    crud:
+      create: Cred_Digest_Credential_create_org
+      read:   Cred_Digest_Credential_show_org
+      update: Cred_Digest_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  org-ntlm-credential:
+    crud:
+      create: Cred_NTLM_Credential_create_org
+      read:   Cred_NTLM_Credential_show_org
+      update: Cred_NTLM_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  org-oauth2-credential:
+    # OAuth2 create/update payloads diverge (schema polymorphism); pin
+    # create/read/delete only (see credential-oauth2 above).
+    crud:
+      create: Cred_OAuth2_Credential_create_org
+      read:   Cred_OAuth2_Credential_show_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+
+  org-oracle-credential:
+    crud:
+      create: Cred_Oracle_Credential_create_org
+      read:   Cred_Oracle_Credential_show_org
+      update: Cred_Oracle_Credential_update_org
+      delete: Cred_Credential_delete_org
+    id_field: id
+    import_id: "{orgId}/{id}"
+    sensitive:
+      - password
+
+  project-api-key-credential:
+    crud:
+      create: Cred_API_Key_Credential_create_project
+      read:   Cred_API_Key_Credential_show_project
+      update: Cred_API_Key_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+
+  project-aws-credential:
+    crud:
+      create: Cred_AWS_Credential_create_project
+      read:   Cred_AWS_Credential_show_project
+      update: Cred_AWS_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - accessKey
+      - secretKey
+
+  project-aws-sts-credential:
+    crud:
+      create: Cred_AWS_STS_Credential_create_project
+      read:   Cred_AWS_STS_Credential_show_project
+      update: Cred_AWS_STS_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - accessKey
+      - secretKey
+
+  project-basic-credential:
+    crud:
+      create: Cred_Basic_Credential_create_project
+      read:   Cred_Basic_Credential_show_project
+      update: Cred_Basic_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - password
+
+  project-digest-credential:
+    crud:
+      create: Cred_Digest_Credential_create_project
+      read:   Cred_Digest_Credential_show_project
+      update: Cred_Digest_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - password
+
+  project-ntlm-credential:
+    crud:
+      create: Cred_NTLM_Credential_create_project
+      read:   Cred_NTLM_Credential_show_project
+      update: Cred_NTLM_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - password
+
+  project-oauth2-credential:
+    # OAuth2 create/update payloads diverge (schema polymorphism); pin
+    # create/read/delete only (see credential-oauth2 above).
+    crud:
+      create: Cred_OAuth2_Credential_create_project
+      read:   Cred_OAuth2_Credential_show_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+
+  project-oracle-credential:
+    crud:
+      create: Cred_Oracle_Credential_create_project
+      read:   Cred_Oracle_Credential_show_project
+      update: Cred_Oracle_Credential_update_project
+      delete: Cred_Credential_delete_project
+    id_field: id
+    import_id: "{projectId}/{id}"
+    sensitive:
+      - password
+
+
+
+# ---------------------------------------------------------------------
+# Reference: per-operation override syntax (uncomment to use)
+# ---------------------------------------------------------------------
+# operations:
+#   # Per-operation overrides. Use sparingly; reserved for cross-cutting
+#   # concerns that don't belong on a resource (host carve-outs, etc.).
+#   Optima_RecommendationSubscriptionCreate:
+#     host_override: optima
