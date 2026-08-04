@@ -1,1 +1,2160 @@
-{"components":{"schemas":{"CreateRequestBody":{"example":{"queryName":"software_inventory"},"properties":{"queryName":{"description":"The query to execute.","enum":["hardware_business_services","hardware_contextualized","hardware_evidence","hardware_inventory","hardware_inventory_source","hardware_technopedia","hardware_technopedia_lifecycle","network_adapters","software_evidence","software_inventory","software_inventory_source","software_technopedia","software_technopedia_lifecycle","software_technopedia_lineage","software_technopedia_release_platforms","software_technopedia_versions","business_services_applications","business_services_assets","business_services_dependent_applications","software_vulnerability","cpe_catalog","software_vulnerability_cpe","software_vulnerability_cve","software_vulnerability_kb_article","vulnerable_software","hardware_model_profile","hardware_model_power","hardware_model_connectivity","software_mashup","device_mashup","manufacturer_technopedia","arl_alignment","vulnerability_advisory","vulnerability_cpe","vulnerability_cve","vulnerability_kb_article","vulnerability","servicenow_device","servicenow_software","servicenow_hardware_inventory","servicenow_software_inventory"],"example":"software_inventory","type":"string"}},"required":["queryName"],"type":"object"},"CreateResponseBody":{"example":{"id":"7d795afa-c508-4d47-92ae-248113a792d1","resumeToken":"c2VxPTc4MTY3NTkyODU3Mjk4NzY="},"properties":{"id":{"description":"The unique query identifier","example":"7d795afa-c508-4d47-92ae-248113a792d1","maxLength":36,"pattern":"^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$","type":"string"},"resumeToken":{"description":"The next delta value","example":"c2VxPTc4MTY3NTkyODU3Mjk4NzY=","type":"string"}},"required":["id"],"type":"object"},"DeviceDatasourceSelection":{"description":"A selection of datasources to delete devices from. If included in the datasources filter, only 1 property should be set","example":{"field":"type","value":"SCCM"},"properties":{"field":{"description":"The field to use for the selection of datasources","enum":["id","name","type"],"example":"type","type":"string"},"value":{"description":"The value for the datasource selection","example":"SCCM","type":"string"}},"required":["field","value"],"type":"object"},"Error":{"description":"invalid filter received","example":{"fault":false,"id":"123abc","message":"invalid filter received in request","name":"invalid_filter","temporary":false,"timeout":false},"properties":{"fault":{"description":"Is the error a server-side fault?","example":false,"type":"boolean"},"id":{"description":"ID is a unique identifier for this particular occurrence of the problem.","example":"123abc","type":"string"},"message":{"description":"Message is a human-readable explanation specific to this occurrence of the problem.","example":"parameter 'p' must be an integer","type":"string"},"name":{"description":"Name is the name of this class of errors.","example":"bad_request","type":"string"},"temporary":{"description":"Is the error temporary?","example":false,"type":"boolean"},"timeout":{"description":"Is the error a timeout?","example":true,"type":"boolean"}},"required":["name","id","message","temporary","timeout","fault"],"type":"object"},"EstimateDeleteRequestBody":{"example":{"datasourceSelectors":[{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"}],"deviceIds":["Voluptatum optio laudantium illum doloribus delectus ea.","Vitae repellat voluptatum ipsum.","Sint vel provident voluptates ut asperiores aliquam.","Occaecati architecto."]},"properties":{"datasourceSelectors":{"description":"List of datasources to delete devices from","example":[{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"}],"items":{"$ref":"#/components/schemas/DeviceDatasourceSelection"},"type":"array"},"deviceIds":{"description":"List of device IDs to delete","example":["Quasi cum itaque fugiat.","Voluptatibus aliquam iste ipsa.","Aliquid nam.","Enim laboriosam tempore."],"items":{"example":"Blanditiis fugiat magni.","type":"string"},"type":"array"}},"required":["deviceIds"],"type":"object"},"ExportDataCollection":{"example":[{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"},{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"}],"items":{"$ref":"#/components/schemas/FlexeraVisFiledata"},"type":"array"},"ExportFileList":{"example":{"count":20,"nextPage":"/vis/v2/orgs/{orgId}/exports?skipToken=19u2349","prevPage":"/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u","values":[{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"},{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"},{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"},{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"}]},"properties":{"count":{"description":"The count is the number of Export data objects in the list.","example":20,"type":"integer"},"nextPage":{"description":"URL to the next page of data. If nextPage is not present, the returned page of data is the last.","example":"/vis/v2/orgs/{orgId}/exports?skipToken=19u2349","format":"uri","type":"string"},"prevPage":{"description":"URL to the previous page of data. The first page of data will not return a prevPage value.","example":"/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u","format":"uri","type":"string"},"values":{"$ref":"#/components/schemas/ExportDataCollection"}},"type":"object"},"FlexeraVisDeviceDeletionSummary":{"description":"A count of devices that would be deleted by the query.","example":{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"},"properties":{"count":{"description":"The number of devices that would be deleted","example":150,"type":"integer"},"datasourceId":{"description":"The ID of the datasource","example":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","type":"string"},"datasourceName":{"description":"The name of the datasource","example":"SCCM_PROD_AP","type":"string"},"datasourceType":{"description":"The type of the datasource","example":"SCCM","type":"string"}},"required":["count","datasourceId","datasourceName","datasourceType"],"type":"object"},"FlexeraVisFiledata":{"description":"ExportData represents the data file of the inventory export snapshot or delta and associated info of the file.","example":{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"},"properties":{"createdAt":{"description":"The datetime this object was created in ISO-8601 format.","example":"2018-05-16T16:31:52.1000Z","format":"date-time","type":"string"},"id":{"description":"Identifier of the file. This will allow the user to reference the Export Data for download.Identifier uniquely identifes the Inventory Export object.","example":"7d795afa-c508-4d47-92ae-248113a792d1","maxLength":36,"type":"string"},"name":{"description":"The name of the object.","example":"hardware_inventory","type":"string"},"size":{"description":"The size in bytes of the object","example":1080,"type":"integer"},"type":{"description":"Is the file a snapshot or delta object","enum":["snapshot","delta"],"example":"snapshot","type":"string"}},"type":"object"},"QueryData":{"example":{"completedAt":"2020-11-26T12:17:38.369Z","createdAt":"2020-11-26T12:17:38.369Z","error":"Query engine had an internal error","id":"7d795afa-c508-4d47-92ae-248113a792d1","status":"FAILED"},"properties":{"completedAt":{"description":"The date and time that the query completed.","example":"2020-11-26T12:17:38.369Z","format":"date-time","type":"string"},"createdAt":{"description":"The date and time that the query was submitted.","example":"2020-11-26T12:17:38.369Z","format":"date-time","type":"string"},"error":{"description":"Provides information about a query error.","example":"Query engine had an internal error","type":"string"},"id":{"description":"The unique query identifier","example":"7d795afa-c508-4d47-92ae-248113a792d1","maxLength":36,"pattern":"^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$","type":"string"},"status":{"description":"The status of the execution. Possible values are QUEUED, RUNNING, SUCCEEDED, FAILED.","example":"FAILED","type":"string"}},"required":["status"],"type":"object"}},"securitySchemes":{"JWTAuth_header_Authorization":{"scheme":"bearer","type":"http"},"jwt_header_Authorization":{"description":"Secures endpoint by requiring a valid JWT token retrieved via the signin endpoint.","scheme":"bearer","type":"http"}}},"info":{"description":"Flexera API for all IT Visibility services.\n\nThe API is available at the following endpoints, dependent upon the user/tenant zone:\n| Zone        | Base URL    |\n| ----------- | ----------- |\n| NAM         | https://api.flexera.com/vis/ |\n| EU          | https://api.flexera.eu/vis/ |\n| APAC        | https://api.flexera.au/vis/ |\n","title":"IT Visibility API","version":"2.0.0"},"openapi":"3.0.3","paths":{"/vis/v2/orgs/{orgId}/devices/delete/estimate":{"post":{"description":"Returns an estimated number of device evidences associated with the datasource data that would be deleted using the query.","operationId":"Device#estimateDelete","parameters":[{"description":"The unique identifier for the organization","example":100,"in":"path","name":"orgId","required":true,"schema":{"description":"The unique identifier for the organization","example":100,"minimum":1,"type":"integer"}}],"requestBody":{"content":{"application/json":{"example":{"datasourceSelectors":[{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"}],"deviceIds":["Laborum architecto qui fuga modi alias debitis.","Quaerat et qui.","Iusto et provident quo nesciunt fuga."]},"schema":{"$ref":"#/components/schemas/EstimateDeleteRequestBody"}}},"required":true},"responses":{"200":{"content":{"application/json":{"example":[{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"},{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"},{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"},{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"}],"schema":{"example":[{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"},{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"}],"items":{"$ref":"#/components/schemas/FlexeraVisDeviceDeletionSummary"},"type":"array"}}},"description":"OK response."},"400":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"request is invalid","name":"bad_request","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_request: Bad Request response."},"401":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token is invalid","name":"unauthorized","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"unauthorized: Unauthorized response."},"403":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token does not have sufficient privileges","name":"forbidden","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"forbidden: Forbidden response."},"429":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting","name":"too_many_requests","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"too_many_requests: Too Many Requests response."},"500":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"something went wrong in the server","name":"internal_error","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"internal_error: Internal Server Error response."},"502":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"server is unable to handle the request","name":"bad_gateway","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_gateway: Bad Gateway response."}},"security":[{"JWTAuth_header_Authorization":["vis:workspace:index||common:org:own","vis:export:index||common:org:own","vis:export:download||common:org:own","vis:report:index||common:org:own","vis:report:embed||common:org:own","vis:query:create||common:org:own","vis:query:show||common:org:own","vis:query:download||common:org:own","vis:hardware_evidence:summary||common:org:own","vis:hardware_evidence:index||common:org:own","vis:hardware_evidence:download||common:org:own","vis:hardware_evidence:show||common:org:own","vis:software_evidence:summary||common:org:own","vis:software_evidence:index||common:org:own","vis:software_evidence:download||common:org:own","vis:software_evidence:show||common:org:own","vis:device:summary||common:org:own","vis:device:index||common:org:own","vis:device:download||common:org:own","vis:device:show||common:org:own","vis:device:delete||common:org:own","vis:os_evidence:summary||common:org:own","vis:os_evidence:index||common:org:own","vis:os_evidence:download||common:org:own","vis:os_evidence:show||common:org:own","vis:file_evidence:summary||common:org:own","vis:file_evidence:index||common:org:own","vis:file_evidence:download||common:org:own","vis:file_evidence:show||common:org:own"]}],"summary":"Estimate device evidence that would be deleted using the query","tags":["Device"]}},"/vis/v2/orgs/{orgId}/devices/delete/submit":{"post":{"description":"Deletes device evidence for the specified device IDs and datasource selectors.","operationId":"Device#delete","parameters":[{"description":"The unique identifier for the organization","example":100,"in":"path","name":"orgId","required":true,"schema":{"description":"The unique identifier for the organization","example":100,"minimum":1,"type":"integer"}}],"requestBody":{"content":{"application/json":{"example":{"datasourceSelectors":[{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"},{"field":"type","value":"SCCM"}],"deviceIds":["Est sit.","Fugit enim similique eum ratione accusantium ea.","Ut quis."]},"schema":{"$ref":"#/components/schemas/EstimateDeleteRequestBody"}}},"required":true},"responses":{"202":{"content":{"application/json":{"example":[{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"},{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"}],"schema":{"example":[{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"},{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"},{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"},{"count":150,"datasourceId":"4e0e3471-ccbc-41c7-a21e-c384f2eb5669","datasourceName":"SCCM_PROD_AP","datasourceType":"SCCM"}],"items":{"$ref":"#/components/schemas/FlexeraVisDeviceDeletionSummary"},"type":"array"}}},"description":"Accepted response."},"400":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"request is invalid","name":"bad_request","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_request: Bad Request response."},"401":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token is invalid","name":"unauthorized","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"unauthorized: Unauthorized response."},"403":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token does not have sufficient privileges","name":"forbidden","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"forbidden: Forbidden response."},"429":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting","name":"too_many_requests","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"too_many_requests: Too Many Requests response."},"500":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"something went wrong in the server","name":"internal_error","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"internal_error: Internal Server Error response."},"502":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"server is unable to handle the request","name":"bad_gateway","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_gateway: Bad Gateway response."}},"security":[{"JWTAuth_header_Authorization":["vis:workspace:index||common:org:own","vis:export:index||common:org:own","vis:export:download||common:org:own","vis:report:index||common:org:own","vis:report:embed||common:org:own","vis:query:create||common:org:own","vis:query:show||common:org:own","vis:query:download||common:org:own","vis:hardware_evidence:summary||common:org:own","vis:hardware_evidence:index||common:org:own","vis:hardware_evidence:download||common:org:own","vis:hardware_evidence:show||common:org:own","vis:software_evidence:summary||common:org:own","vis:software_evidence:index||common:org:own","vis:software_evidence:download||common:org:own","vis:software_evidence:show||common:org:own","vis:device:summary||common:org:own","vis:device:index||common:org:own","vis:device:download||common:org:own","vis:device:show||common:org:own","vis:device:delete||common:org:own","vis:os_evidence:summary||common:org:own","vis:os_evidence:index||common:org:own","vis:os_evidence:download||common:org:own","vis:os_evidence:show||common:org:own","vis:file_evidence:summary||common:org:own","vis:file_evidence:index||common:org:own","vis:file_evidence:download||common:org:own","vis:file_evidence:show||common:org:own"]}],"summary":"delete the device evidence for the given device ids using the query","tags":["Device"]}},"/vis/v2/orgs/{orgId}/exports":{"get":{"description":"Index returns a list of inventory exports to which an org has access.\n\t\tRetrieves file list by filter params","operationId":"ExportIndex","parameters":[{"allowEmptyValue":true,"description":"Optional filter for returning requests matching specific criteria.\n\nThe following filters are supported:\n| Filter | Description | Allowed Operator | Behavior | Example |\n| --- | ---| --- | --- | --- |\n| id   | Filters on the export id | eq | Equal - The attribute and operator values must be identical for a match  | id eq '12345'  |\n| name | Filters on the export name | co | Contains - The entire operator value must be a substring of the attribute value for a match. |  name co 'hardware' |\n|      |  | eq | Equal - The attribute and operator values must be identical for a match. | name eq 'hardware_technopedia'  |\n| type | Filters on the type | eq | Equal - The attribute and operator values must be identical for a match. | type eq 'Delta'  |\n| createdAt | Filters on the createdAt | eq | Equal - The attribute and operator values must be identical for a match. | createdAt eq '2022-02-22'  |\n| size  | Filters on the export Size | gt | Greater than - The attribute must be greater than than operator values for a match. | size gt '150'  |\n|      |  | lt | Less than - The attribute must be less than than operator values for a match. | size gt '150'  |\n\n* All operators are case-sensitive and only lowercase is allowed. \n\t\t\n\t\te.g: \n\t\t\tvalid\t: eq\n\t\t\tinvalid : EQ\n* Filters can be combined using the and/or logical operator. \n\t\te.g: (name co 'hardware' or name eq 'software_technopedia')\n\t\n* When used as a query string, the filter parameter value must be URL encoded.\t\t \n\t\n\t\te.g: ?filter=(name%20co%20'hardware'%20or%20name%20eq%20'software_technopedia')\n\tWhen using cURL, the same expression can be URL encoded as follows: \n\t\t$ curl -s {$BASE_URL}/vis/v2/orgs/{$ORG_ID}/exports \\\n\t\t\t-H \"Authorization: Bearer $TOKEN\" \\\n\t\t\t-G --data-urlencode \"filter=(name co 'hardware' or name eq 'software_technopedia')\"\n","example":"type eq 'snapshot' and size ge 0","in":"query","name":"filter","schema":{"description":"Optional filter for returning requests matching specific criteria.\n\nThe following filters are supported:\n| Filter | Description | Allowed Operator | Behavior | Example |\n| --- | ---| --- | --- | --- |\n| id   | Filters on the export id | eq | Equal - The attribute and operator values must be identical for a match  | id eq '12345'  |\n| name | Filters on the export name | co | Contains - The entire operator value must be a substring of the attribute value for a match. |  name co 'hardware' |\n|      |  | eq | Equal - The attribute and operator values must be identical for a match. | name eq 'hardware_technopedia'  |\n| type | Filters on the type | eq | Equal - The attribute and operator values must be identical for a match. | type eq 'Delta'  |\n| createdAt | Filters on the createdAt | eq | Equal - The attribute and operator values must be identical for a match. | createdAt eq '2022-02-22'  |\n| size  | Filters on the export Size | gt | Greater than - The attribute must be greater than than operator values for a match. | size gt '150'  |\n|      |  | lt | Less than - The attribute must be less than than operator values for a match. | size gt '150'  |\n\n* All operators are case-sensitive and only lowercase is allowed. \n\t\t\n\t\te.g: \n\t\t\tvalid\t: eq\n\t\t\tinvalid : EQ\n* Filters can be combined using the and/or logical operator. \n\t\te.g: (name co 'hardware' or name eq 'software_technopedia')\n\t\n* When used as a query string, the filter parameter value must be URL encoded.\t\t \n\t\n\t\te.g: ?filter=(name%20co%20'hardware'%20or%20name%20eq%20'software_technopedia')\n\tWhen using cURL, the same expression can be URL encoded as follows: \n\t\t$ curl -s {$BASE_URL}/vis/v2/orgs/{$ORG_ID}/exports \\\n\t\t\t-H \"Authorization: Bearer $TOKEN\" \\\n\t\t\t-G --data-urlencode \"filter=(name co 'hardware' or name eq 'software_technopedia')\"\n","example":"type eq 'snapshot' and size ge 0","type":"string"}},{"allowEmptyValue":true,"description":"An opaque token to be provided when requesting a subsequent page after receiving a partial response. \nPartial responses will include a \"nextPage\" attribute in their response body, which contains the URL of the next page including the appropriate skipToken.","example":"19u2349","in":"query","name":"skipToken","schema":{"description":"An opaque token to be provided when requesting a subsequent page after receiving a partial response. \nPartial responses will include a \"nextPage\" attribute in their response body, which contains the URL of the next page including the appropriate skipToken.","example":"19u2349","type":"string"}},{"description":"The unique identifier for the organization","example":100,"in":"path","name":"orgId","required":true,"schema":{"description":"The unique identifier for the organization","example":100,"minimum":1,"type":"integer"}}],"responses":{"200":{"content":{"application/json":{"example":{"count":20,"nextPage":"/vis/v2/orgs/{orgId}/exports?skipToken=19u2349","prevPage":"/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u","values":[{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"},{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"},{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"},{"createdAt":"2018-05-16T16:31:52.1000Z","id":"7d795afa-c508-4d47-92ae-248113a792d1","name":"hardware_inventory","size":1080,"type":"snapshot"}]},"schema":{"$ref":"#/components/schemas/ExportFileList"}}},"description":"OK response."},"400":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"request is invalid","name":"bad_request","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_request: Bad Request response."},"401":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token is invalid","name":"unauthorized","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"unauthorized: Unauthorized response."},"403":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token does not have sufficient privileges","name":"forbidden","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"forbidden: Forbidden response."},"429":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting","name":"too_many_requests","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"too_many_requests: Too Many Requests response."},"500":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"something went wrong in the server","name":"internal_error","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"internal_error: Internal Server Error response."},"502":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"server is unable to handle the request","name":"bad_gateway","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_gateway: Bad Gateway response."}},"security":[{"JWTAuth_header_Authorization":["vis:workspace:index||common:org:own","vis:export:index||common:org:own","vis:export:download||common:org:own","vis:report:index||common:org:own","vis:report:embed||common:org:own","vis:query:create||common:org:own","vis:query:show||common:org:own","vis:query:download||common:org:own","vis:hardware_evidence:summary||common:org:own","vis:hardware_evidence:index||common:org:own","vis:hardware_evidence:download||common:org:own","vis:hardware_evidence:show||common:org:own","vis:software_evidence:summary||common:org:own","vis:software_evidence:index||common:org:own","vis:software_evidence:download||common:org:own","vis:software_evidence:show||common:org:own","vis:device:summary||common:org:own","vis:device:index||common:org:own","vis:device:download||common:org:own","vis:device:show||common:org:own","vis:device:delete||common:org:own","vis:os_evidence:summary||common:org:own","vis:os_evidence:index||common:org:own","vis:os_evidence:download||common:org:own","vis:os_evidence:show||common:org:own","vis:file_evidence:summary||common:org:own","vis:file_evidence:index||common:org:own","vis:file_evidence:download||common:org:own","vis:file_evidence:show||common:org:own"]}],"summary":"List all inventory exports","tags":["Export (Legacy)"]}},"/vis/v2/orgs/{orgId}/exports/files/{id}":{"get":{"description":"Download returns the specified export file.","operationId":"ExportDownload","parameters":[{"description":"The unique identifier for the organization","example":100,"in":"path","name":"orgId","required":true,"schema":{"description":"The unique identifier for the organization","example":100,"minimum":1,"type":"integer"}},{"description":"The Identifier of the file as returned from the INDEX endpoint","example":"7d795afa-c508-4d47-92ae-248113a792d1","in":"path","name":"id","required":true,"schema":{"description":"The Identifier of the file as returned from the INDEX endpoint","example":"7d795afa-c508-4d47-92ae-248113a792d1","maxLength":36,"type":"string"}}],"responses":{"200":{"description":"OK response.","headers":{"Content-Length":{"description":"content length in bytes of file","example":7729251450684401000,"required":true,"schema":{"description":"content length in bytes of file","example":4773412612854586000,"format":"int64","type":"integer"}}}},"400":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"request is invalid","name":"bad_request","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_request: Bad Request response."},"401":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token is invalid","name":"unauthorized","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"unauthorized: Unauthorized response."},"403":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token does not have sufficient privileges","name":"forbidden","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"forbidden: Forbidden response."},"404":{"content":{"application/vnd.goa.error":{"schema":{"$ref":"#/components/schemas/Error"}}},"description":"not_found: Not Found response."},"429":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting","name":"too_many_requests","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"too_many_requests: Too Many Requests response."},"500":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"something went wrong in the server","name":"internal_error","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"internal_error: Internal Server Error response."},"502":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"server is unable to handle the request","name":"bad_gateway","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_gateway: Bad Gateway response."}},"security":[{"JWTAuth_header_Authorization":["vis:workspace:index||common:org:own","vis:export:index||common:org:own","vis:export:download||common:org:own","vis:report:index||common:org:own","vis:report:embed||common:org:own","vis:query:create||common:org:own","vis:query:show||common:org:own","vis:query:download||common:org:own","vis:hardware_evidence:summary||common:org:own","vis:hardware_evidence:index||common:org:own","vis:hardware_evidence:download||common:org:own","vis:hardware_evidence:show||common:org:own","vis:software_evidence:summary||common:org:own","vis:software_evidence:index||common:org:own","vis:software_evidence:download||common:org:own","vis:software_evidence:show||common:org:own","vis:device:summary||common:org:own","vis:device:index||common:org:own","vis:device:download||common:org:own","vis:device:show||common:org:own","vis:device:delete||common:org:own","vis:os_evidence:summary||common:org:own","vis:os_evidence:index||common:org:own","vis:os_evidence:download||common:org:own","vis:os_evidence:show||common:org:own","vis:file_evidence:summary||common:org:own","vis:file_evidence:index||common:org:own","vis:file_evidence:download||common:org:own","vis:file_evidence:show||common:org:own"]}],"summary":"Download specified export file","tags":["Export (Legacy)"]}},"/vis/v2/orgs/{orgId}/queries":{"post":{"description":"Executes the specified query on the delta export data. Supports optional gzip compression for output files by including the query parameter \"outputCompression=gzip\".","operationId":"Query#create","parameters":[{"allowEmptyValue":true,"description":"An opaque token to be provided when requesting a subsequent set of delta changes for the same query.","example":"c2VxPTc4MTY3NTkyODU3Mjk4NzY=","in":"query","name":"resumeToken","schema":{"description":"An opaque token to be provided when requesting a subsequent set of delta changes for the same query.","example":"c2VxPTc4MTY3NTkyODU3Mjk4NzY=","type":"string"}},{"allowEmptyValue":true,"description":"If set to 'gzip', the server will return a gzip-compressed CSV. Supported value: gzip ","example":"gzip","in":"query","name":"outputCompression","schema":{"description":"If set to 'gzip', the server will return a gzip-compressed CSV. Supported value: gzip ","enum":["gzip"],"example":"gzip","type":"string"}},{"description":"The unique identifier for the organization","example":100,"in":"path","name":"orgId","required":true,"schema":{"description":"The unique identifier for the organization","example":100,"minimum":1,"type":"integer"}}],"requestBody":{"content":{"application/json":{"example":{"queryName":"software_inventory"},"schema":{"$ref":"#/components/schemas/CreateRequestBody"}}},"required":true},"responses":{"200":{"content":{"application/json":{"example":{"id":"7d795afa-c508-4d47-92ae-248113a792d1","resumeToken":"c2VxPTc4MTY3NTkyODU3Mjk4NzY="},"schema":{"$ref":"#/components/schemas/CreateResponseBody"}}},"description":"OK response."},"400":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"request is invalid","name":"bad_request","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_request: Bad Request response."},"401":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token is invalid","name":"unauthorized","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"unauthorized: Unauthorized response."},"403":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token does not have sufficient privileges","name":"forbidden","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"forbidden: Forbidden response."},"429":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting","name":"too_many_requests","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"too_many_requests: Too Many Requests response."},"500":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"something went wrong in the server","name":"internal_error","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"internal_error: Internal Server Error response."},"502":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"server is unable to handle the request","name":"bad_gateway","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_gateway: Bad Gateway response."},"503":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"server is not available to handle the request","name":"service_unavailable","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"service_unavailable: Service Unavailable response."}},"security":[{"JWTAuth_header_Authorization":["vis:workspace:index||common:org:own","vis:export:index||common:org:own","vis:export:download||common:org:own","vis:report:index||common:org:own","vis:report:embed||common:org:own","vis:query:create||common:org:own","vis:query:show||common:org:own","vis:query:download||common:org:own","vis:hardware_evidence:summary||common:org:own","vis:hardware_evidence:index||common:org:own","vis:hardware_evidence:download||common:org:own","vis:hardware_evidence:show||common:org:own","vis:software_evidence:summary||common:org:own","vis:software_evidence:index||common:org:own","vis:software_evidence:download||common:org:own","vis:software_evidence:show||common:org:own","vis:device:summary||common:org:own","vis:device:index||common:org:own","vis:device:download||common:org:own","vis:device:show||common:org:own","vis:device:delete||common:org:own","vis:os_evidence:summary||common:org:own","vis:os_evidence:index||common:org:own","vis:os_evidence:download||common:org:own","vis:os_evidence:show||common:org:own","vis:file_evidence:summary||common:org:own","vis:file_evidence:index||common:org:own","vis:file_evidence:download||common:org:own","vis:file_evidence:show||common:org:own"]}],"summary":"Execute a query on the delta export data","tags":["Query"]}},"/vis/v2/orgs/{orgId}/queries/{id}":{"get":{"description":"Show details of an executed query.","operationId":"Query#show","parameters":[{"description":"The unique identifier for the organization","example":100,"in":"path","name":"orgId","required":true,"schema":{"description":"The unique identifier for the organization","example":100,"minimum":1,"type":"integer"}},{"description":"The unique query identifier","example":"7d795afa-c508-4d47-92ae-248113a792d1","in":"path","name":"id","required":true,"schema":{"description":"The unique query identifier","example":"7d795afa-c508-4d47-92ae-248113a792d1","maxLength":36,"pattern":"^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$","type":"string"}}],"responses":{"200":{"content":{"application/json":{"example":{"completedAt":"2020-11-26T12:17:38.369Z","createdAt":"2020-11-26T12:17:38.369Z","error":"Query engine had an internal error","id":"7d795afa-c508-4d47-92ae-248113a792d1","status":"FAILED"},"schema":{"$ref":"#/components/schemas/QueryData"}}},"description":"OK response."},"400":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"request is invalid","name":"bad_request","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_request: Bad Request response."},"401":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token is invalid","name":"unauthorized","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"unauthorized: Unauthorized response."},"403":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token does not have sufficient privileges","name":"forbidden","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"forbidden: Forbidden response."},"404":{"content":{"application/vnd.goa.error":{"schema":{"$ref":"#/components/schemas/Error"}}},"description":"not_found: Not Found response."},"429":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting","name":"too_many_requests","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"too_many_requests: Too Many Requests response."},"500":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"something went wrong in the server","name":"internal_error","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"internal_error: Internal Server Error response."},"502":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"server is unable to handle the request","name":"bad_gateway","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_gateway: Bad Gateway response."}},"security":[{"JWTAuth_header_Authorization":["vis:workspace:index||common:org:own","vis:export:index||common:org:own","vis:export:download||common:org:own","vis:report:index||common:org:own","vis:report:embed||common:org:own","vis:query:create||common:org:own","vis:query:show||common:org:own","vis:query:download||common:org:own","vis:hardware_evidence:summary||common:org:own","vis:hardware_evidence:index||common:org:own","vis:hardware_evidence:download||common:org:own","vis:hardware_evidence:show||common:org:own","vis:software_evidence:summary||common:org:own","vis:software_evidence:index||common:org:own","vis:software_evidence:download||common:org:own","vis:software_evidence:show||common:org:own","vis:device:summary||common:org:own","vis:device:index||common:org:own","vis:device:download||common:org:own","vis:device:show||common:org:own","vis:device:delete||common:org:own","vis:os_evidence:summary||common:org:own","vis:os_evidence:index||common:org:own","vis:os_evidence:download||common:org:own","vis:os_evidence:show||common:org:own","vis:file_evidence:summary||common:org:own","vis:file_evidence:index||common:org:own","vis:file_evidence:download||common:org:own","vis:file_evidence:show||common:org:own"]}],"summary":"Show an executed query","tags":["Query"]}},"/vis/v2/orgs/{orgId}/queries/{id}/download":{"get":{"description":"Download the specified query results.","operationId":"Query#download","parameters":[{"allowEmptyValue":true,"description":"An opaque token to be provided when requesting a subsequent page after receiving a partial response. \nPartial responses will include a \"nextPage\" attribute in their response body, which contains the URL of the next page including the appropriate skipToken.","example":"19u2349","in":"query","name":"skipToken","schema":{"description":"An opaque token to be provided when requesting a subsequent page after receiving a partial response. \nPartial responses will include a \"nextPage\" attribute in their response body, which contains the URL of the next page including the appropriate skipToken.","example":"19u2349","type":"string"}},{"allowEmptyValue":true,"description":"The maximum number of rows to return for uncompressed CSV downloads. The maxResults parameter cannot be used with outputCompression=gzip. If both parameters are specified in the same request, the API will return a 400 Bad Request error.","example":100000,"in":"query","name":"maxResults","schema":{"default":0,"description":"The maximum number of rows to return for uncompressed CSV downloads. The maxResults parameter cannot be used with outputCompression=gzip. If both parameters are specified in the same request, the API will return a 400 Bad Request error.","example":100000,"maximum":100000,"type":"integer"}},{"description":"The unique identifier for the organization","example":100,"in":"path","name":"orgId","required":true,"schema":{"description":"The unique identifier for the organization","example":100,"minimum":1,"type":"integer"}},{"description":"The unique query identifier","example":"7d795afa-c508-4d47-92ae-248113a792d1","in":"path","name":"id","required":true,"schema":{"description":"The unique query identifier","example":"7d795afa-c508-4d47-92ae-248113a792d1","maxLength":36,"pattern":"^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$","type":"string"}}],"responses":{"200":{"description":"OK response.","headers":{"Content-Disposition":{"description":"The content disposition of the response body","example":"attachment; filename=\"results.csv.gz\"","schema":{"description":"The content disposition of the response body","example":"attachment; filename=\"results.csv.gz\"","type":"string"}},"Content-Length":{"description":"The length of the response body","example":123456,"required":true,"schema":{"description":"The length of the response body","example":123456,"format":"int64","type":"integer"}},"Link":{"description":"The Link header that includes pagination information","example":"</vis/v2/orgs/123/queries/7d795afa-c508-4d47-92ae-248113a792d1/download?maxResults=10000&skipToken=eyJ0cxc9819xOT>; rel=\"next\"","schema":{"description":"The Link header that includes pagination information","example":"</vis/v2/orgs/123/queries/7d795afa-c508-4d47-92ae-248113a792d1/download?maxResults=10000&skipToken=eyJ0cxc9819xOT>; rel=\"next\"","type":"string"}}}},"400":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"request is invalid","name":"bad_request","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_request: Bad Request response."},"401":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token is invalid","name":"unauthorized","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"unauthorized: Unauthorized response."},"403":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"access token does not have sufficient privileges","name":"forbidden","temporary":false,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"forbidden: Forbidden response."},"404":{"content":{"application/vnd.goa.error":{"schema":{"$ref":"#/components/schemas/Error"}}},"description":"not_found: Not Found response."},"429":{"content":{"application/vnd.goa.error":{"example":{"fault":false,"id":"123abc","message":"too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting","name":"too_many_requests","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"too_many_requests: Too Many Requests response."},"500":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"something went wrong in the server","name":"internal_error","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"internal_error: Internal Server Error response."},"502":{"content":{"application/vnd.goa.error":{"example":{"fault":true,"id":"123abc","message":"server is unable to handle the request","name":"bad_gateway","temporary":true,"timeout":false},"schema":{"$ref":"#/components/schemas/Error"}}},"description":"bad_gateway: Bad Gateway response."}},"security":[{"JWTAuth_header_Authorization":["vis:workspace:index||common:org:own","vis:export:index||common:org:own","vis:export:download||common:org:own","vis:report:index||common:org:own","vis:report:embed||common:org:own","vis:query:create||common:org:own","vis:query:show||common:org:own","vis:query:download||common:org:own","vis:hardware_evidence:summary||common:org:own","vis:hardware_evidence:index||common:org:own","vis:hardware_evidence:download||common:org:own","vis:hardware_evidence:show||common:org:own","vis:software_evidence:summary||common:org:own","vis:software_evidence:index||common:org:own","vis:software_evidence:download||common:org:own","vis:software_evidence:show||common:org:own","vis:device:summary||common:org:own","vis:device:index||common:org:own","vis:device:download||common:org:own","vis:device:show||common:org:own","vis:device:delete||common:org:own","vis:os_evidence:summary||common:org:own","vis:os_evidence:index||common:org:own","vis:os_evidence:download||common:org:own","vis:os_evidence:show||common:org:own","vis:file_evidence:summary||common:org:own","vis:file_evidence:index||common:org:own","vis:file_evidence:download||common:org:own","vis:file_evidence:show||common:org:own"]}],"summary":"Download query results","tags":["Query"]}}},"servers":[{"description":"The Flexera North American server","url":"https://api.flexera.com"},{"description":"The Flexera European server","url":"https://api.flexera.eu"},{"description":"The Flexera Asia Pacific server","url":"https://api.flexera.au"}],"tags":[{"description":"Device provides the ability to examine normalized devices in an org's environment. This provides an entry point to find what evidence was recognized on those devices.","name":"Device"},{"description":"**Note:** This legacy endpoint is not part of the Technology Intelligence Platform and will be retired on August 31, 2026. Please use the Query API or GraphQL API for supported access.<br><br>\n\tExport provides the ability to retrieve formatted inventory data stored in IT Visibility. \n\tExport data contains snapshot and delta information from specific points in time. These exports are automatically\n\tgenerated on regular intervals.\n\tAll export data is retrieved in parquet format.\n\tOnly inventory data associated with IT visibility and available to the organization can be retrieved.","name":"Export (Legacy)"},{"description":"**Note:** Effective **July 20, 2026**, all existing delta resume tokens will be invalidated. Please remove the resume token from your current request, run a new query, and use the newly generated resume token in subsequent requests to continue using delta queries.<br><br>\n\tITV queries provide the ability to dynamically retrieve formatted, contextualized and enriched inventory data stored in IT Visibility.","name":"Query"}]}
+{
+  "components": {
+    "schemas": {
+      "CreateRequestBody": {
+        "example": {
+          "queryName": "software_inventory"
+        },
+        "properties": {
+          "queryName": {
+            "description": "The query to execute.",
+            "enum": [
+              "hardware_business_services",
+              "hardware_contextualized",
+              "hardware_evidence",
+              "hardware_inventory",
+              "hardware_inventory_source",
+              "hardware_technopedia",
+              "hardware_technopedia_lifecycle",
+              "network_adapters",
+              "software_evidence",
+              "software_inventory",
+              "software_inventory_source",
+              "software_technopedia",
+              "software_technopedia_lifecycle",
+              "software_technopedia_lineage",
+              "software_technopedia_release_platforms",
+              "software_technopedia_versions",
+              "business_services_applications",
+              "business_services_assets",
+              "business_services_dependent_applications",
+              "software_vulnerability",
+              "cpe_catalog",
+              "software_vulnerability_cpe",
+              "software_vulnerability_cve",
+              "software_vulnerability_kb_article",
+              "vulnerable_software",
+              "hardware_model_profile",
+              "hardware_model_power",
+              "hardware_model_connectivity",
+              "software_mashup",
+              "device_mashup",
+              "manufacturer_technopedia",
+              "arl_alignment",
+              "vulnerability_advisory",
+              "vulnerability_cpe",
+              "vulnerability_cve",
+              "vulnerability_kb_article",
+              "vulnerability",
+              "servicenow_device",
+              "servicenow_software",
+              "servicenow_hardware_inventory",
+              "servicenow_software_inventory"
+            ],
+            "example": "software_inventory",
+            "type": "string"
+          }
+        },
+        "required": [
+          "queryName"
+        ],
+        "type": "object"
+      },
+      "CreateResponseBody": {
+        "example": {
+          "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+          "resumeToken": "c2VxPTc4MTY3NTkyODU3Mjk4NzY="
+        },
+        "properties": {
+          "id": {
+            "description": "The unique query identifier",
+            "example": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "maxLength": 36,
+            "pattern": "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$",
+            "type": "string"
+          },
+          "resumeToken": {
+            "description": "The next delta value",
+            "example": "c2VxPTc4MTY3NTkyODU3Mjk4NzY=",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "DeviceDatasourceSelection": {
+        "description": "A selection of datasources to delete devices from. If included in the datasources filter, only 1 property should be set",
+        "example": {
+          "field": "type",
+          "value": "SCCM"
+        },
+        "properties": {
+          "field": {
+            "description": "The field to use for the selection of datasources",
+            "enum": [
+              "id",
+              "name",
+              "type"
+            ],
+            "example": "type",
+            "type": "string"
+          },
+          "value": {
+            "description": "The value for the datasource selection",
+            "example": "SCCM",
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "value"
+        ],
+        "type": "object"
+      },
+      "Error": {
+        "description": "invalid filter received",
+        "example": {
+          "fault": false,
+          "id": "123abc",
+          "message": "invalid filter received in request",
+          "name": "invalid_filter",
+          "temporary": false,
+          "timeout": false
+        },
+        "properties": {
+          "fault": {
+            "description": "Is the error a server-side fault?",
+            "example": false,
+            "type": "boolean"
+          },
+          "id": {
+            "description": "ID is a unique identifier for this particular occurrence of the problem.",
+            "example": "123abc",
+            "type": "string"
+          },
+          "message": {
+            "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+            "example": "parameter 'p' must be an integer",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name is the name of this class of errors.",
+            "example": "bad_request",
+            "type": "string"
+          },
+          "temporary": {
+            "description": "Is the error temporary?",
+            "example": false,
+            "type": "boolean"
+          },
+          "timeout": {
+            "description": "Is the error a timeout?",
+            "example": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "id",
+          "message",
+          "temporary",
+          "timeout",
+          "fault"
+        ],
+        "type": "object"
+      },
+      "EstimateDeleteRequestBody": {
+        "example": {
+          "datasourceSelectors": [
+            {
+              "field": "type",
+              "value": "SCCM"
+            },
+            {
+              "field": "type",
+              "value": "SCCM"
+            },
+            {
+              "field": "type",
+              "value": "SCCM"
+            },
+            {
+              "field": "type",
+              "value": "SCCM"
+            }
+          ],
+          "deviceIds": [
+            "Voluptatum optio laudantium illum doloribus delectus ea.",
+            "Vitae repellat voluptatum ipsum.",
+            "Sint vel provident voluptates ut asperiores aliquam.",
+            "Occaecati architecto."
+          ]
+        },
+        "properties": {
+          "datasourceSelectors": {
+            "description": "List of datasources to delete devices from",
+            "example": [
+              {
+                "field": "type",
+                "value": "SCCM"
+              },
+              {
+                "field": "type",
+                "value": "SCCM"
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/DeviceDatasourceSelection"
+            },
+            "type": "array"
+          },
+          "deviceIds": {
+            "description": "List of device IDs to delete",
+            "example": [
+              "Quasi cum itaque fugiat.",
+              "Voluptatibus aliquam iste ipsa.",
+              "Aliquid nam.",
+              "Enim laboriosam tempore."
+            ],
+            "items": {
+              "example": "Blanditiis fugiat magni.",
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "deviceIds"
+        ],
+        "type": "object"
+      },
+      "ExportDataCollection": {
+        "example": [
+          {
+            "createdAt": "2018-05-16T16:31:52.1000Z",
+            "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "name": "hardware_inventory",
+            "size": 1080,
+            "type": "snapshot"
+          },
+          {
+            "createdAt": "2018-05-16T16:31:52.1000Z",
+            "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "name": "hardware_inventory",
+            "size": 1080,
+            "type": "snapshot"
+          }
+        ],
+        "items": {
+          "$ref": "#/components/schemas/FlexeraVisFiledata"
+        },
+        "type": "array"
+      },
+      "ExportFileList": {
+        "example": {
+          "count": 20,
+          "nextPage": "/vis/v2/orgs/{orgId}/exports?skipToken=19u2349",
+          "prevPage": "/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u",
+          "values": [
+            {
+              "createdAt": "2018-05-16T16:31:52.1000Z",
+              "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+              "name": "hardware_inventory",
+              "size": 1080,
+              "type": "snapshot"
+            },
+            {
+              "createdAt": "2018-05-16T16:31:52.1000Z",
+              "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+              "name": "hardware_inventory",
+              "size": 1080,
+              "type": "snapshot"
+            },
+            {
+              "createdAt": "2018-05-16T16:31:52.1000Z",
+              "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+              "name": "hardware_inventory",
+              "size": 1080,
+              "type": "snapshot"
+            },
+            {
+              "createdAt": "2018-05-16T16:31:52.1000Z",
+              "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+              "name": "hardware_inventory",
+              "size": 1080,
+              "type": "snapshot"
+            }
+          ]
+        },
+        "properties": {
+          "count": {
+            "description": "The count is the number of Export data objects in the list.",
+            "example": 20,
+            "type": "integer"
+          },
+          "nextPage": {
+            "description": "URL to the next page of data. If nextPage is not present, the returned page of data is the last.",
+            "example": "/vis/v2/orgs/{orgId}/exports?skipToken=19u2349",
+            "format": "uri",
+            "type": "string"
+          },
+          "prevPage": {
+            "description": "URL to the previous page of data. The first page of data will not return a prevPage value.",
+            "example": "/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u",
+            "format": "uri",
+            "type": "string"
+          },
+          "values": {
+            "$ref": "#/components/schemas/ExportDataCollection"
+          }
+        },
+        "type": "object"
+      },
+      "FlexeraVisDeviceDeletionSummary": {
+        "description": "A count of devices that would be deleted by the query.",
+        "example": {
+          "count": 150,
+          "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+          "datasourceName": "SCCM_PROD_AP",
+          "datasourceType": "SCCM"
+        },
+        "properties": {
+          "count": {
+            "description": "The number of devices that would be deleted",
+            "example": 150,
+            "type": "integer"
+          },
+          "datasourceId": {
+            "description": "The ID of the datasource",
+            "example": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+            "type": "string"
+          },
+          "datasourceName": {
+            "description": "The name of the datasource",
+            "example": "SCCM_PROD_AP",
+            "type": "string"
+          },
+          "datasourceType": {
+            "description": "The type of the datasource",
+            "example": "SCCM",
+            "type": "string"
+          }
+        },
+        "required": [
+          "count",
+          "datasourceId",
+          "datasourceName",
+          "datasourceType"
+        ],
+        "type": "object"
+      },
+      "FlexeraVisFiledata": {
+        "description": "ExportData represents the data file of the inventory export snapshot or delta and associated info of the file.",
+        "example": {
+          "createdAt": "2018-05-16T16:31:52.1000Z",
+          "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+          "name": "hardware_inventory",
+          "size": 1080,
+          "type": "snapshot"
+        },
+        "properties": {
+          "createdAt": {
+            "description": "The datetime this object was created in ISO-8601 format.",
+            "example": "2018-05-16T16:31:52.1000Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "description": "Identifier of the file. This will allow the user to reference the Export Data for download.Identifier uniquely identifes the Inventory Export object.",
+            "example": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "maxLength": 36,
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the object.",
+            "example": "hardware_inventory",
+            "type": "string"
+          },
+          "size": {
+            "description": "The size in bytes of the object",
+            "example": 1080,
+            "type": "integer"
+          },
+          "type": {
+            "description": "Is the file a snapshot or delta object",
+            "enum": [
+              "snapshot",
+              "delta"
+            ],
+            "example": "snapshot",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "QueryData": {
+        "example": {
+          "completedAt": "2020-11-26T12:17:38.369Z",
+          "createdAt": "2020-11-26T12:17:38.369Z",
+          "error": "Query engine had an internal error",
+          "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+          "status": "FAILED"
+        },
+        "properties": {
+          "completedAt": {
+            "description": "The date and time that the query completed.",
+            "example": "2020-11-26T12:17:38.369Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "The date and time that the query was submitted.",
+            "example": "2020-11-26T12:17:38.369Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "error": {
+            "description": "Provides information about a query error.",
+            "example": "Query engine had an internal error",
+            "type": "string"
+          },
+          "id": {
+            "description": "The unique query identifier",
+            "example": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "maxLength": 36,
+            "pattern": "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$",
+            "type": "string"
+          },
+          "status": {
+            "description": "The status of the execution. Possible values are QUEUED, RUNNING, SUCCEEDED, FAILED.",
+            "example": "FAILED",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "JWTAuth_header_Authorization": {
+        "scheme": "bearer",
+        "type": "http"
+      },
+      "jwt_header_Authorization": {
+        "description": "Secures endpoint by requiring a valid JWT token retrieved via the signin endpoint.",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "description": "Flexera API for all IT Visibility services.\n\nThe API is available at the following endpoints, dependent upon the user/tenant zone:\n| Zone        | Base URL    |\n| ----------- | ----------- |\n| NAM         | https://api.flexera.com/vis/ |\n| EU          | https://api.flexera.eu/vis/ |\n| APAC        | https://api.flexera.au/vis/ |\n",
+    "title": "IT Visibility API",
+    "version": "2.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/vis/v2/orgs/{orgId}/devices/delete/estimate": {
+      "post": {
+        "description": "Returns an estimated number of device evidences associated with the datasource data that would be deleted using the query.",
+        "operationId": "Device#estimateDelete",
+        "parameters": [
+          {
+            "description": "The unique identifier for the organization",
+            "example": 100,
+            "in": "path",
+            "name": "orgId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the organization",
+              "example": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "datasourceSelectors": [
+                  {
+                    "field": "type",
+                    "value": "SCCM"
+                  },
+                  {
+                    "field": "type",
+                    "value": "SCCM"
+                  }
+                ],
+                "deviceIds": [
+                  "Quo nesciunt fuga laborum quam.",
+                  "Corrupti atque quibusdam est sit maiores fugit.",
+                  "Similique eum ratione accusantium ea id ut.",
+                  "Culpa qui aspernatur neque."
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/EstimateDeleteRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
+                  },
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
+                  },
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
+                  },
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
+                  }
+                ],
+                "schema": {
+                  "example": [
+                    {
+                      "count": 150,
+                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                      "datasourceName": "SCCM_PROD_AP",
+                      "datasourceType": "SCCM"
+                    },
+                    {
+                      "count": 150,
+                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                      "datasourceName": "SCCM_PROD_AP",
+                      "datasourceType": "SCCM"
+                    }
+                  ],
+                  "items": {
+                    "$ref": "#/components/schemas/FlexeraVisDeviceDeletionSummary"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "OK response."
+          },
+          "400": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_request: Bad Request response."
+          },
+          "401": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unauthorized: Unauthorized response."
+          },
+          "403": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "forbidden: Forbidden response."
+          },
+          "429": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "too_many_requests: Too Many Requests response."
+          },
+          "500": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "internal_error: Internal Server Error response."
+          },
+          "502": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_gateway: Bad Gateway response."
+          }
+        },
+        "security": [
+          {
+            "JWTAuth_header_Authorization": [
+              "vis:workspace:index||common:org:own",
+              "vis:export:index||common:org:own",
+              "vis:export:download||common:org:own",
+              "vis:report:index||common:org:own",
+              "vis:report:embed||common:org:own",
+              "vis:query:create||common:org:own",
+              "vis:query:show||common:org:own",
+              "vis:query:download||common:org:own",
+              "vis:hardware_evidence:summary||common:org:own",
+              "vis:hardware_evidence:index||common:org:own",
+              "vis:hardware_evidence:download||common:org:own",
+              "vis:hardware_evidence:show||common:org:own",
+              "vis:software_evidence:summary||common:org:own",
+              "vis:software_evidence:index||common:org:own",
+              "vis:software_evidence:download||common:org:own",
+              "vis:software_evidence:show||common:org:own",
+              "vis:device:summary||common:org:own",
+              "vis:device:index||common:org:own",
+              "vis:device:download||common:org:own",
+              "vis:device:show||common:org:own",
+              "vis:device:delete||common:org:own",
+              "vis:os_evidence:summary||common:org:own",
+              "vis:os_evidence:index||common:org:own",
+              "vis:os_evidence:download||common:org:own",
+              "vis:os_evidence:show||common:org:own",
+              "vis:file_evidence:summary||common:org:own",
+              "vis:file_evidence:index||common:org:own",
+              "vis:file_evidence:download||common:org:own",
+              "vis:file_evidence:show||common:org:own",
+              "vis:data_fusion:show||common:org:own",
+              "vis:data_fusion:update||common:org:own"
+            ]
+          }
+        ],
+        "summary": "Estimate device evidence that would be deleted using the query",
+        "tags": [
+          "Device"
+        ]
+      }
+    },
+    "/vis/v2/orgs/{orgId}/devices/delete/submit": {
+      "post": {
+        "description": "Deletes device evidence for the specified device IDs and datasource selectors.",
+        "operationId": "Device#delete",
+        "parameters": [
+          {
+            "description": "The unique identifier for the organization",
+            "example": 100,
+            "in": "path",
+            "name": "orgId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the organization",
+              "example": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "datasourceSelectors": [
+                  {
+                    "field": "type",
+                    "value": "SCCM"
+                  },
+                  {
+                    "field": "type",
+                    "value": "SCCM"
+                  }
+                ],
+                "deviceIds": [
+                  "Id suscipit.",
+                  "Explicabo dolore corrupti esse.",
+                  "Quia iste velit doloremque quisquam."
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/EstimateDeleteRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
+                  },
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
+                  }
+                ],
+                "schema": {
+                  "example": [
+                    {
+                      "count": 150,
+                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                      "datasourceName": "SCCM_PROD_AP",
+                      "datasourceType": "SCCM"
+                    },
+                    {
+                      "count": 150,
+                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                      "datasourceName": "SCCM_PROD_AP",
+                      "datasourceType": "SCCM"
+                    },
+                    {
+                      "count": 150,
+                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                      "datasourceName": "SCCM_PROD_AP",
+                      "datasourceType": "SCCM"
+                    },
+                    {
+                      "count": 150,
+                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                      "datasourceName": "SCCM_PROD_AP",
+                      "datasourceType": "SCCM"
+                    }
+                  ],
+                  "items": {
+                    "$ref": "#/components/schemas/FlexeraVisDeviceDeletionSummary"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Accepted response."
+          },
+          "400": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_request: Bad Request response."
+          },
+          "401": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unauthorized: Unauthorized response."
+          },
+          "403": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "forbidden: Forbidden response."
+          },
+          "429": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "too_many_requests: Too Many Requests response."
+          },
+          "500": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "internal_error: Internal Server Error response."
+          },
+          "502": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_gateway: Bad Gateway response."
+          }
+        },
+        "security": [
+          {
+            "JWTAuth_header_Authorization": [
+              "vis:workspace:index||common:org:own",
+              "vis:export:index||common:org:own",
+              "vis:export:download||common:org:own",
+              "vis:report:index||common:org:own",
+              "vis:report:embed||common:org:own",
+              "vis:query:create||common:org:own",
+              "vis:query:show||common:org:own",
+              "vis:query:download||common:org:own",
+              "vis:hardware_evidence:summary||common:org:own",
+              "vis:hardware_evidence:index||common:org:own",
+              "vis:hardware_evidence:download||common:org:own",
+              "vis:hardware_evidence:show||common:org:own",
+              "vis:software_evidence:summary||common:org:own",
+              "vis:software_evidence:index||common:org:own",
+              "vis:software_evidence:download||common:org:own",
+              "vis:software_evidence:show||common:org:own",
+              "vis:device:summary||common:org:own",
+              "vis:device:index||common:org:own",
+              "vis:device:download||common:org:own",
+              "vis:device:show||common:org:own",
+              "vis:device:delete||common:org:own",
+              "vis:os_evidence:summary||common:org:own",
+              "vis:os_evidence:index||common:org:own",
+              "vis:os_evidence:download||common:org:own",
+              "vis:os_evidence:show||common:org:own",
+              "vis:file_evidence:summary||common:org:own",
+              "vis:file_evidence:index||common:org:own",
+              "vis:file_evidence:download||common:org:own",
+              "vis:file_evidence:show||common:org:own",
+              "vis:data_fusion:show||common:org:own",
+              "vis:data_fusion:update||common:org:own"
+            ]
+          }
+        ],
+        "summary": "delete the device evidence for the given device ids using the query",
+        "tags": [
+          "Device"
+        ]
+      }
+    },
+    "/vis/v2/orgs/{orgId}/exports": {
+      "get": {
+        "description": "Index returns a list of inventory exports to which an org has access.\n\t\tRetrieves file list by filter params",
+        "operationId": "Export ",
+        "parameters": [
+          {
+            "allowEmptyValue": true,
+            "description": "Optional filter for returning requests matching specific criteria.\n\nThe following filters are supported:\n| Filter | Description | Allowed Operator | Behavior | Example |\n| --- | ---| --- | --- | --- |\n| id   | Filters on the export id | eq | Equal - The attribute and operator values must be identical for a match  | id eq '12345'  |\n| name | Filters on the export name | co | Contains - The entire operator value must be a substring of the attribute value for a match. |  name co 'hardware' |\n|      |  | eq | Equal - The attribute and operator values must be identical for a match. | name eq 'hardware_technopedia'  |\n| type | Filters on the type | eq | Equal - The attribute and operator values must be identical for a match. | type eq 'Delta'  |\n| createdAt | Filters on the createdAt | eq | Equal - The attribute and operator values must be identical for a match. | createdAt eq '2022-02-22'  |\n| size  | Filters on the export Size | gt | Greater than - The attribute must be greater than than operator values for a match. | size gt '150'  |\n|      |  | lt | Less than - The attribute must be less than than operator values for a match. | size gt '150'  |\n\n* All operators are case-sensitive and only lowercase is allowed. \n\t\t\n\t\te.g: \n\t\t\tvalid\t: eq\n\t\t\tinvalid : EQ\n* Filters can be combined using the and/or logical operator. \n\t\te.g: (name co 'hardware' or name eq 'software_technopedia')\n\t\n* When used as a query string, the filter parameter value must be URL encoded.\t\t \n\t\n\t\te.g: ?filter=(name%20co%20'hardware'%20or%20name%20eq%20'software_technopedia')\n\tWhen using cURL, the same expression can be URL encoded as follows: \n\t\t$ curl -s {$BASE_URL}/vis/v2/orgs/{$ORG_ID}/exports \\\n\t\t\t-H \"Authorization: Bearer $TOKEN\" \\\n\t\t\t-G --data-urlencode \"filter=(name co 'hardware' or name eq 'software_technopedia')\"\n",
+            "example": "type eq 'snapshot' and size ge 0",
+            "in": "query",
+            "name": "filter",
+            "schema": {
+              "description": "Optional filter for returning requests matching specific criteria.\n\nThe following filters are supported:\n| Filter | Description | Allowed Operator | Behavior | Example |\n| --- | ---| --- | --- | --- |\n| id   | Filters on the export id | eq | Equal - The attribute and operator values must be identical for a match  | id eq '12345'  |\n| name | Filters on the export name | co | Contains - The entire operator value must be a substring of the attribute value for a match. |  name co 'hardware' |\n|      |  | eq | Equal - The attribute and operator values must be identical for a match. | name eq 'hardware_technopedia'  |\n| type | Filters on the type | eq | Equal - The attribute and operator values must be identical for a match. | type eq 'Delta'  |\n| createdAt | Filters on the createdAt | eq | Equal - The attribute and operator values must be identical for a match. | createdAt eq '2022-02-22'  |\n| size  | Filters on the export Size | gt | Greater than - The attribute must be greater than than operator values for a match. | size gt '150'  |\n|      |  | lt | Less than - The attribute must be less than than operator values for a match. | size gt '150'  |\n\n* All operators are case-sensitive and only lowercase is allowed. \n\t\t\n\t\te.g: \n\t\t\tvalid\t: eq\n\t\t\tinvalid : EQ\n* Filters can be combined using the and/or logical operator. \n\t\te.g: (name co 'hardware' or name eq 'software_technopedia')\n\t\n* When used as a query string, the filter parameter value must be URL encoded.\t\t \n\t\n\t\te.g: ?filter=(name%20co%20'hardware'%20or%20name%20eq%20'software_technopedia')\n\tWhen using cURL, the same expression can be URL encoded as follows: \n\t\t$ curl -s {$BASE_URL}/vis/v2/orgs/{$ORG_ID}/exports \\\n\t\t\t-H \"Authorization: Bearer $TOKEN\" \\\n\t\t\t-G --data-urlencode \"filter=(name co 'hardware' or name eq 'software_technopedia')\"\n",
+              "example": "type eq 'snapshot' and size ge 0",
+              "type": "string"
+            }
+          },
+          {
+            "allowEmptyValue": true,
+            "description": "An opaque token to be provided when requesting a subsequent page after receiving a partial response. \nPartial responses will include a \"nextPage\" attribute in their response body, which contains the URL of the next page including the appropriate skipToken.",
+            "example": "19u2349",
+            "in": "query",
+            "name": "skipToken",
+            "schema": {
+              "description": "An opaque token to be provided when requesting a subsequent page after receiving a partial response. \nPartial responses will include a \"nextPage\" attribute in their response body, which contains the URL of the next page including the appropriate skipToken.",
+              "example": "19u2349",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The unique identifier for the organization",
+            "example": 100,
+            "in": "path",
+            "name": "orgId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the organization",
+              "example": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "count": 20,
+                  "nextPage": "/vis/v2/orgs/{orgId}/exports?skipToken=19u2349",
+                  "prevPage": "/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u",
+                  "values": [
+                    {
+                      "createdAt": "2018-05-16T16:31:52.1000Z",
+                      "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+                      "name": "hardware_inventory",
+                      "size": 1080,
+                      "type": "snapshot"
+                    },
+                    {
+                      "createdAt": "2018-05-16T16:31:52.1000Z",
+                      "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+                      "name": "hardware_inventory",
+                      "size": 1080,
+                      "type": "snapshot"
+                    },
+                    {
+                      "createdAt": "2018-05-16T16:31:52.1000Z",
+                      "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+                      "name": "hardware_inventory",
+                      "size": 1080,
+                      "type": "snapshot"
+                    },
+                    {
+                      "createdAt": "2018-05-16T16:31:52.1000Z",
+                      "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+                      "name": "hardware_inventory",
+                      "size": 1080,
+                      "type": "snapshot"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ExportFileList"
+                }
+              }
+            },
+            "description": "OK response."
+          },
+          "400": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_request: Bad Request response."
+          },
+          "401": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unauthorized: Unauthorized response."
+          },
+          "403": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "forbidden: Forbidden response."
+          },
+          "429": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "too_many_requests: Too Many Requests response."
+          },
+          "500": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "internal_error: Internal Server Error response."
+          },
+          "502": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_gateway: Bad Gateway response."
+          }
+        },
+        "security": [
+          {
+            "JWTAuth_header_Authorization": [
+              "vis:workspace:index||common:org:own",
+              "vis:export:index||common:org:own",
+              "vis:export:download||common:org:own",
+              "vis:report:index||common:org:own",
+              "vis:report:embed||common:org:own",
+              "vis:query:create||common:org:own",
+              "vis:query:show||common:org:own",
+              "vis:query:download||common:org:own",
+              "vis:hardware_evidence:summary||common:org:own",
+              "vis:hardware_evidence:index||common:org:own",
+              "vis:hardware_evidence:download||common:org:own",
+              "vis:hardware_evidence:show||common:org:own",
+              "vis:software_evidence:summary||common:org:own",
+              "vis:software_evidence:index||common:org:own",
+              "vis:software_evidence:download||common:org:own",
+              "vis:software_evidence:show||common:org:own",
+              "vis:device:summary||common:org:own",
+              "vis:device:index||common:org:own",
+              "vis:device:download||common:org:own",
+              "vis:device:show||common:org:own",
+              "vis:device:delete||common:org:own",
+              "vis:os_evidence:summary||common:org:own",
+              "vis:os_evidence:index||common:org:own",
+              "vis:os_evidence:download||common:org:own",
+              "vis:os_evidence:show||common:org:own",
+              "vis:file_evidence:summary||common:org:own",
+              "vis:file_evidence:index||common:org:own",
+              "vis:file_evidence:download||common:org:own",
+              "vis:file_evidence:show||common:org:own",
+              "vis:data_fusion:show||common:org:own",
+              "vis:data_fusion:update||common:org:own"
+            ]
+          }
+        ],
+        "summary": "List all inventory exports",
+        "tags": [
+          "Export (Legacy)"
+        ]
+      }
+    },
+    "/vis/v2/orgs/{orgId}/exports/files/{id}": {
+      "get": {
+        "description": "Download returns the specified export file.",
+        "operationId": "Export ",
+        "parameters": [
+          {
+            "description": "The unique identifier for the organization",
+            "example": 100,
+            "in": "path",
+            "name": "orgId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the organization",
+              "example": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The Identifier of the file as returned from the INDEX endpoint",
+            "example": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "The Identifier of the file as returned from the INDEX endpoint",
+              "example": "7d795afa-c508-4d47-92ae-248113a792d1",
+              "maxLength": 36,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response.",
+            "headers": {
+              "Content-Length": {
+                "description": "content length in bytes of file",
+                "example": 7729251450684401000,
+                "required": true,
+                "schema": {
+                  "description": "content length in bytes of file",
+                  "example": 4773412612854586000,
+                  "format": "int64",
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_request: Bad Request response."
+          },
+          "401": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unauthorized: Unauthorized response."
+          },
+          "403": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "forbidden: Forbidden response."
+          },
+          "404": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "not_found: Not Found response."
+          },
+          "429": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "too_many_requests: Too Many Requests response."
+          },
+          "500": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "internal_error: Internal Server Error response."
+          },
+          "502": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_gateway: Bad Gateway response."
+          }
+        },
+        "security": [
+          {
+            "JWTAuth_header_Authorization": [
+              "vis:workspace:index||common:org:own",
+              "vis:export:index||common:org:own",
+              "vis:export:download||common:org:own",
+              "vis:report:index||common:org:own",
+              "vis:report:embed||common:org:own",
+              "vis:query:create||common:org:own",
+              "vis:query:show||common:org:own",
+              "vis:query:download||common:org:own",
+              "vis:hardware_evidence:summary||common:org:own",
+              "vis:hardware_evidence:index||common:org:own",
+              "vis:hardware_evidence:download||common:org:own",
+              "vis:hardware_evidence:show||common:org:own",
+              "vis:software_evidence:summary||common:org:own",
+              "vis:software_evidence:index||common:org:own",
+              "vis:software_evidence:download||common:org:own",
+              "vis:software_evidence:show||common:org:own",
+              "vis:device:summary||common:org:own",
+              "vis:device:index||common:org:own",
+              "vis:device:download||common:org:own",
+              "vis:device:show||common:org:own",
+              "vis:device:delete||common:org:own",
+              "vis:os_evidence:summary||common:org:own",
+              "vis:os_evidence:index||common:org:own",
+              "vis:os_evidence:download||common:org:own",
+              "vis:os_evidence:show||common:org:own",
+              "vis:file_evidence:summary||common:org:own",
+              "vis:file_evidence:index||common:org:own",
+              "vis:file_evidence:download||common:org:own",
+              "vis:file_evidence:show||common:org:own",
+              "vis:data_fusion:show||common:org:own",
+              "vis:data_fusion:update||common:org:own"
+            ]
+          }
+        ],
+        "summary": "Download specified export file",
+        "tags": [
+          "Export (Legacy)"
+        ]
+      }
+    },
+    "/vis/v2/orgs/{orgId}/queries": {
+      "post": {
+        "description": "Executes the specified query on the delta export data. Supports optional gzip compression for output files by including the query parameter \"outputCompression=gzip\".",
+        "operationId": "Query#create",
+        "parameters": [
+          {
+            "allowEmptyValue": true,
+            "description": "An opaque token to be provided when requesting a subsequent set of delta changes for the same query.",
+            "example": "c2VxPTc4MTY3NTkyODU3Mjk4NzY=",
+            "in": "query",
+            "name": "resumeToken",
+            "schema": {
+              "description": "An opaque token to be provided when requesting a subsequent set of delta changes for the same query.",
+              "example": "c2VxPTc4MTY3NTkyODU3Mjk4NzY=",
+              "type": "string"
+            }
+          },
+          {
+            "allowEmptyValue": true,
+            "description": "If set to 'gzip', the server will return a gzip-compressed CSV. Supported value: gzip ",
+            "example": "gzip",
+            "in": "query",
+            "name": "outputCompression",
+            "schema": {
+              "description": "If set to 'gzip', the server will return a gzip-compressed CSV. Supported value: gzip ",
+              "enum": [
+                "gzip"
+              ],
+              "example": "gzip",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The unique identifier for the organization",
+            "example": 100,
+            "in": "path",
+            "name": "orgId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the organization",
+              "example": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "queryName": "software_inventory"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreateRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+                  "resumeToken": "c2VxPTc4MTY3NTkyODU3Mjk4NzY="
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CreateResponseBody"
+                }
+              }
+            },
+            "description": "OK response."
+          },
+          "400": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_request: Bad Request response."
+          },
+          "401": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unauthorized: Unauthorized response."
+          },
+          "403": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "forbidden: Forbidden response."
+          },
+          "429": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "too_many_requests: Too Many Requests response."
+          },
+          "500": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "internal_error: Internal Server Error response."
+          },
+          "502": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_gateway: Bad Gateway response."
+          },
+          "503": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is not available to handle the request",
+                  "name": "service_unavailable",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "service_unavailable: Service Unavailable response."
+          }
+        },
+        "security": [
+          {
+            "JWTAuth_header_Authorization": [
+              "vis:workspace:index||common:org:own",
+              "vis:export:index||common:org:own",
+              "vis:export:download||common:org:own",
+              "vis:report:index||common:org:own",
+              "vis:report:embed||common:org:own",
+              "vis:query:create||common:org:own",
+              "vis:query:show||common:org:own",
+              "vis:query:download||common:org:own",
+              "vis:hardware_evidence:summary||common:org:own",
+              "vis:hardware_evidence:index||common:org:own",
+              "vis:hardware_evidence:download||common:org:own",
+              "vis:hardware_evidence:show||common:org:own",
+              "vis:software_evidence:summary||common:org:own",
+              "vis:software_evidence:index||common:org:own",
+              "vis:software_evidence:download||common:org:own",
+              "vis:software_evidence:show||common:org:own",
+              "vis:device:summary||common:org:own",
+              "vis:device:index||common:org:own",
+              "vis:device:download||common:org:own",
+              "vis:device:show||common:org:own",
+              "vis:device:delete||common:org:own",
+              "vis:os_evidence:summary||common:org:own",
+              "vis:os_evidence:index||common:org:own",
+              "vis:os_evidence:download||common:org:own",
+              "vis:os_evidence:show||common:org:own",
+              "vis:file_evidence:summary||common:org:own",
+              "vis:file_evidence:index||common:org:own",
+              "vis:file_evidence:download||common:org:own",
+              "vis:file_evidence:show||common:org:own",
+              "vis:data_fusion:show||common:org:own",
+              "vis:data_fusion:update||common:org:own"
+            ]
+          }
+        ],
+        "summary": "Execute a query on the delta export data",
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/vis/v2/orgs/{orgId}/queries/{id}": {
+      "get": {
+        "description": "Show details of an executed query.",
+        "operationId": "Query#show",
+        "parameters": [
+          {
+            "description": "The unique identifier for the organization",
+            "example": 100,
+            "in": "path",
+            "name": "orgId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the organization",
+              "example": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The unique query identifier",
+            "example": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "The unique query identifier",
+              "example": "7d795afa-c508-4d47-92ae-248113a792d1",
+              "maxLength": 36,
+              "pattern": "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "completedAt": "2020-11-26T12:17:38.369Z",
+                  "createdAt": "2020-11-26T12:17:38.369Z",
+                  "error": "Query engine had an internal error",
+                  "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+                  "status": "FAILED"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/QueryData"
+                }
+              }
+            },
+            "description": "OK response."
+          },
+          "400": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_request: Bad Request response."
+          },
+          "401": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unauthorized: Unauthorized response."
+          },
+          "403": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "forbidden: Forbidden response."
+          },
+          "404": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "not_found: Not Found response."
+          },
+          "429": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "too_many_requests: Too Many Requests response."
+          },
+          "500": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "internal_error: Internal Server Error response."
+          },
+          "502": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_gateway: Bad Gateway response."
+          }
+        },
+        "security": [
+          {
+            "JWTAuth_header_Authorization": [
+              "vis:workspace:index||common:org:own",
+              "vis:export:index||common:org:own",
+              "vis:export:download||common:org:own",
+              "vis:report:index||common:org:own",
+              "vis:report:embed||common:org:own",
+              "vis:query:create||common:org:own",
+              "vis:query:show||common:org:own",
+              "vis:query:download||common:org:own",
+              "vis:hardware_evidence:summary||common:org:own",
+              "vis:hardware_evidence:index||common:org:own",
+              "vis:hardware_evidence:download||common:org:own",
+              "vis:hardware_evidence:show||common:org:own",
+              "vis:software_evidence:summary||common:org:own",
+              "vis:software_evidence:index||common:org:own",
+              "vis:software_evidence:download||common:org:own",
+              "vis:software_evidence:show||common:org:own",
+              "vis:device:summary||common:org:own",
+              "vis:device:index||common:org:own",
+              "vis:device:download||common:org:own",
+              "vis:device:show||common:org:own",
+              "vis:device:delete||common:org:own",
+              "vis:os_evidence:summary||common:org:own",
+              "vis:os_evidence:index||common:org:own",
+              "vis:os_evidence:download||common:org:own",
+              "vis:os_evidence:show||common:org:own",
+              "vis:file_evidence:summary||common:org:own",
+              "vis:file_evidence:index||common:org:own",
+              "vis:file_evidence:download||common:org:own",
+              "vis:file_evidence:show||common:org:own",
+              "vis:data_fusion:show||common:org:own",
+              "vis:data_fusion:update||common:org:own"
+            ]
+          }
+        ],
+        "summary": "Show an executed query",
+        "tags": [
+          "Query"
+        ]
+      }
+    },
+    "/vis/v2/orgs/{orgId}/queries/{id}/download": {
+      "get": {
+        "description": "Download the specified query results.",
+        "operationId": "Query#download",
+        "parameters": [
+          {
+            "allowEmptyValue": true,
+            "description": "An opaque token to be provided when requesting a subsequent page after receiving a partial response. \nPartial responses will include a \"nextPage\" attribute in their response body, which contains the URL of the next page including the appropriate skipToken.",
+            "example": "19u2349",
+            "in": "query",
+            "name": "skipToken",
+            "schema": {
+              "description": "An opaque token to be provided when requesting a subsequent page after receiving a partial response. \nPartial responses will include a \"nextPage\" attribute in their response body, which contains the URL of the next page including the appropriate skipToken.",
+              "example": "19u2349",
+              "type": "string"
+            }
+          },
+          {
+            "allowEmptyValue": true,
+            "description": "The maximum number of rows to return for uncompressed CSV downloads. The maxResults parameter cannot be used with outputCompression=gzip. If both parameters are specified in the same request, the API will return a 400 Bad Request error.",
+            "example": 100000,
+            "in": "query",
+            "name": "maxResults",
+            "schema": {
+              "default": 0,
+              "description": "The maximum number of rows to return for uncompressed CSV downloads. The maxResults parameter cannot be used with outputCompression=gzip. If both parameters are specified in the same request, the API will return a 400 Bad Request error.",
+              "example": 100000,
+              "maximum": 100000,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The unique identifier for the organization",
+            "example": 100,
+            "in": "path",
+            "name": "orgId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the organization",
+              "example": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The unique query identifier",
+            "example": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "The unique query identifier",
+              "example": "7d795afa-c508-4d47-92ae-248113a792d1",
+              "maxLength": 36,
+              "pattern": "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response.",
+            "headers": {
+              "Content-Disposition": {
+                "description": "The content disposition of the response body",
+                "example": "attachment; filename=\"results.csv.gz\"",
+                "schema": {
+                  "description": "The content disposition of the response body",
+                  "example": "attachment; filename=\"results.csv.gz\"",
+                  "type": "string"
+                }
+              },
+              "Content-Length": {
+                "description": "The length of the response body",
+                "example": 123456,
+                "required": true,
+                "schema": {
+                  "description": "The length of the response body",
+                  "example": 123456,
+                  "format": "int64",
+                  "type": "integer"
+                }
+              },
+              "Link": {
+                "description": "The Link header that includes pagination information",
+                "example": "</vis/v2/orgs/123/queries/7d795afa-c508-4d47-92ae-248113a792d1/download?maxResults=10000&skipToken=eyJ0cxc9819xOT>; rel=\"next\"",
+                "schema": {
+                  "description": "The Link header that includes pagination information",
+                  "example": "</vis/v2/orgs/123/queries/7d795afa-c508-4d47-92ae-248113a792d1/download?maxResults=10000&skipToken=eyJ0cxc9819xOT>; rel=\"next\"",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_request: Bad Request response."
+          },
+          "401": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unauthorized: Unauthorized response."
+          },
+          "403": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "forbidden: Forbidden response."
+          },
+          "404": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "not_found: Not Found response."
+          },
+          "429": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "too_many_requests: Too Many Requests response."
+          },
+          "500": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "internal_error: Internal Server Error response."
+          },
+          "502": {
+            "content": {
+              "application/vnd.goa.error": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_gateway: Bad Gateway response."
+          }
+        },
+        "security": [
+          {
+            "JWTAuth_header_Authorization": [
+              "vis:workspace:index||common:org:own",
+              "vis:export:index||common:org:own",
+              "vis:export:download||common:org:own",
+              "vis:report:index||common:org:own",
+              "vis:report:embed||common:org:own",
+              "vis:query:create||common:org:own",
+              "vis:query:show||common:org:own",
+              "vis:query:download||common:org:own",
+              "vis:hardware_evidence:summary||common:org:own",
+              "vis:hardware_evidence:index||common:org:own",
+              "vis:hardware_evidence:download||common:org:own",
+              "vis:hardware_evidence:show||common:org:own",
+              "vis:software_evidence:summary||common:org:own",
+              "vis:software_evidence:index||common:org:own",
+              "vis:software_evidence:download||common:org:own",
+              "vis:software_evidence:show||common:org:own",
+              "vis:device:summary||common:org:own",
+              "vis:device:index||common:org:own",
+              "vis:device:download||common:org:own",
+              "vis:device:show||common:org:own",
+              "vis:device:delete||common:org:own",
+              "vis:os_evidence:summary||common:org:own",
+              "vis:os_evidence:index||common:org:own",
+              "vis:os_evidence:download||common:org:own",
+              "vis:os_evidence:show||common:org:own",
+              "vis:file_evidence:summary||common:org:own",
+              "vis:file_evidence:index||common:org:own",
+              "vis:file_evidence:download||common:org:own",
+              "vis:file_evidence:show||common:org:own",
+              "vis:data_fusion:show||common:org:own",
+              "vis:data_fusion:update||common:org:own"
+            ]
+          }
+        ],
+        "summary": "Download query results",
+        "tags": [
+          "Query"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "The Flexera North American server",
+      "url": "https://api.flexera.com"
+    },
+    {
+      "description": "The Flexera European server",
+      "url": "https://api.flexera.eu"
+    },
+    {
+      "description": "The Flexera Asia Pacific server",
+      "url": "https://api.flexera.au"
+    }
+  ],
+  "tags": [
+    {
+      "description": "Device provides the ability to examine normalized devices in an org's environment. This provides an entry point to find what evidence was recognized on those devices.",
+      "name": "Device"
+    },
+    {
+      "description": "**Note:** This legacy endpoint is not part of the Technology Intelligence Platform and will be retired on August 31, 2026. Please use the Query API or GraphQL API for supported access.<br><br>\n\tExport provides the ability to retrieve formatted inventory data stored in IT Visibility. \n\tExport data contains snapshot and delta information from specific points in time. These exports are automatically\n\tgenerated on regular intervals.\n\tAll export data is retrieved in parquet format.\n\tOnly inventory data associated with IT visibility and available to the organization can be retrieved.",
+      "name": "Export (Legacy)"
+    },
+    {
+      "description": "**Note:** Effective **July 20, 2026**, all existing delta resume tokens will be invalidated. Please remove the resume token from your current request, run a new query, and use the newly generated resume token in subsequent requests to continue using delta queries.<br><br>\n\tITV queries provide the ability to dynamically retrieve formatted, contextualized and enriched inventory data stored in IT Visibility.",
+      "name": "Query"
+    }
+  ]
+}
