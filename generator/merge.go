@@ -566,7 +566,16 @@ func prefixOperationIDs(doc map[string]interface{}, namespace string) {
 		return
 	}
 
-	for _, pathItemValue := range paths {
+	// Sort paths to guarantee stable suffix assignment across runs.
+	pathKeys := make([]string, 0, len(paths))
+	for path := range paths {
+		pathKeys = append(pathKeys, path)
+	}
+	sort.Strings(pathKeys)
+
+	seen := map[string]int{}
+	for _, path := range pathKeys {
+		pathItemValue := paths[path]
 		pathItem, ok := pathItemValue.(map[string]interface{})
 		if !ok {
 			continue
@@ -576,11 +585,20 @@ func prefixOperationIDs(doc map[string]interface{}, namespace string) {
 			if !ok {
 				continue
 			}
+
 			operationID, _ := operation["operationId"].(string)
 			if operationID == "" {
 				continue
 			}
-			operation["operationId"] = namespace + "_" + sanitizeIdentifier(operationID)
+
+			base := namespace + "_" + sanitizeIdentifier(operationID)
+			count := seen[base]
+			if count == 0 {
+				operation["operationId"] = base
+			} else {
+				operation["operationId"] = fmt.Sprintf("%s_%d", base, count+1)
+			}
+			seen[base] = count + 1
 		}
 	}
 }

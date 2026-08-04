@@ -112,6 +112,21 @@ specs:
     processing:
       - type: download
 
+  - id: flexera-finops-billing-v1
+    name: "Flexera FinOps Billing API"
+    vendor: flexera
+    service: finops_billing
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexeratest.com/openapi/services/finops-billing/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/finops_billing/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
   - id: flexera-grs
     name: "Flexera Global Resource Service API"
     vendor: flexera

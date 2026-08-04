@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -388,6 +389,21 @@ func downloadFile(url, filepath string) error {
 		return fmt.Errorf("download failed with status: %s", resp.Status)
 	}
 
+	if strings.HasSuffix(strings.ToLower(filepath), ".json") {
+		data, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return fmt.Errorf("failed to read download body: %w", err)
+		}
+		formatted, err := formatJSONBytes(data)
+		if err != nil {
+			return fmt.Errorf("downloaded file is not valid JSON: %w", err)
+		}
+		if err := os.WriteFile(filepath, formatted, 0644); err != nil {
+			return fmt.Errorf("failed to write file: %w", err)
+		}
+		return nil
+	}
+
 	out, err := os.Create(filepath)
 	if err != nil {
 		return fmt.Errorf("failed to create file: %w", err)
@@ -672,10 +688,23 @@ func unwrapSingleAnyOf(filePath string) error {
 		return fmt.Errorf("failed to marshal JSON: %w", err)
 	}
 
+	out, err = formatJSONBytes(out)
+	if err != nil {
+		return fmt.Errorf("failed to format JSON: %w", err)
+	}
+
 	if err := os.WriteFile(filePath, out, 0644); err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
 	return nil
+}
+
+func formatJSONBytes(data []byte) ([]byte, error) {
+	var formatted bytes.Buffer
+	if err := json.Indent(&formatted, data, "", "  "); err != nil {
+		return nil, err
+	}
+	return formatted.Bytes(), nil
 }
 
 func walkUnwrapAnyOf(node interface{}) interface{} {
