@@ -19,6 +19,7 @@ var componentSections = []string{"schemas", "parameters", "responses", "requestB
 var operationMethods = []string{"get", "put", "post", "delete", "options", "head", "patch", "trace"}
 var operationIDPattern = regexp.MustCompile(`^[A-Za-z0-9_]+$`)
 var serverVariablePattern = regexp.MustCompile(`\{([^{}]+)\}`)
+var pathTemplateVariablePattern = regexp.MustCompile(`\{([^{}]+)\}`)
 
 func handleMerge(baseDir, outputDir string, args []string) {
 	target := "enabled-flexera"
@@ -392,7 +393,9 @@ func normalizeServiceDocument(doc map[string]interface{}, spec SpecConfig) (map[
 	}
 
 	normalizeNullableSchemas(clone)
+	normalizeArrayUnionSchemas(clone)
 	normalizeBinaryValueSchemaGoTypes(clone)
+	normalizePathTemplateParameterNames(clone)
 
 	namespace := componentNamespace(spec.Service)
 	renameMap := prefixComponentNames(clone, namespace)
@@ -953,7 +956,31 @@ func normalizeNullableSchemas(obj interface{}) {
 	}
 }
 
-func normalizeNullableAlternatives(schema map[string]interface{}, key string) {
+// normalizeArrayUnionSchemas collapses anyOf/oneOf unions where all
+// variants are array schemas into a single permissive array schema.
+//
+// Several upstream docs model values like providers/accounts as:
+//
+//	anyOf: [array<string enum>, array<const "all">]
+//
+// These unions are semantically redundant (both are arrays of strings) and
+// can trigger duplicate inline typename generation in oapi-codegen.
+func normalizeArrayUnionSchemas(obj interface{}) {
+	switch v := obj.(type) {
+	case map[string]interface{}:
+		collapseArrayUnion(v, "anyOf")
+		collapseArrayUnion(v, "oneOf")
+		for _, value := range v {
+			normalizeArrayUnionSchemas(value)
+		}
+	case []interface{}:
+		for _, item := range v {
+			normalizeArrayUnionSchemas(item)
+		}
+	}
+}
+
+func collapseArrayUnion(schema map[string]interface{}, key string) {
 	rawAlternatives, ok := schema[key]
 	if !ok {
 		return
@@ -964,7 +991,83 @@ func normalizeNullableAlternatives(schema map[string]interface{}, key string) {
 		return
 	}
 
-	var nonNullSchema map[string]interface{}
+	arraySchemas := make([]map[string]interface{}, 0, len(alternatives))
+	for _, rawAlternative := range alternatives {
+		alternative, ok := rawAlternative.(map[string]interface{})
+		if !ok {
+			return
+		}
+		if typ, _ := alternative["type"].(string); typ != "array" {
+			return
+		}
+		arraySchemas = append(arraySchemas, alternative)
+	}
+
+	merged := map[string]interface{}{"type": "array"}
+
+	if items, ok := mergedStringArrayItems(arraySchemas); ok {
+		merged["items"] = items
+	}
+
+	delete(schema, key)
+	for k, v := range merged {
+		if _, exists := schema[k]; !exists {
+			schema[k] = v
+		}
+	}
+}
+
+func mergedStringArrayItems(arraySchemas []map[string]interface{}) (map[string]interface{}, bool) {
+	allStringish := true
+	for _, arraySchema := range arraySchemas {
+		rawItems, exists := arraySchema["items"]
+		if !exists {
+			allStringish = false
+			break
+		}
+		items, ok := rawItems.(map[string]interface{})
+		if !ok {
+			allStringish = false
+			break
+		}
+		if itemType, _ := items["type"].(string); itemType != "string" {
+			if _, hasConst := items["const"]; !hasConst {
+				allStringish = false
+				break
+			}
+		}
+	}
+
+	if allStringish {
+		return map[string]interface{}{"type": "string"}, true
+	}
+
+	for _, arraySchema := range arraySchemas {
+		if items, ok := arraySchema["items"].(map[string]interface{}); ok {
+			copied := map[string]interface{}{}
+			for k, v := range items {
+				copied[k] = v
+			}
+			return copied, true
+		}
+	}
+
+	return nil, false
+}
+
+func normalizeNullableAlternatives(schema map[string]interface{}, key string) {
+	rawAlternatives, ok := schema[key]
+	if !ok {
+		return
+	}
+
+	alternatives, ok := rawAlternatives.([]interface{})
+	if !ok || len(alternatives) == 0 {
+		return
+	}
+
+	nonNullAlternatives := make([]interface{}, 0, len(alternatives))
+	var singleNonNullSchema map[string]interface{}
 	nullCount := 0
 	for _, rawAlternative := range alternatives {
 		alternative, ok := rawAlternative.(map[string]interface{})
@@ -975,22 +1078,34 @@ func normalizeNullableAlternatives(schema map[string]interface{}, key string) {
 			nullCount++
 			continue
 		}
-		if nonNullSchema != nil {
-			return
+		nonNullAlternatives = append(nonNullAlternatives, alternative)
+		if singleNonNullSchema == nil {
+			singleNonNullSchema = alternative
 		}
-		nonNullSchema = alternative
 	}
 
-	if nullCount == 0 || nonNullSchema == nil {
+	if nullCount == 0 {
 		return
 	}
 
-	delete(schema, key)
-	for nestedKey, nestedValue := range nonNullSchema {
-		if _, exists := schema[nestedKey]; !exists {
-			schema[nestedKey] = nestedValue
-		}
+	if len(nonNullAlternatives) == 0 {
+		delete(schema, key)
+		schema["nullable"] = true
+		return
 	}
+
+	if len(nonNullAlternatives) == 1 {
+		delete(schema, key)
+		for nestedKey, nestedValue := range singleNonNullSchema {
+			if _, exists := schema[nestedKey]; !exists {
+				schema[nestedKey] = nestedValue
+			}
+		}
+		schema["nullable"] = true
+		return
+	}
+
+	schema[key] = nonNullAlternatives
 	schema["nullable"] = true
 }
 
@@ -1014,10 +1129,146 @@ func validateParameters(doc map[string]interface{}) error {
 			if err := validateParameterList(operation["parameters"], fmt.Sprintf("%s %s", strings.ToUpper(method), path)); err != nil {
 				return err
 			}
+			if err := validatePathTemplateParameters(path, pathItem["parameters"], operation["parameters"], fmt.Sprintf("%s %s", strings.ToUpper(method), path)); err != nil {
+				return err
+			}
 		}
 	}
 
 	return nil
+}
+
+func normalizePathTemplateParameterNames(doc map[string]interface{}) {
+	paths, _ := doc["paths"].(map[string]interface{})
+	for pathTemplate, pathItemValue := range paths {
+		pathItem, ok := pathItemValue.(map[string]interface{})
+		if !ok {
+			continue
+		}
+
+		placeholders := extractPathTemplateVariables(pathTemplate)
+		if len(placeholders) == 0 {
+			continue
+		}
+
+		normalizedToTemplate := map[string]string{}
+		for _, placeholder := range placeholders {
+			normalizedToTemplate[normalizePathParameterToken(placeholder)] = placeholder
+		}
+
+		normalizeParameterNameList(pathItem["parameters"], normalizedToTemplate)
+		for _, method := range operationMethods {
+			operation, ok := pathItem[method].(map[string]interface{})
+			if !ok {
+				continue
+			}
+			normalizeParameterNameList(operation["parameters"], normalizedToTemplate)
+		}
+	}
+}
+
+func normalizeParameterNameList(raw interface{}, normalizedToTemplate map[string]string) {
+	parameters, ok := raw.([]interface{})
+	if !ok {
+		return
+	}
+	for _, rawParameter := range parameters {
+		parameter, ok := rawParameter.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		if _, hasRef := parameter["$ref"]; hasRef {
+			continue
+		}
+		if in, _ := parameter["in"].(string); in != "path" {
+			continue
+		}
+		name, _ := parameter["name"].(string)
+		if name == "" {
+			continue
+		}
+		normalized := normalizePathParameterToken(name)
+		templateName, found := normalizedToTemplate[normalized]
+		if !found {
+			continue
+		}
+		parameter["name"] = templateName
+		parameter["required"] = true
+	}
+}
+
+func validatePathTemplateParameters(pathTemplate string, pathLevelRaw interface{}, operationRaw interface{}, location string) error {
+	placeholders := extractPathTemplateVariables(pathTemplate)
+	if len(placeholders) == 0 {
+		return nil
+	}
+
+	available := map[string]bool{}
+	collectPathParameterNames(pathLevelRaw, available)
+	collectPathParameterNames(operationRaw, available)
+
+	for _, placeholder := range placeholders {
+		if !available[placeholder] {
+			return fmt.Errorf("path template variable %q missing matching path parameter at %s", placeholder, location)
+		}
+	}
+
+	return nil
+}
+
+func collectPathParameterNames(raw interface{}, into map[string]bool) {
+	parameters, ok := raw.([]interface{})
+	if !ok {
+		return
+	}
+	for _, rawParameter := range parameters {
+		parameter, ok := rawParameter.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		if _, hasRef := parameter["$ref"]; hasRef {
+			continue
+		}
+		if in, _ := parameter["in"].(string); in != "path" {
+			continue
+		}
+		name, _ := parameter["name"].(string)
+		if strings.TrimSpace(name) == "" {
+			continue
+		}
+		into[name] = true
+	}
+}
+
+func extractPathTemplateVariables(pathTemplate string) []string {
+	matches := pathTemplateVariablePattern.FindAllStringSubmatch(pathTemplate, -1)
+	vars := make([]string, 0, len(matches))
+	seen := map[string]bool{}
+	for _, match := range matches {
+		if len(match) < 2 {
+			continue
+		}
+		name := strings.TrimSpace(match[1])
+		if name == "" || seen[name] {
+			continue
+		}
+		seen[name] = true
+		vars = append(vars, name)
+	}
+	return vars
+}
+
+func normalizePathParameterToken(value string) string {
+	var b strings.Builder
+	for _, r := range value {
+		if (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') || (r >= '0' && r <= '9') {
+			if r >= 'A' && r <= 'Z' {
+				r = r + ('a' - 'A')
+			}
+			b.WriteRune(r)
+		}
+	}
+	return b.String()
 }
 
 func validateParameterList(raw interface{}, location string) error {

@@ -106,6 +106,64 @@ func TestNormalizeNullableSchemas_RewritesAnyOfNull(t *testing.T) {
 	}
 }
 
+func TestNormalizeNullableSchemas_RemovesNullFromUnionAnyOf(t *testing.T) {
+	doc := map[string]interface{}{
+		"schema": map[string]interface{}{
+			"anyOf": []interface{}{
+				map[string]interface{}{"$ref": "#/components/schemas/A"},
+				map[string]interface{}{"$ref": "#/components/schemas/B"},
+				map[string]interface{}{"type": "null"},
+			},
+		},
+	}
+
+	normalizeNullableSchemas(doc)
+	schema := doc["schema"].(map[string]interface{})
+	if got := schema["nullable"]; got != true {
+		t.Fatalf("expected nullable=true, got %v", got)
+	}
+	anyOf, ok := schema["anyOf"].([]interface{})
+	if !ok {
+		t.Fatalf("expected anyOf to remain for union type, got %T", schema["anyOf"])
+	}
+	if len(anyOf) != 2 {
+		t.Fatalf("expected null variant to be removed; got %d variants", len(anyOf))
+	}
+}
+
+func TestNormalizeArrayUnionSchemas_CollapsesArrayAnyOf(t *testing.T) {
+	doc := map[string]interface{}{
+		"schema": map[string]interface{}{
+			"anyOf": []interface{}{
+				map[string]interface{}{
+					"type":  "array",
+					"items": map[string]interface{}{"type": "string"},
+				},
+				map[string]interface{}{
+					"type":  "array",
+					"items": map[string]interface{}{"const": "all", "type": "string"},
+				},
+			},
+		},
+	}
+
+	normalizeArrayUnionSchemas(doc)
+	schema := doc["schema"].(map[string]interface{})
+	if _, exists := schema["anyOf"]; exists {
+		t.Fatal("expected anyOf to be removed for redundant array union")
+	}
+	if got := schema["type"]; got != "array" {
+		t.Fatalf("expected array type, got %v", got)
+	}
+	items, ok := schema["items"].(map[string]interface{})
+	if !ok {
+		t.Fatalf("expected items schema, got %T", schema["items"])
+	}
+	if got := items["type"]; got != "string" {
+		t.Fatalf("expected string item type, got %v", got)
+	}
+}
+
 func TestNormalizeBinaryValueSchemaGoTypes_StampsXGoType(t *testing.T) {
 	doc := map[string]interface{}{
 		"components": map[string]interface{}{
@@ -259,5 +317,63 @@ func TestValidateOpenAPIDocument_DetectsMissingServerVariableDefinition(t *testi
 	}
 	if err := validateOpenAPIDocument(path); err == nil {
 		t.Fatal("expected missing server variable definition error")
+	}
+}
+
+func TestNormalizePathTemplateParameterNames_FixesSnakeCasePathParam(t *testing.T) {
+	doc := map[string]interface{}{
+		"paths": map[string]interface{}{
+			"/risk/v1/orgs/{orgId}/compliances/": map[string]interface{}{
+				"get": map[string]interface{}{
+					"operationId": "list_compliances",
+					"parameters": []interface{}{
+						map[string]interface{}{
+							"in":       "path",
+							"name":     "org_id",
+							"required": true,
+							"schema":   map[string]interface{}{"type": "string"},
+						},
+					},
+					"responses": map[string]interface{}{"200": map[string]interface{}{"description": "ok"}},
+				},
+			},
+		},
+	}
+
+	normalizePathTemplateParameterNames(doc)
+
+	param := doc["paths"].(map[string]interface{})["/risk/v1/orgs/{orgId}/compliances/"].(map[string]interface{})["get"].(map[string]interface{})["parameters"].([]interface{})[0].(map[string]interface{})
+	if got := param["name"]; got != "orgId" {
+		t.Fatalf("expected normalized path parameter name orgId, got %v", got)
+	}
+}
+
+func TestValidateParameters_DetectsMissingPathTemplateParameter(t *testing.T) {
+	doc := map[string]interface{}{
+		"paths": map[string]interface{}{
+			"/risk/v1/orgs/{orgId}/compliances/": map[string]interface{}{
+				"get": map[string]interface{}{
+					"operationId": "list_compliances",
+					"parameters": []interface{}{
+						map[string]interface{}{
+							"in":       "path",
+							"name":     "org_id",
+							"required": true,
+							"schema":   map[string]interface{}{"type": "string"},
+						},
+					},
+					"responses": map[string]interface{}{"200": map[string]interface{}{"description": "ok"}},
+				},
+			},
+		},
+	}
+
+	if err := validateParameters(doc); err == nil {
+		t.Fatal("expected validateParameters to fail for missing path template parameter")
+	}
+
+	normalizePathTemplateParameterNames(doc)
+	if err := validateParameters(doc); err != nil {
+		t.Fatalf("expected validateParameters to pass after normalization, got %v", err)
 	}
 }
