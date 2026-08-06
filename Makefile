@@ -1,4 +1,6 @@
-.PHONY: regen fetch merge test build clean tidy
+.PHONY: all regen fetch merge test build clean tidy
+
+all: fetch merge
 
 # ─── Regen pipeline ─────────────────────────────────────────────────────────
 # Re-merge raw upstream specs into openapi3.json/yaml at the repo root.
