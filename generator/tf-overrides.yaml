@@ -1,4 +1,9 @@
-# tf-overrides.yaml
+# tf-overrides.yaml.example
+#
+# Optional. Copy to `tf-overrides.yaml` (same directory) when a heuristic
+# in the generated Terraform provider produces a wrong answer for a
+# specific resource or operation. An empty / missing file = pure
+# heuristic mode (the default — recommended starting state).
 #
 # This file is consumed by `applyTFOverrides` in tf_overrides.go AFTER
 # the heuristic `annotateForCLI` pass during `merge`. Entries are
