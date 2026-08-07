@@ -37,8 +37,10 @@ go run . --output-dir .. merge
 
 ## Source spec snapshots
 
-`sources/` contains committed snapshots of each upstream spec. All sources are
-fetched from publicly accessible URLs.
+`sources/` contains committed snapshots of each upstream spec. Most sources
+are fetched from publicly accessible URLs; a few (`source.type: manual`) are
+hand-curated instead — see
+[Manually-curated sources](#manually-curated-sources-sourcetype-manual) below.
 
 To update a single source from its upstream URL:
 
@@ -67,8 +69,8 @@ specs:
     service: policy                # service slug (used for component prefixing)
     version: v1                    # version string
     source:
-      type: url                    # url (only public URLs are supported)
-      url: "https://..."           # upstream URL
+      type: url                    # url (public URL, auto-fetched) | manual (hand-curated, never auto-fetched)
+      url: "https://..."           # upstream URL (or a reference URL, for manual sources)
     format: openapi3-json          # openapi3-json | openapi3-yaml | swagger2-json
     output:
       path: "sources/flexera/policy/v1"
@@ -100,6 +102,20 @@ Two additional fields control merge-time behavior:
 | `convert` | Convert Swagger 2 → OpenAPI 3 (`from: swagger2`, `to: openapi3`) |
 | `sed-replace` | Literal string replacement; `reason` is required and documents why the patch exists |
 | `unwrap-single-anyof` | Collapse `anyOf: [X]` singletons into `X` (workaround for codegen issues) |
+
+### Manually-curated sources (`source.type: manual`)
+
+Some specs have no publicly fetchable upstream document, or their real upstream
+document exposes more than should be published (e.g., work-in-progress
+endpoints not yet approved for external release). These use `source.type:
+manual`.
+
+To add or update endpoints, a maintainer fetches the upstream document by
+hand, reviews the diff against the committed file, hand-edits
+`sources/.../openapi.json` with only the approved changes, and opens a PR.
+
+Current manual specs: `flexera-grs` (legacy service with no real upstream
+spec) and `rightscale-bill-analysis` (see below).
 
 ## Terraform provider overrides
 

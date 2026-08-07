@@ -244,9 +244,16 @@ specs:
     version: ""
     include_in_merge: true
     source:
-      type: url
-      url: "https://reference.rightscale.com/bill_analysis/swagger.json"
-    format: swagger2-json
+      type: manual
+      description: "Hand-curated minimal OpenAPI subset for the Bill Analysis API. This file documents only the Bill Analysis endpoints that have not been migrated to Flexera API Gateway. Add new endpoints only when a downstream consumer requires them; remove this spec once Bill Analysis is fully deprecated."
+
+      url: "https://github.com/flexera/bill_analysis/blob/master/front_service/gen/http/openapi3.json"
+    # Bill Analysis Public-URL source
+    # source:
+    #   type: url
+    #   url: "https://reference.rightscale.com/bill_analysis/swagger.json"
+    # format: swagger2-json
+    format: openapi3-yaml
     output:
       path: "sources/rightscale/bill_analysis"
       filename: "openapi.json"
@@ -263,26 +270,30 @@ specs:
             enum: ["", "-eu", "-apac"]
             description: "'' = NAM, -eu = EU, -apac = APAC"
     processing:
-      - type: download
-        output: "swagger.json"
-      - type: convert
-        from: "swagger2"
-        to: "openapi3"
-        input: "swagger.json"
-        output: "openapi.json"
-        format: json
+      - type: manual
+        notes: "Hand-maintained in-repo. Add new endpoints only when a downstream consumer requires them; remove once Bill Analysis is fully deprecated."
+      # Or use public RightScale swagger.json
+      # Kept in case we ever revert to the Bill Analysis Public-URL source above
+      # - type: download
+      #   output: "swagger.json"
+      # - type: convert
+      #   from: "swagger2"
+      #   to: "openapi3"
+      #   input: "swagger.json"
+      #   output: "openapi.json"
+      #   format: json
     merge_exclude_paths:
-      - path: "/orgs/{org}/budgets"
+      - path: "/bill-analysis/orgs/{org}/budgets"
         reason: "Migrated to Flexera Budget API: GET/POST /finops-analytics/v1/orgs/{orgId}/budgets (Budget_Budget_index/create)."
-      - path: "/orgs/{org}/budgets/{id}"
+      - path: "/bill-analysis/orgs/{org}/budgets/{id}"
         reason: "Migrated to Flexera Budget API: GET/PUT/DELETE /finops-analytics/v1/orgs/{orgId}/budgets/{id} (Budget_Budget_show/update/delete)."
-      - path: "/orgs/{org}/budgets/{id}/report"
+      - path: "/bill-analysis/orgs/{org}/budgets/{id}/report"
         reason: "Migrated to Flexera Budget API: GET /finops-analytics/v1/orgs/{orgId}/budgets/{id}/report (Budget_Budget_report)."
-      - path: "/orgs/{org}/settings/rule_based_dimensions"
+      - path: "/bill-analysis/orgs/{org}/settings/rule_based_dimensions"
         reason: "Migrated to Flexera FinOps Customizations API: GET/PUT /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions (FinopsCustomizations_Rule_Based_Dimension_index, upsert via create/update)."
-      - path: "/orgs/{org}/settings/rule_based_dimensions/{id}"
+      - path: "/bill-analysis/orgs/{org}/settings/rule_based_dimensions/{id}"
         reason: "Migrated to Flexera FinOps Customizations API: CRUD on /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}."
-      - path: "/orgs/{org}/settings/rule_based_dimensions/{id}/rules/{effective_at}"
+      - path: "/bill-analysis/orgs/{org}/settings/rule_based_dimensions/{id}/rules/{effective_at}"
         reason: "Migrated to Flexera FinOps Customizations API: /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}/rules/{effectiveAt} (rules_list_show/replace/delete)."
 
   # Additional Flexera One APIs (from developer.flexera.com)
