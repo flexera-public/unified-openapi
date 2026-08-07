@@ -395,6 +395,7 @@ func normalizeServiceDocument(doc map[string]interface{}, spec SpecConfig) (map[
 	normalizeNullableSchemas(clone)
 	normalizeArrayUnionSchemas(clone)
 	normalizeBinaryValueSchemaGoTypes(clone)
+	normalizeOrgPathParameterName(clone)
 	normalizePathTemplateParameterNames(clone)
 
 	namespace := componentNamespace(spec.Service)
@@ -1136,6 +1137,62 @@ func validateParameters(doc map[string]interface{}) error {
 	}
 
 	return nil
+}
+
+// normalizeOrgPathParameterName renames the legacy RightScale "{org}" path
+// template placeholder (and its matching "org" parameter name) to the
+// unified "{orgId}" convention used by every other merged service. Without
+// this, downstream codegen (unified-go-client, flexera-cli) can't recognize
+// the org-identifier path param and fails to wire it to the global org ID.
+func normalizeOrgPathParameterName(doc map[string]interface{}) {
+	paths, ok := doc["paths"].(map[string]interface{})
+	if !ok {
+		return
+	}
+	renamedPaths := map[string]interface{}{}
+	for pathTemplate, pathItemValue := range paths {
+		if pathItem, ok := pathItemValue.(map[string]interface{}); ok {
+			renameOrgPathParameters(pathItem["parameters"])
+			for _, method := range operationMethods {
+				if operation, ok := pathItem[method].(map[string]interface{}); ok {
+					renameOrgPathParameters(operation["parameters"])
+				}
+			}
+		}
+		renamedPaths[renameOrgPathSegment(pathTemplate)] = pathItemValue
+	}
+	doc["paths"] = renamedPaths
+}
+
+// renameOrgPathSegment replaces a "{org}" path template segment with
+// "{orgId}", leaving other placeholders (e.g. "{organization}") untouched.
+func renameOrgPathSegment(pathTemplate string) string {
+	segments := strings.Split(pathTemplate, "/")
+	for i, seg := range segments {
+		if seg == "{org}" {
+			segments[i] = "{orgId}"
+		}
+	}
+	return strings.Join(segments, "/")
+}
+
+func renameOrgPathParameters(raw interface{}) {
+	parameters, ok := raw.([]interface{})
+	if !ok {
+		return
+	}
+	for _, rawParameter := range parameters {
+		parameter, ok := rawParameter.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		if in, _ := parameter["in"].(string); in != "path" {
+			continue
+		}
+		if name, _ := parameter["name"].(string); name == "org" {
+			parameter["name"] = "orgId"
+		}
+	}
 }
 
 func normalizePathTemplateParameterNames(doc map[string]interface{}) {
