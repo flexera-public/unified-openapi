@@ -15743,14 +15743,6 @@ components:
                 Always optional:
                     - ActualExportUrl, AmortizedExportUrl, EffectiveFrom
             properties:
-                AccountType:
-                    description: Azure account type.
-                    enum:
-                        - EA
-                        - MCA
-                        - CSP
-                    title: Accounttype
-                    type: string
                 ActualExportUrl:
                     description: Actual cost export URL.
                     nullable: true
@@ -15805,8 +15797,6 @@ components:
                     nullable: true
                     title: Invoicesectionids
                     type: array
-            required:
-                - AccountType
             title: AzureCostAndUsageModel
             type: object
         Divnt_ErrorResponse:
@@ -15864,6 +15854,15 @@ components:
             additionalProperties: false
             description: Schema for POST requests with strict validation for Creation.
             properties:
+                AccountType:
+                    description: Azure account type. Required for Azure BPC and CCO.
+                    enum:
+                        - EA
+                        - MCA
+                        - CSP
+                    nullable: true
+                    title: Accounttype
+                    type: string
                 BillingAccountId:
                     description: Billing Account ID
                     nullable: true
@@ -15974,6 +15973,15 @@ components:
         Divnt_OnboardingUpdateRequest:
             description: Schema for PUT requests. Accepts all fields; route applies CCO-aware filtering.
             properties:
+                AccountType:
+                    description: Azure account type. Required for Azure BPC and CCO.
+                    enum:
+                        - EA
+                        - MCA
+                        - CSP
+                    nullable: true
+                    title: Accounttype
+                    type: string
                 BillingAccountId:
                     description: Billing Account ID.
                     nullable: true

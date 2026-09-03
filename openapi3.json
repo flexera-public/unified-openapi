@@ -20749,16 +20749,6 @@
       "Divnt_AzureCostAndUsageModel": {
         "description": "Azure Cost \u0026 Usage configuration.\nAccountType is declared here alongside BillingScope and scope-specific fields.\n\nBillingScope rules (validated in OnboardingCreateRequest):\n    - EA  (any scope)    : EnrollmentId (optional)\n    - MCA Billing Account: no extra fields required\n    - MCA Billing Profile: BillingProfileIds (required list)\n    - MCA Invoice        : InvoiceSectionIds (required list)\n    - CSP Billing Account: no extra fields required\n    - CSP Billing Profile: BillingProfileIds (required list)\n    - CSP Customer Tenant: CustomerTenantId (required)\n\nAlways optional:\n    - ActualExportUrl, AmortizedExportUrl, EffectiveFrom",
         "properties": {
-          "AccountType": {
-            "description": "Azure account type.",
-            "enum": [
-              "EA",
-              "MCA",
-              "CSP"
-            ],
-            "title": "Accounttype",
-            "type": "string"
-          },
           "ActualExportUrl": {
             "description": "Actual cost export URL.",
             "nullable": true,
@@ -20826,9 +20816,6 @@
             "type": "array"
           }
         },
-        "required": [
-          "AccountType"
-        ],
         "title": "AzureCostAndUsageModel",
         "type": "object"
       },
@@ -20904,6 +20891,17 @@
         "additionalProperties": false,
         "description": "Schema for POST requests with strict validation for Creation.",
         "properties": {
+          "AccountType": {
+            "description": "Azure account type. Required for Azure BPC and CCO.",
+            "enum": [
+              "EA",
+              "MCA",
+              "CSP"
+            ],
+            "nullable": true,
+            "title": "Accounttype",
+            "type": "string"
+          },
           "BillingAccountId": {
             "description": "Billing Account ID",
             "nullable": true,
@@ -21042,6 +21040,17 @@
       "Divnt_OnboardingUpdateRequest": {
         "description": "Schema for PUT requests. Accepts all fields; route applies CCO-aware filtering.",
         "properties": {
+          "AccountType": {
+            "description": "Azure account type. Required for Azure BPC and CCO.",
+            "enum": [
+              "EA",
+              "MCA",
+              "CSP"
+            ],
+            "nullable": true,
+            "title": "Accounttype",
+            "type": "string"
+          },
           "BillingAccountId": {
             "description": "Billing Account ID.",
             "nullable": true,
