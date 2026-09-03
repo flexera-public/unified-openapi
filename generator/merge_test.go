@@ -206,6 +206,29 @@ func TestNormalizeBinaryValueSchemaGoTypes_StampsXGoType(t *testing.T) {
 	}
 }
 
+func TestNormalizeTextTabs_ReplacesTabsRecursively(t *testing.T) {
+	doc := map[string]interface{}{
+		"description": "line one\n\tline two",
+		"examples": []interface{}{
+			"\tindented",
+			map[string]interface{}{"summary": "before\tafter"},
+		},
+	}
+
+	normalizeTextTabs(doc)
+
+	if got := doc["description"]; got != "line one\n    line two" {
+		t.Fatalf("description = %q", got)
+	}
+	examples := doc["examples"].([]interface{})
+	if got := examples[0]; got != "    indented" {
+		t.Fatalf("array string = %q", got)
+	}
+	if got := examples[1].(map[string]interface{})["summary"]; got != "before    after" {
+		t.Fatalf("nested string = %q", got)
+	}
+}
+
 func TestValidateOpenAPIDocument_DetectsMissingComponentRef(t *testing.T) {
 	tmpDir := t.TempDir()
 	path := tmpDir + "/openapi.json"
@@ -235,6 +258,31 @@ func TestValidateOpenAPIDocument_DetectsMissingComponentRef(t *testing.T) {
 	}
 	if err := validateOpenAPIDocument(path); err == nil {
 		t.Fatal("expected missing component ref error")
+	}
+}
+
+func TestValidateLocalRefs_AcceptsResolvedUnionRefs(t *testing.T) {
+	doc := map[string]interface{}{
+		"components": map[string]interface{}{
+			"schemas": map[string]interface{}{
+				"AwsCostAndUsageModel":   map[string]interface{}{"type": "object"},
+				"AzureCostAndUsageModel": map[string]interface{}{"type": "object"},
+				"UpdateRequest": map[string]interface{}{
+					"properties": map[string]interface{}{
+						"CostAndUsage": map[string]interface{}{
+							"anyOf": []interface{}{
+								map[string]interface{}{"$ref": "#/components/schemas/AwsCostAndUsageModel"},
+								map[string]interface{}{"$ref": "#/components/schemas/AzureCostAndUsageModel"},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	if err := validateLocalRefs(doc); err != nil {
+		t.Fatalf("validateLocalRefs() error = %v", err)
 	}
 }
 

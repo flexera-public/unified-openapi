@@ -107,6 +107,8 @@ Two additional fields control merge-time behavior:
 | `convert` | Convert Swagger 2 → OpenAPI 3 (`from: swagger2`, `to: openapi3`) |
 | `sed-replace` | Literal string replacement; `reason` is required and documents why the patch exists |
 | `unwrap-single-anyof` | Collapse `anyOf: [X]` singletons into `X` (workaround for codegen issues) |
+| `remove-local-ref` | Remove an array member containing only a specific local `$ref`; fails when the ref is absent |
+| `set-operation-id` | Set a stable operation ID by exact path and HTTP method; fails when either is absent |
 
 ### Manually-curated sources (`source.type: manual`)
 

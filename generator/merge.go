@@ -44,6 +44,7 @@ func handleMerge(baseDir, outputDir string, args []string) {
 		fmt.Fprintf(os.Stderr, "Error building unified spec: %v\n", err)
 		os.Exit(1)
 	}
+	normalizeTextTabs(unified)
 
 	outputPath := filepath.Join(outputDir, unifiedSpecRelativePath)
 	if err := os.MkdirAll(filepath.Dir(outputPath), 0o755); err != nil {
@@ -90,12 +91,16 @@ func buildUnifiedSpec(baseDir string, specs []SpecConfig) (map[string]interface{
 	tagsByName := map[string]map[string]interface{}{}
 
 	for _, spec := range specs {
-		doc, err := loadOpenAPIDocument(filepath.Join(baseDir, spec.Output.Path, spec.Output.Filename))
+		sourcePath := filepath.Join(baseDir, spec.Output.Path, spec.Output.Filename)
+		doc, err := loadOpenAPIDocument(sourcePath)
 		if err != nil {
-			return nil, fmt.Errorf("load %s: %w", spec.ID, err)
+			return nil, fmt.Errorf("load source spec %s (%s): %w", spec.ID, sourcePath, err)
 		}
 
 		applyMergeExcludePaths(doc, spec.MergeExcludePaths)
+		if err := validateLocalRefs(doc); err != nil {
+			return nil, fmt.Errorf("validate source spec %s (%s): %w; fix the upstream spec or add a documented processing rule in specs.yaml", spec.ID, sourcePath, err)
+		}
 
 		normalized, err := normalizeServiceDocument(doc, spec)
 		if err != nil {
@@ -493,6 +498,31 @@ func cloneDocument(doc map[string]interface{}) (map[string]interface{}, error) {
 		return nil, err
 	}
 	return clone, nil
+}
+
+// normalizeTextTabs replaces embedded tabs in string values with spaces.
+// Upstream descriptions occasionally contain tabs after indentation; yaml.v3
+// preserves them in block scalars, producing generated files that fail common
+// whitespace checks even though the document remains parseable.
+func normalizeTextTabs(value interface{}) {
+	switch v := value.(type) {
+	case map[string]interface{}:
+		for key, child := range v {
+			if text, ok := child.(string); ok {
+				v[key] = strings.ReplaceAll(text, "\t", "    ")
+				continue
+			}
+			normalizeTextTabs(child)
+		}
+	case []interface{}:
+		for index, child := range v {
+			if text, ok := child.(string); ok {
+				v[index] = strings.ReplaceAll(text, "\t", "    ")
+				continue
+			}
+			normalizeTextTabs(child)
+		}
+	}
 }
 
 func componentNamespace(service string) string {

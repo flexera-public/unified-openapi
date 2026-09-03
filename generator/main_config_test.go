@@ -1,7 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -137,5 +140,134 @@ func TestResolveSpecsDir_TrimWhitespace(t *testing.T) {
 	}
 	if dir != tmpDir {
 		t.Errorf("expected trimmed path, got %s", dir)
+	}
+}
+
+func TestSedReplace_RemovesDanglingUnionArm(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.json")
+	const brokenArm = `          {
+            "$ref": "#/components/schemas/AzureCostAndUsageUpdateModel"
+          },`
+	input := `{
+  "anyOf": [
+    {"$ref":"#/components/schemas/AwsCostAndUsageModel"},
+` + brokenArm + `
+    {"$ref":"#/components/schemas/AzureCostAndUsageModel"}
+  ]
+}`
+	if err := os.WriteFile(path, []byte(input), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := sedReplace(path, brokenArm, ""); err != nil {
+		t.Fatalf("sedReplace() error = %v", err)
+	}
+	got, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(string(got), "AzureCostAndUsageUpdateModel") {
+		t.Fatal("dangling update-model ref was not removed")
+	}
+	for _, want := range []string{"AwsCostAndUsageModel", "AzureCostAndUsageModel"} {
+		if !strings.Contains(string(got), want) {
+			t.Fatalf("valid neighboring ref %q was removed", want)
+		}
+	}
+	var parsed interface{}
+	if err := json.Unmarshal(got, &parsed); err != nil {
+		t.Fatalf("processed document is invalid JSON: %v", err)
+	}
+}
+
+func TestSedReplace_MissingPatternIsActionable(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.json")
+	if err := os.WriteFile(path, []byte(`{"openapi":"3.0.3"}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	err := sedReplace(path, "missing upstream fragment", "")
+	if err == nil {
+		t.Fatal("sedReplace() succeeded with a missing pattern")
+	}
+	for _, want := range []string{"pattern not found", "upstream document may have changed"} {
+		if !strings.Contains(err.Error(), want) {
+			t.Fatalf("sedReplace() error %q does not contain %q", err, want)
+		}
+	}
+}
+
+func TestRemoveLocalRef_RemovesUnionArmIndependentOfFormatting(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.json")
+	input := `{"anyOf":[{"$ref":"#/components/schemas/Aws"}, { "$ref" : "#/components/schemas/Missing" },{"$ref":"#/components/schemas/Azure"}]}`
+	if err := os.WriteFile(path, []byte(input), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := removeLocalRef(path, "#/components/schemas/Missing"); err != nil {
+		t.Fatalf("removeLocalRef() error = %v", err)
+	}
+	got, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(string(got), "Missing") {
+		t.Fatal("dangling ref was not removed")
+	}
+	for _, want := range []string{"#/components/schemas/Aws", "#/components/schemas/Azure"} {
+		if !strings.Contains(string(got), want) {
+			t.Fatalf("valid neighboring ref %q was removed", want)
+		}
+	}
+}
+
+func TestRemoveLocalRef_MissingRefIsActionable(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.json")
+	if err := os.WriteFile(path, []byte(`{"anyOf":[]}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	err := removeLocalRef(path, "#/components/schemas/Missing")
+	if err == nil || !strings.Contains(err.Error(), "upstream document may have changed") {
+		t.Fatalf("removeLocalRef() error = %v, want upstream-change guidance", err)
+	}
+}
+
+func TestSetOperationID_TargetsPathAndMethod(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.json")
+	input := `{"paths":{"/exports":{"get":{"operationId":"Export "}},"/exports/{id}":{"get":{"operationId":"Export "}}}}`
+	if err := os.WriteFile(path, []byte(input), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := setOperationID(path, "/exports/{id}", "GET", "ExportDownload"); err != nil {
+		t.Fatalf("setOperationID() error = %v", err)
+	}
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var doc map[string]interface{}
+	if err := json.Unmarshal(data, &doc); err != nil {
+		t.Fatal(err)
+	}
+	paths := doc["paths"].(map[string]interface{})
+	if got := paths["/exports"].(map[string]interface{})["get"].(map[string]interface{})["operationId"]; got != "Export " {
+		t.Fatalf("unrelated operationId = %q", got)
+	}
+	if got := paths["/exports/{id}"].(map[string]interface{})["get"].(map[string]interface{})["operationId"]; got != "ExportDownload" {
+		t.Fatalf("target operationId = %q", got)
+	}
+}
+
+func TestSetOperationID_MissingPathIsActionable(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.json")
+	if err := os.WriteFile(path, []byte(`{"paths":{}}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	err := setOperationID(path, "/missing", "get", "Missing")
+	if err == nil || !strings.Contains(err.Error(), "upstream document may have changed") {
+		t.Fatalf("setOperationID() error = %v, want upstream-change guidance", err)
 	}
 }

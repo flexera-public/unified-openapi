@@ -185,6 +185,10 @@ type ProcessingStep struct {
 	Format      string `yaml:"format,omitempty"`
 	Pattern     string `yaml:"pattern,omitempty"`
 	Replacement string `yaml:"replacement,omitempty"`
+	Ref         string `yaml:"ref,omitempty"`
+	Path        string `yaml:"path,omitempty"`
+	Method      string `yaml:"method,omitempty"`
+	OperationID string `yaml:"operation_id,omitempty"`
 	Reason      string `yaml:"reason,omitempty"`
 	Notes       string `yaml:"notes,omitempty"`
 }
@@ -295,17 +299,27 @@ func handleFetch(baseDir string, args []string) {
 	}
 
 	if target == "all" {
+		succeeded := 0
+		failed := 0
+		skipped := 0
 		for _, spec := range config.Specs {
 			if spec.Source.Type == "manual" {
 				fmt.Printf("Skipping %s (manual)\n", spec.ID)
+				skipped++
 				continue
 			}
 			fmt.Printf("Fetching %s...\n", spec.ID)
 			if err := fetchSpec(baseDir, spec); err != nil {
 				fmt.Fprintf(os.Stderr, "  Error: %v\n", err)
+				failed++
 			} else {
 				fmt.Printf("  ✓ Success\n")
+				succeeded++
 			}
+		}
+		fmt.Printf("Fetch summary: %d succeeded, %d failed, %d skipped\n", succeeded, failed, skipped)
+		if failed > 0 {
+			os.Exit(1)
 		}
 	} else {
 		spec := findSpec(config, target)
@@ -340,6 +354,9 @@ func fetchSpec(baseDir string, spec SpecConfig) error {
 	// Process each step
 	for _, step := range spec.Processing {
 		if err := processStep(spec, step, outputDir); err != nil {
+			if step.Reason != "" {
+				return fmt.Errorf("processing step %s failed (%s): %w", step.Type, step.Reason, err)
+			}
 			return fmt.Errorf("processing step %s failed: %w", step.Type, err)
 		}
 	}
@@ -368,6 +385,14 @@ func processStep(spec SpecConfig, step ProcessingStep, outputDir string) error {
 	case "unwrap-single-anyof":
 		filePath := filepath.Join(outputDir, spec.Output.Filename)
 		return unwrapSingleAnyOf(filePath)
+
+	case "remove-local-ref":
+		filePath := filepath.Join(outputDir, spec.Output.Filename)
+		return removeLocalRef(filePath, step.Ref)
+
+	case "set-operation-id":
+		filePath := filepath.Join(outputDir, spec.Output.Filename)
+		return setOperationID(filePath, step.Path, step.Method, step.OperationID)
 
 	case "manual":
 		// Skip manual steps
@@ -651,12 +676,118 @@ func sedReplace(filepath, pattern, replacement string) error {
 	}
 
 	content := string(data)
+	matchCount := strings.Count(content, pattern)
+	if matchCount == 0 {
+		return fmt.Errorf("pattern not found in %s; the upstream document may have changed", filepath)
+	}
 	newContent := strings.ReplaceAll(content, pattern, replacement)
 
 	if err := os.WriteFile(filepath, []byte(newContent), 0644); err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
 
+	return nil
+}
+
+// removeLocalRef removes array elements that consist solely of the requested
+// local $ref. It is intended for documented upstream workarounds where a union
+// references a component that the source document does not define.
+func removeLocalRef(filePath, ref string) error {
+	if strings.TrimSpace(ref) == "" {
+		return fmt.Errorf("ref is required")
+	}
+
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return fmt.Errorf("failed to read file: %w", err)
+	}
+
+	var doc interface{}
+	if err := json.Unmarshal(data, &doc); err != nil {
+		return fmt.Errorf("failed to parse JSON: %w", err)
+	}
+
+	removed := 0
+	doc = walkRemoveLocalRef(doc, ref, &removed)
+	if removed == 0 {
+		return fmt.Errorf("local ref %q not found in %s; the upstream document may have changed", ref, filePath)
+	}
+
+	out, err := json.Marshal(doc)
+	if err != nil {
+		return fmt.Errorf("failed to marshal JSON: %w", err)
+	}
+	out, err = formatJSONBytes(out)
+	if err != nil {
+		return fmt.Errorf("failed to format JSON: %w", err)
+	}
+	if err := os.WriteFile(filePath, out, 0o644); err != nil {
+		return fmt.Errorf("failed to write file: %w", err)
+	}
+	return nil
+}
+
+func walkRemoveLocalRef(value interface{}, ref string, removed *int) interface{} {
+	switch v := value.(type) {
+	case map[string]interface{}:
+		for key, child := range v {
+			v[key] = walkRemoveLocalRef(child, ref, removed)
+		}
+		return v
+	case []interface{}:
+		result := make([]interface{}, 0, len(v))
+		for _, child := range v {
+			if object, ok := child.(map[string]interface{}); ok && len(object) == 1 && object["$ref"] == ref {
+				*removed++
+				continue
+			}
+			result = append(result, walkRemoveLocalRef(child, ref, removed))
+		}
+		return result
+	default:
+		return value
+	}
+}
+
+func setOperationID(filePath, path, method, operationID string) error {
+	if path == "" || method == "" || operationID == "" {
+		return fmt.Errorf("path, method, and operation_id are required")
+	}
+
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return fmt.Errorf("failed to read file: %w", err)
+	}
+	var doc map[string]interface{}
+	if err := json.Unmarshal(data, &doc); err != nil {
+		return fmt.Errorf("failed to parse JSON: %w", err)
+	}
+	paths, ok := doc["paths"].(map[string]interface{})
+	if !ok {
+		return fmt.Errorf("paths object not found in %s", filePath)
+	}
+	pathItem, ok := paths[path].(map[string]interface{})
+	if !ok {
+		return fmt.Errorf("path %q not found in %s; the upstream document may have changed", path, filePath)
+	}
+	method = strings.ToLower(method)
+	operation, ok := pathItem[method].(map[string]interface{})
+	if !ok {
+		return fmt.Errorf("method %s not found at path %q in %s; the upstream document may have changed", strings.ToUpper(method), path, filePath)
+	}
+	operation["operationId"] = operationID
+
+	out, err := json.Marshal(doc)
+	if err != nil {
+		return fmt.Errorf("failed to marshal JSON: %w", err)
+	}
+	out, err = formatJSONBytes(out)
+	if err != nil {
+		return fmt.Errorf("failed to format JSON: %w", err)
+	}
+	if err := os.WriteFile(filePath, out, 0o644); err != nil {
+		return fmt.Errorf("failed to write file: %w", err)
+	}
 	return nil
 }
 
