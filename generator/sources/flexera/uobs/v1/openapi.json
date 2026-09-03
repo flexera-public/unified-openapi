@@ -1,0 +1,5004 @@
+{
+  "components": {
+    "schemas": {
+      "AnthropicCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "baseUrl": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Anthropic API base URL (optional/Advanced).",
+            "title": "Baseurl"
+          },
+          "connectorName": {
+            "description": "Human-readable connector name.",
+            "minLength": 1,
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "credentials": {
+            "$ref": "#/components/schemas/AnthropicCredentials"
+          },
+          "provider": {
+            "const": "anthropic",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "connectorName",
+          "provider",
+          "credentials"
+        ],
+        "title": "AnthropicCreateRequest",
+        "type": "object"
+      },
+      "AnthropicCredentials": {
+        "additionalProperties": false,
+        "properties": {
+          "analyticsApiKey": {
+            "description": "Anthropic Analytics API key (required). Write-only.",
+            "minLength": 1,
+            "title": "Analyticsapikey",
+            "type": "string",
+            "writeOnly": true
+          }
+        },
+        "required": [
+          "analyticsApiKey"
+        ],
+        "title": "AnthropicCredentials",
+        "type": "object"
+      },
+      "AnthropicUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "baseUrl": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Anthropic API base URL (optional/Advanced).",
+            "title": "Baseurl"
+          },
+          "connectorName": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Human-readable connector name.",
+            "title": "Connectorname"
+          },
+          "credentials": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AnthropicCredentials"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Provide to rotate the stored secret."
+          },
+          "provider": {
+            "const": "anthropic",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
+        ],
+        "title": "AnthropicUpdateRequest",
+        "type": "object"
+      },
+      "AwsOnboardingCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "BillingAccountId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Billing Account ID",
+            "title": "Billingaccountid"
+          },
+          "ConnectorName": {
+            "description": "Connector name.",
+            "minLength": 1,
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "CostAndUsage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CostAndUsageModel"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Cost and Usage configuration"
+          },
+          "ExternalId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "External ID.",
+            "title": "Externalid"
+          },
+          "IncludeBPC": {
+            "description": "Include BPC flag.",
+            "title": "Includebpc",
+            "type": "string"
+          },
+          "IncludeCostAndUsage": {
+            "description": "Include CCO flag.",
+            "title": "Includecostandusage",
+            "type": "string"
+          },
+          "IncludeInventory": {
+            "description": "Include inventory flag.",
+            "title": "Includeinventory",
+            "type": "string"
+          },
+          "RoleARN": {
+            "description": "Role ARN.",
+            "pattern": "^arn:(?:aws|aws-cn|aws-us-gov):iam::\\d{12}:role/.+$",
+            "title": "Rolearn",
+            "type": "string"
+          }
+        },
+        "required": [
+          "IncludeBPC",
+          "IncludeInventory",
+          "IncludeCostAndUsage",
+          "ConnectorName",
+          "RoleARN"
+        ],
+        "title": "AwsOnboardingCreateRequest",
+        "type": "object"
+      },
+      "AwsOnboardingUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "ConnectorName": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Connector name.",
+            "title": "Connectorname"
+          },
+          "CostAndUsage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CostAndUsageModel"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Cost and Usage configuration"
+          },
+          "IncludeBPC": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Include BPC flag.",
+            "title": "Includebpc"
+          },
+          "IncludeCostAndUsage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Include CCO flag.",
+            "title": "Includecostandusage"
+          },
+          "IncludeInventory": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Include inventory flag.",
+            "title": "Includeinventory"
+          }
+        },
+        "title": "AwsOnboardingUpdateRequest",
+        "type": "object"
+      },
+      "AzureOnboardingCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "BillingAccountId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Billing Account ID",
+            "title": "Billingaccountid"
+          },
+          "ClientId": {
+            "description": "Client ID.",
+            "minLength": 1,
+            "title": "Clientid",
+            "type": "string"
+          },
+          "ClientSecret": {
+            "description": "Client secret.",
+            "minLength": 1,
+            "title": "Clientsecret",
+            "type": "string"
+          },
+          "ConnectorName": {
+            "description": "Connector name.",
+            "minLength": 1,
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "CostAndUsage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CostAndUsageModel"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Cost and Usage configuration"
+          },
+          "IncludeBPC": {
+            "description": "Include BPC flag.",
+            "title": "Includebpc",
+            "type": "string"
+          },
+          "IncludeCostAndUsage": {
+            "description": "Include CCO flag.",
+            "title": "Includecostandusage",
+            "type": "string"
+          },
+          "IncludeInventory": {
+            "description": "Include inventory flag.",
+            "title": "Includeinventory",
+            "type": "string"
+          },
+          "SubscriptionId": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Subscription ID.",
+            "title": "Subscriptionid"
+          },
+          "TenantId": {
+            "description": "Tenant ID.",
+            "minLength": 1,
+            "title": "Tenantid",
+            "type": "string"
+          },
+          "TokenUrl": {
+            "description": "Token URL.",
+            "minLength": 1,
+            "title": "Tokenurl",
+            "type": "string"
+          }
+        },
+        "required": [
+          "IncludeBPC",
+          "IncludeInventory",
+          "IncludeCostAndUsage",
+          "ConnectorName",
+          "ClientId",
+          "ClientSecret",
+          "TenantId",
+          "TokenUrl"
+        ],
+        "title": "AzureOnboardingCreateRequest",
+        "type": "object"
+      },
+      "AzureOnboardingUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "ConnectorName": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Connector name.",
+            "title": "Connectorname"
+          },
+          "CostAndUsage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CostAndUsageModel"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Cost and Usage configuration"
+          },
+          "IncludeBPC": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Include BPC flag.",
+            "title": "Includebpc"
+          },
+          "IncludeCostAndUsage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Include CCO flag.",
+            "title": "Includecostandusage"
+          },
+          "IncludeInventory": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Include inventory flag.",
+            "title": "Includeinventory"
+          },
+          "SubscriptionId": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Subscription ID for Azure provider only.",
+            "title": "Subscriptionid"
+          },
+          "TenantId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Tenant ID for Azure provider only.",
+            "title": "Tenantid"
+          }
+        },
+        "title": "AzureOnboardingUpdateRequest",
+        "type": "object"
+      },
+      "CostAndUsageModel": {
+        "properties": {
+          "BillingAccount": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Billingaccount"
+          },
+          "BillingS3Bucket": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Billings3Bucket"
+          },
+          "EffectiveFrom": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effectivefrom"
+          },
+          "ReportPrefix": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reportprefix"
+          }
+        },
+        "title": "CostAndUsageModel",
+        "type": "object"
+      },
+      "CursorCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "connectorName": {
+            "description": "Human-readable connector name.",
+            "minLength": 1,
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "credentials": {
+            "$ref": "#/components/schemas/CursorCredentials"
+          },
+          "provider": {
+            "const": "cursor",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "connectorName",
+          "provider",
+          "credentials"
+        ],
+        "title": "CursorCreateRequest",
+        "type": "object"
+      },
+      "CursorCredentials": {
+        "additionalProperties": false,
+        "properties": {
+          "adminApiKey": {
+            "description": "Cursor team Admin API key (required). Sent to Cursor as HTTP Basic auth with the key as username and an empty password. Write-only.",
+            "minLength": 1,
+            "title": "Adminapikey",
+            "type": "string",
+            "writeOnly": true
+          }
+        },
+        "required": [
+          "adminApiKey"
+        ],
+        "title": "CursorCredentials",
+        "type": "object"
+      },
+      "CursorUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "connectorName": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Human-readable connector name.",
+            "title": "Connectorname"
+          },
+          "credentials": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CursorCredentials"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Provide to rotate the stored secret."
+          },
+          "provider": {
+            "const": "cursor",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
+        ],
+        "title": "CursorUpdateRequest",
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "fault": {
+            "default": false,
+            "title": "Fault",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "temporary": {
+            "default": false,
+            "title": "Temporary",
+            "type": "boolean"
+          },
+          "timeout": {
+            "default": false,
+            "title": "Timeout",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "message",
+          "name"
+        ],
+        "title": "ErrorResponse",
+        "type": "object"
+      },
+      "GoogleWorkspaceCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "adminSubject": {
+            "description": "Admin user to impersonate via domain-wide delegation.",
+            "minLength": 1,
+            "title": "Adminsubject",
+            "type": "string"
+          },
+          "connectorName": {
+            "description": "Human-readable connector name.",
+            "minLength": 1,
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "credentials": {
+            "$ref": "#/components/schemas/GoogleWorkspaceCredentials"
+          },
+          "primaryDomain": {
+            "description": "Primary Google Workspace domain.",
+            "minLength": 1,
+            "title": "Primarydomain",
+            "type": "string"
+          },
+          "provider": {
+            "const": "googleWorkspace",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "connectorName",
+          "provider",
+          "adminSubject",
+          "primaryDomain",
+          "credentials"
+        ],
+        "title": "GoogleWorkspaceCreateRequest",
+        "type": "object"
+      },
+      "GoogleWorkspaceCredentials": {
+        "additionalProperties": false,
+        "properties": {
+          "serviceAccountKey": {
+            "description": "Google service-account JSON key, base64-encoded. Write-only.",
+            "minLength": 1,
+            "title": "Serviceaccountkey",
+            "type": "string",
+            "writeOnly": true
+          }
+        },
+        "required": [
+          "serviceAccountKey"
+        ],
+        "title": "GoogleWorkspaceCredentials",
+        "type": "object"
+      },
+      "GoogleWorkspaceUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "adminSubject": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Admin user to impersonate via domain-wide delegation.",
+            "title": "Adminsubject"
+          },
+          "connectorName": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Human-readable connector name.",
+            "title": "Connectorname"
+          },
+          "credentials": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GoogleWorkspaceCredentials"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Provide to rotate the stored secret."
+          },
+          "primaryDomain": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Primary Google Workspace domain.",
+            "title": "Primarydomain"
+          },
+          "provider": {
+            "const": "googleWorkspace",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
+        ],
+        "title": "GoogleWorkspaceUpdateRequest",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "N8nCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "connectorName": {
+            "description": "Human-readable connector name.",
+            "minLength": 1,
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "credentials": {
+            "$ref": "#/components/schemas/N8nCredentials"
+          },
+          "instanceUrl": {
+            "description": "Base URL of the n8n instance.",
+            "minLength": 1,
+            "title": "Instanceurl",
+            "type": "string"
+          },
+          "provider": {
+            "const": "n8n",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "connectorName",
+          "provider",
+          "instanceUrl",
+          "credentials"
+        ],
+        "title": "N8nCreateRequest",
+        "type": "object"
+      },
+      "N8nCredentials": {
+        "additionalProperties": false,
+        "properties": {
+          "apiKey": {
+            "description": "n8n personal access token (PAT). Write-only.",
+            "minLength": 1,
+            "title": "Apikey",
+            "type": "string",
+            "writeOnly": true
+          }
+        },
+        "required": [
+          "apiKey"
+        ],
+        "title": "N8nCredentials",
+        "type": "object"
+      },
+      "N8nUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "connectorName": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Human-readable connector name.",
+            "title": "Connectorname"
+          },
+          "credentials": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/N8nCredentials"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Provide to rotate the stored secret."
+          },
+          "instanceUrl": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Base URL of the n8n instance.",
+            "title": "Instanceurl"
+          },
+          "provider": {
+            "const": "n8n",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
+        ],
+        "title": "N8nUpdateRequest",
+        "type": "object"
+      },
+      "OkResponse_Any_": {
+        "properties": {
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kind"
+          },
+          "values": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Values"
+          }
+        },
+        "title": "OkResponse[Any]",
+        "type": "object"
+      },
+      "OkResponse_SaasConnectorRead_": {
+        "properties": {
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kind"
+          },
+          "values": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SaasConnectorRead"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Values"
+          }
+        },
+        "title": "OkResponse[SaasConnectorRead]",
+        "type": "object"
+      },
+      "OkResponse_ValidationResult_": {
+        "properties": {
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kind"
+          },
+          "values": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ValidationResult"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Values"
+          }
+        },
+        "title": "OkResponse[ValidationResult]",
+        "type": "object"
+      },
+      "OpenAiCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "baseUrl": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "OpenAI API base URL (optional/Advanced).",
+            "title": "Baseurl"
+          },
+          "connectorName": {
+            "description": "Human-readable connector name.",
+            "minLength": 1,
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "credentials": {
+            "$ref": "#/components/schemas/OpenAiCredentials"
+          },
+          "provider": {
+            "const": "openAi",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "connectorName",
+          "provider",
+          "credentials"
+        ],
+        "title": "OpenAiCreateRequest",
+        "type": "object"
+      },
+      "OpenAiCredentials": {
+        "additionalProperties": false,
+        "properties": {
+          "adminApiKey": {
+            "description": "OpenAI Admin API key (required). Write-only.",
+            "minLength": 1,
+            "title": "Adminapikey",
+            "type": "string",
+            "writeOnly": true
+          },
+          "complianceApiKey": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "OpenAI Compliance API key (optional/Advanced). Write-only.",
+            "title": "Complianceapikey",
+            "writeOnly": true
+          },
+          "scimToken": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "OpenAI SCIM token (optional/Advanced). Write-only.",
+            "title": "Scimtoken",
+            "writeOnly": true
+          }
+        },
+        "required": [
+          "adminApiKey"
+        ],
+        "title": "OpenAiCredentials",
+        "type": "object"
+      },
+      "OpenAiUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "baseUrl": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "OpenAI API base URL (optional/Advanced).",
+            "title": "Baseurl"
+          },
+          "connectorName": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Human-readable connector name.",
+            "title": "Connectorname"
+          },
+          "credentials": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/OpenAiCredentials"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Provide to rotate the stored secret."
+          },
+          "provider": {
+            "const": "openAi",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
+        ],
+        "title": "OpenAiUpdateRequest",
+        "type": "object"
+      },
+      "SaasConnectorRead": {
+        "properties": {
+          "config": {
+            "additionalProperties": true,
+            "description": "Non-secret, per-provider allow-listed configuration (e.g. instanceUrl, baseUrl, adminSubject, primaryDomain, clientId).",
+            "title": "Config",
+            "type": "object"
+          },
+          "connectorId": {
+            "description": "Connector id (uuid).",
+            "title": "Connectorid",
+            "type": "string"
+          },
+          "connectorName": {
+            "description": "Human-readable connector name.",
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "credentialId": {
+            "description": "Primary credential id in the Flexera Credentials service.",
+            "title": "Credentialid",
+            "type": "string"
+          },
+          "enrollmentStatus": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Enrollment status: ONBOARDED | IN-PROGRESS | FAILED | OFFBOARDED.",
+            "title": "Enrollmentstatus"
+          },
+          "lastRunAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "ISO-8601 timestamp of the last execution; null if it has not run.",
+            "title": "Lastrunat"
+          },
+          "lastRunErrors": {
+            "description": "Errors from the last execution (empty if none / not run).",
+            "items": {},
+            "title": "Lastrunerrors",
+            "type": "array"
+          },
+          "lastRunStatus": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Status of the last data-retrieval execution (COMPLETED | FAILED | RUNNING | QUEUED); null if it has not run.",
+            "title": "Lastrunstatus"
+          },
+          "offboardedAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "ISO-8601 timestamp of soft-delete, if offboarded.",
+            "title": "Offboardedat"
+          },
+          "onboardedAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "ISO-8601 timestamp of first onboarding.",
+            "title": "Onboardedat"
+          },
+          "orgId": {
+            "description": "Flexera organization id.",
+            "title": "Orgid",
+            "type": "string"
+          },
+          "provider": {
+            "description": "AICM provider discriminator, e.g. n8n.",
+            "title": "Provider",
+            "type": "string"
+          },
+          "secondaryCredentialIds": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Map of secret-field name -> credential id for any secondary credentials.",
+            "title": "Secondarycredentialids",
+            "type": "object"
+          },
+          "updatedAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "ISO-8601 timestamp of the last update.",
+            "title": "Updatedat"
+          }
+        },
+        "required": [
+          "connectorId",
+          "connectorName",
+          "orgId",
+          "provider",
+          "credentialId"
+        ],
+        "title": "SaasConnectorRead",
+        "type": "object"
+      },
+      "SalesforceAgentforceCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "clientId": {
+            "description": "Salesforce connected-app client ID.",
+            "minLength": 1,
+            "title": "Clientid",
+            "type": "string"
+          },
+          "connectorName": {
+            "description": "Human-readable connector name.",
+            "minLength": 1,
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "credentials": {
+            "$ref": "#/components/schemas/SalesforceAgentforceCredentials"
+          },
+          "instanceUrl": {
+            "description": "Salesforce instance URL.",
+            "minLength": 1,
+            "title": "Instanceurl",
+            "type": "string"
+          },
+          "provider": {
+            "const": "salesforceAgentforce",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "connectorName",
+          "provider",
+          "instanceUrl",
+          "clientId",
+          "credentials"
+        ],
+        "title": "SalesforceAgentforceCreateRequest",
+        "type": "object"
+      },
+      "SalesforceAgentforceCredentials": {
+        "additionalProperties": false,
+        "properties": {
+          "clientSecret": {
+            "description": "Salesforce connected-app client secret (OAuth2 client_credentials). Write-only.",
+            "minLength": 1,
+            "title": "Clientsecret",
+            "type": "string",
+            "writeOnly": true
+          }
+        },
+        "required": [
+          "clientSecret"
+        ],
+        "title": "SalesforceAgentforceCredentials",
+        "type": "object"
+      },
+      "SalesforceAgentforceUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "clientId": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Salesforce connected-app client ID.",
+            "title": "Clientid"
+          },
+          "connectorName": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Human-readable connector name.",
+            "title": "Connectorname"
+          },
+          "credentials": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SalesforceAgentforceCredentials"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Provide to rotate the stored secret."
+          },
+          "instanceUrl": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Salesforce instance URL.",
+            "title": "Instanceurl"
+          },
+          "provider": {
+            "const": "salesforceAgentforce",
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
+        ],
+        "title": "SalesforceAgentforceUpdateRequest",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "ValidationResult": {
+        "description": "Verdict from the synchronous connection-test endpoint (AISM-338).\n\nReturned at HTTP 200 for every validation outcome (valid, rejected, vendor\nunreachable, vendor timeout) — the HTTP status reflects the call to us, the\nverdict lives here.",
+        "properties": {
+          "code": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "On failure, the vendor's real HTTP status (e.g. 401/403), or 502 (could not reach the vendor) / 504 (vendor timed out). Absent on success.",
+            "title": "Code"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "On failure, the specific vendor/handler detail (secret-free). Absent on success.",
+            "title": "Detail"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "On failure, a normalized human-readable message. Absent on success.",
+            "title": "Reason"
+          },
+          "success": {
+            "description": "True when the vendor accepted the submitted credentials.",
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "title": "ValidationResult",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "description": "Flexera JWT",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "description": "Unified Onboarding Services APIs enable onboarding and offboarding for Cloud and SaaS services to Flexera One Platform.\n\n## Overview\n\nUnified Onboarding enable onboarding, offboarding and querying for Cloud and SaaS services to Flexera One Platform. The service also manages\ncredentials for cloud connectors and provides status of connectors and onboarding jobs. \n\n## Services\n\n### Cloud Onboarding Service\nHandles creation, update, and deletion of cloud connectors across supported cloud providers.\n\n### Cloud Connector Service\nManages connector configuration for data collection jobs. \n\n",
+    "title": "Unified Onboarding API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/uobs/v1/orgs/{org_id}/cloud/connectors": {
+      "get": {
+        "description": "List all connectors for the organization with optional filtering",
+        "operationId": "list_connectors_uobs_v1_orgs__org_id__cloud_connectors_get",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 5000,
+              "description": "Maximum number of results",
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of results to skip",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "description": "Number of results to skip",
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Advanced filter expression for querying connectors.\n\n### Supported Fields & Operators\n\n| Field           | Operators | Description                               |\n|-----------------|-----------|-------------------------------------------|\n| connectorName   | eq, co    | Exact or contains match on connector name |\n| accountId       | eq, co    | Exact / contains match on account ID      |\n| provider        | in        | Allowed values based on caller access     |\n| createdAt       | ge, le    | Timestamp range filtering                 |\n| masterAccountId | eq, co    | Match against master account ID           |\n| enrollmentStatus| in        | allowed: ONBOARDED, OFFBOARDED, FAILED, IN-PROGRESS|\n| onboardingType  | in        | Filter by type: 'Auto Discovery', 'Individual', 'Linked' |\n| billingAccountId| eq, co    | Exact / contains match on billing acct ID |\n| products        | in        | Allowed values: 'di', 'bpc', 'cco', 'oe', 'ai'  |\n\n### Formatting Rules\n\n- Operators must be lowercase\n- Values must be wrapped in single quotes: `'value'`\n- Multiple conditions must be joined using `and`\n- Timestamp must use strict ISO format: `YYYY-MM-DDTHH:MM:SS.ffZ`\n\n### Examples\n\n- `connectorName co 'aws'`\n- `accountId eq '123456789012'`\n- `accountId co '1234'`\n- `masterAccountId eq '987654321000'`\n- `masterAccountId co '9876'`\n- `enrollmentStatus in ['ONBOARDED','OFFBOARDED','FAILED']`\n- `provider in ['aws','azure']`\n- `createdAt ge '2025-11-01T00:00:00.00Z' and createdAt le '2025-11-30T23:59:00.59Z'`\n- `enrollmentStatus in ['error'] and connectorName co 'finops'`\n- `onboardingType in ['Auto Discovery','Individual']`\n- `billingAccountId eq '123456789012'`\n- `billingAccountId co '1234'`\n- `products in ['di','bpc']`\n- `products in ['oe']`\n- `products in ['ai']`\n",
+            "in": "query",
+            "name": "filter",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Advanced filter expression for querying connectors.\n\n### Supported Fields & Operators\n\n| Field           | Operators | Description                               |\n|-----------------|-----------|-------------------------------------------|\n| connectorName   | eq, co    | Exact or contains match on connector name |\n| accountId       | eq, co    | Exact / contains match on account ID      |\n| provider        | in        | Allowed values based on caller access     |\n| createdAt       | ge, le    | Timestamp range filtering                 |\n| masterAccountId | eq, co    | Match against master account ID           |\n| enrollmentStatus| in        | allowed: ONBOARDED, OFFBOARDED, FAILED, IN-PROGRESS|\n| onboardingType  | in        | Filter by type: 'Auto Discovery', 'Individual', 'Linked' |\n| billingAccountId| eq, co    | Exact / contains match on billing acct ID |\n| products        | in        | Allowed values: 'di', 'bpc', 'cco', 'oe', 'ai'  |\n\n### Formatting Rules\n\n- Operators must be lowercase\n- Values must be wrapped in single quotes: `'value'`\n- Multiple conditions must be joined using `and`\n- Timestamp must use strict ISO format: `YYYY-MM-DDTHH:MM:SS.ffZ`\n\n### Examples\n\n- `connectorName co 'aws'`\n- `accountId eq '123456789012'`\n- `accountId co '1234'`\n- `masterAccountId eq '987654321000'`\n- `masterAccountId co '9876'`\n- `enrollmentStatus in ['ONBOARDED','OFFBOARDED','FAILED']`\n- `provider in ['aws','azure']`\n- `createdAt ge '2025-11-01T00:00:00.00Z' and createdAt le '2025-11-30T23:59:00.59Z'`\n- `enrollmentStatus in ['error'] and connectorName co 'finops'`\n- `onboardingType in ['Auto Discovery','Individual']`\n- `billingAccountId eq '123456789012'`\n- `billingAccountId co '1234'`\n- `products in ['di','bpc']`\n- `products in ['oe']`\n- `products in ['ai']`\n",
+              "title": "Filter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "kind": "connector:list",
+                  "values": [
+                    {
+                      "accountId": "835981850943",
+                      "billingAccountId": "999888777666",
+                      "connectorId": "9E720086-F290-4646-B580-380A752223F3",
+                      "connectorName": "AWS Connector",
+                      "credentialId": "act-123274f7",
+                      "enrollmentStatus": "ONBOARDED",
+                      "masterAccountId": "999888777666",
+                      "offboardedAt": "2026-04-04T12:34:56Z",
+                      "onboardedAt": "2026-04-01T12:34:56Z",
+                      "onboardingType": "Auto Discovery",
+                      "orgId": "1234",
+                      "products": [
+                        "di",
+                        "bpc",
+                        "cco"
+                      ],
+                      "provider": "aws",
+                      "resUuid": "12345678-19e5-4310-994b-3af3cc188425",
+                      "stackId": "arn:aws:cloudformation:us-west-2:969164626790:stack/StackSet-AWSControlTowerBP-BASELINE-CONFIG-dc6cdcd6-4c5e-46f9-b83d-b00cc2623355/05512fa0-4822-11f0-abad-0ab6847bbd51",
+                      "updatedAt": "2026-04-02T12:34:56Z"
+                    },
+                    {
+                      "accountId": "12345678-8907-5647-1234-c1cc8e0fec4d",
+                      "billingAccountId": "123456789012",
+                      "connectorId": "9E720086-F290-4646-B580-3AF3CC188425",
+                      "connectorName": "Daily Backup Connector",
+                      "credentialId": "1234-12345678-2c8d-4eaf-9d3c-c1cc8e0fec4d-8e780220-c5a3-45be-b5ea-123456789012",
+                      "enrollmentStatus": "ONBOARDED",
+                      "masterAccountId": "999888777666",
+                      "offboardedAt": "2026-04-04T12:34:56Z",
+                      "onboardedAt": "2026-04-01T12:34:56Z",
+                      "onboardingType": "Individual",
+                      "orgId": "1234",
+                      "products": [
+                        "di",
+                        "bpc",
+                        "cco"
+                      ],
+                      "provider": "azure",
+                      "resUuid": "123456789-0c61-423e-b4c4-12342ce76ff3",
+                      "stackId": "null",
+                      "updatedAt": "2026-04-02T12:34:56Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successfully retrieved connectors"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List connectors for cloud Accounts in the Organization",
+        "tags": [
+          "Connector"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/connectors/count": {
+      "get": {
+        "description": "Get count of connectors grouped by provider for the organization",
+        "operationId": "get_connectors_count_uobs_v1_orgs__org_id__cloud_connectors_count_get",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "kind": "connector:count",
+                  "values": [
+                    {
+                      "counts": {
+                        "aws": {
+                          "autoDiscovery": 83,
+                          "individual": 12,
+                          "linked": 32
+                        },
+                        "azure": {
+                          "individual": 15,
+                          "linked": 28
+                        },
+                        "gcp": {
+                          "autoDiscovery": 5,
+                          "individual": 3,
+                          "linked": 8
+                        }
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successfully retrieved connectors count"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get connectors count by provider",
+        "tags": [
+          "Connector"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/connectors/status": {
+      "get": {
+        "description": "Get status for all enabled products for a given connector along with errors, if any.",
+        "operationId": "get_connector_status_uobs_v1_orgs__org_id__cloud_connectors_status_get",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Connector ID (required)",
+            "in": "query",
+            "name": "connector_id",
+            "required": true,
+            "schema": {
+              "description": "Connector ID (required)",
+              "title": "Connector Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Account ID (optional)",
+            "in": "query",
+            "name": "account_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Account ID (optional)",
+              "title": "Account Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "kind": "connector_status:list",
+                  "values": [
+                    {
+                      "accId": "test-acc-456",
+                      "connectorId": "conn-12345",
+                      "connectorStatus": {
+                        "bpc": {
+                          "errors": [],
+                          "lastRunAt": "2026-02-09T09:15:00Z",
+                          "status": "COMPLETED"
+                        },
+                        "cco": {
+                          "errors": [
+                            {
+                              "errorCode": "AUTH_FAILED",
+                              "errorMsg": "Authentication failed"
+                            }
+                          ],
+                          "lastRunAt": "2026-02-05T10:30:00Z",
+                          "status": "FAILED"
+                        },
+                        "di": {
+                          "errors": [],
+                          "lastRunAt": "2026-02-09T10:30:00Z",
+                          "status": "COMPLETED"
+                        }
+                      },
+                      "orgId": "test-org-123"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successfully retrieved connector status information"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get status for all enabled products for a given connector",
+        "tags": [
+          "Connector"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/connectors/{identifier}": {
+      "get": {
+        "description": "Retrieve a connector by its identifier",
+        "operationId": "get_connector_uobs_v1_orgs__org_id__cloud_connectors__identifier__get",
+        "parameters": [
+          {
+            "description": "Organization ID \nExample : 1234",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID \nExample : 1234",
+              "title": "Org Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Connector ID \nExample : 4664d082-35c8-4a33-abc9-f174b6321234 or 14",
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "description": "Connector ID \nExample : 4664d082-35c8-4a33-abc9-f174b6321234 or 14",
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "kind": "connector:show",
+                  "values": [
+                    {
+                      "accountId": "835981850943",
+                      "billingAccountId": "999888777666",
+                      "connectorId": "4664d082-35c8-4a33-abc9-f174b6321234",
+                      "connectorName": "Daily Backup Connector",
+                      "credentialId": "act-123274f7",
+                      "enrollmentStatus": "ONBOARDED",
+                      "masterAccountId": "999888777666",
+                      "offboardedAt": "2026-04-04T12:34:56Z",
+                      "onboardedAt": "2026-04-01T12:34:56Z",
+                      "onboardingType": "Individual",
+                      "orgId": "1234",
+                      "products": [
+                        "di",
+                        "bpc",
+                        "cco"
+                      ],
+                      "productsMetadata": {
+                        "cco": {
+                          "billAccount": "123456789012",
+                          "billConnectId": "152467",
+                          "billingS3Bucket": "s3://bucket/path/to/cco/report",
+                          "effectiveFrom": "2026-04-10T12:34:56Z",
+                          "reportPrefix": "report-prefix"
+                        }
+                      },
+                      "provider": "aws",
+                      "resUuid": "123456789-0c61-423e-b4c4-12342ce76ff3",
+                      "stackId": "arn:aws:cloudformation:us-west-2:123456789:stack/StackSet-AWSControlTowerBP-BASELINE-CONFIG-abcdef-4c5e-46f9-b83d-b00cc2623355/12345acd-4822-11f0-abad-0ab6847bbd51",
+                      "updatedAt": "2026-04-02T12:34:56Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successfully retrieved connector"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get information about a onboarded connector",
+        "tags": [
+          "Connector"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding": {
+      "delete": {
+        "description": "Remove an existing cloud connector for AWS or Azure.",
+        "operationId": "trigger_onboarding_delete_uobs_v1_orgs__org_id__cloud_onboarding_delete",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provider (aws/azure)",
+            "in": "query",
+            "name": "provider",
+            "required": true,
+            "schema": {
+              "description": "Provider (aws/azure)",
+              "title": "Provider",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Connector ID",
+            "in": "query",
+            "name": "connector_id",
+            "required": true,
+            "schema": {
+              "description": "Connector ID",
+              "title": "Connector Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Onboarding: Delete",
+        "tags": [
+          "Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/aws": {
+      "post": {
+        "description": "Onboard a new AWS cloud connector.",
+        "operationId": "trigger_onboarding_post_aws_uobs_v1_orgs__org_id__cloud_onboarding_aws_post",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AwsOnboardingCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Onboarding AWS: Create",
+        "tags": [
+          "Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/aws/{connector_id}": {
+      "put": {
+        "description": "Update an existing AWS cloud connector.",
+        "operationId": "trigger_onboarding_put_aws_uobs_v1_orgs__org_id__cloud_onboarding_aws__connector_id__put",
+        "parameters": [
+          {
+            "description": "Connector ID",
+            "in": "path",
+            "name": "connector_id",
+            "required": true,
+            "schema": {
+              "description": "Connector ID",
+              "title": "Connector Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AwsOnboardingUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Onboarding AWS: Update",
+        "tags": [
+          "Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/azure": {
+      "post": {
+        "description": "Onboard a new Azure cloud connector.",
+        "operationId": "trigger_onboarding_post_azure_uobs_v1_orgs__org_id__cloud_onboarding_azure_post",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AzureOnboardingCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Onboarding Azure: Create",
+        "tags": [
+          "Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/azure/{connector_id}": {
+      "put": {
+        "description": "Update an existing Azure cloud connector.",
+        "operationId": "trigger_onboarding_put_azure_uobs_v1_orgs__org_id__cloud_onboarding_azure__connector_id__put",
+        "parameters": [
+          {
+            "description": "Connector ID",
+            "in": "path",
+            "name": "connector_id",
+            "required": true,
+            "schema": {
+              "description": "Connector ID",
+              "title": "Connector Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AzureOnboardingUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Onboarding Azure: Update",
+        "tags": [
+          "Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/saas/connectors": {
+      "get": {
+        "description": "List all AICM connectors for the organization with optional filtering.",
+        "operationId": "list_connectors_uobs_v1_orgs__org_id__saas_connectors_get",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 1000,
+              "description": "Maximum number of results",
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of results to skip",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "description": "Number of results to skip",
+              "title": "Offset",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Advanced filter expression for AICM connectors.\n\n| Field            | Operators | Description |\n|------------------|-----------|-------------|\n| connectorName    | eq, co    | Exact or contains match on connector name |\n| provider         | in        | n8n, anthropic, openAi, cursor, salesforceAgentforce, googleWorkspace |\n| status           | in        | enrollment status: enabled, failed, deleted, in-progress |\n| executionStatus  | in        | last-run status: COMPLETED, FAILED, RUNNING, QUEUED |\n\nValues must be single-quoted; join conditions with `and`.\n\nExamples:\n- `connectorName co 'prod'`\n- `provider in ['n8n','anthropic']`\n- `status in ['enabled']`\n- `executionStatus in ['FAILED']`\n",
+            "in": "query",
+            "name": "filter",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Advanced filter expression for AICM connectors.\n\n| Field            | Operators | Description |\n|------------------|-----------|-------------|\n| connectorName    | eq, co    | Exact or contains match on connector name |\n| provider         | in        | n8n, anthropic, openAi, cursor, salesforceAgentforce, googleWorkspace |\n| status           | in        | enrollment status: enabled, failed, deleted, in-progress |\n| executionStatus  | in        | last-run status: COMPLETED, FAILED, RUNNING, QUEUED |\n\nValues must be single-quoted; join conditions with `and`.\n\nExamples:\n- `connectorName co 'prod'`\n- `provider in ['n8n','anthropic']`\n- `status in ['enabled']`\n- `executionStatus in ['FAILED']`\n",
+              "title": "Filter"
+            }
+          },
+          {
+            "description": "Sort field, optionally with direction as `field:asc|desc` (default desc; NULLs last). Fields: connectorName, provider, enrollmentStatus, executionStatus, lastRunAt, onboardedAt, updatedAt. Example: `lastRunAt:desc`.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Sort field, optionally with direction as `field:asc|desc` (default desc; NULLs last). Fields: connectorName, provider, enrollmentStatus, executionStatus, lastRunAt, onboardedAt, updatedAt. Example: `lastRunAt:desc`.",
+              "title": "Sort"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_SaasConnectorRead_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List AICM (SaaS) connectors for the Organization",
+        "tags": [
+          "SaaS Connector"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/saas/connectors/count": {
+      "get": {
+        "description": "Count of AICM connectors grouped by provider for the organization.",
+        "operationId": "get_connectors_count_uobs_v1_orgs__org_id__saas_connectors_count_get",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "kind": "connector:count",
+                  "values": [
+                    {
+                      "counts": {
+                        "anthropic": 1,
+                        "cursor": 1,
+                        "n8n": 3
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successfully retrieved connector counts"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get AICM (SaaS) connector counts by provider",
+        "tags": [
+          "SaaS Connector"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/saas/connectors/status": {
+      "get": {
+        "description": "Get status for all products of a given AICM connector, with errors if any.",
+        "operationId": "get_connector_status_uobs_v1_orgs__org_id__saas_connectors_status_get",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Connector ID (required)",
+            "in": "query",
+            "name": "connector_id",
+            "required": true,
+            "schema": {
+              "description": "Connector ID (required)",
+              "title": "Connector Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get status for all products of an AICM (SaaS) connector",
+        "tags": [
+          "SaaS Connector"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/saas/connectors/{identifier}": {
+      "get": {
+        "description": "Retrieve an AICM connector by its identifier.",
+        "operationId": "get_connector_uobs_v1_orgs__org_id__saas_connectors__identifier__get",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Connector ID",
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "description": "Connector ID",
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_SaasConnectorRead_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get an AICM (SaaS) connector by id",
+        "tags": [
+          "SaaS Connector"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/saas/onboarding": {
+      "post": {
+        "description": "Create a new SaaS connector. Async: stores the credential, emits the onboarding event and returns an acceptance. Discriminated on `provider`.",
+        "operationId": "create_saas_onboarding_uobs_v1_orgs__org_id__saas_onboarding_post",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "discriminator": {
+                  "mapping": {
+                    "anthropic": "#/components/schemas/AnthropicCreateRequest",
+                    "cursor": "#/components/schemas/CursorCreateRequest",
+                    "googleWorkspace": "#/components/schemas/GoogleWorkspaceCreateRequest",
+                    "n8n": "#/components/schemas/N8nCreateRequest",
+                    "openAi": "#/components/schemas/OpenAiCreateRequest",
+                    "salesforceAgentforce": "#/components/schemas/SalesforceAgentforceCreateRequest"
+                  },
+                  "propertyName": "provider"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/SalesforceAgentforceCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/N8nCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/GoogleWorkspaceCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AnthropicCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/OpenAiCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CursorCreateRequest"
+                  }
+                ],
+                "title": "Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "409": {
+            "description": "A connector with this name already exists for the provider in this org"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "SaaS Onboarding: Create",
+        "tags": [
+          "SaaS Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/saas/onboarding/validate": {
+      "post": {
+        "description": "Synchronously test a SaaS connector's **submitted** credentials against the vendor. Unlike create/update this is not fire-and-forget: it returns a verdict at HTTP 200 for every outcome — `success:true` when the vendor accepts the credentials, otherwise `success:false` with the vendor's HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. A malformed/missing body is a 422. Discriminated on `provider`; tests submitted values only (no stored-credential testing).",
+        "operationId": "validate_saas_connection_uobs_v1_orgs__org_id__saas_onboarding_validate_post",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "discriminator": {
+                  "mapping": {
+                    "anthropic": "#/components/schemas/AnthropicCreateRequest",
+                    "cursor": "#/components/schemas/CursorCreateRequest",
+                    "googleWorkspace": "#/components/schemas/GoogleWorkspaceCreateRequest",
+                    "n8n": "#/components/schemas/N8nCreateRequest",
+                    "openAi": "#/components/schemas/OpenAiCreateRequest",
+                    "salesforceAgentforce": "#/components/schemas/SalesforceAgentforceCreateRequest"
+                  },
+                  "propertyName": "provider"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/SalesforceAgentforceCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/N8nCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/GoogleWorkspaceCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AnthropicCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/OpenAiCreateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CursorCreateRequest"
+                  }
+                ],
+                "title": "Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_ValidationResult_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "SaaS Onboarding: Validate connection",
+        "tags": [
+          "SaaS Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/saas/onboarding/{connector_id}": {
+      "delete": {
+        "description": "Delete a SaaS connector and its stored credential(s). Async acceptance; id-only (the subscriber reads the provider + credential ids from the connector record).",
+        "operationId": "delete_saas_onboarding_uobs_v1_orgs__org_id__saas_onboarding__connector_id__delete",
+        "parameters": [
+          {
+            "description": "Connector ID",
+            "in": "path",
+            "name": "connector_id",
+            "required": true,
+            "schema": {
+              "description": "Connector ID",
+              "title": "Connector Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "SaaS Onboarding: Delete",
+        "tags": [
+          "SaaS Onboarding"
+        ]
+      },
+      "put": {
+        "description": "Update an existing SaaS connector (partial). Supply `credentials` to rotate the stored secret. Async acceptance. Discriminated on `provider`.",
+        "operationId": "update_saas_onboarding_uobs_v1_orgs__org_id__saas_onboarding__connector_id__put",
+        "parameters": [
+          {
+            "description": "Connector ID",
+            "in": "path",
+            "name": "connector_id",
+            "required": true,
+            "schema": {
+              "description": "Connector ID",
+              "title": "Connector Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "discriminator": {
+                  "mapping": {
+                    "anthropic": "#/components/schemas/AnthropicUpdateRequest",
+                    "cursor": "#/components/schemas/CursorUpdateRequest",
+                    "googleWorkspace": "#/components/schemas/GoogleWorkspaceUpdateRequest",
+                    "n8n": "#/components/schemas/N8nUpdateRequest",
+                    "openAi": "#/components/schemas/OpenAiUpdateRequest",
+                    "salesforceAgentforce": "#/components/schemas/SalesforceAgentforceUpdateRequest"
+                  },
+                  "propertyName": "provider"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/SalesforceAgentforceUpdateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/N8nUpdateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/GoogleWorkspaceUpdateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AnthropicUpdateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/OpenAiUpdateRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CursorUpdateRequest"
+                  }
+                ],
+                "title": "Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "SaaS Onboarding: Update",
+        "tags": [
+          "SaaS Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/saas/onboarding/{connector_id}/collect": {
+      "post": {
+        "description": "Trigger an on-demand data collection for an existing SaaS connector. Async acceptance; id-only (no credentials). The subscriber republishes a Collect event and data-inventory runs a one-off collection — the result surfaces via the connector status (lastRunStatus/executionStatus), not this response.",
+        "operationId": "collect_saas_connector_uobs_v1_orgs__org_id__saas_onboarding__connector_id__collect_post",
+        "parameters": [
+          {
+            "description": "Connector ID",
+            "in": "path",
+            "name": "connector_id",
+            "required": true,
+            "schema": {
+              "description": "Connector ID",
+              "title": "Connector Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "SaaS Onboarding: Collect now",
+        "tags": [
+          "SaaS Onboarding"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Production NAM",
+      "url": "https://api.flexera.com"
+    },
+    {
+      "description": "Production EU",
+      "url": "https://api.flexera.eu"
+    },
+    {
+      "description": "Production APAC",
+      "url": "https://api.flexera.au"
+    },
+    {
+      "description": "Staging Environment",
+      "url": "https://api.flexeratest.com"
+    }
+  ]
+}
