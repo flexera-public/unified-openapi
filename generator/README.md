@@ -27,8 +27,8 @@ the repo root.
 ## Quick start
 
 ```sh
-# From the repo root — runs the full merge pipeline:
-make merge
+# From the repo root — generate from committed source snapshots:
+make generate
 
 # Or directly:
 cd generator
@@ -48,11 +48,16 @@ To update a single source from its upstream URL:
 go run . fetch flexera-policy-v1
 ```
 
-To refresh all sources:
+To refresh all sources without generating the root artifacts:
 
 ```sh
 go run . fetch all
 ```
+
+From the repository root, `make refresh` fetches all URL-based sources and then
+generates `openapi3.json` and `openapi3.yaml`. Prefer `make generate` in CI and
+release verification so builds use reviewed snapshots and do not depend on
+unreviewed upstream changes.
 
 ## Configuration
 
@@ -165,7 +170,7 @@ cd generator && go run . validate enabled-flexera
 
 1. Add an entry to `specs.yaml` with `type: url` source pointing to a publicly accessible URL.
 2. Run `go run . fetch <id>` to download the source snapshot.
-3. Run `go run . merge` to regenerate the root spec.
+3. Return to the repository root and run `make generate` to regenerate the root spec.
 4. Run `go run . validate enabled-flexera` to confirm no validation errors.
 5. Commit the new `sources/…/openapi.json` snapshot and the regenerated root spec.
 

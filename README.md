@@ -2,14 +2,17 @@
 
 Unified Flexera One OpenAPI specification and the generator tool that builds it.
 
-The generated **Go client** lives in [unified-go-client](https://github.com/flexera-public/unified-go-client).
+## ⚠️ Experimental
 
-## Prerequisites
+This project is currently considered **experimental** and is in the `v0.x` stage of development.
 
-- **Go 1.23+** — required to build and run the generator
-- No other runtime dependencies; all source specs are fetched from public URLs at merge time
+We strive to maintain compatibility where practical, but breaking changes may occur as we refine APIs, data models, workflows, and implementation details. **Until a `v1.0.0` release is published, backward compatibility should not be assumed.**
 
-## Layout
+We encourage feedback and early adoption, but recommend pinning to specific versions and reviewing release notes before upgrading.
+
+## For Maintainers and Contributors
+
+### Layout
 
 ```
 unified-openapi/
@@ -25,10 +28,11 @@ unified-openapi/
     └── tf-overrides.yaml          ← active overrides (copy from .example; gitignored)
 ```
 
-### Source spec snapshots
+#### Source spec snapshots
 
 `generator/sources/` holds committed snapshots of each upstream spec.
-All sources are fetched from publicly accessible URLs defined in `generator/specs.yaml`.
+URL-based sources are fetched from locations defined in `generator/specs.yaml`;
+manual sources are maintained directly in the repository.
 To refresh a source to its latest upstream version, run:
 
 ```sh
@@ -36,41 +40,31 @@ cd generator && go run . fetch <spec-id>
 # or: go run . fetch all
 ```
 
-## Regenerating the spec
+### Regenerating the spec
 
-After upstream API changes, re-merge and commit the updated spec:
+Use the workflow that matches the change you intend to make:
 
-```sh
-make merge        # or: cd generator && go run . --output-dir .. merge
-git diff openapi3.json openapi3.yaml
-git add openapi3.json openapi3.yaml && git commit -m "chore: regen spec"
-```
+| Command | Updates upstream OpenAPI snapshots | Updates `openapi3.json` / `.yaml` | Use when |
+|---------|--------------------------|-----------------------------------|----------|
+| `make refresh` | Yes | Yes | You want to fetch and generate upstream specs and regenerate `openapi3.json` / `.yaml` artifacts |
+| `make fetch` | Yes | No | You want to fetch upstream OpenAPI source changes without regenerating `openapi3.json` / `.yaml` artifacts |
+| `make generate` | No | Yes | You want to regenerate `openapi3.json` / `.yaml` artifacts after making changes to the generator code, configuration, or committed upstream OpenAPI specs |
 
-Then regenerate the Go client:
-
-```sh
-cd ../unified-go-client && make generate-client
-```
-
-## Development
+### Generator Development
 
 ```sh
-make test    # run generator unit tests
-make build   # compile the generator binary
-make tidy    # tidy go.mod / go.sum
+make test       # run generator unit tests
+make build      # compile the generator
+make generate   # rebuild artifacts from local snapshots
+make tidy       # tidy go.mod / go.sum
 ```
 
-## Terraform provider overrides
+### Terraform provider overrides
 
-Copy the example and activate:
+A downstream Terraform Provider for Flexera references [generator/tf-overrides.yaml](generator/tf-overrides.yaml) for resource and property overrides.
 
-```sh
-cp generator/tf-overrides.yaml.example generator/tf-overrides.yaml
-make merge
-```
+We plan to move this downstream to the terraform-provider-flexera repository when it's ready.
 
-The `tf-overrides.yaml` file is gitignored. Only the `.example` is committed.
-
-## License
+### License
 
 Apache 2.0 — see [LICENSE](LICENSE).
