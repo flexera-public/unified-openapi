@@ -327,6 +327,21 @@ specs:
     processing:
       - type: download
 
+  - id: flexera-unified-onboarding-v1
+    name: "Flexera Unified Onboarding API"
+    vendor: flexera
+    service: uobs
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/uobs/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/uobs/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+
   # - id: flexera-cloud-v1
   #   name: "Flexera Cloud Services API"
   #   vendor: flexera
