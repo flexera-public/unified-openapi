@@ -215,7 +215,9 @@ func TestNormalizeTextTabs_ReplacesTabsRecursively(t *testing.T) {
 		},
 	}
 
-	normalizeTextTabs(doc)
+	if got := normalizeTextTabs(doc); got != 3 {
+		t.Fatalf("replaced tab count = %d, want 3", got)
+	}
 
 	if got := doc["description"]; got != "line one\n    line two" {
 		t.Fatalf("description = %q", got)

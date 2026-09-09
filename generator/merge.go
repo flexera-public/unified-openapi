@@ -44,7 +44,8 @@ func handleMerge(baseDir, outputDir string, args []string) {
 		fmt.Fprintf(os.Stderr, "Error building unified spec: %v\n", err)
 		os.Exit(1)
 	}
-	normalizeTextTabs(unified)
+	replacedTabs := normalizeTextTabs(unified)
+	fmt.Printf("[normalizeTextTabs] replaced %d tab chars across document\n", replacedTabs)
 
 	outputPath := filepath.Join(outputDir, unifiedSpecRelativePath)
 	if err := os.MkdirAll(filepath.Dir(outputPath), 0o755); err != nil {
@@ -504,25 +505,29 @@ func cloneDocument(doc map[string]interface{}) (map[string]interface{}, error) {
 // Upstream descriptions occasionally contain tabs after indentation; yaml.v3
 // preserves them in block scalars, producing generated files that fail common
 // whitespace checks even though the document remains parseable.
-func normalizeTextTabs(value interface{}) {
+func normalizeTextTabs(value interface{}) int {
+	replaced := 0
 	switch v := value.(type) {
 	case map[string]interface{}:
 		for key, child := range v {
 			if text, ok := child.(string); ok {
+				replaced += strings.Count(text, "\t")
 				v[key] = strings.ReplaceAll(text, "\t", "    ")
 				continue
 			}
-			normalizeTextTabs(child)
+			replaced += normalizeTextTabs(child)
 		}
 	case []interface{}:
 		for index, child := range v {
 			if text, ok := child.(string); ok {
+				replaced += strings.Count(text, "\t")
 				v[index] = strings.ReplaceAll(text, "\t", "    ")
 				continue
 			}
-			normalizeTextTabs(child)
+			replaced += normalizeTextTabs(child)
 		}
 	}
+	return replaced
 }
 
 func componentNamespace(service string) string {
