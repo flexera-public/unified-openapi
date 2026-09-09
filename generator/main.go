@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -189,6 +190,7 @@ type ProcessingStep struct {
 	Path        string `yaml:"path,omitempty"`
 	Method      string `yaml:"method,omitempty"`
 	OperationID string `yaml:"operation_id,omitempty"`
+	Variant     string `yaml:"variant,omitempty"`
 	Reason      string `yaml:"reason,omitempty"`
 	Notes       string `yaml:"notes,omitempty"`
 }
@@ -385,6 +387,10 @@ func processStep(spec SpecConfig, step ProcessingStep, outputDir string) error {
 	case "unwrap-single-anyof":
 		filePath := filepath.Join(outputDir, spec.Output.Filename)
 		return unwrapSingleAnyOf(filePath)
+
+	case "remove-anyof-variant":
+		filePath := filepath.Join(outputDir, spec.Output.Filename)
+		return removeAnyOfVariant(filePath, step.Variant)
 
 	case "remove-local-ref":
 		filePath := filepath.Join(outputDir, spec.Output.Filename)
@@ -828,6 +834,90 @@ func unwrapSingleAnyOf(filePath string) error {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
 	return nil
+}
+
+// removeAnyOfVariant removes any member of an "anyOf" array that is
+// structurally equal (as parsed JSON, independent of key order or
+// pretty-printing) to the given variant schema. It is intended for
+// documented upstream workarounds where a schema uses OpenAPI 3.1
+// anyOf-based unions (e.g. a null variant for nullable fields, or a
+// redundant const-based variant) that oapi-codegen cannot handle well.
+// Unlike a raw text sed-replace, this compares parsed JSON values so it
+// is immune to changes in whitespace/indentation/key-order in the
+// upstream document.
+func removeAnyOfVariant(filePath, variantJSON string) error {
+	if strings.TrimSpace(variantJSON) == "" {
+		return fmt.Errorf("variant is required")
+	}
+
+	var variant interface{}
+	if err := json.Unmarshal([]byte(variantJSON), &variant); err != nil {
+		return fmt.Errorf("failed to parse variant JSON: %w", err)
+	}
+
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return fmt.Errorf("failed to read file: %w", err)
+	}
+
+	var doc interface{}
+	if err := json.Unmarshal(data, &doc); err != nil {
+		return fmt.Errorf("failed to parse JSON: %w", err)
+	}
+
+	removed := 0
+	doc = walkRemoveAnyOfVariant(doc, variant, &removed)
+	if removed == 0 {
+		return fmt.Errorf("anyOf variant %s not found in %s; the upstream document may have changed", variantJSON, filePath)
+	}
+
+	out, err := json.Marshal(doc)
+	if err != nil {
+		return fmt.Errorf("failed to marshal JSON: %w", err)
+	}
+	out, err = formatJSONBytes(out)
+	if err != nil {
+		return fmt.Errorf("failed to format JSON: %w", err)
+	}
+	if err := os.WriteFile(filePath, out, 0o644); err != nil {
+		return fmt.Errorf("failed to write file: %w", err)
+	}
+	return nil
+}
+
+// jsonDeepEqual compares two values decoded from JSON (maps, slices,
+// strings, bools, nil, and float64 numbers) for structural equality,
+// ignoring map key order.
+func jsonDeepEqual(a, b interface{}) bool {
+	return reflect.DeepEqual(a, b)
+}
+
+func walkRemoveAnyOfVariant(node interface{}, variant interface{}, removed *int) interface{} {
+	switch v := node.(type) {
+	case map[string]interface{}:
+		for k, child := range v {
+			v[k] = walkRemoveAnyOfVariant(child, variant, removed)
+		}
+		if anyOf, ok := v["anyOf"].([]interface{}); ok {
+			filtered := make([]interface{}, 0, len(anyOf))
+			for _, member := range anyOf {
+				if jsonDeepEqual(member, variant) {
+					*removed++
+					continue
+				}
+				filtered = append(filtered, member)
+			}
+			v["anyOf"] = filtered
+		}
+		return v
+	case []interface{}:
+		for i, child := range v {
+			v[i] = walkRemoveAnyOfVariant(child, variant, removed)
+		}
+		return v
+	default:
+		return v
+	}
 }
 
 func formatJSONBytes(data []byte) ([]byte, error) {
