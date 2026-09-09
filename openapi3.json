@@ -21302,7 +21302,7 @@
             "type": "array"
           },
           "type": {
-            "description": "The allocation strategy, and the discriminator for which of a destination's fields carry meaning. equalSplit distributes the pooled cost equally across the destinations. fixedPercentageSplit uses the percentage supplied for each destination, and those percentages must sum to 100. usageBasedProportionalSplit derives each destination's share from that destination's own usage when the bill runs, so the shares are not known at the time a rule is read or written. Further strategies may be added, so consumers must tolerate a value they do not recognize.",
+            "description": "The allocation strategy.",
             "example": "equalSplit",
             "type": "string"
           }
@@ -21333,7 +21333,7 @@
             "type": "string"
           },
           "percentage": {
-            "description": "The effective percentage of costs allocated to this destination. For equalSplit this is computed by the server as 100/N (where N is the number of destinations) and for fixedPercentageSplit it is the client-supplied value; in both cases all percentages sum to 100. For usageBasedProportionalSplit the effective share is derived from usage at bill run time and is not known when the rule is read, so this field is reported as 0 and carries no meaning -- read \"type\" to know whether it applies.",
+            "description": "The effective percentage of costs allocated to this destination. For equalSplit, this is computed by the server as 100/N (where N is the number of destinations). For fixedPercentageSplit, this is the client-supplied value. All percentages sum to 100.",
             "example": 50,
             "maximum": 100,
             "minimum": 0,
@@ -21366,7 +21366,7 @@
             "type": "string"
           },
           "percentage": {
-            "description": "The percentage of costs allocated to this destination. Required for fixedPercentageSplit (all percentages must sum to 100). Ignored for equalSplit (the server computes equal shares automatically) and for usageBasedProportionalSplit (shares are derived from usage at bill run time).",
+            "description": "The percentage of costs allocated to this destination. Required for fixedPercentageSplit (all percentages must sum to 100). Ignored for equalSplit (the server computes equal shares automatically).",
             "example": 50,
             "maximum": 100,
             "minimum": 0,
@@ -21418,11 +21418,10 @@
             "type": "array"
           },
           "type": {
-            "description": "The allocation strategy, and the discriminator for which of a destination's fields are required. equalSplit distributes the pooled cost equally across the destinations. fixedPercentageSplit uses the percentage supplied for each destination, and those percentages must sum to 100. usageBasedProportionalSplit derives each destination's share from that destination's own usage when the bill runs, so the shares are not known at the time a rule is read or written.",
+            "description": "The allocation strategy.",
             "enum": [
               "equalSplit",
-              "fixedPercentageSplit",
-              "usageBasedProportionalSplit"
+              "fixedPercentageSplit"
             ],
             "example": "equalSplit",
             "type": "string"
@@ -64046,14 +64045,12 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Metrics",
             "type": "array"
           },
           "scope": {
             "$ref": "#/components/schemas/Risk_AssetStatisticsScope",
-            "description": "Scope filters to narrow the asset population.",
-            "nullable": true
+            "description": "Scope filters to narrow the asset population."
           }
         },
         "title": "AssetStatisticsRequest",
@@ -64092,19 +64089,16 @@
         "properties": {
           "complianceStandard": {
             "description": "Standard code, e.g. CIS_CONTROLS_8",
-            "nullable": true,
             "title": "Compliancestandard",
             "type": "string"
           },
           "controlId": {
             "description": "Control ID, e.g. CIS_CTRL_8__7_1",
-            "nullable": true,
             "title": "Controlid",
             "type": "string"
           },
           "date": {
             "description": "YYYY-MM-DD. If omitted, uses the latest available run",
-            "nullable": true,
             "title": "Date",
             "type": "string"
           },
@@ -64311,7 +64305,6 @@
           "attackVector": {
             "description": "Attack vector",
             "example": "AV:N/AC:L/Au:N/C:C/I:C/A:C",
-            "nullable": true,
             "title": "Attackvector",
             "type": "string"
           },
@@ -64324,77 +64317,66 @@
           "cvssScore": {
             "description": "CVSS score",
             "example": 9.8,
-            "nullable": true,
             "title": "Cvssscore",
             "type": "number"
           },
           "cvssVersion": {
             "description": "CVSS version",
             "example": "3.1",
-            "nullable": true,
             "title": "Cvssversion",
             "type": "string"
           },
           "malwareName": {
             "description": "Malware name",
             "example": "Malware1",
-            "nullable": true,
             "title": "Malwarename",
             "type": "string"
           },
           "nvdSeverity": {
             "description": "NVD severity",
             "example": "critical",
-            "nullable": true,
             "title": "Nvdseverity",
             "type": "string"
           },
           "publishDate": {
             "description": "CVE publish date",
             "example": "2023-10-10T00:00:00Z",
-            "nullable": true,
             "title": "Publishdate",
             "type": "string"
           },
           "secuniaAdvisoryCriticality": {
             "description": "Secunia advisor criticality",
             "example": "Critical",
-            "nullable": true,
             "title": "Secuniaadvisorycriticality",
             "type": "string"
           },
           "secuniaAdvisoryId": {
             "description": "Secunia advisory ID",
             "example": "SA12345",
-            "nullable": true,
             "title": "Secuniaadvisoryid",
             "type": "string"
           },
           "secuniaAdvisoryTitle": {
             "description": "Secunia advisory title",
             "example": "Advisory Title 1",
-            "nullable": true,
             "title": "Secuniaadvisorytitle",
             "type": "string"
           },
           "solutionStatus": {
             "description": "Solution status",
             "example": "Vendor Patched",
-            "nullable": true,
             "title": "Solutionstatus",
             "type": "string"
           },
           "threatExploitRisk": {
             "description": "Threat exploit risk",
             "example": "High",
-            "nullable": true,
             "title": "Threatexploitrisk",
             "type": "string"
           },
           "threatScore": {
             "description": "Threat score",
             "example": 8.5,
-            "nullable": true,
             "title": "Threatscore",
             "type": "number"
           }
@@ -64474,14 +64456,12 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Dimensions",
             "type": "array"
           },
           "scope": {
             "$ref": "#/components/schemas/Risk_CatalogFilterScope",
-            "description": "Upstream selections to narrow downstream dimension options.",
-            "nullable": true
+            "description": "Upstream selections to narrow downstream dimension options."
           }
         },
         "title": "CatalogFilterRequest",
@@ -64559,14 +64539,12 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Category",
             "type": "array"
           },
           "complianceStandard": {
             "description": "Compliance standard name (e.g., 'NIST_800-82_rev2'). If not provided, summary export will be generated.",
             "example": "NIST_800-82_rev2",
-            "nullable": true,
             "title": "Compliancestandard",
             "type": "string"
           },
@@ -64586,7 +64564,6 @@
             "default": 1,
             "description": "CIS level filter. Allowed values: 1 or 2",
             "example": 1,
-            "nullable": true,
             "title": "Level",
             "type": "integer"
           },
@@ -65094,7 +65071,6 @@
           "category": {
             "description": "Control category (only for CIS standard)",
             "example": "Identity And Access Management",
-            "nullable": true,
             "title": "Category",
             "type": "string"
           },
@@ -65125,7 +65101,6 @@
           "level": {
             "description": "CIS level (only for CIS standard)",
             "example": 1,
-            "nullable": true,
             "title": "Level",
             "type": "integer"
           },
@@ -65138,7 +65113,6 @@
           "scoring": {
             "description": "Scoring type (only for CIS standard)",
             "example": "Automated",
-            "nullable": true,
             "title": "Scoring",
             "type": "string"
           }
@@ -65167,21 +65141,18 @@
           "controlsPassed": {
             "description": "Number of controls passed",
             "example": 3,
-            "nullable": true,
             "title": "Controlspassed",
             "type": "integer"
           },
           "inCompliance": {
             "description": "Compliance percentage (floored)",
             "example": 10,
-            "nullable": true,
             "title": "Incompliance",
             "type": "integer"
           },
           "totalControls": {
             "description": "Total number of controls",
             "example": 30,
-            "nullable": true,
             "title": "Totalcontrols",
             "type": "integer"
           }
@@ -65250,12 +65221,10 @@
           },
           "condition": {
             "$ref": "#/components/schemas/Risk_EnumerationCondition",
-            "description": "Optional nested condition",
-            "nullable": true
+            "description": "Optional nested condition"
           },
           "date": {
             "description": "Single date YYYY-MM-DD",
-            "nullable": true,
             "title": "Date",
             "type": "string"
           },
@@ -65274,6 +65243,12 @@
               ]
             ],
             "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
               "type": "string"
             },
             "title": "Providers",
@@ -65319,7 +65294,6 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Services",
             "type": "array"
           }
@@ -65355,13 +65329,11 @@
         "properties": {
           "cveId": {
             "description": "CVE identifier (e.g. CVE-2023-12345)",
-            "nullable": true,
             "title": "Cveid",
             "type": "string"
           },
           "type": {
             "description": "Context type: 'vm' or 'container'",
-            "nullable": true,
             "title": "Type",
             "type": "string"
           }
@@ -65452,7 +65424,6 @@
             "description": "Rule arguments string (comma-separated or JSON array string)",
             "example": "ingress,source",
             "minLength": 1,
-            "nullable": true,
             "title": "Args",
             "type": "string"
           },
@@ -65461,7 +65432,6 @@
             "example": 100,
             "maximum": 1000,
             "minimum": 1,
-            "nullable": true,
             "title": "Pagesize",
             "type": "integer"
           },
@@ -65475,7 +65445,6 @@
               "type": "string"
             },
             "minItems": 1,
-            "nullable": true,
             "title": "Providers",
             "type": "array"
           },
@@ -65489,7 +65458,6 @@
               "type": "string"
             },
             "minItems": 1,
-            "nullable": true,
             "title": "Regions",
             "type": "array"
           },
@@ -65504,7 +65472,6 @@
             "description": "Whether to include suppressed assets: 'true', 'false', or omit for all",
             "example": "false",
             "minLength": 1,
-            "nullable": true,
             "title": "Showsuppressed",
             "type": "string"
           },
@@ -65512,7 +65479,6 @@
             "description": "Cursor-based pagination token for next page",
             "example": "NjA2MDc5ODgxNDczLWZhaWxlZC1hc3NldHMtMjAyNTExMTcxMjAwMDAuanNvbjo1MDA=",
             "minLength": 1,
-            "nullable": true,
             "title": "Skiptoken",
             "type": "string"
           }
@@ -65651,7 +65617,6 @@
           "nextPage": {
             "description": "URL for fetching next page with skipToken",
             "example": "/risk/v1/orgs/123/misconfiguration/failed-asset?skipToken=NjA2MDc5ODgxNDczLWZhaWxlZC1hc3NldHMtMjAyNTExMTcxMjAwMDAuanNvbjo1MDA=",
-            "nullable": true,
             "title": "Nextpage",
             "type": "string"
           },
@@ -65688,13 +65653,11 @@
           },
           "showSuppressed": {
             "description": "'true', 'false', or omit for all",
-            "nullable": true,
             "title": "Showsuppressed",
             "type": "string"
           },
           "skipToken": {
             "description": "Cursor for pagination",
-            "nullable": true,
             "title": "Skiptoken",
             "type": "string"
           }
@@ -65791,7 +65754,6 @@
           "date": {
             "description": "Date filter in YYYY-MM-DD format",
             "example": "2025-10-08",
-            "nullable": true,
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
             "title": "Date",
             "type": "string"
@@ -65799,7 +65761,6 @@
           "filter": {
             "description": "Advanced filter expression",
             "example": "deviceManufacturer in ['abc', 'xyz'] and assetId co 'i-001'",
-            "nullable": true,
             "title": "Filter",
             "type": "string"
           },
@@ -65809,7 +65770,6 @@
             "example": 100,
             "maximum": 1000,
             "minimum": 1,
-            "nullable": true,
             "title": "Limit",
             "type": "integer"
           },
@@ -65818,7 +65778,6 @@
             "description": "Number of results to skip (for pagination)",
             "example": 0,
             "minimum": 0,
-            "nullable": true,
             "title": "Offset",
             "type": "integer"
           },
@@ -65826,7 +65785,6 @@
             "default": "deviceManufacturer asc",
             "description": "Sort order (field asc/desc)",
             "example": "deviceManufacturer asc",
-            "nullable": true,
             "title": "Orderby",
             "type": "string"
           },
@@ -65845,6 +65803,12 @@
               ]
             ],
             "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
               "type": "string"
             },
             "title": "Providers",
@@ -65885,28 +65849,24 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Services",
             "type": "array"
           },
           "softwareManufacturer": {
             "description": "Software manufacturer name",
             "example": "Microsoft",
-            "nullable": true,
             "title": "Softwaremanufacturer",
             "type": "string"
           },
           "softwareProduct": {
             "description": "Software product name",
             "example": "Teams",
-            "nullable": true,
             "title": "Softwareproduct",
             "type": "string"
           },
           "softwareVersion": {
             "description": "Software version",
             "example": "2.1",
-            "nullable": true,
             "title": "Softwareversion",
             "type": "string"
           },
@@ -65988,7 +65948,6 @@
             "default": "",
             "description": "Specific date in YYYY-MM-DD format",
             "example": "2025-10-08",
-            "nullable": true,
             "title": "Date",
             "type": "string"
           },
@@ -65996,7 +65955,6 @@
             "default": "",
             "description": "Filter expression like 'manufacturerName co \"Microsoft\"'",
             "example": "manufacturerName co 'Microsoft'",
-            "nullable": true,
             "title": "Filter",
             "type": "string"
           },
@@ -66011,7 +65969,6 @@
             "description": "Maximum number of results to return",
             "maximum": 1000,
             "minimum": 1,
-            "nullable": true,
             "title": "Limit",
             "type": "integer"
           },
@@ -66019,7 +65976,6 @@
             "default": 0,
             "description": "Number of results to skip for pagination",
             "minimum": 0,
-            "nullable": true,
             "title": "Offset",
             "type": "integer"
           },
@@ -66027,7 +65983,6 @@
             "default": "",
             "description": "Order expression like 'manufacturerName asc'",
             "example": "manufacturerName asc",
-            "nullable": true,
             "title": "Orderby",
             "type": "string"
           },
@@ -66046,6 +66001,12 @@
               ]
             ],
             "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
               "type": "string"
             },
             "title": "Providers",
@@ -66086,7 +66047,6 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Services",
             "type": "array"
           }
@@ -66160,7 +66120,6 @@
           "date": {
             "description": "Date in YYYY-MM-DD format (optional)",
             "example": "2025-10-08",
-            "nullable": true,
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
             "title": "Date",
             "type": "string"
@@ -66180,6 +66139,12 @@
               ]
             ],
             "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
               "type": "string"
             },
             "title": "Providers",
@@ -66216,7 +66181,6 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Services",
             "type": "array"
           }
@@ -66330,6 +66294,12 @@
               ]
             ],
             "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
               "type": "string"
             },
             "title": "Providers",
@@ -66370,7 +66340,6 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Services",
             "type": "array"
           }
@@ -66472,7 +66441,6 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Includestatuses",
             "type": "array"
           },
@@ -66482,8 +66450,7 @@
           },
           "scope": {
             "$ref": "#/components/schemas/Risk_LifecycleForecastScope",
-            "description": "Scope filters to narrow the asset population.",
-            "nullable": true
+            "description": "Scope filters to narrow the asset population."
           }
         },
         "required": [
@@ -66526,8 +66493,7 @@
         "properties": {
           "scope": {
             "$ref": "#/components/schemas/Risk_LifecycleTrendScope",
-            "description": "Scope filters to narrow the asset population.",
-            "nullable": true
+            "description": "Scope filters to narrow the asset population."
           },
           "timeRange": {
             "$ref": "#/components/schemas/Risk_LifecycleTrendTimeRange",
@@ -66637,7 +66603,6 @@
           "date": {
             "description": "Single date in YYYY-MM-DD format",
             "example": "2025-10-08",
-            "nullable": true,
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
             "title": "Date",
             "type": "string"
@@ -66645,7 +66610,6 @@
           "filter": {
             "description": "Filter expression supporting 'co' (contains) and 'in' operators. Examples: \"cveTitle co 'cve-id'\", \"softwareManufacturer in ['manufacturer1', 'manufacturer2']\"",
             "example": "cveTitle co 'CVE-2021' and softwareManufacturer in [\"Microsoft\", \"Oracle\"]",
-            "nullable": true,
             "title": "Filter",
             "type": "string"
           },
@@ -66654,7 +66618,6 @@
             "description": "Maximum number of results to return (default: 100, max: 1000)",
             "maximum": 1000,
             "minimum": 1,
-            "nullable": true,
             "title": "Limit",
             "type": "integer"
           },
@@ -66662,14 +66625,12 @@
             "default": 0,
             "description": "Number of results to skip (for pagination)",
             "minimum": 0,
-            "nullable": true,
             "title": "Offset",
             "type": "integer"
           },
           "orderBy": {
             "description": "Order by field and direction (e.g., 'softwareManufacturer asc', 'findings desc')",
             "example": "softwareManufacturer asc",
-            "nullable": true,
             "title": "Orderby",
             "type": "string"
           },
@@ -66688,6 +66649,12 @@
               ]
             ],
             "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
               "type": "string"
             },
             "title": "Providers",
@@ -66728,7 +66695,6 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Services",
             "type": "array"
           }
@@ -66952,14 +66918,12 @@
           "args": {
             "description": "Rule arguments as JSON string",
             "example": "[\"ingress\", \"source\"]",
-            "nullable": true,
             "title": "Args",
             "type": "string"
           },
           "autoRemediationStatus": {
             "description": "Auto-remediation status",
             "example": false,
-            "nullable": true,
             "title": "Autoremediationstatus",
             "type": "boolean"
           },
@@ -67108,7 +67072,6 @@
             "description": "Required when featureType is 'compliance'",
             "example": "SOC_2",
             "minLength": 1,
-            "nullable": true,
             "title": "Compliancestandard",
             "type": "string"
           },
@@ -67116,7 +67079,6 @@
             "description": "Required when featureType is 'compliance'",
             "example": "CC7.1",
             "minLength": 1,
-            "nullable": true,
             "title": "Controlid",
             "type": "string"
           },
@@ -67124,7 +67086,6 @@
             "description": "Required when featureType is 'compliance'. Format: YYYY-MM-DD",
             "example": "2025-11-04",
             "minLength": 1,
-            "nullable": true,
             "title": "Date",
             "type": "string"
           },
@@ -67132,7 +67093,6 @@
             "description": "Required when featureType is 'event'",
             "example": "Configuration Change",
             "minLength": 1,
-            "nullable": true,
             "title": "Eventid",
             "type": "string"
           },
@@ -67140,7 +67100,6 @@
             "description": "Required when featureType is 'event'. Format: YYYY-MM-DD HH:MM:SS",
             "example": "2025-06-15 14:30:00",
             "minLength": 1,
-            "nullable": true,
             "title": "Eventtime",
             "type": "string"
           },
@@ -67370,7 +67329,6 @@
           "userName": {
             "default": "",
             "description": "User name (optional)",
-            "nullable": true,
             "title": "Username",
             "type": "string"
           }
@@ -67439,28 +67397,23 @@
       "Risk_OkPaginatedResponse_Any_": {
         "properties": {
           "count": {
-            "nullable": true,
             "title": "Count",
             "type": "integer"
           },
           "kind": {
-            "nullable": true,
             "title": "Kind",
             "type": "string"
           },
           "pageNumber": {
-            "nullable": true,
             "title": "Pagenumber",
             "type": "integer"
           },
           "totalPages": {
-            "nullable": true,
             "title": "Totalpages",
             "type": "integer"
           },
           "values": {
             "items": {},
-            "nullable": true,
             "title": "Values",
             "type": "array"
           }
@@ -67479,7 +67432,6 @@
           "details": {
             "description": "Additional error details (fallback added if omitted)",
             "example": "An error occurred while retrieving onboarding status",
-            "nullable": true,
             "title": "Details",
             "type": "string"
           },
@@ -67492,7 +67444,6 @@
           "org_id": {
             "description": "Organization ID if available (numeric string)",
             "example": "123456",
-            "nullable": true,
             "pattern": "^\\d+$",
             "title": "Org Id",
             "type": "string"
@@ -67657,7 +67608,6 @@
           "date": {
             "description": "Date in YYYY-MM-DD format",
             "example": "2025-10-01",
-            "nullable": true,
             "title": "Date",
             "type": "string"
           },
@@ -67682,6 +67632,12 @@
               ]
             ],
             "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
               "type": "string"
             },
             "title": "Providers",
@@ -67722,7 +67678,6 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Services",
             "type": "array"
           }
@@ -67740,7 +67695,6 @@
             "description": "Arguments for the rule (required when suppressing a rule)",
             "example": "[\"3306\"]",
             "minLength": 1,
-            "nullable": true,
             "title": "Args",
             "type": "string"
           },
@@ -67748,7 +67702,6 @@
             "description": "Risk ID (required when suppressing a failed asset)",
             "example": "MjAyNV8xMV8xOS",
             "minLength": 1,
-            "nullable": true,
             "title": "Riskid",
             "type": "string"
           },
@@ -67756,7 +67709,6 @@
             "description": "Rule ID (required when suppressing a rule)",
             "example": "rds-instance-using-default-ports",
             "minLength": 1,
-            "nullable": true,
             "title": "Ruleid",
             "type": "string"
           },
@@ -67789,7 +67741,6 @@
             "description": "Name of the user performing the suppress action",
             "example": "admin@example.com",
             "minLength": 1,
-            "nullable": true,
             "title": "Username",
             "type": "string"
           }
@@ -67959,25 +67910,21 @@
           },
           "firstDiscovered": {
             "description": "Date when risk was first discovered",
-            "nullable": true,
             "title": "Firstdiscovered",
             "type": "string"
           },
           "lastScanned": {
             "description": "Last scan date",
-            "nullable": true,
             "title": "Lastscanned",
             "type": "string"
           },
           "location": {
             "description": "Cloud region or location",
-            "nullable": true,
             "title": "Location",
             "type": "string"
           },
           "riskScore": {
             "description": "Risk score",
-            "nullable": true,
             "title": "Riskscore",
             "type": "number"
           },
@@ -68018,7 +67965,6 @@
           },
           "user": {
             "description": "User associated with the risk",
-            "nullable": true,
             "title": "User",
             "type": "string"
           }
@@ -68123,21 +68069,18 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Category",
             "type": "array"
           },
           "etime": {
             "description": "End time for data in YYYY-MM-DD format",
             "example": "2025-11-02",
-            "nullable": true,
             "title": "Etime",
             "type": "string"
           },
           "imc": {
             "description": "IMC filter flag",
             "example": false,
-            "nullable": true,
             "title": "Imc",
             "type": "boolean"
           },
@@ -68145,14 +68088,12 @@
             "default": 1,
             "description": "CIS level filter. Allowed values: 1 or 2",
             "example": 1,
-            "nullable": true,
             "title": "Level",
             "type": "integer"
           },
           "providerType": {
             "description": "Provider type. Use 'on-prem' to query on-premises compliance data. Omit or set to 'cloud' for cloud provider data.",
             "example": "on-prem",
-            "nullable": true,
             "title": "Providertype",
             "type": "string"
           },
@@ -68259,7 +68200,6 @@
             "description": "Arguments for the rule (required when suppressing a rule)",
             "example": "[\"iam-policy-changes\"]",
             "minLength": 1,
-            "nullable": true,
             "title": "Args",
             "type": "string"
           },
@@ -68267,7 +68207,6 @@
             "description": "Risk ID (required when suppressing a failed asset)",
             "example": "MjAyNV8xMV8xOSs2MDYwNzk4ODE0NzMrMjUyMjc3MzU4MTE4K2lhbS51c2Vycy5BSURBVFZQSEc3WVRLVkROVFhFUzMuQWNjZXNzS2V5KzA1YWVlMjU5LTE4OWUtNGE0Zi1iZWMyLTMzMzEwMjc5MzcwNStpYW0tdXNlci1uby1rZXktcm90YXRpb24rWyI5MCJd",
             "minLength": 1,
-            "nullable": true,
             "title": "Riskid",
             "type": "string"
           },
@@ -68275,7 +68214,6 @@
             "description": "Rule ID (required when suppressing a rule)",
             "example": "cloudtrail-cloudwatch-log-metric-filter",
             "minLength": 1,
-            "nullable": true,
             "title": "Ruleid",
             "type": "string"
           },
@@ -68309,7 +68247,6 @@
             "description": "Name of the user performing the suppress action",
             "example": "Automation User SpotSecurity",
             "minLength": 1,
-            "nullable": true,
             "title": "Username",
             "type": "string"
           }
@@ -68515,21 +68452,18 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "title": "Fields",
             "type": "array"
           },
           "filter": {
             "default": "",
             "description": "Filter expression like 'manufacturer co \"Microsoft\"'",
-            "nullable": true,
             "title": "Filter",
             "type": "string"
           },
           "orderBy": {
             "default": "",
             "description": "Order expression like 'manufacturer asc'",
-            "nullable": true,
             "title": "Orderby",
             "type": "string"
           },
@@ -68539,8 +68473,7 @@
           },
           "scope": {
             "$ref": "#/components/schemas/Risk_YearWiseAssetListScope",
-            "description": "Scope filters to narrow the asset population.",
-            "nullable": true
+            "description": "Scope filters to narrow the asset population."
           }
         },
         "title": "YearWiseAssetListRequest",
@@ -187019,7 +186952,6 @@
             "required": false,
             "schema": {
               "description": "Cursor for pagination (query param overrides body)",
-              "nullable": true,
               "title": "Skiptoken",
               "type": "string"
             }
@@ -216585,7 +216517,7 @@
       "name": "Settings"
     },
     {
-      "description": "Shared cost rules let you redistribute a set of costs across multiple destinations\nbased on configurable allocation strategies such as equal splits, fixed-percentage splits, or\nusage-based proportional splits.\nRules are evaluated in priority order (lowest priority number first). Each rule identifies\nsource costs via dimensions (FOCUS dimensions, custom dimensions) and\ndistributes them to one or more destination dimension values.\nProcessing unit: allocations are applied in isolation per bill connect and per bill month.\nRules do not allocate costs across different bill connects or across different bill months.",
+      "description": "Shared cost rules let you redistribute a set of costs across multiple destinations\nbased on configurable allocation strategies such as equal splits or fixed-percentage splits.\nRules are evaluated in priority order (lowest priority number first). Each rule identifies\nsource costs via dimensions (FOCUS dimensions, custom dimensions) and\ndistributes them to one or more destination dimension values.\nProcessing unit: allocations are applied in isolation per bill connect and per bill month.\nRules do not allocate costs across different bill connects or across different bill months.",
       "name": "Shared Cost Rules"
     },
     {

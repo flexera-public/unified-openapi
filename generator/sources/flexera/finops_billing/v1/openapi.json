@@ -95,7 +95,7 @@
             "type": "array"
           },
           "type": {
-            "description": "The allocation strategy, and the discriminator for which of a destination's fields carry meaning. equalSplit distributes the pooled cost equally across the destinations. fixedPercentageSplit uses the percentage supplied for each destination, and those percentages must sum to 100. usageBasedProportionalSplit derives each destination's share from that destination's own usage when the bill runs, so the shares are not known at the time a rule is read or written. Further strategies may be added, so consumers must tolerate a value they do not recognize.",
+            "description": "The allocation strategy.",
             "example": "equalSplit",
             "type": "string"
           }
@@ -126,7 +126,7 @@
             "type": "string"
           },
           "percentage": {
-            "description": "The effective percentage of costs allocated to this destination. For equalSplit this is computed by the server as 100/N (where N is the number of destinations) and for fixedPercentageSplit it is the client-supplied value; in both cases all percentages sum to 100. For usageBasedProportionalSplit the effective share is derived from usage at bill run time and is not known when the rule is read, so this field is reported as 0 and carries no meaning -- read \"type\" to know whether it applies.",
+            "description": "The effective percentage of costs allocated to this destination. For equalSplit, this is computed by the server as 100/N (where N is the number of destinations). For fixedPercentageSplit, this is the client-supplied value. All percentages sum to 100.",
             "example": 50,
             "maximum": 100,
             "minimum": 0,
@@ -159,7 +159,7 @@
             "type": "string"
           },
           "percentage": {
-            "description": "The percentage of costs allocated to this destination. Required for fixedPercentageSplit (all percentages must sum to 100). Ignored for equalSplit (the server computes equal shares automatically) and for usageBasedProportionalSplit (shares are derived from usage at bill run time).",
+            "description": "The percentage of costs allocated to this destination. Required for fixedPercentageSplit (all percentages must sum to 100). Ignored for equalSplit (the server computes equal shares automatically).",
             "example": 50,
             "maximum": 100,
             "minimum": 0,
@@ -211,11 +211,10 @@
             "type": "array"
           },
           "type": {
-            "description": "The allocation strategy, and the discriminator for which of a destination's fields are required. equalSplit distributes the pooled cost equally across the destinations. fixedPercentageSplit uses the percentage supplied for each destination, and those percentages must sum to 100. usageBasedProportionalSplit derives each destination's share from that destination's own usage when the bill runs, so the shares are not known at the time a rule is read or written.",
+            "description": "The allocation strategy.",
             "enum": [
               "equalSplit",
-              "fixedPercentageSplit",
-              "usageBasedProportionalSplit"
+              "fixedPercentageSplit"
             ],
             "example": "equalSplit",
             "type": "string"
@@ -15657,7 +15656,7 @@
       "name": "Settings"
     },
     {
-      "description": "Shared cost rules let you redistribute a set of costs across multiple destinations\nbased on configurable allocation strategies such as equal splits, fixed-percentage splits, or\nusage-based proportional splits.\nRules are evaluated in priority order (lowest priority number first). Each rule identifies\nsource costs via dimensions (FOCUS dimensions, custom dimensions) and\ndistributes them to one or more destination dimension values.\nProcessing unit: allocations are applied in isolation per bill connect and per bill month.\nRules do not allocate costs across different bill connects or across different bill months.",
+      "description": "Shared cost rules let you redistribute a set of costs across multiple destinations\nbased on configurable allocation strategies such as equal splits or fixed-percentage splits.\nRules are evaluated in priority order (lowest priority number first). Each rule identifies\nsource costs via dimensions (FOCUS dimensions, custom dimensions) and\ndistributes them to one or more destination dimension values.\nProcessing unit: allocations are applied in isolation per bill connect and per bill month.\nRules do not allocate costs across different bill connects or across different bill months.",
       "name": "Shared Cost Rules"
     }
   ]

@@ -5,34 +5,20 @@
         "additionalProperties": false,
         "properties": {
           "metrics": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Metrics to compute. Omit or pass empty list to fetch all.",
             "examples": [
               [
                 "lifecycleBreakdown"
               ]
             ],
-            "title": "Metrics"
+            "items": {
+              "type": "string"
+            },
+            "title": "Metrics",
+            "type": "array"
           },
           "scope": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/AssetStatisticsScope"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "$ref": "#/components/schemas/AssetStatisticsScope",
             "description": "Scope filters to narrow the asset population."
           }
         },
@@ -71,40 +57,19 @@
         "additionalProperties": false,
         "properties": {
           "complianceStandard": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Standard code, e.g. CIS_CONTROLS_8",
-            "title": "Compliancestandard"
+            "title": "Compliancestandard",
+            "type": "string"
           },
           "controlId": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Control ID, e.g. CIS_CTRL_8__7_1",
-            "title": "Controlid"
+            "title": "Controlid",
+            "type": "string"
           },
           "date": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "YYYY-MM-DD. If omitted, uses the latest available run",
-            "title": "Date"
+            "title": "Date",
+            "type": "string"
           },
           "featureType": {
             "default": "compliance",
@@ -307,17 +272,10 @@
         "description": "CVE details item model.",
         "properties": {
           "attackVector": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Attack vector",
             "example": "AV:N/AC:L/Au:N/C:C/I:C/A:C",
-            "title": "Attackvector"
+            "title": "Attackvector",
+            "type": "string"
           },
           "cveTitle": {
             "description": "CVE ID",
@@ -326,147 +284,70 @@
             "type": "string"
           },
           "cvssScore": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "CVSS score",
             "example": 9.8,
-            "title": "Cvssscore"
+            "title": "Cvssscore",
+            "type": "number"
           },
           "cvssVersion": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "CVSS version",
             "example": "3.1",
-            "title": "Cvssversion"
+            "title": "Cvssversion",
+            "type": "string"
           },
           "malwareName": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Malware name",
             "example": "Malware1",
-            "title": "Malwarename"
+            "title": "Malwarename",
+            "type": "string"
           },
           "nvdSeverity": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "NVD severity",
             "example": "critical",
-            "title": "Nvdseverity"
+            "title": "Nvdseverity",
+            "type": "string"
           },
           "publishDate": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "CVE publish date",
             "example": "2023-10-10T00:00:00Z",
-            "title": "Publishdate"
+            "title": "Publishdate",
+            "type": "string"
           },
           "secuniaAdvisoryCriticality": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Secunia advisor criticality",
             "example": "Critical",
-            "title": "Secuniaadvisorycriticality"
+            "title": "Secuniaadvisorycriticality",
+            "type": "string"
           },
           "secuniaAdvisoryId": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Secunia advisory ID",
             "example": "SA12345",
-            "title": "Secuniaadvisoryid"
+            "title": "Secuniaadvisoryid",
+            "type": "string"
           },
           "secuniaAdvisoryTitle": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Secunia advisory title",
             "example": "Advisory Title 1",
-            "title": "Secuniaadvisorytitle"
+            "title": "Secuniaadvisorytitle",
+            "type": "string"
           },
           "solutionStatus": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Solution status",
             "example": "Vendor Patched",
-            "title": "Solutionstatus"
+            "title": "Solutionstatus",
+            "type": "string"
           },
           "threatExploitRisk": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Threat exploit risk",
             "example": "High",
-            "title": "Threatexploitrisk"
+            "title": "Threatexploitrisk",
+            "type": "string"
           },
           "threatScore": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Threat score",
             "example": 8.5,
-            "title": "Threatscore"
+            "title": "Threatscore",
+            "type": "number"
           }
         },
         "required": [
@@ -533,17 +414,6 @@
         "additionalProperties": false,
         "properties": {
           "dimensions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Dimensions to fetch. Omit or pass empty list to fetch all.",
             "examples": [
               [
@@ -552,17 +422,14 @@
                 "version"
               ]
             ],
-            "title": "Dimensions"
+            "items": {
+              "type": "string"
+            },
+            "title": "Dimensions",
+            "type": "array"
           },
           "scope": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/CatalogFilterScope"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "$ref": "#/components/schemas/CatalogFilterScope",
             "description": "Upstream selections to narrow downstream dimension options."
           }
         },
@@ -630,17 +497,6 @@
             "type": "array"
           },
           "category": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of control categories to filter by",
             "example": [
               "Identity And Access Management",
@@ -649,20 +505,17 @@
               "Monitoring",
               "Networking"
             ],
-            "title": "Category"
+            "items": {
+              "type": "string"
+            },
+            "title": "Category",
+            "type": "array"
           },
           "complianceStandard": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Compliance standard name (e.g., 'NIST_800-82_rev2'). If not provided, summary export will be generated.",
             "example": "NIST_800-82_rev2",
-            "title": "Compliancestandard"
+            "title": "Compliancestandard",
+            "type": "string"
           },
           "format": {
             "description": "Export format - 'json' or 'xlsx'",
@@ -677,18 +530,11 @@
             "type": "boolean"
           },
           "level": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": 1,
             "description": "CIS level filter. Allowed values: 1 or 2",
             "example": 1,
-            "title": "Level"
+            "title": "Level",
+            "type": "integer"
           },
           "providers": {
             "description": "List of cloud providers. Allowed values: 'aws', 'azure', 'all'",
@@ -1192,17 +1038,10 @@
         "description": "Single control item for compliance standards.",
         "properties": {
           "category": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Control category (only for CIS standard)",
             "example": "Identity And Access Management",
-            "title": "Category"
+            "title": "Category",
+            "type": "string"
           },
           "complianceStandard": {
             "description": "Compliance standard identifier",
@@ -1229,17 +1068,10 @@
             "type": "string"
           },
           "level": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "CIS level (only for CIS standard)",
             "example": 1,
-            "title": "Level"
+            "title": "Level",
+            "type": "integer"
           },
           "nonCompliantResources": {
             "description": "Number of non-compliant resources",
@@ -1248,17 +1080,10 @@
             "type": "integer"
           },
           "scoring": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Scoring type (only for CIS standard)",
             "example": "Automated",
-            "title": "Scoring"
+            "title": "Scoring",
+            "type": "string"
           }
         },
         "required": [
@@ -1283,43 +1108,22 @@
             "type": "array"
           },
           "controlsPassed": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Number of controls passed",
             "example": 3,
-            "title": "Controlspassed"
+            "title": "Controlspassed",
+            "type": "integer"
           },
           "inCompliance": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Compliance percentage (floored)",
             "example": 10,
-            "title": "Incompliance"
+            "title": "Incompliance",
+            "type": "integer"
           },
           "totalControls": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Total number of controls",
             "example": 30,
-            "title": "Totalcontrols"
+            "title": "Totalcontrols",
+            "type": "integer"
           }
         },
         "title": "ControlsData",
@@ -1360,21 +1164,6 @@
         ],
         "properties": {
           "accounts": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -1388,7 +1177,11 @@
                 "all"
               ]
             ],
-            "title": "Accounts"
+            "items": {
+              "type": "string"
+            },
+            "title": "Accounts",
+            "type": "array"
           },
           "attribute": {
             "description": "Target attribute to enumerate",
@@ -1396,50 +1189,15 @@
             "type": "string"
           },
           "condition": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/EnumerationCondition"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "$ref": "#/components/schemas/EnumerationCondition",
             "description": "Optional nested condition"
           },
           "date": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Single date YYYY-MM-DD",
-            "title": "Date"
+            "title": "Date",
+            "type": "string"
           },
           "providers": {
-            "anyOf": [
-              {
-                "items": {
-                  "enum": [
-                    "aws",
-                    "azure",
-                    "gc",
-                    "onprem"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -1453,24 +1211,19 @@
                 "all"
               ]
             ],
-            "title": "Providers"
+            "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
+              "type": "string"
+            },
+            "title": "Providers",
+            "type": "array"
           },
           "regions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -1484,7 +1237,11 @@
                 "all"
               ]
             ],
-            "title": "Regions"
+            "items": {
+              "type": "string"
+            },
+            "title": "Regions",
+            "type": "array"
           },
           "route": {
             "description": "Route key (e.g. failed-assets)",
@@ -1492,24 +1249,6 @@
             "type": "string"
           },
           "services": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of services or 'all' (optional)",
             "examples": [
               [
@@ -1521,7 +1260,11 @@
               ],
               null
             ],
-            "title": "Services"
+            "items": {
+              "type": "string"
+            },
+            "title": "Services",
+            "type": "array"
           }
         },
         "required": [
@@ -1554,28 +1297,14 @@
         "additionalProperties": false,
         "properties": {
           "cveId": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "CVE identifier (e.g. CVE-2023-12345)",
-            "title": "Cveid"
+            "title": "Cveid",
+            "type": "string"
           },
           "type": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Context type: 'vm' or 'container'",
-            "title": "Type"
+            "title": "Type",
+            "type": "string"
           }
         },
         "title": "EnumerationCondition",
@@ -1661,73 +1390,45 @@
             "type": "array"
           },
           "args": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Rule arguments string (comma-separated or JSON array string)",
             "example": "ingress,source",
-            "title": "Args"
+            "minLength": 1,
+            "title": "Args",
+            "type": "string"
           },
           "pageSize": {
-            "anyOf": [
-              {
-                "maximum": 1000,
-                "minimum": 1,
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Number of items per page",
             "example": 100,
-            "title": "Pagesize"
+            "maximum": 1000,
+            "minimum": 1,
+            "title": "Pagesize",
+            "type": "integer"
           },
           "providers": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "minItems": 1,
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of cloud providers or ['all']",
             "example": [
               "aws",
               "azure"
             ],
-            "title": "Providers"
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Providers",
+            "type": "array"
           },
           "regions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "minItems": 1,
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of cloud regions or ['all']",
             "example": [
               "us-east-1",
               "us-east-2"
             ],
-            "title": "Regions"
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Regions",
+            "type": "array"
           },
           "ruleName": {
             "description": "Security rule name to filter assets by",
@@ -1737,32 +1438,18 @@
             "type": "string"
           },
           "showSuppressed": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Whether to include suppressed assets: 'true', 'false', or omit for all",
             "example": "false",
-            "title": "Showsuppressed"
+            "minLength": 1,
+            "title": "Showsuppressed",
+            "type": "string"
           },
           "skipToken": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Cursor-based pagination token for next page",
             "example": "NjA2MDc5ODgxNDczLWZhaWxlZC1hc3NldHMtMjAyNTExMTcxMjAwMDAuanNvbjo1MDA=",
-            "title": "Skiptoken"
+            "minLength": 1,
+            "title": "Skiptoken",
+            "type": "string"
           }
         },
         "required": [
@@ -1897,17 +1584,10 @@
             "type": "string"
           },
           "nextPage": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "URL for fetching next page with skipToken",
             "example": "/risk/v1/orgs/123/misconfiguration/failed-asset?skipToken=NjA2MDc5ODgxNDczLWZhaWxlZC1hc3NldHMtMjAyNTExMTcxMjAwMDAuanNvbjo1MDA=",
-            "title": "Nextpage"
+            "title": "Nextpage",
+            "type": "string"
           },
           "values": {
             "description": "List of failed assets",
@@ -1941,28 +1621,14 @@
             "type": "string"
           },
           "showSuppressed": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "'true', 'false', or omit for all",
-            "title": "Showsuppressed"
+            "title": "Showsuppressed",
+            "type": "string"
           },
           "skipToken": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Cursor for pagination",
-            "title": "Skiptoken"
+            "title": "Skiptoken",
+            "type": "string"
           }
         },
         "required": [
@@ -2029,21 +1695,6 @@
         },
         "properties": {
           "accounts": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2057,7 +1708,11 @@
                 "all"
               ]
             ],
-            "title": "Accounts"
+            "items": {
+              "type": "string"
+            },
+            "title": "Accounts",
+            "type": "array"
           },
           "cveId": {
             "description": "CVE identifier",
@@ -2066,99 +1721,43 @@
             "type": "string"
           },
           "date": {
-            "anyOf": [
-              {
-                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Date filter in YYYY-MM-DD format",
             "example": "2025-10-08",
-            "title": "Date"
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "title": "Date",
+            "type": "string"
           },
           "filter": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Advanced filter expression",
             "example": "deviceManufacturer in ['abc', 'xyz'] and assetId co 'i-001'",
-            "title": "Filter"
+            "title": "Filter",
+            "type": "string"
           },
           "limit": {
-            "anyOf": [
-              {
-                "maximum": 1000,
-                "minimum": 1,
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": 100,
             "description": "Number of results per page (max: 1000)",
             "example": 100,
-            "title": "Limit"
+            "maximum": 1000,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
           },
           "offset": {
-            "anyOf": [
-              {
-                "minimum": 0,
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": 0,
             "description": "Number of results to skip (for pagination)",
             "example": 0,
-            "title": "Offset"
+            "minimum": 0,
+            "title": "Offset",
+            "type": "integer"
           },
           "orderBy": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": "deviceManufacturer asc",
             "description": "Sort order (field asc/desc)",
             "example": "deviceManufacturer asc",
-            "title": "Orderby"
+            "title": "Orderby",
+            "type": "string"
           },
           "providers": {
-            "anyOf": [
-              {
-                "items": {
-                  "enum": [
-                    "aws",
-                    "azure",
-                    "gc",
-                    "onprem"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2172,24 +1771,19 @@
                 "all"
               ]
             ],
-            "title": "Providers"
+            "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
+              "type": "string"
+            },
+            "title": "Providers",
+            "type": "array"
           },
           "regions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2203,27 +1797,13 @@
                 "all"
               ]
             ],
-            "title": "Regions"
+            "items": {
+              "type": "string"
+            },
+            "title": "Regions",
+            "type": "array"
           },
           "services": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of services or 'all' (optional)",
             "examples": [
               [
@@ -2235,46 +1815,29 @@
               ],
               null
             ],
-            "title": "Services"
+            "items": {
+              "type": "string"
+            },
+            "title": "Services",
+            "type": "array"
           },
           "softwareManufacturer": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Software manufacturer name",
             "example": "Microsoft",
-            "title": "Softwaremanufacturer"
+            "title": "Softwaremanufacturer",
+            "type": "string"
           },
           "softwareProduct": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Software product name",
             "example": "Teams",
-            "title": "Softwareproduct"
+            "title": "Softwareproduct",
+            "type": "string"
           },
           "softwareVersion": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Software version",
             "example": "2.1",
-            "title": "Softwareversion"
+            "title": "Softwareversion",
+            "type": "string"
           },
           "type": {
             "description": "Asset type - Virtual Machine, Container Image, or All types",
@@ -2331,21 +1894,6 @@
         ],
         "properties": {
           "accounts": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2359,35 +1907,25 @@
                 "all"
               ]
             ],
-            "title": "Accounts"
+            "items": {
+              "type": "string"
+            },
+            "title": "Accounts",
+            "type": "array"
           },
           "date": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": "",
             "description": "Specific date in YYYY-MM-DD format",
             "example": "2025-10-08",
-            "title": "Date"
+            "title": "Date",
+            "type": "string"
           },
           "filter": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": "",
             "description": "Filter expression like 'manufacturerName co \"Microsoft\"'",
             "example": "manufacturerName co 'Microsoft'",
-            "title": "Filter"
+            "title": "Filter",
+            "type": "string"
           },
           "groupBy": {
             "description": "Field to group findings by",
@@ -2396,70 +1934,28 @@
             "type": "string"
           },
           "limit": {
-            "anyOf": [
-              {
-                "maximum": 1000,
-                "minimum": 1,
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": 100,
             "description": "Maximum number of results to return",
-            "title": "Limit"
+            "maximum": 1000,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
           },
           "offset": {
-            "anyOf": [
-              {
-                "minimum": 0,
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": 0,
             "description": "Number of results to skip for pagination",
-            "title": "Offset"
+            "minimum": 0,
+            "title": "Offset",
+            "type": "integer"
           },
           "orderBy": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": "",
             "description": "Order expression like 'manufacturerName asc'",
             "example": "manufacturerName asc",
-            "title": "Orderby"
+            "title": "Orderby",
+            "type": "string"
           },
           "providers": {
-            "anyOf": [
-              {
-                "items": {
-                  "enum": [
-                    "aws",
-                    "azure",
-                    "gc",
-                    "onprem"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2473,24 +1969,19 @@
                 "all"
               ]
             ],
-            "title": "Providers"
+            "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
+              "type": "string"
+            },
+            "title": "Providers",
+            "type": "array"
           },
           "regions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2504,27 +1995,13 @@
                 "all"
               ]
             ],
-            "title": "Regions"
+            "items": {
+              "type": "string"
+            },
+            "title": "Regions",
+            "type": "array"
           },
           "services": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of services or 'all' (optional)",
             "examples": [
               [
@@ -2536,7 +2013,11 @@
               ],
               null
             ],
-            "title": "Services"
+            "items": {
+              "type": "string"
+            },
+            "title": "Services",
+            "type": "array"
           }
         },
         "required": [
@@ -2586,21 +2067,6 @@
         ],
         "properties": {
           "accounts": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2614,44 +2080,20 @@
                 "all"
               ]
             ],
-            "title": "Accounts"
+            "items": {
+              "type": "string"
+            },
+            "title": "Accounts",
+            "type": "array"
           },
           "date": {
-            "anyOf": [
-              {
-                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Date in YYYY-MM-DD format (optional)",
             "example": "2025-10-08",
-            "title": "Date"
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "title": "Date",
+            "type": "string"
           },
           "providers": {
-            "anyOf": [
-              {
-                "items": {
-                  "enum": [
-                    "aws",
-                    "azure",
-                    "gc",
-                    "onprem"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2665,24 +2107,19 @@
                 "all"
               ]
             ],
-            "title": "Providers"
+            "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
+              "type": "string"
+            },
+            "title": "Providers",
+            "type": "array"
           },
           "regions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2696,27 +2133,13 @@
                 "all"
               ]
             ],
-            "title": "Regions"
+            "items": {
+              "type": "string"
+            },
+            "title": "Regions",
+            "type": "array"
           },
           "services": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Must be ['all'] or omitted. Specific service filtering not supported for Total Findings.",
             "examples": [
               [
@@ -2724,7 +2147,11 @@
               ],
               null
             ],
-            "title": "Services"
+            "items": {
+              "type": "string"
+            },
+            "title": "Services",
+            "type": "array"
           }
         },
         "title": "FindingsSummaryFilters",
@@ -2788,21 +2215,6 @@
         },
         "properties": {
           "accounts": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2816,7 +2228,11 @@
                 "all"
               ]
             ],
-            "title": "Accounts"
+            "items": {
+              "type": "string"
+            },
+            "title": "Accounts",
+            "type": "array"
           },
           "date": {
             "description": "End date for the trend (YYYY-MM-DD)",
@@ -2833,27 +2249,6 @@
             "type": "integer"
           },
           "providers": {
-            "anyOf": [
-              {
-                "items": {
-                  "enum": [
-                    "aws",
-                    "azure",
-                    "gc",
-                    "onprem"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2867,24 +2262,19 @@
                 "all"
               ]
             ],
-            "title": "Providers"
+            "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
+              "type": "string"
+            },
+            "title": "Providers",
+            "type": "array"
           },
           "regions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -2898,27 +2288,13 @@
                 "all"
               ]
             ],
-            "title": "Regions"
+            "items": {
+              "type": "string"
+            },
+            "title": "Regions",
+            "type": "array"
           },
           "services": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of services or 'all' (optional)",
             "examples": [
               [
@@ -2930,7 +2306,11 @@
               ],
               null
             ],
-            "title": "Services"
+            "items": {
+              "type": "string"
+            },
+            "title": "Services",
+            "type": "array"
           }
         },
         "required": [
@@ -3019,17 +2399,6 @@
             "description": "Total forecast window."
           },
           "includeStatuses": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Status buckets to include. Valid values: supported, endOfSupport, endOfLife, obsolete. Omit or pass empty list to include all.",
             "examples": [
               [
@@ -3038,21 +2407,18 @@
                 "endOfLife"
               ]
             ],
-            "title": "Includestatuses"
+            "items": {
+              "type": "string"
+            },
+            "title": "Includestatuses",
+            "type": "array"
           },
           "interval": {
             "$ref": "#/components/schemas/LifecycleForecastInterval",
             "description": "Time bucket definition."
           },
           "scope": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/LifecycleForecastScope"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "$ref": "#/components/schemas/LifecycleForecastScope",
             "description": "Scope filters to narrow the asset population."
           }
         },
@@ -3095,14 +2461,7 @@
         "additionalProperties": false,
         "properties": {
           "scope": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/LifecycleTrendScope"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "$ref": "#/components/schemas/LifecycleTrendScope",
             "description": "Scope filters to narrow the asset population."
           },
           "timeRange": {
@@ -3191,21 +2550,6 @@
         ],
         "properties": {
           "accounts": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -3219,99 +2563,47 @@
                 "all"
               ]
             ],
-            "title": "Accounts"
+            "items": {
+              "type": "string"
+            },
+            "title": "Accounts",
+            "type": "array"
           },
           "date": {
-            "anyOf": [
-              {
-                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Single date in YYYY-MM-DD format",
             "example": "2025-10-08",
-            "title": "Date"
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "title": "Date",
+            "type": "string"
           },
           "filter": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Filter expression supporting 'co' (contains) and 'in' operators. Examples: \"cveTitle co 'cve-id'\", \"softwareManufacturer in ['manufacturer1', 'manufacturer2']\"",
             "example": "cveTitle co 'CVE-2021' and softwareManufacturer in [\"Microsoft\", \"Oracle\"]",
-            "title": "Filter"
+            "title": "Filter",
+            "type": "string"
           },
           "limit": {
-            "anyOf": [
-              {
-                "maximum": 1000,
-                "minimum": 1,
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": 100,
             "description": "Maximum number of results to return (default: 100, max: 1000)",
-            "title": "Limit"
+            "maximum": 1000,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
           },
           "offset": {
-            "anyOf": [
-              {
-                "minimum": 0,
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": 0,
             "description": "Number of results to skip (for pagination)",
-            "title": "Offset"
+            "minimum": 0,
+            "title": "Offset",
+            "type": "integer"
           },
           "orderBy": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Order by field and direction (e.g., 'softwareManufacturer asc', 'findings desc')",
             "example": "softwareManufacturer asc",
-            "title": "Orderby"
+            "title": "Orderby",
+            "type": "string"
           },
           "providers": {
-            "anyOf": [
-              {
-                "items": {
-                  "enum": [
-                    "aws",
-                    "azure",
-                    "gc",
-                    "onprem"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -3325,24 +2617,19 @@
                 "all"
               ]
             ],
-            "title": "Providers"
+            "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
+              "type": "string"
+            },
+            "title": "Providers",
+            "type": "array"
           },
           "regions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -3356,27 +2643,13 @@
                 "all"
               ]
             ],
-            "title": "Regions"
+            "items": {
+              "type": "string"
+            },
+            "title": "Regions",
+            "type": "array"
           },
           "services": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of services or 'all' (optional)",
             "examples": [
               [
@@ -3388,7 +2661,11 @@
               ],
               null
             ],
-            "title": "Services"
+            "items": {
+              "type": "string"
+            },
+            "title": "Services",
+            "type": "array"
           }
         },
         "title": "ListFindingsDistributionFilters",
@@ -3608,30 +2885,16 @@
         "description": "Single misconfiguration rule item.",
         "properties": {
           "args": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Rule arguments as JSON string",
             "example": "[\"ingress\", \"source\"]",
-            "title": "Args"
+            "title": "Args",
+            "type": "string"
           },
           "autoRemediationStatus": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Auto-remediation status",
             "example": false,
-            "title": "Autoremediationstatus"
+            "title": "Autoremediationstatus",
+            "type": "boolean"
           },
           "complianceStandardNames": {
             "description": "List of compliance standard names",
@@ -3775,74 +3038,39 @@
             "type": "array"
           },
           "complianceStandard": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Required when featureType is 'compliance'",
             "example": "SOC_2",
-            "title": "Compliancestandard"
+            "minLength": 1,
+            "title": "Compliancestandard",
+            "type": "string"
           },
           "controlId": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Required when featureType is 'compliance'",
             "example": "CC7.1",
-            "title": "Controlid"
+            "minLength": 1,
+            "title": "Controlid",
+            "type": "string"
           },
           "date": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Required when featureType is 'compliance'. Format: YYYY-MM-DD",
             "example": "2025-11-04",
-            "title": "Date"
+            "minLength": 1,
+            "title": "Date",
+            "type": "string"
           },
           "eventId": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Required when featureType is 'event'",
             "example": "Configuration Change",
-            "title": "Eventid"
+            "minLength": 1,
+            "title": "Eventid",
+            "type": "string"
           },
           "eventTime": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Required when featureType is 'event'. Format: YYYY-MM-DD HH:MM:SS",
             "example": "2025-06-15 14:30:00",
-            "title": "Eventtime"
+            "minLength": 1,
+            "title": "Eventtime",
+            "type": "string"
           },
           "featureType": {
             "description": "Feature type to filter by. Possible values: risk, compliance, event, policy",
@@ -4068,17 +3296,10 @@
             "type": "string"
           },
           "userName": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": "",
             "description": "User name (optional)",
-            "title": "Username"
+            "title": "Username",
+            "type": "string"
           }
         },
         "required": [
@@ -4145,60 +3366,25 @@
       "OkPaginatedResponse_Any_": {
         "properties": {
           "count": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Count"
+            "title": "Count",
+            "type": "integer"
           },
           "kind": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Kind"
+            "title": "Kind",
+            "type": "string"
           },
           "pageNumber": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Pagenumber"
+            "title": "Pagenumber",
+            "type": "integer"
           },
           "totalPages": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Totalpages"
+            "title": "Totalpages",
+            "type": "integer"
           },
           "values": {
-            "anyOf": [
-              {
-                "items": {},
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Values"
+            "items": {},
+            "title": "Values",
+            "type": "array"
           }
         },
         "title": "OkPaginatedResponse[Any]",
@@ -4213,17 +3399,10 @@
         },
         "properties": {
           "details": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Additional error details (fallback added if omitted)",
             "example": "An error occurred while retrieving onboarding status",
-            "title": "Details"
+            "title": "Details",
+            "type": "string"
           },
           "error": {
             "description": "Error message",
@@ -4232,18 +3411,11 @@
             "type": "string"
           },
           "org_id": {
-            "anyOf": [
-              {
-                "pattern": "^\\d+$",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Organization ID if available (numeric string)",
             "example": "123456",
-            "title": "Org Id"
+            "pattern": "^\\d+$",
+            "title": "Org Id",
+            "type": "string"
           }
         },
         "required": [
@@ -4383,21 +3555,6 @@
         ],
         "properties": {
           "accounts": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -4411,20 +3568,17 @@
                 "all"
               ]
             ],
-            "title": "Accounts"
+            "items": {
+              "type": "string"
+            },
+            "title": "Accounts",
+            "type": "array"
           },
           "date": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Date in YYYY-MM-DD format",
             "example": "2025-10-01",
-            "title": "Date"
+            "title": "Date",
+            "type": "string"
           },
           "groupBy": {
             "description": "Field to group by (manufacturerName, productName, softwareName, costCenter, businessUnit, location)",
@@ -4433,27 +3587,6 @@
             "type": "string"
           },
           "providers": {
-            "anyOf": [
-              {
-                "items": {
-                  "enum": [
-                    "aws",
-                    "azure",
-                    "gc",
-                    "onprem"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -4467,24 +3600,19 @@
                 "all"
               ]
             ],
-            "title": "Providers"
+            "items": {
+              "enum": [
+                "aws",
+                "azure",
+                "gc",
+                "onprem"
+              ],
+              "type": "string"
+            },
+            "title": "Providers",
+            "type": "array"
           },
           "regions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
             "default": [
               "all"
             ],
@@ -4498,27 +3626,13 @@
                 "all"
               ]
             ],
-            "title": "Regions"
+            "items": {
+              "type": "string"
+            },
+            "title": "Regions",
+            "type": "array"
           },
           "services": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "items": {
-                  "const": "all",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of services or 'all' (optional)",
             "examples": [
               [
@@ -4530,7 +3644,11 @@
               ],
               null
             ],
-            "title": "Services"
+            "items": {
+              "type": "string"
+            },
+            "title": "Services",
+            "type": "array"
           }
         },
         "required": [
@@ -4543,46 +3661,25 @@
         "description": "Item to be suppressed - can be either a rule or a failed asset.\n\nUnlike the cloud misconfiguration suppress, the caller does NOT supply\nan account ID. The server synthesises one as ``{orgId}_ON_PREM`` for\nrule-based suppression, and decodes the acc_id from the riskId for\nfailed-asset suppression.",
         "properties": {
           "args": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Arguments for the rule (required when suppressing a rule)",
             "example": "[\"3306\"]",
-            "title": "Args"
+            "minLength": 1,
+            "title": "Args",
+            "type": "string"
           },
           "riskId": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Risk ID (required when suppressing a failed asset)",
             "example": "MjAyNV8xMV8xOS",
-            "title": "Riskid"
+            "minLength": 1,
+            "title": "Riskid",
+            "type": "string"
           },
           "ruleId": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Rule ID (required when suppressing a rule)",
             "example": "rds-instance-using-default-ports",
-            "title": "Ruleid"
+            "minLength": 1,
+            "title": "Ruleid",
+            "type": "string"
           },
           "suppressed": {
             "description": "Whether to suppress (true) or unsuppress (false)",
@@ -4610,18 +3707,11 @@
             "type": "array"
           },
           "userName": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Name of the user performing the suppress action",
             "example": "admin@example.com",
-            "title": "Username"
+            "minLength": 1,
+            "title": "Username",
+            "type": "string"
           }
         },
         "required": [
@@ -4788,52 +3878,24 @@
             "type": "boolean"
           },
           "firstDiscovered": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Date when risk was first discovered",
-            "title": "Firstdiscovered"
+            "title": "Firstdiscovered",
+            "type": "string"
           },
           "lastScanned": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Last scan date",
-            "title": "Lastscanned"
+            "title": "Lastscanned",
+            "type": "string"
           },
           "location": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Cloud region or location",
-            "title": "Location"
+            "title": "Location",
+            "type": "string"
           },
           "riskScore": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Risk score",
-            "title": "Riskscore"
+            "title": "Riskscore",
+            "type": "number"
           },
           "ruleDescription": {
             "description": "Full description of the rule",
@@ -4871,16 +3933,9 @@
             "type": "string"
           },
           "user": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "User associated with the risk",
-            "title": "User"
+            "title": "User",
+            "type": "string"
           }
         },
         "required": [
@@ -4972,17 +4027,6 @@
             "type": "array"
           },
           "category": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "List of control categories to filter by",
             "example": [
               "Identity And Access Management",
@@ -4991,60 +4035,36 @@
               "Monitoring",
               "Networking"
             ],
-            "title": "Category"
+            "items": {
+              "type": "string"
+            },
+            "title": "Category",
+            "type": "array"
           },
           "etime": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "End time for data in YYYY-MM-DD format",
             "example": "2025-11-02",
-            "title": "Etime"
+            "title": "Etime",
+            "type": "string"
           },
           "imc": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "IMC filter flag",
             "example": false,
-            "title": "Imc"
+            "title": "Imc",
+            "type": "boolean"
           },
           "level": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": 1,
             "description": "CIS level filter. Allowed values: 1 or 2",
             "example": 1,
-            "title": "Level"
+            "title": "Level",
+            "type": "integer"
           },
           "providerType": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Provider type. Use 'on-prem' to query on-premises compliance data. Omit or set to 'cloud' for cloud provider data.",
             "example": "on-prem",
-            "title": "Providertype"
+            "title": "Providertype",
+            "type": "string"
           },
           "providers": {
             "description": "List of cloud providers. Allowed values: 'aws', 'azure', 'all'",
@@ -5146,46 +4166,25 @@
             "type": "string"
           },
           "args": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Arguments for the rule (required when suppressing a rule)",
             "example": "[\"iam-policy-changes\"]",
-            "title": "Args"
+            "minLength": 1,
+            "title": "Args",
+            "type": "string"
           },
           "riskId": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Risk ID (required when suppressing a failed asset)",
             "example": "MjAyNV8xMV8xOSs2MDYwNzk4ODE0NzMrMjUyMjc3MzU4MTE4K2lhbS51c2Vycy5BSURBVFZQSEc3WVRLVkROVFhFUzMuQWNjZXNzS2V5KzA1YWVlMjU5LTE4OWUtNGE0Zi1iZWMyLTMzMzEwMjc5MzcwNStpYW0tdXNlci1uby1rZXktcm90YXRpb24rWyI5MCJd",
-            "title": "Riskid"
+            "minLength": 1,
+            "title": "Riskid",
+            "type": "string"
           },
           "ruleId": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Rule ID (required when suppressing a rule)",
             "example": "cloudtrail-cloudwatch-log-metric-filter",
-            "title": "Ruleid"
+            "minLength": 1,
+            "title": "Ruleid",
+            "type": "string"
           },
           "suppressed": {
             "description": "Whether to suppress (true) or unsuppress (false)",
@@ -5214,18 +4213,11 @@
             "type": "array"
           },
           "userName": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Name of the user performing the suppress action",
             "example": "Automation User SpotSecurity",
-            "title": "Username"
+            "minLength": 1,
+            "title": "Username",
+            "type": "string"
           }
         },
         "required": [
@@ -5425,59 +4417,31 @@
         "additionalProperties": false,
         "properties": {
           "fields": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "description": "Fields to include in the response.",
-            "title": "Fields"
+            "items": {
+              "type": "string"
+            },
+            "title": "Fields",
+            "type": "array"
           },
           "filter": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": "",
             "description": "Filter expression like 'manufacturer co \"Microsoft\"'",
-            "title": "Filter"
+            "title": "Filter",
+            "type": "string"
           },
           "orderBy": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
             "default": "",
             "description": "Order expression like 'manufacturer asc'",
-            "title": "Orderby"
+            "title": "Orderby",
+            "type": "string"
           },
           "pagination": {
             "$ref": "#/components/schemas/YearWiseAssetListPagination",
             "description": "Pagination parameters."
           },
           "scope": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/YearWiseAssetListScope"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "$ref": "#/components/schemas/YearWiseAssetListScope",
             "description": "Scope filters to narrow the asset population."
           }
         },
@@ -7135,7 +6099,7 @@
           {
             "description": "Organization ID",
             "in": "path",
-            "name": "org_id",
+            "name": "orgId",
             "required": true,
             "schema": {
               "description": "Organization ID",
@@ -8624,16 +7588,9 @@
             "name": "skipToken",
             "required": false,
             "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
               "description": "Cursor for pagination (query param overrides body)",
-              "title": "Skiptoken"
+              "title": "Skiptoken",
+              "type": "string"
             }
           }
         ],
