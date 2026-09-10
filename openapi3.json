@@ -30876,6 +30876,7 @@
           "bigQueryDataset": "someDataset",
           "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
           "gcsExportUri": "gs://\u003cbucket_name\u003e/\u003cfile_path_inside_bucket\u003e",
+          "onboardingOrigin": "finops",
           "projectId": "flexera.com:resat-cloud"
         },
         "properties": {
@@ -30893,6 +30894,16 @@
           "gcsExportUri": {
             "description": "URI of the Google Cloud Storage file path where the billing data is exported",
             "example": "gs://\u003cbucket_name\u003e/\u003cfile_path_inside_bucket\u003e",
+            "type": "string"
+          },
+          "onboardingOrigin": {
+            "default": "finops",
+            "description": "Origin of the bill connect. Possible values: \"finops\" (onboarded through FinOps), \"platform\" (onboarded through unified Platform onboarding). Defaults to \"finops\" when omitted.",
+            "enum": [
+              "finops",
+              "platform"
+            ],
+            "example": "finops",
             "type": "string"
           },
           "projectId": {
@@ -33228,6 +33239,7 @@
             "bigQueryDataset": "someDataset",
             "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
             "gcsExportUri": "gs://\u003cbucket_name\u003e/\u003cfile_path_inside_bucket\u003e",
+            "onboardingOrigin": "finops",
             "projectId": "flexera.com:resat-cloud"
           },
           "id": "aws-20194320903",
@@ -33321,6 +33333,7 @@
             "bigQueryDataset": "someDataset",
             "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
             "gcsExportUri": "gs://\u003cbucket_name\u003e/\u003cfile_path_inside_bucket\u003e",
+            "onboardingOrigin": "finops",
             "projectId": "flexera.com:resat-cloud"
           },
           "id": "cbi-oi-gcp-956d603z-fdg2-4263-v81e-bae187d0e099",
@@ -33532,6 +33545,7 @@
               "bigQueryDataset": "someDataset",
               "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
               "gcsExportUri": "gs://\u003cbucket_name\u003e/\u003cfile_path_inside_bucket\u003e",
+              "onboardingOrigin": "finops",
               "projectId": "flexera.com:resat-cloud"
             },
             "id": "aws-20194320903",
@@ -33656,6 +33670,7 @@
               "bigQueryDataset": "someDataset",
               "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
               "gcsExportUri": "gs://\u003cbucket_name\u003e/\u003cfile_path_inside_bucket\u003e",
+              "onboardingOrigin": "finops",
               "projectId": "flexera.com:resat-cloud"
             },
             "id": "aws-20194320903",
@@ -98029,411 +98044,6 @@
         },
         "type": "object"
       },
-      "Uobs_AnthropicCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "baseUrl": {
-            "description": "Anthropic API base URL (optional/Advanced).",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Baseurl",
-            "type": "string"
-          },
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_AnthropicCredentials"
-          },
-          "provider": {
-            "const": "anthropic",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "connectorName",
-          "provider",
-          "credentials"
-        ],
-        "title": "AnthropicCreateRequest",
-        "type": "object"
-      },
-      "Uobs_AnthropicCredentials": {
-        "additionalProperties": false,
-        "properties": {
-          "analyticsApiKey": {
-            "description": "Anthropic Analytics API key (required). Write-only.",
-            "minLength": 1,
-            "title": "Analyticsapikey",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "analyticsApiKey"
-        ],
-        "title": "AnthropicCredentials",
-        "type": "object"
-      },
-      "Uobs_AnthropicUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "baseUrl": {
-            "description": "Anthropic API base URL (optional/Advanced).",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Baseurl",
-            "type": "string"
-          },
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_AnthropicCredentials",
-            "description": "Provide to rotate the stored secret.",
-            "nullable": true
-          },
-          "provider": {
-            "const": "anthropic",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "provider"
-        ],
-        "title": "AnthropicUpdateRequest",
-        "type": "object"
-      },
-      "Uobs_AwsOnboardingCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "BillingAccountId": {
-            "description": "Billing Account ID",
-            "nullable": true,
-            "title": "Billingaccountid",
-            "type": "string"
-          },
-          "ConnectorName": {
-            "description": "Connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "CostAndUsage": {
-            "$ref": "#/components/schemas/Uobs_CostAndUsageModel",
-            "description": "Cost and Usage configuration",
-            "nullable": true
-          },
-          "ExternalId": {
-            "description": "External ID.",
-            "nullable": true,
-            "title": "Externalid",
-            "type": "string"
-          },
-          "IncludeBPC": {
-            "description": "Include BPC flag.",
-            "title": "Includebpc",
-            "type": "string"
-          },
-          "IncludeCostAndUsage": {
-            "description": "Include CCO flag.",
-            "title": "Includecostandusage",
-            "type": "string"
-          },
-          "IncludeInventory": {
-            "description": "Include inventory flag.",
-            "title": "Includeinventory",
-            "type": "string"
-          },
-          "RoleARN": {
-            "description": "Role ARN.",
-            "pattern": "^arn:(?:aws|aws-cn|aws-us-gov):iam::\\d{12}:role/.+$",
-            "title": "Rolearn",
-            "type": "string"
-          }
-        },
-        "required": [
-          "IncludeBPC",
-          "IncludeInventory",
-          "IncludeCostAndUsage",
-          "ConnectorName",
-          "RoleARN"
-        ],
-        "title": "AwsOnboardingCreateRequest",
-        "type": "object"
-      },
-      "Uobs_AwsOnboardingUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "ConnectorName": {
-            "description": "Connector name.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "CostAndUsage": {
-            "$ref": "#/components/schemas/Uobs_CostAndUsageModel",
-            "description": "Cost and Usage configuration",
-            "nullable": true
-          },
-          "IncludeBPC": {
-            "description": "Include BPC flag.",
-            "nullable": true,
-            "title": "Includebpc",
-            "type": "string"
-          },
-          "IncludeCostAndUsage": {
-            "description": "Include CCO flag.",
-            "nullable": true,
-            "title": "Includecostandusage",
-            "type": "string"
-          },
-          "IncludeInventory": {
-            "description": "Include inventory flag.",
-            "nullable": true,
-            "title": "Includeinventory",
-            "type": "string"
-          }
-        },
-        "title": "AwsOnboardingUpdateRequest",
-        "type": "object"
-      },
-      "Uobs_AzureOnboardingCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "BillingAccountId": {
-            "description": "Billing Account ID",
-            "nullable": true,
-            "title": "Billingaccountid",
-            "type": "string"
-          },
-          "ClientId": {
-            "description": "Client ID.",
-            "minLength": 1,
-            "title": "Clientid",
-            "type": "string"
-          },
-          "ClientSecret": {
-            "description": "Client secret.",
-            "minLength": 1,
-            "title": "Clientsecret",
-            "type": "string"
-          },
-          "ConnectorName": {
-            "description": "Connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "CostAndUsage": {
-            "$ref": "#/components/schemas/Uobs_CostAndUsageModel",
-            "description": "Cost and Usage configuration",
-            "nullable": true
-          },
-          "IncludeBPC": {
-            "description": "Include BPC flag.",
-            "title": "Includebpc",
-            "type": "string"
-          },
-          "IncludeCostAndUsage": {
-            "description": "Include CCO flag.",
-            "title": "Includecostandusage",
-            "type": "string"
-          },
-          "IncludeInventory": {
-            "description": "Include inventory flag.",
-            "title": "Includeinventory",
-            "type": "string"
-          },
-          "SubscriptionId": {
-            "description": "Subscription ID.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Subscriptionid",
-            "type": "string"
-          },
-          "TenantId": {
-            "description": "Tenant ID.",
-            "minLength": 1,
-            "title": "Tenantid",
-            "type": "string"
-          },
-          "TokenUrl": {
-            "description": "Token URL.",
-            "minLength": 1,
-            "title": "Tokenurl",
-            "type": "string"
-          }
-        },
-        "required": [
-          "IncludeBPC",
-          "IncludeInventory",
-          "IncludeCostAndUsage",
-          "ConnectorName",
-          "ClientId",
-          "ClientSecret",
-          "TenantId",
-          "TokenUrl"
-        ],
-        "title": "AzureOnboardingCreateRequest",
-        "type": "object"
-      },
-      "Uobs_AzureOnboardingUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "ConnectorName": {
-            "description": "Connector name.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "CostAndUsage": {
-            "$ref": "#/components/schemas/Uobs_CostAndUsageModel",
-            "description": "Cost and Usage configuration",
-            "nullable": true
-          },
-          "IncludeBPC": {
-            "description": "Include BPC flag.",
-            "nullable": true,
-            "title": "Includebpc",
-            "type": "string"
-          },
-          "IncludeCostAndUsage": {
-            "description": "Include CCO flag.",
-            "nullable": true,
-            "title": "Includecostandusage",
-            "type": "string"
-          },
-          "IncludeInventory": {
-            "description": "Include inventory flag.",
-            "nullable": true,
-            "title": "Includeinventory",
-            "type": "string"
-          },
-          "SubscriptionId": {
-            "description": "Subscription ID for Azure provider only.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Subscriptionid",
-            "type": "string"
-          },
-          "TenantId": {
-            "description": "Tenant ID for Azure provider only.",
-            "nullable": true,
-            "title": "Tenantid",
-            "type": "string"
-          }
-        },
-        "title": "AzureOnboardingUpdateRequest",
-        "type": "object"
-      },
-      "Uobs_CostAndUsageModel": {
-        "properties": {
-          "BillingAccount": {
-            "nullable": true,
-            "title": "Billingaccount",
-            "type": "string"
-          },
-          "BillingS3Bucket": {
-            "nullable": true,
-            "title": "Billings3Bucket",
-            "type": "string"
-          },
-          "EffectiveFrom": {
-            "nullable": true,
-            "title": "Effectivefrom",
-            "type": "string"
-          },
-          "ReportPrefix": {
-            "nullable": true,
-            "title": "Reportprefix",
-            "type": "string"
-          }
-        },
-        "title": "CostAndUsageModel",
-        "type": "object"
-      },
-      "Uobs_CursorCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_CursorCredentials"
-          },
-          "provider": {
-            "const": "cursor",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "connectorName",
-          "provider",
-          "credentials"
-        ],
-        "title": "CursorCreateRequest",
-        "type": "object"
-      },
-      "Uobs_CursorCredentials": {
-        "additionalProperties": false,
-        "properties": {
-          "adminApiKey": {
-            "description": "Cursor team Admin API key (required). Sent to Cursor as HTTP Basic auth with the key as username and an empty password. Write-only.",
-            "minLength": 1,
-            "title": "Adminapikey",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "adminApiKey"
-        ],
-        "title": "CursorCredentials",
-        "type": "object"
-      },
-      "Uobs_CursorUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_CursorCredentials",
-            "description": "Provide to rotate the stored secret.",
-            "nullable": true
-          },
-          "provider": {
-            "const": "cursor",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "provider"
-        ],
-        "title": "CursorUpdateRequest",
-        "type": "object"
-      },
       "Uobs_ErrorResponse": {
         "properties": {
           "fault": {
@@ -98472,102 +98082,124 @@
         "title": "ErrorResponse",
         "type": "object"
       },
-      "Uobs_GoogleWorkspaceCreateRequest": {
+      "Uobs_GcpCostAndUsageCreateRequest": {
         "additionalProperties": false,
         "properties": {
-          "adminSubject": {
-            "description": "Admin user to impersonate via domain-wide delegation.",
+          "BillingDatasetId": {
+            "description": "BigQuery dataset containing the billing export.",
             "minLength": 1,
-            "title": "Adminsubject",
+            "title": "Billingdatasetid",
             "type": "string"
           },
-          "connectorName": {
-            "description": "Human-readable connector name.",
+          "BillingProjectId": {
+            "description": "GCP project used for billing queries.",
             "minLength": 1,
-            "title": "Connectorname",
+            "title": "Billingprojectid",
             "type": "string"
           },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_GoogleWorkspaceCredentials"
-          },
-          "primaryDomain": {
-            "description": "Primary Google Workspace domain.",
+          "GoogleGcsExportUri": {
+            "description": "GCS URI of the billing export (e.g. gs://bucket/prefix/).",
             "minLength": 1,
-            "title": "Primarydomain",
-            "type": "string"
-          },
-          "provider": {
-            "const": "googleWorkspace",
-            "title": "Provider",
+            "title": "Googlegcsexporturi",
             "type": "string"
           }
         },
         "required": [
-          "connectorName",
-          "provider",
-          "adminSubject",
-          "primaryDomain",
-          "credentials"
+          "BillingDatasetId",
+          "BillingProjectId",
+          "GoogleGcsExportUri"
         ],
-        "title": "GoogleWorkspaceCreateRequest",
+        "title": "GcpCostAndUsageCreateRequest",
         "type": "object"
       },
-      "Uobs_GoogleWorkspaceCredentials": {
+      "Uobs_GcpCostAndUsageUpdateRequest": {
         "additionalProperties": false,
         "properties": {
-          "serviceAccountKey": {
-            "description": "Google service-account JSON key, base64-encoded. Write-only.",
+          "GoogleGcsExportUri": {
+            "description": "Updated GCS export URI.",
             "minLength": 1,
-            "title": "Serviceaccountkey",
-            "type": "string",
-            "writeOnly": true
+            "nullable": true,
+            "title": "Googlegcsexporturi",
+            "type": "string"
+          }
+        },
+        "title": "GcpCostAndUsageUpdateRequest",
+        "type": "object"
+      },
+      "Uobs_GcpOnboardingCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "BillingAccountId": {
+            "description": "GCP billing account ID.",
+            "minLength": 1,
+            "title": "Billingaccountid",
+            "type": "string"
+          },
+          "ConnectorName": {
+            "description": "Connector name.",
+            "minLength": 1,
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "CostAndUsage": {
+            "$ref": "#/components/schemas/Uobs_GcpCostAndUsageCreateRequest"
+          },
+          "IncludeCostAndUsage": {
+            "const": "true",
+            "description": "Must be 'true' for GCP Bill Connect.",
+            "title": "Includecostandusage",
+            "type": "string"
+          },
+          "ServiceAccountKeyJson": {
+            "description": "GCP service-account key JSON string.",
+            "minLength": 1,
+            "title": "Serviceaccountkeyjson",
+            "type": "string"
           }
         },
         "required": [
-          "serviceAccountKey"
+          "ConnectorName",
+          "BillingAccountId",
+          "ServiceAccountKeyJson",
+          "CostAndUsage",
+          "IncludeCostAndUsage"
         ],
-        "title": "GoogleWorkspaceCredentials",
+        "title": "GcpOnboardingCreateRequest",
         "type": "object"
       },
-      "Uobs_GoogleWorkspaceUpdateRequest": {
+      "Uobs_GcpOnboardingUpdateRequest": {
         "additionalProperties": false,
         "properties": {
-          "adminSubject": {
-            "description": "Admin user to impersonate via domain-wide delegation.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Adminsubject",
-            "type": "string"
-          },
-          "connectorName": {
-            "description": "Human-readable connector name.",
+          "ConnectorName": {
+            "description": "Connector name.",
             "minLength": 1,
             "nullable": true,
             "title": "Connectorname",
             "type": "string"
           },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_GoogleWorkspaceCredentials",
-            "description": "Provide to rotate the stored secret.",
+          "CostAndUsage": {
+            "$ref": "#/components/schemas/Uobs_GcpCostAndUsageUpdateRequest",
             "nullable": true
           },
-          "primaryDomain": {
-            "description": "Primary Google Workspace domain.",
-            "minLength": 1,
+          "IncludeCostAndUsage": {
+            "description": "Include CCO flag.",
+            "enum": [
+              "true",
+              "false"
+            ],
             "nullable": true,
-            "title": "Primarydomain",
+            "title": "Includecostandusage",
             "type": "string"
           },
-          "provider": {
-            "const": "googleWorkspace",
-            "title": "Provider",
+          "ServiceAccountKeyJson": {
+            "description": "Updated GCP service-account key JSON string.",
+            "minLength": 1,
+            "nullable": true,
+            "title": "Serviceaccountkeyjson",
             "type": "string"
           }
         },
-        "required": [
-          "provider"
-        ],
-        "title": "GoogleWorkspaceUpdateRequest",
+        "title": "GcpOnboardingUpdateRequest",
         "type": "object"
       },
       "Uobs_HTTPValidationError": {
@@ -98581,90 +98213,6 @@
           }
         },
         "title": "HTTPValidationError",
-        "type": "object"
-      },
-      "Uobs_N8nCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_N8nCredentials"
-          },
-          "instanceUrl": {
-            "description": "Base URL of the n8n instance.",
-            "minLength": 1,
-            "title": "Instanceurl",
-            "type": "string"
-          },
-          "provider": {
-            "const": "n8n",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "connectorName",
-          "provider",
-          "instanceUrl",
-          "credentials"
-        ],
-        "title": "N8nCreateRequest",
-        "type": "object"
-      },
-      "Uobs_N8nCredentials": {
-        "additionalProperties": false,
-        "properties": {
-          "apiKey": {
-            "description": "n8n personal access token (PAT). Write-only.",
-            "minLength": 1,
-            "title": "Apikey",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "apiKey"
-        ],
-        "title": "N8nCredentials",
-        "type": "object"
-      },
-      "Uobs_N8nUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_N8nCredentials",
-            "description": "Provide to rotate the stored secret.",
-            "nullable": true
-          },
-          "instanceUrl": {
-            "description": "Base URL of the n8n instance.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Instanceurl",
-            "type": "string"
-          },
-          "provider": {
-            "const": "n8n",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "provider"
-        ],
-        "title": "N8nUpdateRequest",
         "type": "object"
       },
       "Uobs_OkResponse_Any_": {
@@ -98722,16 +98270,9 @@
         "title": "OkResponse[ValidationResult]",
         "type": "object"
       },
-      "Uobs_OpenAiCreateRequest": {
-        "additionalProperties": false,
+      "Uobs_OnboardingCreateRequest": {
+        "additionalProperties": true,
         "properties": {
-          "baseUrl": {
-            "description": "OpenAI API base URL (optional/Advanced).",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Baseurl",
-            "type": "string"
-          },
           "connectorName": {
             "description": "Human-readable connector name.",
             "minLength": 1,
@@ -98739,65 +98280,28 @@
             "type": "string"
           },
           "credentials": {
-            "$ref": "#/components/schemas/Uobs_OpenAiCredentials"
+            "additionalProperties": true,
+            "description": "Write-only secrets for the provider. Never returned on read.",
+            "title": "Credentials",
+            "type": "object"
           },
           "provider": {
-            "const": "openAi",
+            "description": "Connector provider discriminator (e.g. n8n).",
+            "minLength": 1,
             "title": "Provider",
             "type": "string"
           }
         },
         "required": [
           "connectorName",
-          "provider",
-          "credentials"
+          "provider"
         ],
-        "title": "OpenAiCreateRequest",
+        "title": "OnboardingCreateRequest",
         "type": "object"
       },
-      "Uobs_OpenAiCredentials": {
-        "additionalProperties": false,
+      "Uobs_OnboardingUpdateRequest": {
+        "additionalProperties": true,
         "properties": {
-          "adminApiKey": {
-            "description": "OpenAI Admin API key (required). Write-only.",
-            "minLength": 1,
-            "title": "Adminapikey",
-            "type": "string",
-            "writeOnly": true
-          },
-          "complianceApiKey": {
-            "description": "OpenAI Compliance API key (optional/Advanced). Write-only.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Complianceapikey",
-            "type": "string",
-            "writeOnly": true
-          },
-          "scimToken": {
-            "description": "OpenAI SCIM token (optional/Advanced). Write-only.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Scimtoken",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "adminApiKey"
-        ],
-        "title": "OpenAiCredentials",
-        "type": "object"
-      },
-      "Uobs_OpenAiUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "baseUrl": {
-            "description": "OpenAI API base URL (optional/Advanced).",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Baseurl",
-            "type": "string"
-          },
           "connectorName": {
             "description": "Human-readable connector name.",
             "minLength": 1,
@@ -98806,12 +98310,15 @@
             "type": "string"
           },
           "credentials": {
-            "$ref": "#/components/schemas/Uobs_OpenAiCredentials",
-            "description": "Provide to rotate the stored secret.",
-            "nullable": true
+            "additionalProperties": true,
+            "description": "Provide to rotate the stored secret(s). Write-only; never returned on read.",
+            "nullable": true,
+            "title": "Credentials",
+            "type": "object"
           },
           "provider": {
-            "const": "openAi",
+            "description": "Connector provider discriminator (e.g. n8n).",
+            "minLength": 1,
             "title": "Provider",
             "type": "string"
           }
@@ -98819,7 +98326,7 @@
         "required": [
           "provider"
         ],
-        "title": "OpenAiUpdateRequest",
+        "title": "OnboardingUpdateRequest",
         "type": "object"
       },
       "Uobs_SaasConnectorRead": {
@@ -98916,104 +98423,6 @@
         "title": "SaasConnectorRead",
         "type": "object"
       },
-      "Uobs_SalesforceAgentforceCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "clientId": {
-            "description": "Salesforce connected-app client ID.",
-            "minLength": 1,
-            "title": "Clientid",
-            "type": "string"
-          },
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_SalesforceAgentforceCredentials"
-          },
-          "instanceUrl": {
-            "description": "Salesforce instance URL.",
-            "minLength": 1,
-            "title": "Instanceurl",
-            "type": "string"
-          },
-          "provider": {
-            "const": "salesforceAgentforce",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "connectorName",
-          "provider",
-          "instanceUrl",
-          "clientId",
-          "credentials"
-        ],
-        "title": "SalesforceAgentforceCreateRequest",
-        "type": "object"
-      },
-      "Uobs_SalesforceAgentforceCredentials": {
-        "additionalProperties": false,
-        "properties": {
-          "clientSecret": {
-            "description": "Salesforce connected-app client secret (OAuth2 client_credentials). Write-only.",
-            "minLength": 1,
-            "title": "Clientsecret",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "clientSecret"
-        ],
-        "title": "SalesforceAgentforceCredentials",
-        "type": "object"
-      },
-      "Uobs_SalesforceAgentforceUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "clientId": {
-            "description": "Salesforce connected-app client ID.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Clientid",
-            "type": "string"
-          },
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/Uobs_SalesforceAgentforceCredentials",
-            "description": "Provide to rotate the stored secret.",
-            "nullable": true
-          },
-          "instanceUrl": {
-            "description": "Salesforce instance URL.",
-            "minLength": 1,
-            "nullable": true,
-            "title": "Instanceurl",
-            "type": "string"
-          },
-          "provider": {
-            "const": "salesforceAgentforce",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "provider"
-        ],
-        "title": "SalesforceAgentforceUpdateRequest",
-        "type": "object"
-      },
       "Uobs_ValidationError": {
         "properties": {
           "ctx": {
@@ -99055,7 +98464,7 @@
         "type": "object"
       },
       "Uobs_ValidationResult": {
-        "description": "Verdict from the synchronous connection-test endpoint (AISM-338).\n\nReturned at HTTP 200 for every validation outcome (valid, rejected, vendor\nunreachable, vendor timeout) — the HTTP status reflects the call to us, the\nverdict lives here.",
+        "description": "Verdict from the synchronous connection-test endpoint.\n\nReturned at HTTP 200 for every validation outcome (valid, rejected, vendor\nunreachable, vendor timeout) — the HTTP status reflects the call to us, the\nverdict lives here.",
         "properties": {
           "code": {
             "description": "On failure, the vendor's real HTTP status (e.g. 401/403), or 502 (could not reach the vendor) / 504 (vendor timed out). Absent on success.",
@@ -99212,7 +98621,7 @@
         "properties": {
           "fault": {
             "description": "Is the error a server-side fault?",
-            "example": true,
+            "example": false,
             "type": "boolean"
           },
           "id": {
@@ -99272,18 +98681,16 @@
             }
           ],
           "deviceIds": [
-            "Itaque fugiat.",
-            "Voluptatibus aliquam iste ipsa."
+            "Voluptatum optio laudantium illum doloribus delectus ea.",
+            "Vitae repellat voluptatum ipsum.",
+            "Sint vel provident voluptates ut asperiores aliquam.",
+            "Occaecati architecto."
           ]
         },
         "properties": {
           "datasourceSelectors": {
             "description": "List of datasources to delete devices from",
             "example": [
-              {
-                "field": "type",
-                "value": "SCCM"
-              },
               {
                 "field": "type",
                 "value": "SCCM"
@@ -99301,12 +98708,13 @@
           "deviceIds": {
             "description": "List of device IDs to delete",
             "example": [
-              "Voluptatem enim tempora a cum.",
-              "Eius asperiores blanditiis.",
-              "Magni velit."
+              "Quasi cum itaque fugiat.",
+              "Voluptatibus aliquam iste ipsa.",
+              "Aliquid nam.",
+              "Enim laboriosam tempore."
             ],
             "items": {
-              "example": "Voluptas dolores aut aut rerum eos perspiciatis.",
+              "example": "Blanditiis fugiat magni.",
               "type": "string"
             },
             "type": "array"
@@ -99319,20 +98727,6 @@
       },
       "Vis_ExportDataCollection": {
         "example": [
-          {
-            "createdAt": "2018-05-16T16:31:52.1000Z",
-            "id": "7d795afa-c508-4d47-92ae-248113a792d1",
-            "name": "hardware_inventory",
-            "size": 1080,
-            "type": "snapshot"
-          },
-          {
-            "createdAt": "2018-05-16T16:31:52.1000Z",
-            "id": "7d795afa-c508-4d47-92ae-248113a792d1",
-            "name": "hardware_inventory",
-            "size": 1080,
-            "type": "snapshot"
-          },
           {
             "createdAt": "2018-05-16T16:31:52.1000Z",
             "id": "7d795afa-c508-4d47-92ae-248113a792d1",
@@ -99359,6 +98753,20 @@
           "nextPage": "/vis/v2/orgs/{orgId}/exports?skipToken=19u2349",
           "prevPage": "/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u",
           "values": [
+            {
+              "createdAt": "2018-05-16T16:31:52.1000Z",
+              "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+              "name": "hardware_inventory",
+              "size": 1080,
+              "type": "snapshot"
+            },
+            {
+              "createdAt": "2018-05-16T16:31:52.1000Z",
+              "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+              "name": "hardware_inventory",
+              "size": 1080,
+              "type": "snapshot"
+            },
             {
               "createdAt": "2018-05-16T16:31:52.1000Z",
               "id": "7d795afa-c508-4d47-92ae-248113a792d1",
@@ -139781,6 +139189,7 @@
                     "bigQueryDataset": "someDataset",
                     "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
                     "gcsExportUri": "gs://\u003cbucket_name\u003e/\u003cfile_path_inside_bucket\u003e",
+                    "onboardingOrigin": "finops",
                     "projectId": "flexera.com:resat-cloud"
                   },
                   "id": "cbi-oi-gcp-956d603z-fdg2-4263-v81e-bae187d0e099",
@@ -140066,6 +139475,7 @@
                     "bigQueryDataset": "someDataset",
                     "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
                     "gcsExportUri": "gs://\u003cbucket_name\u003e/\u003cfile_path_inside_bucket\u003e",
+                    "onboardingOrigin": "finops",
                     "projectId": "flexera.com:resat-cloud"
                   },
                   "id": "cbi-oi-gcp-956d603z-fdg2-4263-v81e-bae187d0e099",
@@ -210949,7 +210359,7 @@
     },
     "/uobs/v1/orgs/{org_id}/cloud/onboarding": {
       "delete": {
-        "description": "Remove an existing cloud connector for AWS or Azure.",
+        "description": "Remove an existing cloud connector for AWS, Azure, or GCP.",
         "operationId": "Uobs_trigger_onboarding_delete_uobs_v1_orgs_org_id_cloud_onboarding_delete",
         "parameters": [
           {
@@ -210964,12 +210374,12 @@
             }
           },
           {
-            "description": "Provider (aws/azure)",
+            "description": "Provider (aws/azure/gcp)",
             "in": "query",
             "name": "provider",
             "required": true,
             "schema": {
-              "description": "Provider (aws/azure)",
+              "description": "Provider (aws/azure/gcp)",
               "title": "Provider",
               "type": "string"
             }
@@ -210987,15 +210397,24 @@
           }
         ],
         "responses": {
-          "200": {
+          "202": {
             "content": {
               "application/json": {
+                "example": {
+                  "kind": "onboarding:publish",
+                  "values": [
+                    {
+                      "stackId": "\u003cunique Identifier\u003e",
+                      "status": "accepted"
+                    }
+                  ]
+                },
                 "schema": {
                   "$ref": "#/components/schemas/Uobs_OkResponse_Any_"
                 }
               }
             },
-            "description": "Successful Response"
+            "description": "Onboarding delete request accepted and queued for processing"
           },
           "400": {
             "content": {
@@ -211137,10 +210556,10 @@
         "x-flexera-resource": "cloud-onboarding"
       }
     },
-    "/uobs/v1/orgs/{org_id}/cloud/onboarding/aws": {
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/gcp": {
       "post": {
-        "description": "Onboard a new AWS cloud connector.",
-        "operationId": "Uobs_trigger_onboarding_post_aws_uobs_v1_orgs_org_id_cloud_onboarding_aws_post",
+        "description": "Onboard a new GCP bill connect connector.",
+        "operationId": "Uobs_trigger_onboarding_post_gcp_uobs_v1_orgs_org_id_cloud_onboarding_gcp_post",
         "parameters": [
           {
             "description": "Organization ID",
@@ -211157,23 +210576,48 @@
         "requestBody": {
           "content": {
             "application/json": {
+              "examples": {
+                "gcp_bill_connect": {
+                  "summary": "GCP Bill Connect onboarding",
+                  "value": {
+                    "BillingAccountId": "01AB23-CD45EF-GH69IJ",
+                    "ConnectorName": "gcp-bill-connect",
+                    "CostAndUsage": {
+                      "BillingDatasetId": "detailedbillingexport",
+                      "BillingProjectId": "my-billing-project",
+                      "GoogleGcsExportUri": "gs://my-bucket/gcp-billing-export/"
+                    },
+                    "IncludeCostAndUsage": "true",
+                    "ServiceAccountKeyJson": "{\"type\":\"service_account\",\"project_id\":\"my-billing-project\"}"
+                  }
+                }
+              },
               "schema": {
-                "$ref": "#/components/schemas/Uobs_AwsOnboardingCreateRequest"
+                "$ref": "#/components/schemas/Uobs_GcpOnboardingCreateRequest"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "200": {
+          "202": {
             "content": {
               "application/json": {
+                "example": {
+                  "kind": "onboarding:publish",
+                  "values": [
+                    {
+                      "stackId": "\u003cunique Identifier\u003e",
+                      "status": "accepted"
+                    }
+                  ]
+                },
                 "schema": {
                   "$ref": "#/components/schemas/Uobs_OkResponse_Any_"
                 }
               }
             },
-            "description": "Successful Response"
+            "description": "Onboarding request accepted and queued for processing"
           },
           "400": {
             "content": {
@@ -211307,18 +210751,18 @@
             "FlexeraBearerAuth": []
           }
         ],
-        "summary": "Onboarding AWS: Create",
+        "summary": "Onboarding GCP: Create",
         "tags": [
           "Onboarding"
         ],
         "x-flexera-action": "create",
-        "x-flexera-resource": "cloud-onboarding-aws"
+        "x-flexera-resource": "cloud-onboarding-gcp"
       }
     },
-    "/uobs/v1/orgs/{org_id}/cloud/onboarding/aws/{connector_id}": {
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/gcp/{connector_id}": {
       "put": {
-        "description": "Update an existing AWS cloud connector.",
-        "operationId": "Uobs_trigger_onboarding_put_aws_uobs_v1_orgs_org_id_cloud_onboarding_aws_connector_id_put",
+        "description": "Update an existing GCP bill connect connector.",
+        "operationId": "Uobs_trigger_onboarding_put_gcp_uobs_v1_orgs_org_id_cloud_onboarding_gcp_connector_id_put",
         "parameters": [
           {
             "description": "Connector ID",
@@ -211346,23 +210790,44 @@
         "requestBody": {
           "content": {
             "application/json": {
+              "examples": {
+                "update_gcs_export_uri": {
+                  "summary": "Update mutable GCP connector settings",
+                  "value": {
+                    "ConnectorName": "gcp-bill-connect-updated",
+                    "CostAndUsage": {
+                      "GoogleGcsExportUri": "gs://my-bucket/gcp-billing-export/updated/"
+                    },
+                    "IncludeCostAndUsage": "true"
+                  }
+                }
+              },
               "schema": {
-                "$ref": "#/components/schemas/Uobs_AwsOnboardingUpdateRequest"
+                "$ref": "#/components/schemas/Uobs_GcpOnboardingUpdateRequest"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "200": {
+          "202": {
             "content": {
               "application/json": {
+                "example": {
+                  "kind": "onboarding:publish",
+                  "values": [
+                    {
+                      "stackId": "\u003cunique Identifier\u003e",
+                      "status": "accepted"
+                    }
+                  ]
+                },
                 "schema": {
                   "$ref": "#/components/schemas/Uobs_OkResponse_Any_"
                 }
               }
             },
-            "description": "Successful Response"
+            "description": "Onboarding update request accepted and queued for processing"
           },
           "400": {
             "content": {
@@ -211496,379 +210961,12 @@
             "FlexeraBearerAuth": []
           }
         ],
-        "summary": "Onboarding AWS: Update",
+        "summary": "Onboarding GCP: Update",
         "tags": [
           "Onboarding"
         ],
         "x-flexera-action": "replace",
-        "x-flexera-resource": "cloud-onboarding-aws"
-      }
-    },
-    "/uobs/v1/orgs/{org_id}/cloud/onboarding/azure": {
-      "post": {
-        "description": "Onboard a new Azure cloud connector.",
-        "operationId": "Uobs_trigger_onboarding_post_azure_uobs_v1_orgs_org_id_cloud_onboarding_azure_post",
-        "parameters": [
-          {
-            "description": "Organization ID",
-            "in": "path",
-            "name": "org_id",
-            "required": true,
-            "schema": {
-              "description": "Organization ID",
-              "title": "Org Id",
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Uobs_AzureOnboardingCreateRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_OkResponse_Any_"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "request is invalid",
-                  "name": "bad_request",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Request response"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "access token is invalid",
-                  "name": "unauthorized",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Unauthorized response"
-          },
-          "403": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "access token does not have sufficient privileges",
-                  "name": "forbidden",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Forbidden response"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "resource not found",
-                  "name": "not_found",
-                  "temporary": true,
-                  "timeout": true
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Not Found response"
-          },
-          "429": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
-                  "name": "too_many_requests",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Too Many Requests response"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "something went wrong in the server",
-                  "name": "internal_error",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Internal Server Error response"
-          },
-          "502": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "server is unable to handle the request",
-                  "name": "bad_gateway",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Gateway response"
-          }
-        },
-        "security": [
-          {
-            "FlexeraBearerAuth": []
-          }
-        ],
-        "summary": "Onboarding Azure: Create",
-        "tags": [
-          "Onboarding"
-        ],
-        "x-flexera-action": "create",
-        "x-flexera-resource": "cloud-onboarding-azure"
-      }
-    },
-    "/uobs/v1/orgs/{org_id}/cloud/onboarding/azure/{connector_id}": {
-      "put": {
-        "description": "Update an existing Azure cloud connector.",
-        "operationId": "Uobs_trigger_onboarding_put_azure_uobs_v1_orgs_org_id_cloud_onboarding_azure_connector_id_put",
-        "parameters": [
-          {
-            "description": "Connector ID",
-            "in": "path",
-            "name": "connector_id",
-            "required": true,
-            "schema": {
-              "description": "Connector ID",
-              "title": "Connector Id",
-              "type": "string"
-            }
-          },
-          {
-            "description": "Organization ID",
-            "in": "path",
-            "name": "org_id",
-            "required": true,
-            "schema": {
-              "description": "Organization ID",
-              "title": "Org Id",
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Uobs_AzureOnboardingUpdateRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_OkResponse_Any_"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "request is invalid",
-                  "name": "bad_request",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Request response"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "access token is invalid",
-                  "name": "unauthorized",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Unauthorized response"
-          },
-          "403": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "access token does not have sufficient privileges",
-                  "name": "forbidden",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Forbidden response"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "resource not found",
-                  "name": "not_found",
-                  "temporary": true,
-                  "timeout": true
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Not Found response"
-          },
-          "429": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
-                  "name": "too_many_requests",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Too Many Requests response"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "something went wrong in the server",
-                  "name": "internal_error",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Internal Server Error response"
-          },
-          "502": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "server is unable to handle the request",
-                  "name": "bad_gateway",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/Uobs_ErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Gateway response"
-          }
-        },
-        "security": [
-          {
-            "FlexeraBearerAuth": []
-          }
-        ],
-        "summary": "Onboarding Azure: Update",
-        "tags": [
-          "Onboarding"
-        ],
-        "x-flexera-action": "replace",
-        "x-flexera-resource": "cloud-onboarding-azure"
+        "x-flexera-resource": "cloud-onboarding-gcp"
       }
     },
     "/uobs/v1/orgs/{org_id}/saas/connectors": {
@@ -212627,7 +211725,7 @@
     },
     "/uobs/v1/orgs/{org_id}/saas/onboarding": {
       "post": {
-        "description": "Create a new SaaS connector. Async: stores the credential, emits the onboarding event and returns an acceptance. Discriminated on `provider`.",
+        "description": "Create a new SaaS connector. Async: stores the credential, emits the onboarding event and returns an acceptance. Generic request keyed on `provider`; the provider-specific fields are validated against the connector.",
         "operationId": "Uobs_create_saas_onboarding_uobs_v1_orgs_org_id_saas_onboarding_post",
         "parameters": [
           {
@@ -212646,38 +211744,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "discriminator": {
-                  "mapping": {
-                    "anthropic": "#/components/schemas/AnthropicCreateRequest",
-                    "cursor": "#/components/schemas/CursorCreateRequest",
-                    "googleWorkspace": "#/components/schemas/GoogleWorkspaceCreateRequest",
-                    "n8n": "#/components/schemas/N8nCreateRequest",
-                    "openAi": "#/components/schemas/OpenAiCreateRequest",
-                    "salesforceAgentforce": "#/components/schemas/SalesforceAgentforceCreateRequest"
-                  },
-                  "propertyName": "provider"
-                },
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/Uobs_SalesforceAgentforceCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_N8nCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_GoogleWorkspaceCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_AnthropicCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_OpenAiCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_CursorCreateRequest"
-                  }
-                ],
-                "title": "Request"
+                "$ref": "#/components/schemas/Uobs_OnboardingCreateRequest"
               }
             }
           },
@@ -212839,7 +211906,7 @@
     },
     "/uobs/v1/orgs/{org_id}/saas/onboarding/validate": {
       "post": {
-        "description": "Synchronously test a SaaS connector's **submitted** credentials against the vendor. Unlike create/update this is not fire-and-forget: it returns a verdict at HTTP 200 for every outcome — `success:true` when the vendor accepts the credentials, otherwise `success:false` with the vendor's HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. A malformed/missing body is a 422. Discriminated on `provider`; tests submitted values only (no stored-credential testing).",
+        "description": "Synchronously test a SaaS connector's **submitted** credentials against the vendor. Unlike create/update this is not fire-and-forget: it returns a verdict at HTTP 200 for every outcome — `success:true` when the vendor accepts the credentials, otherwise `success:false` with the vendor's HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. A malformed/missing body is a 422. Keyed on `provider`; tests submitted values only (no stored-credential testing).",
         "operationId": "Uobs_validate_saas_connection_uobs_v1_orgs_org_id_saas_onboarding_validate_post",
         "parameters": [
           {
@@ -212858,38 +211925,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "discriminator": {
-                  "mapping": {
-                    "anthropic": "#/components/schemas/AnthropicCreateRequest",
-                    "cursor": "#/components/schemas/CursorCreateRequest",
-                    "googleWorkspace": "#/components/schemas/GoogleWorkspaceCreateRequest",
-                    "n8n": "#/components/schemas/N8nCreateRequest",
-                    "openAi": "#/components/schemas/OpenAiCreateRequest",
-                    "salesforceAgentforce": "#/components/schemas/SalesforceAgentforceCreateRequest"
-                  },
-                  "propertyName": "provider"
-                },
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/Uobs_SalesforceAgentforceCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_N8nCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_GoogleWorkspaceCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_AnthropicCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_OpenAiCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_CursorCreateRequest"
-                  }
-                ],
-                "title": "Request"
+                "$ref": "#/components/schemas/Uobs_OnboardingCreateRequest"
               }
             }
           },
@@ -213225,7 +212261,7 @@
         "x-flexera-resource": "saa-onboarding"
       },
       "put": {
-        "description": "Update an existing SaaS connector (partial). Supply `credentials` to rotate the stored secret. Async acceptance. Discriminated on `provider`.",
+        "description": "Update an existing SaaS connector (partial). Supply `credentials` to rotate the stored secret. Async acceptance. Generic request keyed on `provider`.",
         "operationId": "Uobs_update_saas_onboarding_uobs_v1_orgs_org_id_saas_onboarding_connector_id_put",
         "parameters": [
           {
@@ -213255,38 +212291,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "discriminator": {
-                  "mapping": {
-                    "anthropic": "#/components/schemas/AnthropicUpdateRequest",
-                    "cursor": "#/components/schemas/CursorUpdateRequest",
-                    "googleWorkspace": "#/components/schemas/GoogleWorkspaceUpdateRequest",
-                    "n8n": "#/components/schemas/N8nUpdateRequest",
-                    "openAi": "#/components/schemas/OpenAiUpdateRequest",
-                    "salesforceAgentforce": "#/components/schemas/SalesforceAgentforceUpdateRequest"
-                  },
-                  "propertyName": "provider"
-                },
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/Uobs_SalesforceAgentforceUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_N8nUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_GoogleWorkspaceUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_AnthropicUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_OpenAiUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/Uobs_CursorUpdateRequest"
-                  }
-                ],
-                "title": "Request"
+                "$ref": "#/components/schemas/Uobs_OnboardingUpdateRequest"
               }
             }
           },
@@ -213653,21 +212658,13 @@
                   {
                     "field": "type",
                     "value": "SCCM"
-                  },
-                  {
-                    "field": "type",
-                    "value": "SCCM"
-                  },
-                  {
-                    "field": "type",
-                    "value": "SCCM"
                   }
                 ],
                 "deviceIds": [
-                  "Magnam corrupti atque quibusdam.",
-                  "Sit maiores.",
-                  "Enim similique eum.",
-                  "Accusantium ea."
+                  "Quo nesciunt fuga laborum quam.",
+                  "Corrupti atque quibusdam est sit maiores fugit.",
+                  "Similique eum ratione accusantium ea id ut.",
+                  "Culpa qui aspernatur neque."
                 ]
               },
               "schema": {
@@ -213682,6 +212679,18 @@
             "content": {
               "application/json": {
                 "example": [
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
+                  },
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
+                  },
                   {
                     "count": 150,
                     "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
@@ -213875,10 +212884,9 @@
                   }
                 ],
                 "deviceIds": [
-                  "Neque dolore.",
-                  "Ipsam impedit.",
-                  "Autem id suscipit quam explicabo dolore corrupti.",
-                  "Aut quia iste."
+                  "Id suscipit.",
+                  "Explicabo dolore corrupti esse.",
+                  "Quia iste velit doloremque quisquam."
                 ]
               },
               "schema": {
@@ -213904,22 +212912,22 @@
                     "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
                     "datasourceName": "SCCM_PROD_AP",
                     "datasourceType": "SCCM"
-                  },
-                  {
-                    "count": 150,
-                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                    "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
-                  },
-                  {
-                    "count": 150,
-                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                    "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
                   }
                 ],
                 "schema": {
                   "example": [
+                    {
+                      "count": 150,
+                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                      "datasourceName": "SCCM_PROD_AP",
+                      "datasourceType": "SCCM"
+                    },
+                    {
+                      "count": 150,
+                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                      "datasourceName": "SCCM_PROD_AP",
+                      "datasourceType": "SCCM"
+                    },
                     {
                       "count": 150,
                       "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
@@ -214129,6 +213137,20 @@
                       "name": "hardware_inventory",
                       "size": 1080,
                       "type": "snapshot"
+                    },
+                    {
+                      "createdAt": "2018-05-16T16:31:52.1000Z",
+                      "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+                      "name": "hardware_inventory",
+                      "size": 1080,
+                      "type": "snapshot"
+                    },
+                    {
+                      "createdAt": "2018-05-16T16:31:52.1000Z",
+                      "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+                      "name": "hardware_inventory",
+                      "size": 1080,
+                      "type": "snapshot"
                     }
                   ]
                 },
@@ -214300,11 +213322,11 @@
             "headers": {
               "Content-Length": {
                 "description": "content length in bytes of file",
-                "example": 5398082948119231000,
+                "example": 7729251450684401000,
                 "required": true,
                 "schema": {
                   "description": "content length in bytes of file",
-                  "example": 1110697970574970200,
+                  "example": 4773412612854586000,
                   "format": "int64",
                   "type": "integer"
                 }
