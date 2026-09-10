@@ -1,579 +1,6 @@
 {
   "components": {
     "schemas": {
-      "AnthropicCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "baseUrl": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Anthropic API base URL (optional/Advanced).",
-            "title": "Baseurl"
-          },
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/AnthropicCredentials"
-          },
-          "provider": {
-            "const": "anthropic",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "connectorName",
-          "provider",
-          "credentials"
-        ],
-        "title": "AnthropicCreateRequest",
-        "type": "object"
-      },
-      "AnthropicCredentials": {
-        "additionalProperties": false,
-        "properties": {
-          "analyticsApiKey": {
-            "description": "Anthropic Analytics API key (required). Write-only.",
-            "minLength": 1,
-            "title": "Analyticsapikey",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "analyticsApiKey"
-        ],
-        "title": "AnthropicCredentials",
-        "type": "object"
-      },
-      "AnthropicUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "baseUrl": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Anthropic API base URL (optional/Advanced).",
-            "title": "Baseurl"
-          },
-          "connectorName": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Human-readable connector name.",
-            "title": "Connectorname"
-          },
-          "credentials": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/AnthropicCredentials"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Provide to rotate the stored secret."
-          },
-          "provider": {
-            "const": "anthropic",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "provider"
-        ],
-        "title": "AnthropicUpdateRequest",
-        "type": "object"
-      },
-      "AwsOnboardingCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "BillingAccountId": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Billing Account ID",
-            "title": "Billingaccountid"
-          },
-          "ConnectorName": {
-            "description": "Connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "CostAndUsage": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/CostAndUsageModel"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Cost and Usage configuration"
-          },
-          "ExternalId": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "External ID.",
-            "title": "Externalid"
-          },
-          "IncludeBPC": {
-            "description": "Include BPC flag.",
-            "title": "Includebpc",
-            "type": "string"
-          },
-          "IncludeCostAndUsage": {
-            "description": "Include CCO flag.",
-            "title": "Includecostandusage",
-            "type": "string"
-          },
-          "IncludeInventory": {
-            "description": "Include inventory flag.",
-            "title": "Includeinventory",
-            "type": "string"
-          },
-          "RoleARN": {
-            "description": "Role ARN.",
-            "pattern": "^arn:(?:aws|aws-cn|aws-us-gov):iam::\\d{12}:role/.+$",
-            "title": "Rolearn",
-            "type": "string"
-          }
-        },
-        "required": [
-          "IncludeBPC",
-          "IncludeInventory",
-          "IncludeCostAndUsage",
-          "ConnectorName",
-          "RoleARN"
-        ],
-        "title": "AwsOnboardingCreateRequest",
-        "type": "object"
-      },
-      "AwsOnboardingUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "ConnectorName": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Connector name.",
-            "title": "Connectorname"
-          },
-          "CostAndUsage": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/CostAndUsageModel"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Cost and Usage configuration"
-          },
-          "IncludeBPC": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Include BPC flag.",
-            "title": "Includebpc"
-          },
-          "IncludeCostAndUsage": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Include CCO flag.",
-            "title": "Includecostandusage"
-          },
-          "IncludeInventory": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Include inventory flag.",
-            "title": "Includeinventory"
-          }
-        },
-        "title": "AwsOnboardingUpdateRequest",
-        "type": "object"
-      },
-      "AzureOnboardingCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "BillingAccountId": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Billing Account ID",
-            "title": "Billingaccountid"
-          },
-          "ClientId": {
-            "description": "Client ID.",
-            "minLength": 1,
-            "title": "Clientid",
-            "type": "string"
-          },
-          "ClientSecret": {
-            "description": "Client secret.",
-            "minLength": 1,
-            "title": "Clientsecret",
-            "type": "string"
-          },
-          "ConnectorName": {
-            "description": "Connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "CostAndUsage": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/CostAndUsageModel"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Cost and Usage configuration"
-          },
-          "IncludeBPC": {
-            "description": "Include BPC flag.",
-            "title": "Includebpc",
-            "type": "string"
-          },
-          "IncludeCostAndUsage": {
-            "description": "Include CCO flag.",
-            "title": "Includecostandusage",
-            "type": "string"
-          },
-          "IncludeInventory": {
-            "description": "Include inventory flag.",
-            "title": "Includeinventory",
-            "type": "string"
-          },
-          "SubscriptionId": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Subscription ID.",
-            "title": "Subscriptionid"
-          },
-          "TenantId": {
-            "description": "Tenant ID.",
-            "minLength": 1,
-            "title": "Tenantid",
-            "type": "string"
-          },
-          "TokenUrl": {
-            "description": "Token URL.",
-            "minLength": 1,
-            "title": "Tokenurl",
-            "type": "string"
-          }
-        },
-        "required": [
-          "IncludeBPC",
-          "IncludeInventory",
-          "IncludeCostAndUsage",
-          "ConnectorName",
-          "ClientId",
-          "ClientSecret",
-          "TenantId",
-          "TokenUrl"
-        ],
-        "title": "AzureOnboardingCreateRequest",
-        "type": "object"
-      },
-      "AzureOnboardingUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "ConnectorName": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Connector name.",
-            "title": "Connectorname"
-          },
-          "CostAndUsage": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/CostAndUsageModel"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Cost and Usage configuration"
-          },
-          "IncludeBPC": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Include BPC flag.",
-            "title": "Includebpc"
-          },
-          "IncludeCostAndUsage": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Include CCO flag.",
-            "title": "Includecostandusage"
-          },
-          "IncludeInventory": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Include inventory flag.",
-            "title": "Includeinventory"
-          },
-          "SubscriptionId": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Subscription ID for Azure provider only.",
-            "title": "Subscriptionid"
-          },
-          "TenantId": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Tenant ID for Azure provider only.",
-            "title": "Tenantid"
-          }
-        },
-        "title": "AzureOnboardingUpdateRequest",
-        "type": "object"
-      },
-      "CostAndUsageModel": {
-        "properties": {
-          "BillingAccount": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Billingaccount"
-          },
-          "BillingS3Bucket": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Billings3Bucket"
-          },
-          "EffectiveFrom": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Effectivefrom"
-          },
-          "ReportPrefix": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Reportprefix"
-          }
-        },
-        "title": "CostAndUsageModel",
-        "type": "object"
-      },
-      "CursorCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/CursorCredentials"
-          },
-          "provider": {
-            "const": "cursor",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "connectorName",
-          "provider",
-          "credentials"
-        ],
-        "title": "CursorCreateRequest",
-        "type": "object"
-      },
-      "CursorCredentials": {
-        "additionalProperties": false,
-        "properties": {
-          "adminApiKey": {
-            "description": "Cursor team Admin API key (required). Sent to Cursor as HTTP Basic auth with the key as username and an empty password. Write-only.",
-            "minLength": 1,
-            "title": "Adminapikey",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "adminApiKey"
-        ],
-        "title": "CursorCredentials",
-        "type": "object"
-      },
-      "CursorUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "connectorName": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Human-readable connector name.",
-            "title": "Connectorname"
-          },
-          "credentials": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/CursorCredentials"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Provide to rotate the stored secret."
-          },
-          "provider": {
-            "const": "cursor",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "provider"
-        ],
-        "title": "CursorUpdateRequest",
-        "type": "object"
-      },
       "ErrorResponse": {
         "properties": {
           "fault": {
@@ -612,67 +39,101 @@
         "title": "ErrorResponse",
         "type": "object"
       },
-      "GoogleWorkspaceCreateRequest": {
+      "GcpCostAndUsageCreateRequest": {
         "additionalProperties": false,
         "properties": {
-          "adminSubject": {
-            "description": "Admin user to impersonate via domain-wide delegation.",
+          "BillingDatasetId": {
+            "description": "BigQuery dataset containing the billing export.",
             "minLength": 1,
-            "title": "Adminsubject",
+            "title": "Billingdatasetid",
             "type": "string"
           },
-          "connectorName": {
-            "description": "Human-readable connector name.",
+          "BillingProjectId": {
+            "description": "GCP project used for billing queries.",
+            "minLength": 1,
+            "title": "Billingprojectid",
+            "type": "string"
+          },
+          "GoogleGcsExportUri": {
+            "description": "GCS URI of the billing export (e.g. gs://bucket/prefix/).",
+            "minLength": 1,
+            "title": "Googlegcsexporturi",
+            "type": "string"
+          }
+        },
+        "required": [
+          "BillingDatasetId",
+          "BillingProjectId",
+          "GoogleGcsExportUri"
+        ],
+        "title": "GcpCostAndUsageCreateRequest",
+        "type": "object"
+      },
+      "GcpCostAndUsageUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "GoogleGcsExportUri": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Updated GCS export URI.",
+            "title": "Googlegcsexporturi"
+          }
+        },
+        "title": "GcpCostAndUsageUpdateRequest",
+        "type": "object"
+      },
+      "GcpOnboardingCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "BillingAccountId": {
+            "description": "GCP billing account ID.",
+            "minLength": 1,
+            "title": "Billingaccountid",
+            "type": "string"
+          },
+          "ConnectorName": {
+            "description": "Connector name.",
             "minLength": 1,
             "title": "Connectorname",
             "type": "string"
           },
-          "credentials": {
-            "$ref": "#/components/schemas/GoogleWorkspaceCredentials"
+          "CostAndUsage": {
+            "$ref": "#/components/schemas/GcpCostAndUsageCreateRequest"
           },
-          "primaryDomain": {
-            "description": "Primary Google Workspace domain.",
-            "minLength": 1,
-            "title": "Primarydomain",
+          "IncludeCostAndUsage": {
+            "const": "true",
+            "description": "Must be 'true' for GCP Bill Connect.",
+            "title": "Includecostandusage",
             "type": "string"
           },
-          "provider": {
-            "const": "googleWorkspace",
-            "title": "Provider",
+          "ServiceAccountKeyJson": {
+            "description": "GCP service-account key JSON string.",
+            "minLength": 1,
+            "title": "Serviceaccountkeyjson",
             "type": "string"
           }
         },
         "required": [
-          "connectorName",
-          "provider",
-          "adminSubject",
-          "primaryDomain",
-          "credentials"
+          "ConnectorName",
+          "BillingAccountId",
+          "ServiceAccountKeyJson",
+          "CostAndUsage",
+          "IncludeCostAndUsage"
         ],
-        "title": "GoogleWorkspaceCreateRequest",
+        "title": "GcpOnboardingCreateRequest",
         "type": "object"
       },
-      "GoogleWorkspaceCredentials": {
+      "GcpOnboardingUpdateRequest": {
         "additionalProperties": false,
         "properties": {
-          "serviceAccountKey": {
-            "description": "Google service-account JSON key, base64-encoded. Write-only.",
-            "minLength": 1,
-            "title": "Serviceaccountkey",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "serviceAccountKey"
-        ],
-        "title": "GoogleWorkspaceCredentials",
-        "type": "object"
-      },
-      "GoogleWorkspaceUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "adminSubject": {
+          "ConnectorName": {
             "anyOf": [
               {
                 "minLength": 1,
@@ -682,34 +143,36 @@
                 "type": "null"
               }
             ],
-            "description": "Admin user to impersonate via domain-wide delegation.",
-            "title": "Adminsubject"
-          },
-          "connectorName": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Human-readable connector name.",
+            "description": "Connector name.",
             "title": "Connectorname"
           },
-          "credentials": {
+          "CostAndUsage": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/GoogleWorkspaceCredentials"
+                "$ref": "#/components/schemas/GcpCostAndUsageUpdateRequest"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "IncludeCostAndUsage": {
+            "anyOf": [
+              {
+                "enum": [
+                  "true",
+                  "false"
+                ],
+                "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "description": "Provide to rotate the stored secret."
+            "description": "Include CCO flag.",
+            "title": "Includecostandusage"
           },
-          "primaryDomain": {
+          "ServiceAccountKeyJson": {
             "anyOf": [
               {
                 "minLength": 1,
@@ -719,19 +182,11 @@
                 "type": "null"
               }
             ],
-            "description": "Primary Google Workspace domain.",
-            "title": "Primarydomain"
-          },
-          "provider": {
-            "const": "googleWorkspace",
-            "title": "Provider",
-            "type": "string"
+            "description": "Updated GCP service-account key JSON string.",
+            "title": "Serviceaccountkeyjson"
           }
         },
-        "required": [
-          "provider"
-        ],
-        "title": "GoogleWorkspaceUpdateRequest",
+        "title": "GcpOnboardingUpdateRequest",
         "type": "object"
       },
       "HTTPValidationError": {
@@ -745,108 +200,6 @@
           }
         },
         "title": "HTTPValidationError",
-        "type": "object"
-      },
-      "N8nCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/N8nCredentials"
-          },
-          "instanceUrl": {
-            "description": "Base URL of the n8n instance.",
-            "minLength": 1,
-            "title": "Instanceurl",
-            "type": "string"
-          },
-          "provider": {
-            "const": "n8n",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "connectorName",
-          "provider",
-          "instanceUrl",
-          "credentials"
-        ],
-        "title": "N8nCreateRequest",
-        "type": "object"
-      },
-      "N8nCredentials": {
-        "additionalProperties": false,
-        "properties": {
-          "apiKey": {
-            "description": "n8n personal access token (PAT). Write-only.",
-            "minLength": 1,
-            "title": "Apikey",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "apiKey"
-        ],
-        "title": "N8nCredentials",
-        "type": "object"
-      },
-      "N8nUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "connectorName": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Human-readable connector name.",
-            "title": "Connectorname"
-          },
-          "credentials": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/N8nCredentials"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Provide to rotate the stored secret."
-          },
-          "instanceUrl": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Base URL of the n8n instance.",
-            "title": "Instanceurl"
-          },
-          "provider": {
-            "const": "n8n",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "provider"
-        ],
-        "title": "N8nUpdateRequest",
         "type": "object"
       },
       "OkResponse_Any_": {
@@ -940,22 +293,9 @@
         "title": "OkResponse[ValidationResult]",
         "type": "object"
       },
-      "OpenAiCreateRequest": {
-        "additionalProperties": false,
+      "OnboardingCreateRequest": {
+        "additionalProperties": true,
         "properties": {
-          "baseUrl": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "OpenAI API base URL (optional/Advanced).",
-            "title": "Baseurl"
-          },
           "connectorName": {
             "description": "Human-readable connector name.",
             "minLength": 1,
@@ -963,83 +303,28 @@
             "type": "string"
           },
           "credentials": {
-            "$ref": "#/components/schemas/OpenAiCredentials"
+            "additionalProperties": true,
+            "description": "Write-only secrets for the provider. Never returned on read.",
+            "title": "Credentials",
+            "type": "object"
           },
           "provider": {
-            "const": "openAi",
+            "description": "Connector provider discriminator (e.g. n8n).",
+            "minLength": 1,
             "title": "Provider",
             "type": "string"
           }
         },
         "required": [
           "connectorName",
-          "provider",
-          "credentials"
+          "provider"
         ],
-        "title": "OpenAiCreateRequest",
+        "title": "OnboardingCreateRequest",
         "type": "object"
       },
-      "OpenAiCredentials": {
-        "additionalProperties": false,
+      "OnboardingUpdateRequest": {
+        "additionalProperties": true,
         "properties": {
-          "adminApiKey": {
-            "description": "OpenAI Admin API key (required). Write-only.",
-            "minLength": 1,
-            "title": "Adminapikey",
-            "type": "string",
-            "writeOnly": true
-          },
-          "complianceApiKey": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "OpenAI Compliance API key (optional/Advanced). Write-only.",
-            "title": "Complianceapikey",
-            "writeOnly": true
-          },
-          "scimToken": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "OpenAI SCIM token (optional/Advanced). Write-only.",
-            "title": "Scimtoken",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "adminApiKey"
-        ],
-        "title": "OpenAiCredentials",
-        "type": "object"
-      },
-      "OpenAiUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "baseUrl": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "OpenAI API base URL (optional/Advanced).",
-            "title": "Baseurl"
-          },
           "connectorName": {
             "anyOf": [
               {
@@ -1056,16 +341,19 @@
           "credentials": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/OpenAiCredentials"
+                "additionalProperties": true,
+                "type": "object"
               },
               {
                 "type": "null"
               }
             ],
-            "description": "Provide to rotate the stored secret."
+            "description": "Provide to rotate the stored secret(s). Write-only; never returned on read.",
+            "title": "Credentials"
           },
           "provider": {
-            "const": "openAi",
+            "description": "Connector provider discriminator (e.g. n8n).",
+            "minLength": 1,
             "title": "Provider",
             "type": "string"
           }
@@ -1073,7 +361,7 @@
         "required": [
           "provider"
         ],
-        "title": "OpenAiUpdateRequest",
+        "title": "OnboardingUpdateRequest",
         "type": "object"
       },
       "SaasConnectorRead": {
@@ -1206,128 +494,6 @@
         "title": "SaasConnectorRead",
         "type": "object"
       },
-      "SalesforceAgentforceCreateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "clientId": {
-            "description": "Salesforce connected-app client ID.",
-            "minLength": 1,
-            "title": "Clientid",
-            "type": "string"
-          },
-          "connectorName": {
-            "description": "Human-readable connector name.",
-            "minLength": 1,
-            "title": "Connectorname",
-            "type": "string"
-          },
-          "credentials": {
-            "$ref": "#/components/schemas/SalesforceAgentforceCredentials"
-          },
-          "instanceUrl": {
-            "description": "Salesforce instance URL.",
-            "minLength": 1,
-            "title": "Instanceurl",
-            "type": "string"
-          },
-          "provider": {
-            "const": "salesforceAgentforce",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "connectorName",
-          "provider",
-          "instanceUrl",
-          "clientId",
-          "credentials"
-        ],
-        "title": "SalesforceAgentforceCreateRequest",
-        "type": "object"
-      },
-      "SalesforceAgentforceCredentials": {
-        "additionalProperties": false,
-        "properties": {
-          "clientSecret": {
-            "description": "Salesforce connected-app client secret (OAuth2 client_credentials). Write-only.",
-            "minLength": 1,
-            "title": "Clientsecret",
-            "type": "string",
-            "writeOnly": true
-          }
-        },
-        "required": [
-          "clientSecret"
-        ],
-        "title": "SalesforceAgentforceCredentials",
-        "type": "object"
-      },
-      "SalesforceAgentforceUpdateRequest": {
-        "additionalProperties": false,
-        "properties": {
-          "clientId": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Salesforce connected-app client ID.",
-            "title": "Clientid"
-          },
-          "connectorName": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Human-readable connector name.",
-            "title": "Connectorname"
-          },
-          "credentials": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/SalesforceAgentforceCredentials"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Provide to rotate the stored secret."
-          },
-          "instanceUrl": {
-            "anyOf": [
-              {
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Salesforce instance URL.",
-            "title": "Instanceurl"
-          },
-          "provider": {
-            "const": "salesforceAgentforce",
-            "title": "Provider",
-            "type": "string"
-          }
-        },
-        "required": [
-          "provider"
-        ],
-        "title": "SalesforceAgentforceUpdateRequest",
-        "type": "object"
-      },
       "ValidationError": {
         "properties": {
           "ctx": {
@@ -1369,7 +535,7 @@
         "type": "object"
       },
       "ValidationResult": {
-        "description": "Verdict from the synchronous connection-test endpoint (AISM-338).\n\nReturned at HTTP 200 for every validation outcome (valid, rejected, vendor\nunreachable, vendor timeout) — the HTTP status reflects the call to us, the\nverdict lives here.",
+        "description": "Verdict from the synchronous connection-test endpoint.\n\nReturned at HTTP 200 for every validation outcome (valid, rejected, vendor\nunreachable, vendor timeout) — the HTTP status reflects the call to us, the\nverdict lives here.",
         "properties": {
           "code": {
             "anyOf": [
@@ -2325,7 +1491,7 @@
     },
     "/uobs/v1/orgs/{org_id}/cloud/onboarding": {
       "delete": {
-        "description": "Remove an existing cloud connector for AWS or Azure.",
+        "description": "Remove an existing cloud connector for AWS, Azure, or GCP.",
         "operationId": "trigger_onboarding_delete_uobs_v1_orgs__org_id__cloud_onboarding_delete",
         "parameters": [
           {
@@ -2340,12 +1506,12 @@
             }
           },
           {
-            "description": "Provider (aws/azure)",
+            "description": "Provider (aws/azure/gcp)",
             "in": "query",
             "name": "provider",
             "required": true,
             "schema": {
-              "description": "Provider (aws/azure)",
+              "description": "Provider (aws/azure/gcp)",
               "title": "Provider",
               "type": "string"
             }
@@ -2363,15 +1529,24 @@
           }
         ],
         "responses": {
-          "200": {
+          "202": {
             "content": {
               "application/json": {
+                "example": {
+                  "kind": "onboarding:publish",
+                  "values": [
+                    {
+                      "stackId": "<unique Identifier>",
+                      "status": "accepted"
+                    }
+                  ]
+                },
                 "schema": {
                   "$ref": "#/components/schemas/OkResponse_Any_"
                 }
               }
             },
-            "description": "Successful Response"
+            "description": "Onboarding delete request accepted and queued for processing"
           },
           "400": {
             "content": {
@@ -2511,10 +1686,10 @@
         ]
       }
     },
-    "/uobs/v1/orgs/{org_id}/cloud/onboarding/aws": {
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/gcp": {
       "post": {
-        "description": "Onboard a new AWS cloud connector.",
-        "operationId": "trigger_onboarding_post_aws_uobs_v1_orgs__org_id__cloud_onboarding_aws_post",
+        "description": "Onboard a new GCP bill connect connector.",
+        "operationId": "trigger_onboarding_post_gcp_uobs_v1_orgs__org_id__cloud_onboarding_gcp_post",
         "parameters": [
           {
             "description": "Organization ID",
@@ -2531,23 +1706,48 @@
         "requestBody": {
           "content": {
             "application/json": {
+              "examples": {
+                "gcp_bill_connect": {
+                  "summary": "GCP Bill Connect onboarding",
+                  "value": {
+                    "BillingAccountId": "01AB23-CD45EF-GH69IJ",
+                    "ConnectorName": "gcp-bill-connect",
+                    "CostAndUsage": {
+                      "BillingDatasetId": "detailedbillingexport",
+                      "BillingProjectId": "my-billing-project",
+                      "GoogleGcsExportUri": "gs://my-bucket/gcp-billing-export/"
+                    },
+                    "IncludeCostAndUsage": "true",
+                    "ServiceAccountKeyJson": "{\"type\":\"service_account\",\"project_id\":\"my-billing-project\"}"
+                  }
+                }
+              },
               "schema": {
-                "$ref": "#/components/schemas/AwsOnboardingCreateRequest"
+                "$ref": "#/components/schemas/GcpOnboardingCreateRequest"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "200": {
+          "202": {
             "content": {
               "application/json": {
+                "example": {
+                  "kind": "onboarding:publish",
+                  "values": [
+                    {
+                      "stackId": "<unique Identifier>",
+                      "status": "accepted"
+                    }
+                  ]
+                },
                 "schema": {
                   "$ref": "#/components/schemas/OkResponse_Any_"
                 }
               }
             },
-            "description": "Successful Response"
+            "description": "Onboarding request accepted and queued for processing"
           },
           "400": {
             "content": {
@@ -2681,16 +1881,16 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Onboarding AWS: Create",
+        "summary": "Onboarding GCP: Create",
         "tags": [
           "Onboarding"
         ]
       }
     },
-    "/uobs/v1/orgs/{org_id}/cloud/onboarding/aws/{connector_id}": {
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/gcp/{connector_id}": {
       "put": {
-        "description": "Update an existing AWS cloud connector.",
-        "operationId": "trigger_onboarding_put_aws_uobs_v1_orgs__org_id__cloud_onboarding_aws__connector_id__put",
+        "description": "Update an existing GCP bill connect connector.",
+        "operationId": "trigger_onboarding_put_gcp_uobs_v1_orgs__org_id__cloud_onboarding_gcp__connector_id__put",
         "parameters": [
           {
             "description": "Connector ID",
@@ -2718,23 +1918,44 @@
         "requestBody": {
           "content": {
             "application/json": {
+              "examples": {
+                "update_gcs_export_uri": {
+                  "summary": "Update mutable GCP connector settings",
+                  "value": {
+                    "ConnectorName": "gcp-bill-connect-updated",
+                    "CostAndUsage": {
+                      "GoogleGcsExportUri": "gs://my-bucket/gcp-billing-export/updated/"
+                    },
+                    "IncludeCostAndUsage": "true"
+                  }
+                }
+              },
               "schema": {
-                "$ref": "#/components/schemas/AwsOnboardingUpdateRequest"
+                "$ref": "#/components/schemas/GcpOnboardingUpdateRequest"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "200": {
+          "202": {
             "content": {
               "application/json": {
+                "example": {
+                  "kind": "onboarding:publish",
+                  "values": [
+                    {
+                      "stackId": "<unique Identifier>",
+                      "status": "accepted"
+                    }
+                  ]
+                },
                 "schema": {
                   "$ref": "#/components/schemas/OkResponse_Any_"
                 }
               }
             },
-            "description": "Successful Response"
+            "description": "Onboarding update request accepted and queued for processing"
           },
           "400": {
             "content": {
@@ -2868,370 +2089,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Onboarding AWS: Update",
-        "tags": [
-          "Onboarding"
-        ]
-      }
-    },
-    "/uobs/v1/orgs/{org_id}/cloud/onboarding/azure": {
-      "post": {
-        "description": "Onboard a new Azure cloud connector.",
-        "operationId": "trigger_onboarding_post_azure_uobs_v1_orgs__org_id__cloud_onboarding_azure_post",
-        "parameters": [
-          {
-            "description": "Organization ID",
-            "in": "path",
-            "name": "org_id",
-            "required": true,
-            "schema": {
-              "description": "Organization ID",
-              "title": "Org Id",
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AzureOnboardingCreateRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OkResponse_Any_"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "request is invalid",
-                  "name": "bad_request",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Request response"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "access token is invalid",
-                  "name": "unauthorized",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Unauthorized response"
-          },
-          "403": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "access token does not have sufficient privileges",
-                  "name": "forbidden",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Forbidden response"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "resource not found",
-                  "name": "not_found",
-                  "temporary": true,
-                  "timeout": true
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Not Found response"
-          },
-          "429": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
-                  "name": "too_many_requests",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Too Many Requests response"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "something went wrong in the server",
-                  "name": "internal_error",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Internal Server Error response"
-          },
-          "502": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "server is unable to handle the request",
-                  "name": "bad_gateway",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Gateway response"
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "summary": "Onboarding Azure: Create",
-        "tags": [
-          "Onboarding"
-        ]
-      }
-    },
-    "/uobs/v1/orgs/{org_id}/cloud/onboarding/azure/{connector_id}": {
-      "put": {
-        "description": "Update an existing Azure cloud connector.",
-        "operationId": "trigger_onboarding_put_azure_uobs_v1_orgs__org_id__cloud_onboarding_azure__connector_id__put",
-        "parameters": [
-          {
-            "description": "Connector ID",
-            "in": "path",
-            "name": "connector_id",
-            "required": true,
-            "schema": {
-              "description": "Connector ID",
-              "title": "Connector Id",
-              "type": "string"
-            }
-          },
-          {
-            "description": "Organization ID",
-            "in": "path",
-            "name": "org_id",
-            "required": true,
-            "schema": {
-              "description": "Organization ID",
-              "title": "Org Id",
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AzureOnboardingUpdateRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OkResponse_Any_"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "request is invalid",
-                  "name": "bad_request",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Request response"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "access token is invalid",
-                  "name": "unauthorized",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Unauthorized response"
-          },
-          "403": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "access token does not have sufficient privileges",
-                  "name": "forbidden",
-                  "temporary": false,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Forbidden response"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "resource not found",
-                  "name": "not_found",
-                  "temporary": true,
-                  "timeout": true
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Not Found response"
-          },
-          "429": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": false,
-                  "id": "123abc",
-                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
-                  "name": "too_many_requests",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Too Many Requests response"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "something went wrong in the server",
-                  "name": "internal_error",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Internal Server Error response"
-          },
-          "502": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "fault": true,
-                  "id": "123abc",
-                  "message": "server is unable to handle the request",
-                  "name": "bad_gateway",
-                  "temporary": true,
-                  "timeout": false
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Gateway response"
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "summary": "Onboarding Azure: Update",
+        "summary": "Onboarding GCP: Update",
         "tags": [
           "Onboarding"
         ]
@@ -3997,7 +2855,7 @@
     },
     "/uobs/v1/orgs/{org_id}/saas/onboarding": {
       "post": {
-        "description": "Create a new SaaS connector. Async: stores the credential, emits the onboarding event and returns an acceptance. Discriminated on `provider`.",
+        "description": "Create a new SaaS connector. Async: stores the credential, emits the onboarding event and returns an acceptance. Generic request keyed on `provider`; the provider-specific fields are validated against the connector.",
         "operationId": "create_saas_onboarding_uobs_v1_orgs__org_id__saas_onboarding_post",
         "parameters": [
           {
@@ -4016,38 +2874,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "discriminator": {
-                  "mapping": {
-                    "anthropic": "#/components/schemas/AnthropicCreateRequest",
-                    "cursor": "#/components/schemas/CursorCreateRequest",
-                    "googleWorkspace": "#/components/schemas/GoogleWorkspaceCreateRequest",
-                    "n8n": "#/components/schemas/N8nCreateRequest",
-                    "openAi": "#/components/schemas/OpenAiCreateRequest",
-                    "salesforceAgentforce": "#/components/schemas/SalesforceAgentforceCreateRequest"
-                  },
-                  "propertyName": "provider"
-                },
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/SalesforceAgentforceCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/N8nCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/GoogleWorkspaceCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/AnthropicCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/OpenAiCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/CursorCreateRequest"
-                  }
-                ],
-                "title": "Request"
+                "$ref": "#/components/schemas/OnboardingCreateRequest"
               }
             }
           },
@@ -4207,7 +3034,7 @@
     },
     "/uobs/v1/orgs/{org_id}/saas/onboarding/validate": {
       "post": {
-        "description": "Synchronously test a SaaS connector's **submitted** credentials against the vendor. Unlike create/update this is not fire-and-forget: it returns a verdict at HTTP 200 for every outcome — `success:true` when the vendor accepts the credentials, otherwise `success:false` with the vendor's HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. A malformed/missing body is a 422. Discriminated on `provider`; tests submitted values only (no stored-credential testing).",
+        "description": "Synchronously test a SaaS connector's **submitted** credentials against the vendor. Unlike create/update this is not fire-and-forget: it returns a verdict at HTTP 200 for every outcome — `success:true` when the vendor accepts the credentials, otherwise `success:false` with the vendor's HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. A malformed/missing body is a 422. Keyed on `provider`; tests submitted values only (no stored-credential testing).",
         "operationId": "validate_saas_connection_uobs_v1_orgs__org_id__saas_onboarding_validate_post",
         "parameters": [
           {
@@ -4226,38 +3053,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "discriminator": {
-                  "mapping": {
-                    "anthropic": "#/components/schemas/AnthropicCreateRequest",
-                    "cursor": "#/components/schemas/CursorCreateRequest",
-                    "googleWorkspace": "#/components/schemas/GoogleWorkspaceCreateRequest",
-                    "n8n": "#/components/schemas/N8nCreateRequest",
-                    "openAi": "#/components/schemas/OpenAiCreateRequest",
-                    "salesforceAgentforce": "#/components/schemas/SalesforceAgentforceCreateRequest"
-                  },
-                  "propertyName": "provider"
-                },
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/SalesforceAgentforceCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/N8nCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/GoogleWorkspaceCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/AnthropicCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/OpenAiCreateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/CursorCreateRequest"
-                  }
-                ],
-                "title": "Request"
+                "$ref": "#/components/schemas/OnboardingCreateRequest"
               }
             }
           },
@@ -4589,7 +3385,7 @@
         ]
       },
       "put": {
-        "description": "Update an existing SaaS connector (partial). Supply `credentials` to rotate the stored secret. Async acceptance. Discriminated on `provider`.",
+        "description": "Update an existing SaaS connector (partial). Supply `credentials` to rotate the stored secret. Async acceptance. Generic request keyed on `provider`.",
         "operationId": "update_saas_onboarding_uobs_v1_orgs__org_id__saas_onboarding__connector_id__put",
         "parameters": [
           {
@@ -4619,38 +3415,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "discriminator": {
-                  "mapping": {
-                    "anthropic": "#/components/schemas/AnthropicUpdateRequest",
-                    "cursor": "#/components/schemas/CursorUpdateRequest",
-                    "googleWorkspace": "#/components/schemas/GoogleWorkspaceUpdateRequest",
-                    "n8n": "#/components/schemas/N8nUpdateRequest",
-                    "openAi": "#/components/schemas/OpenAiUpdateRequest",
-                    "salesforceAgentforce": "#/components/schemas/SalesforceAgentforceUpdateRequest"
-                  },
-                  "propertyName": "provider"
-                },
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/SalesforceAgentforceUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/N8nUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/GoogleWorkspaceUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/AnthropicUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/OpenAiUpdateRequest"
-                  },
-                  {
-                    "$ref": "#/components/schemas/CursorUpdateRequest"
-                  }
-                ],
-                "title": "Request"
+                "$ref": "#/components/schemas/OnboardingUpdateRequest"
               }
             }
           },

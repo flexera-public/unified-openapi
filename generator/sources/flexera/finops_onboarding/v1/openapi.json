@@ -459,6 +459,7 @@
           "bigQueryDataset": "someDataset",
           "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
           "gcsExportUri": "gs://<bucket_name>/<file_path_inside_bucket>",
+          "onboardingOrigin": "finops",
           "projectId": "flexera.com:resat-cloud"
         },
         "properties": {
@@ -476,6 +477,16 @@
           "gcsExportUri": {
             "description": "URI of the Google Cloud Storage file path where the billing data is exported",
             "example": "gs://<bucket_name>/<file_path_inside_bucket>",
+            "type": "string"
+          },
+          "onboardingOrigin": {
+            "default": "finops",
+            "description": "Origin of the bill connect. Possible values: \"finops\" (onboarded through FinOps), \"platform\" (onboarded through unified Platform onboarding). Defaults to \"finops\" when omitted.",
+            "enum": [
+              "finops",
+              "platform"
+            ],
+            "example": "finops",
             "type": "string"
           },
           "projectId": {
@@ -2811,6 +2822,7 @@
             "bigQueryDataset": "someDataset",
             "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
             "gcsExportUri": "gs://<bucket_name>/<file_path_inside_bucket>",
+            "onboardingOrigin": "finops",
             "projectId": "flexera.com:resat-cloud"
           },
           "id": "aws-20194320903",
@@ -2904,6 +2916,7 @@
             "bigQueryDataset": "someDataset",
             "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
             "gcsExportUri": "gs://<bucket_name>/<file_path_inside_bucket>",
+            "onboardingOrigin": "finops",
             "projectId": "flexera.com:resat-cloud"
           },
           "id": "cbi-oi-gcp-956d603z-fdg2-4263-v81e-bae187d0e099",
@@ -3115,6 +3128,7 @@
               "bigQueryDataset": "someDataset",
               "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
               "gcsExportUri": "gs://<bucket_name>/<file_path_inside_bucket>",
+              "onboardingOrigin": "finops",
               "projectId": "flexera.com:resat-cloud"
             },
             "id": "aws-20194320903",
@@ -3239,6 +3253,7 @@
               "bigQueryDataset": "someDataset",
               "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
               "gcsExportUri": "gs://<bucket_name>/<file_path_inside_bucket>",
+              "onboardingOrigin": "finops",
               "projectId": "flexera.com:resat-cloud"
             },
             "id": "aws-20194320903",
@@ -9007,6 +9022,7 @@
                     "bigQueryDataset": "someDataset",
                     "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
                     "gcsExportUri": "gs://<bucket_name>/<file_path_inside_bucket>",
+                    "onboardingOrigin": "finops",
                     "projectId": "flexera.com:resat-cloud"
                   },
                   "id": "cbi-oi-gcp-956d603z-fdg2-4263-v81e-bae187d0e099",
@@ -9284,6 +9300,7 @@
                     "bigQueryDataset": "someDataset",
                     "billingAccountId": "963d605a-fac2-4263-b90e-bee184d0e045",
                     "gcsExportUri": "gs://<bucket_name>/<file_path_inside_bucket>",
+                    "onboardingOrigin": "finops",
                     "projectId": "flexera.com:resat-cloud"
                   },
                   "id": "cbi-oi-gcp-956d603z-fdg2-4263-v81e-bae187d0e099",
