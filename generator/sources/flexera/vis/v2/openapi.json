@@ -126,7 +126,7 @@
         "properties": {
           "fault": {
             "description": "Is the error a server-side fault?",
-            "example": false,
+            "example": true,
             "type": "boolean"
           },
           "id": {
@@ -186,16 +186,18 @@
             }
           ],
           "deviceIds": [
-            "Voluptatum optio laudantium illum doloribus delectus ea.",
-            "Vitae repellat voluptatum ipsum.",
-            "Sint vel provident voluptates ut asperiores aliquam.",
-            "Occaecati architecto."
+            "Itaque fugiat.",
+            "Voluptatibus aliquam iste ipsa."
           ]
         },
         "properties": {
           "datasourceSelectors": {
             "description": "List of datasources to delete devices from",
             "example": [
+              {
+                "field": "type",
+                "value": "SCCM"
+              },
               {
                 "field": "type",
                 "value": "SCCM"
@@ -213,13 +215,12 @@
           "deviceIds": {
             "description": "List of device IDs to delete",
             "example": [
-              "Quasi cum itaque fugiat.",
-              "Voluptatibus aliquam iste ipsa.",
-              "Aliquid nam.",
-              "Enim laboriosam tempore."
+              "Voluptatem enim tempora a cum.",
+              "Eius asperiores blanditiis.",
+              "Magni velit."
             ],
             "items": {
-              "example": "Blanditiis fugiat magni.",
+              "example": "Voluptas dolores aut aut rerum eos perspiciatis.",
               "type": "string"
             },
             "type": "array"
@@ -232,6 +233,20 @@
       },
       "ExportDataCollection": {
         "example": [
+          {
+            "createdAt": "2018-05-16T16:31:52.1000Z",
+            "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "name": "hardware_inventory",
+            "size": 1080,
+            "type": "snapshot"
+          },
+          {
+            "createdAt": "2018-05-16T16:31:52.1000Z",
+            "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "name": "hardware_inventory",
+            "size": 1080,
+            "type": "snapshot"
+          },
           {
             "createdAt": "2018-05-16T16:31:52.1000Z",
             "id": "7d795afa-c508-4d47-92ae-248113a792d1",
@@ -258,20 +273,6 @@
           "nextPage": "/vis/v2/orgs/{orgId}/exports?skipToken=19u2349",
           "prevPage": "/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u",
           "values": [
-            {
-              "createdAt": "2018-05-16T16:31:52.1000Z",
-              "id": "7d795afa-c508-4d47-92ae-248113a792d1",
-              "name": "hardware_inventory",
-              "size": 1080,
-              "type": "snapshot"
-            },
-            {
-              "createdAt": "2018-05-16T16:31:52.1000Z",
-              "id": "7d795afa-c508-4d47-92ae-248113a792d1",
-              "name": "hardware_inventory",
-              "size": 1080,
-              "type": "snapshot"
-            },
             {
               "createdAt": "2018-05-16T16:31:52.1000Z",
               "id": "7d795afa-c508-4d47-92ae-248113a792d1",
@@ -489,13 +490,21 @@
                   {
                     "field": "type",
                     "value": "SCCM"
+                  },
+                  {
+                    "field": "type",
+                    "value": "SCCM"
+                  },
+                  {
+                    "field": "type",
+                    "value": "SCCM"
                   }
                 ],
                 "deviceIds": [
-                  "Quo nesciunt fuga laborum quam.",
-                  "Corrupti atque quibusdam est sit maiores fugit.",
-                  "Similique eum ratione accusantium ea id ut.",
-                  "Culpa qui aspernatur neque."
+                  "Magnam corrupti atque quibusdam.",
+                  "Sit maiores.",
+                  "Enim similique eum.",
+                  "Accusantium ea."
                 ]
               },
               "schema": {
@@ -510,18 +519,6 @@
             "content": {
               "application/json": {
                 "example": [
-                  {
-                    "count": 150,
-                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                    "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
-                  },
-                  {
-                    "count": 150,
-                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                    "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
-                  },
                   {
                     "count": 150,
                     "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
@@ -745,9 +742,10 @@
                   }
                 ],
                 "deviceIds": [
-                  "Id suscipit.",
-                  "Explicabo dolore corrupti esse.",
-                  "Quia iste velit doloremque quisquam."
+                  "Neque dolore.",
+                  "Ipsam impedit.",
+                  "Autem id suscipit quam explicabo dolore corrupti.",
+                  "Aut quia iste."
                 ]
               },
               "schema": {
@@ -773,22 +771,22 @@
                     "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
                     "datasourceName": "SCCM_PROD_AP",
                     "datasourceType": "SCCM"
+                  },
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
+                  },
+                  {
+                    "count": 150,
+                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
+                    "datasourceName": "SCCM_PROD_AP",
+                    "datasourceType": "SCCM"
                   }
                 ],
                 "schema": {
                   "example": [
-                    {
-                      "count": 150,
-                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                      "datasourceName": "SCCM_PROD_AP",
-                      "datasourceType": "SCCM"
-                    },
-                    {
-                      "count": 150,
-                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                      "datasourceName": "SCCM_PROD_AP",
-                      "datasourceType": "SCCM"
-                    },
                     {
                       "count": 150,
                       "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
@@ -966,7 +964,7 @@
     "/vis/v2/orgs/{orgId}/exports": {
       "get": {
         "description": "Index returns a list of inventory exports to which an org has access.\n\t\tRetrieves file list by filter params",
-        "operationId": "Export ",
+        "operationId": "ExportIndex",
         "parameters": [
           {
             "allowEmptyValue": true,
@@ -1015,20 +1013,6 @@
                   "nextPage": "/vis/v2/orgs/{orgId}/exports?skipToken=19u2349",
                   "prevPage": "/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u",
                   "values": [
-                    {
-                      "createdAt": "2018-05-16T16:31:52.1000Z",
-                      "id": "7d795afa-c508-4d47-92ae-248113a792d1",
-                      "name": "hardware_inventory",
-                      "size": 1080,
-                      "type": "snapshot"
-                    },
-                    {
-                      "createdAt": "2018-05-16T16:31:52.1000Z",
-                      "id": "7d795afa-c508-4d47-92ae-248113a792d1",
-                      "name": "hardware_inventory",
-                      "size": 1080,
-                      "type": "snapshot"
-                    },
                     {
                       "createdAt": "2018-05-16T16:31:52.1000Z",
                       "id": "7d795afa-c508-4d47-92ae-248113a792d1",
@@ -1200,14 +1184,14 @@
         ],
         "summary": "List all inventory exports",
         "tags": [
-          "Export (Legacy)"
+          "Export (Retired)"
         ]
       }
     },
     "/vis/v2/orgs/{orgId}/exports/files/{id}": {
       "get": {
         "description": "Download returns the specified export file.",
-        "operationId": "Export ",
+        "operationId": "ExportDownload",
         "parameters": [
           {
             "description": "The unique identifier for the organization",
@@ -1242,11 +1226,11 @@
             "headers": {
               "Content-Length": {
                 "description": "content length in bytes of file",
-                "example": 7729251450684401000,
+                "example": 5398082948119231000,
                 "required": true,
                 "schema": {
                   "description": "content length in bytes of file",
-                  "example": 4773412612854586000,
+                  "example": 1110697970574970200,
                   "format": "int64",
                   "type": "integer"
                 }
@@ -1411,7 +1395,7 @@
         ],
         "summary": "Download specified export file",
         "tags": [
-          "Export (Legacy)"
+          "Export (Retired)"
         ]
       }
     },
@@ -1957,10 +1941,10 @@
               },
               "Link": {
                 "description": "The Link header that includes pagination information",
-                "example": "</vis/v2/orgs/123/queries/7d795afa-c508-4d47-92ae-248113a792d1/download?maxResults=10000&skipToken=eyJ0cxc9819xOT>; rel=\"next\"",
+                "example": "\u003c/vis/v2/orgs/123/queries/7d795afa-c508-4d47-92ae-248113a792d1/download?maxResults=10000\u0026skipToken=eyJ0cxc9819xOT\u003e; rel=\"next\"",
                 "schema": {
                   "description": "The Link header that includes pagination information",
-                  "example": "</vis/v2/orgs/123/queries/7d795afa-c508-4d47-92ae-248113a792d1/download?maxResults=10000&skipToken=eyJ0cxc9819xOT>; rel=\"next\"",
+                  "example": "\u003c/vis/v2/orgs/123/queries/7d795afa-c508-4d47-92ae-248113a792d1/download?maxResults=10000\u0026skipToken=eyJ0cxc9819xOT\u003e; rel=\"next\"",
                   "type": "string"
                 }
               }
@@ -2149,11 +2133,11 @@
       "name": "Device"
     },
     {
-      "description": "**Note:** This legacy endpoint is not part of the Technology Intelligence Platform and will be retired on August 31, 2026. Please use the Query API or GraphQL API for supported access.<br><br>\n\tExport provides the ability to retrieve formatted inventory data stored in IT Visibility. \n\tExport data contains snapshot and delta information from specific points in time. These exports are automatically\n\tgenerated on regular intervals.\n\tAll export data is retrieved in parquet format.\n\tOnly inventory data associated with IT visibility and available to the organization can be retrieved.",
-      "name": "Export (Legacy)"
+      "description": "**Note:** The Export API has been retired and is no longer supported. Please use the Query API or GraphQL API for continued data access.\u003cbr\u003e\u003cbr\u003e\n\tExport provides the ability to retrieve formatted inventory data stored in IT Visibility. \n\tExport data contains snapshot and delta information from specific points in time. These exports are automatically\n\tgenerated on regular intervals.\n\tAll export data is retrieved in parquet format.\n\tOnly inventory data associated with IT visibility and available to the organization can be retrieved.",
+      "name": "Export (Retired)"
     },
     {
-      "description": "**Note:** Effective **July 20, 2026**, all existing delta resume tokens will be invalidated. Please remove the resume token from your current request, run a new query, and use the newly generated resume token in subsequent requests to continue using delta queries.<br><br>\n\tITV queries provide the ability to dynamically retrieve formatted, contextualized and enriched inventory data stored in IT Visibility.",
+      "description": "ITV queries provide the ability to dynamically retrieve formatted, contextualized and enriched inventory data stored in IT Visibility.",
       "name": "Query"
     }
   ]

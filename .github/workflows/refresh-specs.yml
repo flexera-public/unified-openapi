@@ -28,12 +28,8 @@ jobs:
         with:
           go-version-file: generator/go.mod
 
-      - name: Fetch upstream specs
-        working-directory: generator
-        run: go run . fetch all
-
-      - name: Regenerate unified spec
-        run: make merge
+      - name: Refresh sources and regenerate unified spec
+        run: make refresh
 
       - name: Run tests
         run: make test

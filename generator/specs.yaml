@@ -326,6 +326,24 @@ specs:
       filename: "openapi.json"
     processing:
       - type: download
+      - type: remove-local-ref
+        ref: "#/components/schemas/AzureCostAndUsageUpdateModel"
+        reason: "Remove an upstream dangling ref; the documented update fields are already optional fields in AzureCostAndUsageModel."
+
+  - id: flexera-unified-onboarding-v1
+    name: "Flexera Unified Onboarding API"
+    vendor: flexera
+    service: uobs
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/uobs/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/uobs/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
 
   # - id: flexera-cloud-v1
   #   name: "Flexera Cloud Services API"
@@ -401,14 +419,16 @@ specs:
       filename: "openapi.json"
     processing:
       - type: download
-      - type: sed-replace
-        pattern: "\"Download returns the specified export file.\",\"operationId\":\"Export \""
-        replacement: "\"Download returns the specified export file.\",\"operationId\":\"ExportDownload\""
-        reason: "Upstream vis spec uses the same operationId 'Export ' for both GET /exports and GET /exports/files/{id}; disambiguate the download endpoint first."
-      - type: sed-replace
-        pattern: "\"operationId\":\"Export \""
-        replacement: "\"operationId\":\"ExportIndex\""
-        reason: "Rename the remaining 'Export ' (list endpoint) so unique-operationId validation passes after Vis_ prefixing."
+      - type: set-operation-id
+        path: "/vis/v2/orgs/{orgId}/exports"
+        method: get
+        operation_id: ExportIndex
+        reason: "Give the upstream list and download operations distinct, stable names."
+      - type: set-operation-id
+        path: "/vis/v2/orgs/{orgId}/exports/files/{id}"
+        method: get
+        operation_id: ExportDownload
+        reason: "Give the upstream list and download operations distinct, stable names."
 
   # - id: flexera-inventory-v1
   #   name: "Flexera Inventory Device State Management API"
@@ -455,21 +475,15 @@ specs:
     processing:
       - type: download
       - type: sed-replace
-        pattern: "\"name\":\"org_id\",\"required\":true,\"schema\":{\"description\":\"Organization ID\",\"title\":\"Org Id\",\"type\":\"string\"}"
-        replacement: "\"name\":\"orgId\",\"required\":true,\"schema\":{\"description\":\"Organization ID\",\"title\":\"Org Id\",\"type\":\"string\"}"
-        reason: "Upstream risk spec declares path /risk/v1/orgs/{orgId}/compliances/ but names its path parameter 'org_id', breaking oapi-codegen path/parameter resolution; align the parameter name with the path template."
-      - type: sed-replace
-        pattern: ",{\"type\":\"null\"}]"
-        replacement: "]"
-        reason: "Risk spec is OpenAPI 3.1 and uses `anyOf:[..., {type:null}]` for nullable fields; oapi-codegen v2.5 rejects the null variant. Strip the trailing null variant from anyOf arrays."
-      - type: sed-replace
-        pattern: "{\"type\":\"null\"},"
-        replacement: ""
-        reason: "Strip leading/middle null variants from anyOf arrays for the same reason."
-      - type: sed-replace
-        pattern: ",{\"items\":{\"const\":\"all\",\"type\":\"string\"},\"type\":\"array\"}"
-        replacement: ""
-        reason: "Risk spec models `['all']` sentinel as a second `anyOf` array variant alongside the plain string-array; oapi-codegen names both `Providers0` etc. and fails on duplicate typenames. Drop the const-'all' variant since callers can still pass the literal value within the string array."
+        pattern: '"name": "org_id"'
+        replacement: '"name": "orgId"'
+        reason: "Upstream risk spec remains unfixed: its /risk/v1/orgs/{orgId}/compliances/ path parameter is named org_id, which breaks oapi-codegen path/parameter resolution; align the parameter name with the path template."
+      - type: remove-anyof-variant
+        variant: '{"type": "null"}'
+        reason: "Upstream risk spec remains unfixed: it uses OpenAPI 3.1 anyOf null variants for nullable fields, which oapi-codegen v2.5 rejects; strip the null variant for OpenAPI 3.0-compatible generation. Matched structurally (parsed JSON), independent of upstream formatting."
+      - type: remove-anyof-variant
+        variant: '{"items": {"const": "all", "type": "string"}, "type": "array"}'
+        reason: "Upstream risk spec remains unfixed: it is modeled as a second anyOf array variant, causing duplicate generated Providers0-style types; drop that const-all variant because callers can pass the literal within the remaining string array. Matched structurally (parsed JSON), independent of upstream formatting."
       - type: unwrap-single-anyof
         reason: "Risk spec uses `anyOf:[X]` (singletons after null-variant stripping) as a placeholder for non-required fields; oapi-codegen generates index-suffixed types per anyOf variant that collide on titles like 'Providers'. Collapse singleton anyOf wrappers."
 

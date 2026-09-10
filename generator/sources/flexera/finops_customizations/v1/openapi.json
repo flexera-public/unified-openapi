@@ -5,9 +5,19 @@
         "example": {
           "dashboardId": "dash-8f21",
           "dashboardScope": "org",
-          "enabled": true,
+          "enabled": false,
           "name": "Weekly Cloud Cost",
           "recipients": [
+            {
+              "email": "finops@example.com",
+              "id": "108234",
+              "type": "email"
+            },
+            {
+              "email": "finops@example.com",
+              "id": "108234",
+              "type": "email"
+            },
             {
               "email": "finops@example.com",
               "id": "108234",
@@ -26,7 +36,7 @@
             "timeOfDay": "09:00",
             "timezone": "America/New_York"
           },
-          "visibility": "private"
+          "visibility": "shared"
         },
         "properties": {
           "dashboardId": {
@@ -67,6 +77,11 @@
                 "email": "finops@example.com",
                 "id": "108234",
                 "type": "email"
+              },
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
               }
             ],
             "items": {
@@ -84,7 +99,7 @@
               "private",
               "shared"
             ],
-            "example": "private",
+            "example": "shared",
             "type": "string"
           }
         },
@@ -149,7 +164,7 @@
               "region"
             ],
             "items": {
-              "example": "Iusto ut distinctio voluptatem enim sit.",
+              "example": "Et placeat.",
               "type": "string"
             },
             "maxItems": 10,
@@ -255,12 +270,12 @@
           },
           "temporary": {
             "description": "Is the error temporary?",
-            "example": true,
+            "example": false,
             "type": "boolean"
           },
           "timeout": {
             "description": "Is the error a timeout?",
-            "example": false,
+            "example": true,
             "type": "boolean"
           }
         },
@@ -277,61 +292,77 @@
       "FilterV1": {
         "description": "A single filter node: a leaf test (equal, substring) or a boolean combinator (and, or, not).",
         "example": {
-          "dimension": "Ut vel.",
+          "dimension": "Quia unde tempora.",
           "expression": {
-            "dimension": "Error qui.",
+            "dimension": "Ut soluta commodi ducimus alias.",
             "expressions": [
+              {},
               {},
               {},
               {}
             ],
-            "substring": "Aliquid quas aut omnis eligendi maiores sapiente.",
+            "substring": "Rerum rerum voluptas.",
             "type": "equal",
-            "value": "Sit rerum voluptas iusto."
+            "value": "Velit aut repellendus."
           },
           "expressions": [
             {
-              "dimension": "Error qui.",
+              "dimension": "Ut soluta commodi ducimus alias.",
               "expressions": [
+                {},
                 {},
                 {},
                 {}
               ],
-              "substring": "Aliquid quas aut omnis eligendi maiores sapiente.",
+              "substring": "Rerum rerum voluptas.",
               "type": "equal",
-              "value": "Sit rerum voluptas iusto."
+              "value": "Velit aut repellendus."
             },
             {
-              "dimension": "Error qui.",
+              "dimension": "Ut soluta commodi ducimus alias.",
               "expressions": [
+                {},
                 {},
                 {},
                 {}
               ],
-              "substring": "Aliquid quas aut omnis eligendi maiores sapiente.",
+              "substring": "Rerum rerum voluptas.",
               "type": "equal",
-              "value": "Sit rerum voluptas iusto."
+              "value": "Velit aut repellendus."
             },
             {
-              "dimension": "Error qui.",
+              "dimension": "Ut soluta commodi ducimus alias.",
               "expressions": [
+                {},
                 {},
                 {},
                 {}
               ],
-              "substring": "Aliquid quas aut omnis eligendi maiores sapiente.",
+              "substring": "Rerum rerum voluptas.",
               "type": "equal",
-              "value": "Sit rerum voluptas iusto."
+              "value": "Velit aut repellendus."
+            },
+            {
+              "dimension": "Ut soluta commodi ducimus alias.",
+              "expressions": [
+                {},
+                {},
+                {},
+                {}
+              ],
+              "substring": "Rerum rerum voluptas.",
+              "type": "equal",
+              "value": "Velit aut repellendus."
             }
           ],
-          "substring": "Quis ut sit sed sapiente quia.",
+          "substring": "Minus nam id modi nihil.",
           "type": "equal",
-          "value": "Sapiente asperiores natus veritatis."
+          "value": "Inventore voluptatem aperiam minus dolores."
         },
         "properties": {
           "dimension": {
             "description": "Column/dimension name; used by leaf nodes (equal, substring)",
-            "example": "Voluptatem dolorem.",
+            "example": "Delectus iusto illum hic qui sapiente voluptatem.",
             "type": "string"
           },
           "expression": {
@@ -341,26 +372,52 @@
             "description": "Child expressions; used by and/or nodes",
             "example": [
               {
-                "dimension": "Error qui.",
+                "dimension": "Ut soluta commodi ducimus alias.",
                 "expressions": [
+                  {},
                   {},
                   {},
                   {}
                 ],
-                "substring": "Aliquid quas aut omnis eligendi maiores sapiente.",
+                "substring": "Rerum rerum voluptas.",
                 "type": "equal",
-                "value": "Sit rerum voluptas iusto."
+                "value": "Velit aut repellendus."
               },
               {
-                "dimension": "Error qui.",
+                "dimension": "Ut soluta commodi ducimus alias.",
                 "expressions": [
+                  {},
                   {},
                   {},
                   {}
                 ],
-                "substring": "Aliquid quas aut omnis eligendi maiores sapiente.",
+                "substring": "Rerum rerum voluptas.",
                 "type": "equal",
-                "value": "Sit rerum voluptas iusto."
+                "value": "Velit aut repellendus."
+              },
+              {
+                "dimension": "Ut soluta commodi ducimus alias.",
+                "expressions": [
+                  {},
+                  {},
+                  {},
+                  {}
+                ],
+                "substring": "Rerum rerum voluptas.",
+                "type": "equal",
+                "value": "Velit aut repellendus."
+              },
+              {
+                "dimension": "Ut soluta commodi ducimus alias.",
+                "expressions": [
+                  {},
+                  {},
+                  {},
+                  {}
+                ],
+                "substring": "Rerum rerum voluptas.",
+                "type": "equal",
+                "value": "Velit aut repellendus."
               }
             ],
             "items": {
@@ -370,7 +427,7 @@
           },
           "substring": {
             "description": "Substring match value; used by substring nodes",
-            "example": "Tenetur voluptate harum repellat libero.",
+            "example": "Hic officiis ut harum labore soluta.",
             "type": "string"
           },
           "type": {
@@ -387,7 +444,7 @@
           },
           "value": {
             "description": "Exact match value; used by equal nodes",
-            "example": "Sint quia et dicta quia quo.",
+            "example": "Et eaque.",
             "type": "string"
           }
         },
@@ -433,19 +490,29 @@
       "FlexeraFinopsCustomizationsReportSubscription": {
         "description": "A scheduled email report of a dashboard.",
         "example": {
-          "createdAt": "2002-03-01T22:45:35Z",
+          "createdAt": "1989-01-03T05:44:31Z",
           "dashboardId": "dash-8f21",
           "dashboardScope": "org",
           "enabled": true,
           "id": "550e8400-e29b-41d4-a716-446655440000",
           "kind": "finops:report-subscription",
-          "lastError": "Similique perferendis quod quia aliquam.",
-          "lastFailureAt": "1974-11-21T14:12:55Z",
-          "lastSuccessAt": "2000-06-28T15:05:58Z",
+          "lastError": "Qui tempora est dolor laboriosam.",
+          "lastFailureAt": "1980-09-02T16:04:51Z",
+          "lastSuccessAt": "1973-03-19T08:38:42Z",
           "name": "Weekly Cloud Cost",
           "orgId": 100,
           "ownerUserId": 1234,
           "recipients": [
+            {
+              "email": "finops@example.com",
+              "id": "108234",
+              "type": "email"
+            },
+            {
+              "email": "finops@example.com",
+              "id": "108234",
+              "type": "email"
+            },
             {
               "email": "finops@example.com",
               "id": "108234",
@@ -464,13 +531,13 @@
             "timeOfDay": "09:00",
             "timezone": "America/New_York"
           },
-          "updatedAt": "1971-02-21T22:23:20Z",
+          "updatedAt": "1999-07-30T05:21:14Z",
           "visibility": "shared"
         },
         "properties": {
           "createdAt": {
             "description": "ISO-8601 creation timestamp",
-            "example": "1990-11-30T20:17:40Z",
+            "example": "1997-06-20T08:48:19Z",
             "format": "date-time",
             "type": "string"
           },
@@ -509,18 +576,18 @@
           },
           "lastError": {
             "description": "Error from the last failed attempt; a success does not clear it.",
-            "example": "In quo sint ad quibusdam esse quo.",
+            "example": "Unde voluptas officia dolorem.",
             "type": "string"
           },
           "lastFailureAt": {
             "description": "ISO-8601 timestamp of the last failed send attempt.",
-            "example": "1994-04-01T23:38:20Z",
+            "example": "2001-03-26T18:02:14Z",
             "format": "date-time",
             "type": "string"
           },
           "lastSuccessAt": {
             "description": "ISO-8601 timestamp of the last successful send.",
-            "example": "1997-06-18T17:35:40Z",
+            "example": "2007-11-07T04:53:07Z",
             "format": "date-time",
             "type": "string"
           },
@@ -554,6 +621,16 @@
                 "email": "finops@example.com",
                 "id": "108234",
                 "type": "email"
+              },
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
+              },
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
               }
             ],
             "items": {
@@ -566,7 +643,7 @@
           },
           "updatedAt": {
             "description": "ISO-8601 last-update timestamp",
-            "example": "1985-08-26T09:49:40Z",
+            "example": "2014-09-22T09:21:27Z",
             "format": "date-time",
             "type": "string"
           },
@@ -722,36 +799,36 @@
       "FlexeraFinopsCustomizationsSavedFilterSummary": {
         "description": "Saved filter summary used in list responses (filter field omitted)",
         "example": {
-          "createdAt": "1977-03-12T12:33:47Z",
-          "description": "g00",
+          "createdAt": "1978-10-03T05:21:42Z",
+          "description": "8ar",
           "dimensions": [
-            "Qui dolorum est sint labore.",
-            "Veritatis reiciendis exercitationem officiis non quidem soluta.",
-            "Temporibus beatae nemo qui pariatur suscipit dignissimos."
+            "Delectus voluptatem ipsa.",
+            "Fugit voluptas saepe aliquid.",
+            "Omnis nulla nihil quis ipsum temporibus."
           ],
           "downgradedAt": "2026-07-24T12:34:56Z",
           "downgradedByUserId": 1234,
-          "filterExpressionCount": 15836435734232726000,
-          "groupByExpressionCount": 8625119403677783000,
+          "filterExpressionCount": 8845664177179105000,
+          "groupByExpressionCount": 1113521105534511400,
           "id": "550e8400-e29b-41d4-a716-446655440000",
           "isFavorite": false,
           "kind": "finops:saved-filter",
-          "name": "pq6",
+          "name": "0w1",
           "orgId": 100,
           "ownerUserId": 12345,
-          "updatedAt": "1986-06-27T13:08:57Z",
-          "visibility": "private"
+          "updatedAt": "1992-01-02T04:13:09Z",
+          "visibility": "shared"
         },
         "properties": {
           "createdAt": {
             "description": "ISO-8601 creation timestamp",
-            "example": "2001-03-18T16:49:23Z",
+            "example": "2014-03-04T19:03:05Z",
             "format": "date-time",
             "type": "string"
           },
           "description": {
             "description": "Optional description",
-            "example": "yt5",
+            "example": "eui",
             "maxLength": 1024,
             "type": "string"
           },
@@ -759,12 +836,12 @@
             "default": [],
             "description": "Optional list of dimensions for GROUP BY (max 10)",
             "example": [
-              "Recusandae qui ea illo exercitationem.",
-              "Enim incidunt at ut.",
-              "Dolores sint aspernatur qui."
+              "Ut nihil non suscipit et in sit.",
+              "Aut maxime velit maxime.",
+              "Hic illum quia tempora voluptates."
             ],
             "items": {
-              "example": "Aut placeat.",
+              "example": "Sed sunt itaque quidem.",
               "type": "string"
             },
             "maxItems": 10,
@@ -784,12 +861,12 @@
           },
           "filterExpressionCount": {
             "description": "Number of filter expressions (leaf predicates) used by the filter",
-            "example": 6034353995118923000,
+            "example": 15440258747408950000,
             "type": "integer"
           },
           "groupByExpressionCount": {
             "description": "Number of GROUP BY expressions (dimensions)",
-            "example": 4934051525681523000,
+            "example": 16442544988603972000,
             "type": "integer"
           },
           "id": {
@@ -813,7 +890,7 @@
           },
           "name": {
             "description": "Human-readable name",
-            "example": "9np",
+            "example": "q7d",
             "maxLength": 255,
             "type": "string"
           },
@@ -831,7 +908,7 @@
           },
           "updatedAt": {
             "description": "ISO-8601 last-update timestamp",
-            "example": "1970-04-21T07:30:36Z",
+            "example": "1997-04-18T03:00:49Z",
             "format": "date-time",
             "type": "string"
           },
@@ -841,7 +918,7 @@
               "private",
               "shared"
             ],
-            "example": "shared",
+            "example": "private",
             "type": "string"
           }
         },
@@ -967,7 +1044,7 @@
         "properties": {
           "count": {
             "description": "Number of items in the current page.",
-            "example": 2168937059005632000,
+            "example": 7577455945192541000,
             "type": "integer"
           },
           "errors": {
@@ -995,7 +1072,7 @@
           },
           "total": {
             "description": "Total number of items matching the current filter.",
-            "example": 353187901386971500,
+            "example": 6302902555446552000,
             "type": "integer"
           },
           "values": {
@@ -1037,7 +1114,7 @@
               "vendor_account"
             ],
             "items": {
-              "example": "Ad ullam ea est.",
+              "example": "Numquam ut eveniet dolore voluptatem odio.",
               "type": "string"
             },
             "maxItems": 10,
@@ -1067,19 +1144,24 @@
       "ReportSubscriptionCollection": {
         "example": [
           {
-            "createdAt": "2006-06-12T21:50:21Z",
+            "createdAt": "1977-08-23T20:20:32Z",
             "dashboardId": "dash-8f21",
             "dashboardScope": "org",
             "enabled": true,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "kind": "finops:report-subscription",
-            "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-            "lastFailureAt": "1976-03-06T16:11:24Z",
-            "lastSuccessAt": "1971-08-08T08:18:57Z",
+            "lastError": "Quas numquam odio.",
+            "lastFailureAt": "2008-08-25T06:50:33Z",
+            "lastSuccessAt": "2006-09-10T08:49:47Z",
             "name": "Weekly Cloud Cost",
             "orgId": 100,
             "ownerUserId": 1234,
             "recipients": [
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
+              },
               {
                 "email": "finops@example.com",
                 "id": "108234",
@@ -1103,23 +1185,28 @@
               "timeOfDay": "09:00",
               "timezone": "America/New_York"
             },
-            "updatedAt": "2004-07-11T12:00:41Z",
+            "updatedAt": "1983-10-16T20:56:22Z",
             "visibility": "shared"
           },
           {
-            "createdAt": "2006-06-12T21:50:21Z",
+            "createdAt": "1977-08-23T20:20:32Z",
             "dashboardId": "dash-8f21",
             "dashboardScope": "org",
             "enabled": true,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "kind": "finops:report-subscription",
-            "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-            "lastFailureAt": "1976-03-06T16:11:24Z",
-            "lastSuccessAt": "1971-08-08T08:18:57Z",
+            "lastError": "Quas numquam odio.",
+            "lastFailureAt": "2008-08-25T06:50:33Z",
+            "lastSuccessAt": "2006-09-10T08:49:47Z",
             "name": "Weekly Cloud Cost",
             "orgId": 100,
             "ownerUserId": 1234,
             "recipients": [
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
+              },
               {
                 "email": "finops@example.com",
                 "id": "108234",
@@ -1143,23 +1230,28 @@
               "timeOfDay": "09:00",
               "timezone": "America/New_York"
             },
-            "updatedAt": "2004-07-11T12:00:41Z",
+            "updatedAt": "1983-10-16T20:56:22Z",
             "visibility": "shared"
           },
           {
-            "createdAt": "2006-06-12T21:50:21Z",
+            "createdAt": "1977-08-23T20:20:32Z",
             "dashboardId": "dash-8f21",
             "dashboardScope": "org",
             "enabled": true,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "kind": "finops:report-subscription",
-            "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-            "lastFailureAt": "1976-03-06T16:11:24Z",
-            "lastSuccessAt": "1971-08-08T08:18:57Z",
+            "lastError": "Quas numquam odio.",
+            "lastFailureAt": "2008-08-25T06:50:33Z",
+            "lastSuccessAt": "2006-09-10T08:49:47Z",
             "name": "Weekly Cloud Cost",
             "orgId": 100,
             "ownerUserId": 1234,
             "recipients": [
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
+              },
               {
                 "email": "finops@example.com",
                 "id": "108234",
@@ -1183,7 +1275,7 @@
               "timeOfDay": "09:00",
               "timezone": "America/New_York"
             },
-            "updatedAt": "2004-07-11T12:00:41Z",
+            "updatedAt": "1983-10-16T20:56:22Z",
             "visibility": "shared"
           }
         ],
@@ -1194,26 +1286,31 @@
       },
       "ReportSubscriptionList": {
         "example": {
-          "count": 5450211499446078000,
+          "count": 4659069019506136000,
           "kind": "finops:report-subscription-list",
           "nextPage": "/finops-customizations/v1/orgs/100/report-subscriptions?skipToken=19u2349",
           "prevPage": "/finops-customizations/v1/orgs/100/report-subscriptions?skipToken=8b1750u",
-          "total": 10478088744682682000,
+          "total": 5921527412960412000,
           "values": [
             {
-              "createdAt": "2006-06-12T21:50:21Z",
+              "createdAt": "1977-08-23T20:20:32Z",
               "dashboardId": "dash-8f21",
               "dashboardScope": "org",
               "enabled": true,
               "id": "550e8400-e29b-41d4-a716-446655440000",
               "kind": "finops:report-subscription",
-              "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-              "lastFailureAt": "1976-03-06T16:11:24Z",
-              "lastSuccessAt": "1971-08-08T08:18:57Z",
+              "lastError": "Quas numquam odio.",
+              "lastFailureAt": "2008-08-25T06:50:33Z",
+              "lastSuccessAt": "2006-09-10T08:49:47Z",
               "name": "Weekly Cloud Cost",
               "orgId": 100,
               "ownerUserId": 1234,
               "recipients": [
+                {
+                  "email": "finops@example.com",
+                  "id": "108234",
+                  "type": "email"
+                },
                 {
                   "email": "finops@example.com",
                   "id": "108234",
@@ -1237,23 +1334,28 @@
                 "timeOfDay": "09:00",
                 "timezone": "America/New_York"
               },
-              "updatedAt": "2004-07-11T12:00:41Z",
+              "updatedAt": "1983-10-16T20:56:22Z",
               "visibility": "shared"
             },
             {
-              "createdAt": "2006-06-12T21:50:21Z",
+              "createdAt": "1977-08-23T20:20:32Z",
               "dashboardId": "dash-8f21",
               "dashboardScope": "org",
               "enabled": true,
               "id": "550e8400-e29b-41d4-a716-446655440000",
               "kind": "finops:report-subscription",
-              "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-              "lastFailureAt": "1976-03-06T16:11:24Z",
-              "lastSuccessAt": "1971-08-08T08:18:57Z",
+              "lastError": "Quas numquam odio.",
+              "lastFailureAt": "2008-08-25T06:50:33Z",
+              "lastSuccessAt": "2006-09-10T08:49:47Z",
               "name": "Weekly Cloud Cost",
               "orgId": 100,
               "ownerUserId": 1234,
               "recipients": [
+                {
+                  "email": "finops@example.com",
+                  "id": "108234",
+                  "type": "email"
+                },
                 {
                   "email": "finops@example.com",
                   "id": "108234",
@@ -1277,87 +1379,7 @@
                 "timeOfDay": "09:00",
                 "timezone": "America/New_York"
               },
-              "updatedAt": "2004-07-11T12:00:41Z",
-              "visibility": "shared"
-            },
-            {
-              "createdAt": "2006-06-12T21:50:21Z",
-              "dashboardId": "dash-8f21",
-              "dashboardScope": "org",
-              "enabled": true,
-              "id": "550e8400-e29b-41d4-a716-446655440000",
-              "kind": "finops:report-subscription",
-              "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-              "lastFailureAt": "1976-03-06T16:11:24Z",
-              "lastSuccessAt": "1971-08-08T08:18:57Z",
-              "name": "Weekly Cloud Cost",
-              "orgId": 100,
-              "ownerUserId": 1234,
-              "recipients": [
-                {
-                  "email": "finops@example.com",
-                  "id": "108234",
-                  "type": "email"
-                },
-                {
-                  "email": "finops@example.com",
-                  "id": "108234",
-                  "type": "email"
-                },
-                {
-                  "email": "finops@example.com",
-                  "id": "108234",
-                  "type": "email"
-                }
-              ],
-              "schedule": {
-                "dayOfMonth": 15,
-                "dayOfWeek": "monday",
-                "frequency": "weekly",
-                "timeOfDay": "09:00",
-                "timezone": "America/New_York"
-              },
-              "updatedAt": "2004-07-11T12:00:41Z",
-              "visibility": "shared"
-            },
-            {
-              "createdAt": "2006-06-12T21:50:21Z",
-              "dashboardId": "dash-8f21",
-              "dashboardScope": "org",
-              "enabled": true,
-              "id": "550e8400-e29b-41d4-a716-446655440000",
-              "kind": "finops:report-subscription",
-              "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-              "lastFailureAt": "1976-03-06T16:11:24Z",
-              "lastSuccessAt": "1971-08-08T08:18:57Z",
-              "name": "Weekly Cloud Cost",
-              "orgId": 100,
-              "ownerUserId": 1234,
-              "recipients": [
-                {
-                  "email": "finops@example.com",
-                  "id": "108234",
-                  "type": "email"
-                },
-                {
-                  "email": "finops@example.com",
-                  "id": "108234",
-                  "type": "email"
-                },
-                {
-                  "email": "finops@example.com",
-                  "id": "108234",
-                  "type": "email"
-                }
-              ],
-              "schedule": {
-                "dayOfMonth": 15,
-                "dayOfWeek": "monday",
-                "frequency": "weekly",
-                "timeOfDay": "09:00",
-                "timezone": "America/New_York"
-              },
-              "updatedAt": "2004-07-11T12:00:41Z",
+              "updatedAt": "1983-10-16T20:56:22Z",
               "visibility": "shared"
             }
           ]
@@ -1365,7 +1387,7 @@
         "properties": {
           "count": {
             "description": "Number of items in the current page.",
-            "example": 6178179373667440000,
+            "example": 8827674327309501000,
             "type": "integer"
           },
           "kind": {
@@ -1390,7 +1412,7 @@
           },
           "total": {
             "description": "Total number of items matching the current filter.",
-            "example": 17597157120870440000,
+            "example": 2952547821714772000,
             "type": "integer"
           },
           "values": {
@@ -1439,15 +1461,15 @@
       },
       "ReportSubscriptionResult": {
         "example": {
-          "createdAt": "1984-08-02T06:24:56Z",
+          "createdAt": "1978-04-22T08:43:37Z",
           "dashboardId": "dash-8f21",
           "dashboardScope": "org",
           "enabled": true,
           "id": "550e8400-e29b-41d4-a716-446655440000",
           "kind": "finops:report-subscription",
-          "lastError": "Qui et fugiat quo neque veniam omnis.",
-          "lastFailureAt": "2010-05-27T06:50:28Z",
-          "lastSuccessAt": "2001-06-27T18:11:35Z",
+          "lastError": "Perspiciatis dolores minus minus odit aut.",
+          "lastFailureAt": "1997-04-17T03:56:03Z",
+          "lastSuccessAt": "1972-09-22T21:00:08Z",
           "name": "Weekly Cloud Cost",
           "orgId": 100,
           "ownerUserId": 1234,
@@ -1475,13 +1497,13 @@
             "timeOfDay": "09:00",
             "timezone": "America/New_York"
           },
-          "updatedAt": "1996-07-18T11:38:21Z",
+          "updatedAt": "1972-08-12T23:59:51Z",
           "visibility": "shared"
         },
         "properties": {
           "createdAt": {
             "description": "ISO-8601 creation timestamp",
-            "example": "2012-08-08T16:28:48Z",
+            "example": "1975-08-07T05:44:14Z",
             "format": "date-time",
             "type": "string"
           },
@@ -1520,18 +1542,18 @@
           },
           "lastError": {
             "description": "Error from the last failed attempt; a success does not clear it.",
-            "example": "Eum tenetur temporibus eos.",
+            "example": "Sunt voluptatibus.",
             "type": "string"
           },
           "lastFailureAt": {
             "description": "ISO-8601 timestamp of the last failed send attempt.",
-            "example": "1977-02-16T18:36:24Z",
+            "example": "1997-02-08T09:05:41Z",
             "format": "date-time",
             "type": "string"
           },
           "lastSuccessAt": {
             "description": "ISO-8601 timestamp of the last successful send.",
-            "example": "1998-08-15T03:47:30Z",
+            "example": "2010-03-06T01:32:11Z",
             "format": "date-time",
             "type": "string"
           },
@@ -1565,6 +1587,11 @@
                 "email": "finops@example.com",
                 "id": "108234",
                 "type": "email"
+              },
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
               }
             ],
             "items": {
@@ -1577,7 +1604,7 @@
           },
           "updatedAt": {
             "description": "ISO-8601 last-update timestamp",
-            "example": "1979-10-02T20:41:25Z",
+            "example": "1995-03-13T15:47:15Z",
             "format": "date-time",
             "type": "string"
           },
@@ -1670,54 +1697,6 @@
       },
       "RuleBasedDimensionCollection": {
         "example": [
-          {
-            "createdAt": "2020-11-26T12:17:38.369Z",
-            "createdBy": {
-              "id": 1234,
-              "kind": "iam:user",
-              "ref": "iam:user:123"
-            },
-            "id": "rbd_department",
-            "kind": "finops:rule-based-dimension",
-            "name": "Department",
-            "ruleListLinks": [
-              {
-                "effectiveAt": "2023-01",
-                "kind": "finops:rule-based-dimension-rule-list-link",
-                "rulesCount": 1
-              }
-            ],
-            "updatedAt": "2020-11-26T12:17:38.369Z",
-            "updatedBy": {
-              "id": 1234,
-              "kind": "iam:user",
-              "ref": "iam:user:123"
-            }
-          },
-          {
-            "createdAt": "2020-11-26T12:17:38.369Z",
-            "createdBy": {
-              "id": 1234,
-              "kind": "iam:user",
-              "ref": "iam:user:123"
-            },
-            "id": "rbd_department",
-            "kind": "finops:rule-based-dimension",
-            "name": "Department",
-            "ruleListLinks": [
-              {
-                "effectiveAt": "2023-01",
-                "kind": "finops:rule-based-dimension-rule-list-link",
-                "rulesCount": 1
-              }
-            ],
-            "updatedAt": "2020-11-26T12:17:38.369Z",
-            "updatedBy": {
-              "id": 1234,
-              "kind": "iam:user",
-              "ref": "iam:user:123"
-            }
-          },
           {
             "createdAt": "2020-11-26T12:17:38.369Z",
             "createdBy": {
@@ -1978,7 +1957,7 @@
         "properties": {
           "createdAt": {
             "description": "timestamp from when the dated-rules were created",
-            "example": "1991-07-11T06:08:46Z",
+            "example": "1980-05-16T09:19:07Z",
             "format": "date-time",
             "type": "string"
           },
@@ -2043,7 +2022,7 @@
         "example": {
           "effectiveAt": "2023-01",
           "kind": "finops:rule-based-dimension-rule-list-link",
-          "rulesCount": 10320785367638600000
+          "rulesCount": 13789967764581683000
         },
         "properties": {
           "effectiveAt": {
@@ -2062,7 +2041,7 @@
           },
           "rulesCount": {
             "description": "The count of rules list, identified by its effectiveAt date.",
-            "example": 2449362683247690000,
+            "example": 13250833415270640000,
             "type": "integer"
           }
         },
@@ -2246,6 +2225,11 @@
             "code": 404,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "message": "Saved filter favorite ID 550e8400-e29b-41d4-a716-446655440000 was not found or is not accessible."
+          },
+          {
+            "code": 404,
+            "id": "550e8400-e29b-41d4-a716-446655440000",
+            "message": "Saved filter favorite ID 550e8400-e29b-41d4-a716-446655440000 was not found or is not accessible."
           }
         ],
         "items": {
@@ -2255,31 +2239,31 @@
       },
       "SavedFilterHTTPBody": {
         "example": {
-          "createdAt": "2010-05-28T03:53:28Z",
+          "createdAt": "1978-02-03T23:59:11Z",
           "description": "Filters for Q4 cloud cost analysis",
           "dimensions": [
-            "Aut ut provident dolores ut.",
-            "Molestias numquam fugiat ut tempore.",
-            "Mollitia enim aperiam sit vel."
+            "Explicabo quia non.",
+            "Ut porro ut.",
+            "Qui voluptate quia."
           ],
           "downgradedAt": "2026-07-24T12:34:56Z",
           "downgradedByUserId": 1234,
           "filter": {
-            "Distinctio odit aut.": "Nisi non et.",
-            "Laboriosam aut.": "Quaerat doloremque."
+            "Hic eum soluta.": "Consequatur fugiat non minus sed.",
+            "Ut ipsum enim consequatur ipsum.": "Maxime maiores veritatis corporis dignissimos ut exercitationem."
           },
           "id": "550e8400-e29b-41d4-a716-446655440000",
           "kind": "finops:saved-filter",
           "name": "My Q4 Cost Filter",
           "orgId": 100,
           "ownerUserId": 1234,
-          "updatedAt": "2006-02-12T00:29:54Z",
+          "updatedAt": "2001-11-20T17:05:55Z",
           "visibility": "private"
         },
         "properties": {
           "createdAt": {
             "description": "ISO-8601 creation timestamp",
-            "example": "1986-06-14T21:37:00Z",
+            "example": "1987-10-12T05:32:54Z",
             "format": "date-time",
             "type": "string"
           },
@@ -2293,12 +2277,12 @@
             "default": [],
             "description": "Optional list of dimensions for GROUP BY (max 10)",
             "example": [
-              "Aut voluptatem.",
-              "In accusantium dolores ullam.",
-              "Aliquid fugiat laboriosam enim quas iste."
+              "Consequatur voluptatem asperiores repellat odit.",
+              "Libero quis nihil.",
+              "Pariatur quod assumenda recusandae ab non doloribus."
             ],
             "items": {
-              "example": "Qui autem quasi ut odit est recusandae.",
+              "example": "Magni pariatur optio eum autem quo.",
               "type": "string"
             },
             "maxItems": 10,
@@ -2321,9 +2305,9 @@
             "default": {},
             "description": "FOCUS 1.0 filter configuration",
             "example": {
-              "Et quis rem quas.": "Dolorem blanditiis unde.",
-              "Et voluptatem dolor aut eveniet quo tenetur.": "Eveniet autem velit ipsum earum repellat inventore.",
-              "Veniam et voluptatem.": "Pariatur possimus est maiores eum qui."
+              "Rerum sed dolores natus.": "Quae tempora ea dignissimos aut dolor.",
+              "Similique et corrupti.": "Hic sint at vitae.",
+              "Sit quia accusantium.": "Eligendi autem doloribus non nisi explicabo sapiente."
             },
             "type": "object"
           },
@@ -2361,7 +2345,7 @@
           },
           "updatedAt": {
             "description": "ISO-8601 last-update timestamp",
-            "example": "1982-03-24T13:39:16Z",
+            "example": "1977-01-07T19:07:41Z",
             "format": "date-time",
             "type": "string"
           },
@@ -2391,66 +2375,45 @@
       "SavedFilterSummaryCollection": {
         "example": [
           {
-            "createdAt": "2009-06-08T20:24:01Z",
-            "description": "427",
+            "createdAt": "1982-03-28T03:00:59Z",
+            "description": "4dk",
             "dimensions": [
-              "Est natus quaerat non vitae.",
-              "Labore amet nulla enim.",
-              "Quo accusantium."
+              "Ut ut harum laudantium ut velit.",
+              "Quisquam vel totam veritatis.",
+              "Voluptatibus voluptatem laborum ut est rerum."
             ],
             "downgradedAt": "2026-07-24T12:34:56Z",
             "downgradedByUserId": 1234,
-            "filterExpressionCount": 9416898649729053000,
-            "groupByExpressionCount": 17232211008114297000,
+            "filterExpressionCount": 1288931777528949500,
+            "groupByExpressionCount": 13164392176965212000,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "isFavorite": false,
             "kind": "finops:saved-filter",
-            "name": "mcf",
+            "name": "jxg",
             "orgId": 100,
             "ownerUserId": 12345,
-            "updatedAt": "1996-06-27T15:57:53Z",
+            "updatedAt": "2003-04-21T00:33:00Z",
             "visibility": "private"
           },
           {
-            "createdAt": "2009-06-08T20:24:01Z",
-            "description": "427",
+            "createdAt": "1982-03-28T03:00:59Z",
+            "description": "4dk",
             "dimensions": [
-              "Est natus quaerat non vitae.",
-              "Labore amet nulla enim.",
-              "Quo accusantium."
+              "Ut ut harum laudantium ut velit.",
+              "Quisquam vel totam veritatis.",
+              "Voluptatibus voluptatem laborum ut est rerum."
             ],
             "downgradedAt": "2026-07-24T12:34:56Z",
             "downgradedByUserId": 1234,
-            "filterExpressionCount": 9416898649729053000,
-            "groupByExpressionCount": 17232211008114297000,
+            "filterExpressionCount": 1288931777528949500,
+            "groupByExpressionCount": 13164392176965212000,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "isFavorite": false,
             "kind": "finops:saved-filter",
-            "name": "mcf",
+            "name": "jxg",
             "orgId": 100,
             "ownerUserId": 12345,
-            "updatedAt": "1996-06-27T15:57:53Z",
-            "visibility": "private"
-          },
-          {
-            "createdAt": "2009-06-08T20:24:01Z",
-            "description": "427",
-            "dimensions": [
-              "Est natus quaerat non vitae.",
-              "Labore amet nulla enim.",
-              "Quo accusantium."
-            ],
-            "downgradedAt": "2026-07-24T12:34:56Z",
-            "downgradedByUserId": 1234,
-            "filterExpressionCount": 9416898649729053000,
-            "groupByExpressionCount": 17232211008114297000,
-            "id": "550e8400-e29b-41d4-a716-446655440000",
-            "isFavorite": false,
-            "kind": "finops:saved-filter",
-            "name": "mcf",
-            "orgId": 100,
-            "ownerUserId": 12345,
-            "updatedAt": "1996-06-27T15:57:53Z",
+            "updatedAt": "2003-04-21T00:33:00Z",
             "visibility": "private"
           }
         ],
@@ -2464,21 +2427,6 @@
       },
       "TagDimensionCollection": {
         "example": [
-          {
-            "createdAt": "2020-11-26T12:17:38.369Z",
-            "id": "tag_environment",
-            "kind": "finops:tag-dimension",
-            "name": "Environment",
-            "tags": [
-              {
-                "key": "env"
-              },
-              {
-                "key": "environment"
-              }
-            ],
-            "updatedAt": "2020-11-26T12:17:38.369Z"
-          },
           {
             "createdAt": "2020-11-26T12:17:38.369Z",
             "id": "tag_environment",
@@ -2630,7 +2578,7 @@
             "timeOfDay": "09:00",
             "timezone": "America/New_York"
           },
-          "visibility": "private"
+          "visibility": "shared"
         },
         "properties": {
           "enabled": {
@@ -2707,7 +2655,7 @@
               "vendor_account"
             ],
             "items": {
-              "example": "Tempora sint quod omnis eligendi ea assumenda.",
+              "example": "Nihil voluptatem alias sequi autem ad quia.",
               "type": "string"
             },
             "maxItems": 10,
@@ -2775,13 +2723,13 @@
           {
             "allowEmptyValue": true,
             "description": "Page size (default 50, max 200)",
-            "example": 71,
+            "example": 137,
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 50,
               "description": "Page size (default 50, max 200)",
-              "example": 134,
+              "example": 174,
               "maximum": 200,
               "minimum": 1,
               "type": "integer"
@@ -2818,26 +2766,31 @@
             "content": {
               "application/json": {
                 "example": {
-                  "count": 10652536204322451000,
+                  "count": 18310206865404383000,
                   "kind": "finops:report-subscription-list",
                   "nextPage": "/finops-customizations/v1/orgs/100/report-subscriptions?skipToken=19u2349",
                   "prevPage": "/finops-customizations/v1/orgs/100/report-subscriptions?skipToken=8b1750u",
-                  "total": 13374917835830282000,
+                  "total": 6981543524630962000,
                   "values": [
                     {
-                      "createdAt": "2006-06-12T21:50:21Z",
+                      "createdAt": "1977-08-23T20:20:32Z",
                       "dashboardId": "dash-8f21",
                       "dashboardScope": "org",
                       "enabled": true,
                       "id": "550e8400-e29b-41d4-a716-446655440000",
                       "kind": "finops:report-subscription",
-                      "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-                      "lastFailureAt": "1976-03-06T16:11:24Z",
-                      "lastSuccessAt": "1971-08-08T08:18:57Z",
+                      "lastError": "Quas numquam odio.",
+                      "lastFailureAt": "2008-08-25T06:50:33Z",
+                      "lastSuccessAt": "2006-09-10T08:49:47Z",
                       "name": "Weekly Cloud Cost",
                       "orgId": 100,
                       "ownerUserId": 1234,
                       "recipients": [
+                        {
+                          "email": "finops@example.com",
+                          "id": "108234",
+                          "type": "email"
+                        },
                         {
                           "email": "finops@example.com",
                           "id": "108234",
@@ -2861,23 +2814,28 @@
                         "timeOfDay": "09:00",
                         "timezone": "America/New_York"
                       },
-                      "updatedAt": "2004-07-11T12:00:41Z",
+                      "updatedAt": "1983-10-16T20:56:22Z",
                       "visibility": "shared"
                     },
                     {
-                      "createdAt": "2006-06-12T21:50:21Z",
+                      "createdAt": "1977-08-23T20:20:32Z",
                       "dashboardId": "dash-8f21",
                       "dashboardScope": "org",
                       "enabled": true,
                       "id": "550e8400-e29b-41d4-a716-446655440000",
                       "kind": "finops:report-subscription",
-                      "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-                      "lastFailureAt": "1976-03-06T16:11:24Z",
-                      "lastSuccessAt": "1971-08-08T08:18:57Z",
+                      "lastError": "Quas numquam odio.",
+                      "lastFailureAt": "2008-08-25T06:50:33Z",
+                      "lastSuccessAt": "2006-09-10T08:49:47Z",
                       "name": "Weekly Cloud Cost",
                       "orgId": 100,
                       "ownerUserId": 1234,
                       "recipients": [
+                        {
+                          "email": "finops@example.com",
+                          "id": "108234",
+                          "type": "email"
+                        },
                         {
                           "email": "finops@example.com",
                           "id": "108234",
@@ -2901,87 +2859,7 @@
                         "timeOfDay": "09:00",
                         "timezone": "America/New_York"
                       },
-                      "updatedAt": "2004-07-11T12:00:41Z",
-                      "visibility": "shared"
-                    },
-                    {
-                      "createdAt": "2006-06-12T21:50:21Z",
-                      "dashboardId": "dash-8f21",
-                      "dashboardScope": "org",
-                      "enabled": true,
-                      "id": "550e8400-e29b-41d4-a716-446655440000",
-                      "kind": "finops:report-subscription",
-                      "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-                      "lastFailureAt": "1976-03-06T16:11:24Z",
-                      "lastSuccessAt": "1971-08-08T08:18:57Z",
-                      "name": "Weekly Cloud Cost",
-                      "orgId": 100,
-                      "ownerUserId": 1234,
-                      "recipients": [
-                        {
-                          "email": "finops@example.com",
-                          "id": "108234",
-                          "type": "email"
-                        },
-                        {
-                          "email": "finops@example.com",
-                          "id": "108234",
-                          "type": "email"
-                        },
-                        {
-                          "email": "finops@example.com",
-                          "id": "108234",
-                          "type": "email"
-                        }
-                      ],
-                      "schedule": {
-                        "dayOfMonth": 15,
-                        "dayOfWeek": "monday",
-                        "frequency": "weekly",
-                        "timeOfDay": "09:00",
-                        "timezone": "America/New_York"
-                      },
-                      "updatedAt": "2004-07-11T12:00:41Z",
-                      "visibility": "shared"
-                    },
-                    {
-                      "createdAt": "2006-06-12T21:50:21Z",
-                      "dashboardId": "dash-8f21",
-                      "dashboardScope": "org",
-                      "enabled": true,
-                      "id": "550e8400-e29b-41d4-a716-446655440000",
-                      "kind": "finops:report-subscription",
-                      "lastError": "Quibusdam nemo iste officia cupiditate repellendus.",
-                      "lastFailureAt": "1976-03-06T16:11:24Z",
-                      "lastSuccessAt": "1971-08-08T08:18:57Z",
-                      "name": "Weekly Cloud Cost",
-                      "orgId": 100,
-                      "ownerUserId": 1234,
-                      "recipients": [
-                        {
-                          "email": "finops@example.com",
-                          "id": "108234",
-                          "type": "email"
-                        },
-                        {
-                          "email": "finops@example.com",
-                          "id": "108234",
-                          "type": "email"
-                        },
-                        {
-                          "email": "finops@example.com",
-                          "id": "108234",
-                          "type": "email"
-                        }
-                      ],
-                      "schedule": {
-                        "dayOfMonth": 15,
-                        "dayOfWeek": "monday",
-                        "frequency": "weekly",
-                        "timeOfDay": "09:00",
-                        "timezone": "America/New_York"
-                      },
-                      "updatedAt": "2004-07-11T12:00:41Z",
+                      "updatedAt": "1983-10-16T20:56:22Z",
                       "visibility": "shared"
                     }
                   ]
@@ -3083,7 +2961,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -3117,14 +2995,9 @@
               "example": {
                 "dashboardId": "dash-8f21",
                 "dashboardScope": "org",
-                "enabled": false,
+                "enabled": true,
                 "name": "Weekly Cloud Cost",
                 "recipients": [
-                  {
-                    "email": "finops@example.com",
-                    "id": "108234",
-                    "type": "email"
-                  },
                   {
                     "email": "finops@example.com",
                     "id": "108234",
@@ -3162,15 +3035,15 @@
             "content": {
               "application/json": {
                 "example": {
-                  "createdAt": "2001-06-10T12:34:53Z",
+                  "createdAt": "1995-11-02T18:47:40Z",
                   "dashboardId": "dash-8f21",
                   "dashboardScope": "org",
                   "enabled": true,
                   "id": "550e8400-e29b-41d4-a716-446655440000",
                   "kind": "finops:report-subscription",
-                  "lastError": "Nam aliquid.",
-                  "lastFailureAt": "1975-10-15T08:26:28Z",
-                  "lastSuccessAt": "1987-07-16T02:20:50Z",
+                  "lastError": "Eum adipisci.",
+                  "lastFailureAt": "2010-11-26T19:56:16Z",
+                  "lastSuccessAt": "1998-02-09T23:01:20Z",
                   "name": "Weekly Cloud Cost",
                   "orgId": 100,
                   "ownerUserId": 1234,
@@ -3193,7 +3066,7 @@
                     "timeOfDay": "09:00",
                     "timezone": "America/New_York"
                   },
-                  "updatedAt": "2008-11-27T18:20:28Z",
+                  "updatedAt": "1979-04-12T15:27:46Z",
                   "visibility": "shared"
                 },
                 "schema": {
@@ -3315,7 +3188,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -3484,7 +3357,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -3530,24 +3403,19 @@
             "content": {
               "application/json": {
                 "example": {
-                  "createdAt": "1981-09-01T05:22:37Z",
+                  "createdAt": "2001-12-25T08:37:30Z",
                   "dashboardId": "dash-8f21",
                   "dashboardScope": "org",
                   "enabled": true,
                   "id": "550e8400-e29b-41d4-a716-446655440000",
                   "kind": "finops:report-subscription",
-                  "lastError": "Atque et totam itaque.",
-                  "lastFailureAt": "1971-05-03T20:06:08Z",
-                  "lastSuccessAt": "1985-12-14T19:54:22Z",
+                  "lastError": "Omnis quibusdam rerum necessitatibus odio.",
+                  "lastFailureAt": "1991-08-07T01:16:40Z",
+                  "lastSuccessAt": "1985-11-11T18:10:22Z",
                   "name": "Weekly Cloud Cost",
                   "orgId": 100,
                   "ownerUserId": 1234,
                   "recipients": [
-                    {
-                      "email": "finops@example.com",
-                      "id": "108234",
-                      "type": "email"
-                    },
                     {
                       "email": "finops@example.com",
                       "id": "108234",
@@ -3571,7 +3439,7 @@
                     "timeOfDay": "09:00",
                     "timezone": "America/New_York"
                   },
-                  "updatedAt": "1998-10-30T22:53:19Z",
+                  "updatedAt": "1989-02-28T09:02:35Z",
                   "visibility": "shared"
                 },
                 "schema": {
@@ -3693,7 +3561,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -3781,7 +3649,7 @@
                   "timeOfDay": "09:00",
                   "timezone": "America/New_York"
                 },
-                "visibility": "private"
+                "visibility": "shared"
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateRequestBody"
@@ -3795,29 +3663,19 @@
             "content": {
               "application/json": {
                 "example": {
-                  "createdAt": "1993-10-13T03:23:55Z",
+                  "createdAt": "1994-04-02T21:36:35Z",
                   "dashboardId": "dash-8f21",
                   "dashboardScope": "org",
                   "enabled": true,
                   "id": "550e8400-e29b-41d4-a716-446655440000",
                   "kind": "finops:report-subscription",
-                  "lastError": "Temporibus aut illum.",
-                  "lastFailureAt": "1984-03-04T10:02:02Z",
-                  "lastSuccessAt": "1997-03-31T15:07:00Z",
+                  "lastError": "Molestiae aliquam ullam qui est recusandae.",
+                  "lastFailureAt": "1975-08-18T07:49:43Z",
+                  "lastSuccessAt": "1977-06-08T09:16:03Z",
                   "name": "Weekly Cloud Cost",
                   "orgId": 100,
                   "ownerUserId": 1234,
                   "recipients": [
-                    {
-                      "email": "finops@example.com",
-                      "id": "108234",
-                      "type": "email"
-                    },
-                    {
-                      "email": "finops@example.com",
-                      "id": "108234",
-                      "type": "email"
-                    },
                     {
                       "email": "finops@example.com",
                       "id": "108234",
@@ -3836,7 +3694,7 @@
                     "timeOfDay": "09:00",
                     "timezone": "America/New_York"
                   },
-                  "updatedAt": "1998-10-21T22:59:30Z",
+                  "updatedAt": "1980-03-20T03:00:32Z",
                   "visibility": "shared"
                 },
                 "schema": {
@@ -3978,7 +3836,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -4143,7 +4001,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -4290,7 +4148,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -4471,7 +4329,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -4629,7 +4487,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -4787,7 +4645,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -4947,7 +4805,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -5146,7 +5004,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -5328,7 +5186,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -5508,7 +5366,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -5539,13 +5397,13 @@
           {
             "allowEmptyValue": true,
             "description": "Page size (default 10, max 200)",
-            "example": 93,
+            "example": 21,
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 10,
               "description": "Page size (default 10, max 200)",
-              "example": 94,
+              "example": 168,
               "maximum": 200,
               "minimum": 1,
               "type": "integer"
@@ -5575,19 +5433,19 @@
                 "shared",
                 "private"
               ],
-              "example": "shared",
+              "example": "private",
               "type": "string"
             }
           },
           {
             "allowEmptyValue": true,
             "description": "Comma-separated saved filter IDs marked as favorites, max 50.",
-            "example": "Occaecati veniam harum voluptatem.",
+            "example": "Necessitatibus vitae officia.",
             "in": "query",
             "name": "favoriteIds",
             "schema": {
               "description": "Comma-separated saved filter IDs marked as favorites, max 50.",
-              "example": "Aut placeat officia eos.",
+              "example": "Quae eaque et corrupti rerum quam qui.",
               "type": "string"
             }
           },
@@ -5753,7 +5611,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -5999,7 +5857,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -6146,7 +6004,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -6204,24 +6062,26 @@
             "content": {
               "application/json": {
                 "example": {
-                  "createdAt": "1971-03-10T16:31:32Z",
+                  "createdAt": "2012-05-20T19:30:00Z",
                   "description": "Filters for Q4 cloud cost analysis",
                   "dimensions": [
-                    "Ut ut nihil maxime rerum.",
-                    "Quas quia ullam doloremque animi.",
-                    "Qui maxime aut amet qui odit nulla."
+                    "Sint sed maiores reiciendis animi sunt atque.",
+                    "Vel quod sunt.",
+                    "Dolorum quae quae esse eaque cumque."
                   ],
                   "downgradedAt": "2026-07-24T12:34:56Z",
                   "downgradedByUserId": 1234,
                   "filter": {
-                    "Id quibusdam.": "Ea quisquam at."
+                    "Exercitationem ipsam.": "Est et rerum.",
+                    "Rem rerum cupiditate.": "Rerum vel consequatur consequuntur est.",
+                    "Sequi earum quam et.": "Est recusandae iste."
                   },
                   "id": "550e8400-e29b-41d4-a716-446655440000",
                   "kind": "finops:saved-filter",
                   "name": "My Q4 Cost Filter",
                   "orgId": 100,
                   "ownerUserId": 1234,
-                  "updatedAt": "1989-01-04T15:32:59Z",
+                  "updatedAt": "1974-12-04T23:02:07Z",
                   "visibility": "private"
                 },
                 "schema": {
@@ -6358,7 +6218,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -6624,7 +6484,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -6892,7 +6752,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -7063,7 +6923,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -7243,7 +7103,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -7389,7 +7249,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -7560,7 +7420,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
@@ -7762,7 +7622,7 @@
               "optima:invoice:index||common:org:own",
               "optima:invoice:show||common:org:own",
               "optima:invoice:create||common:org:own",
-              "optima:invoice:retry||common:org:own",
+              "optima:invoice:update||optima:invoice:retry||common:org:own",
               "optima:invoice:delete||common:org:own"
             ]
           }
