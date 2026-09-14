@@ -16196,6 +16196,10 @@ components:
                       dimensionName: Team
                       percentage: 50
                       value: Orion
+                    - dimensionId: rbd_team
+                      dimensionName: Team
+                      percentage: 50
+                      value: Orion
                 type: equalSplit
             properties:
                 destinations:
@@ -16288,9 +16292,6 @@ components:
                         - dimensionId: rbd_team
                           percentage: 50
                           value: Orion
-                        - dimensionId: rbd_team
-                          percentage: 50
-                          value: Orion
                     items:
                         $ref: '#/components/schemas/FinopsBilling_AllocationDestinationPayload'
                     minItems: 1
@@ -16371,6 +16372,9 @@ components:
                 expressions:
                     description: Child filters AND'd or OR'd together. Required when type = "and" or "or". Must contain at least two entries.
                     example:
+                        - dimension: chargeCategory
+                          type: equal
+                          value: Usage
                         - dimension: chargeCategory
                           type: equal
                           value: Usage
@@ -16460,7 +16464,7 @@ components:
                             - planName
                             - ruleName
                             - ruleId
-                        example: billingCenterLevel4
+                        example: customer
                         type: string
                     minItems: 1
                     type: array
@@ -16538,7 +16542,7 @@ components:
                             - planName
                             - ruleName
                             - ruleId
-                        example: billingCenterLevel1
+                        example: billingCenterLevel5
                         type: string
                     type: array
                 kind:
@@ -16560,15 +16564,15 @@ components:
                           billedCost: "12450.0000000000"
                           billingAccountId: "123456789012"
                           billingAccountName: Acme Production
-                          billingCenterLevel1: Dolorem ducimus.
-                          billingCenterLevel2: Fugit fuga assumenda.
-                          billingCenterLevel3: Corrupti ipsum adipisci ut omnis.
-                          billingCenterLevel4: Pariatur dolorum sit voluptate.
-                          billingCenterLevel5: Quasi at accusamus qui architecto esse.
-                          billingCenterLevel6: Facilis corrupti quo ipsam temporibus possimus dolorum.
-                          billingCenterLevel7: Sequi cum reprehenderit beatae hic.
-                          billingCenterLevel8: Inventore iste molestiae impedit modi provident.
-                          billingCenterLevel9: Nam atque quis et sit dolorem voluptatum.
+                          billingCenterLevel1: Qui voluptatibus voluptatem rem dignissimos dolores.
+                          billingCenterLevel2: Repellendus sit rerum doloribus.
+                          billingCenterLevel3: Officiis ex quas ex tenetur soluta.
+                          billingCenterLevel4: Aliquam ut eaque sed.
+                          billingCenterLevel5: Voluptate est quidem aliquam voluptatibus temporibus.
+                          billingCenterLevel6: Sunt laudantium rerum iure.
+                          billingCenterLevel7: Unde incidunt.
+                          billingCenterLevel8: Ea vero.
+                          billingCenterLevel9: Dolor doloremque tempora ipsam.
                           chargeCategory: Usage
                           customer: "2001"
                           effectiveChange: "1120.0000000000"
@@ -16587,15 +16591,15 @@ components:
                           billedCost: "12450.0000000000"
                           billingAccountId: "123456789012"
                           billingAccountName: Acme Production
-                          billingCenterLevel1: Dolorem ducimus.
-                          billingCenterLevel2: Fugit fuga assumenda.
-                          billingCenterLevel3: Corrupti ipsum adipisci ut omnis.
-                          billingCenterLevel4: Pariatur dolorum sit voluptate.
-                          billingCenterLevel5: Quasi at accusamus qui architecto esse.
-                          billingCenterLevel6: Facilis corrupti quo ipsam temporibus possimus dolorum.
-                          billingCenterLevel7: Sequi cum reprehenderit beatae hic.
-                          billingCenterLevel8: Inventore iste molestiae impedit modi provident.
-                          billingCenterLevel9: Nam atque quis et sit dolorem voluptatum.
+                          billingCenterLevel1: Qui voluptatibus voluptatem rem dignissimos dolores.
+                          billingCenterLevel2: Repellendus sit rerum doloribus.
+                          billingCenterLevel3: Officiis ex quas ex tenetur soluta.
+                          billingCenterLevel4: Aliquam ut eaque sed.
+                          billingCenterLevel5: Voluptate est quidem aliquam voluptatibus temporibus.
+                          billingCenterLevel6: Sunt laudantium rerum iure.
+                          billingCenterLevel7: Unde incidunt.
+                          billingCenterLevel8: Ea vero.
+                          billingCenterLevel9: Dolor doloremque tempora ipsam.
                           chargeCategory: Usage
                           customer: "2001"
                           effectiveChange: "1120.0000000000"
@@ -16614,15 +16618,42 @@ components:
                           billedCost: "12450.0000000000"
                           billingAccountId: "123456789012"
                           billingAccountName: Acme Production
-                          billingCenterLevel1: Dolorem ducimus.
-                          billingCenterLevel2: Fugit fuga assumenda.
-                          billingCenterLevel3: Corrupti ipsum adipisci ut omnis.
-                          billingCenterLevel4: Pariatur dolorum sit voluptate.
-                          billingCenterLevel5: Quasi at accusamus qui architecto esse.
-                          billingCenterLevel6: Facilis corrupti quo ipsam temporibus possimus dolorum.
-                          billingCenterLevel7: Sequi cum reprehenderit beatae hic.
-                          billingCenterLevel8: Inventore iste molestiae impedit modi provident.
-                          billingCenterLevel9: Nam atque quis et sit dolorem voluptatum.
+                          billingCenterLevel1: Qui voluptatibus voluptatem rem dignissimos dolores.
+                          billingCenterLevel2: Repellendus sit rerum doloribus.
+                          billingCenterLevel3: Officiis ex quas ex tenetur soluta.
+                          billingCenterLevel4: Aliquam ut eaque sed.
+                          billingCenterLevel5: Voluptate est quidem aliquam voluptatibus temporibus.
+                          billingCenterLevel6: Sunt laudantium rerum iure.
+                          billingCenterLevel7: Unde incidunt.
+                          billingCenterLevel8: Ea vero.
+                          billingCenterLevel9: Dolor doloremque tempora ipsam.
+                          chargeCategory: Usage
+                          customer: "2001"
+                          effectiveChange: "1120.0000000000"
+                          effectiveCost: "11200.0000000000"
+                          modifiedBilledCost: "13695.0000000000"
+                          modifiedEffectiveCost: "12320.0000000000"
+                          planName: Premium Support
+                          ruleId: 7d3f1a2b-4c5e-6789-abcd-ef0123456789
+                          ruleName: Premium Support Upcharge
+                          ruleType: upchargeDiscount
+                          serviceCategory: Compute
+                          serviceName: AmazonEC2
+                          subAccountId: "987654321098"
+                          subAccountName: acme-prod-us-east
+                        - billedChange: "1245.0000000000"
+                          billedCost: "12450.0000000000"
+                          billingAccountId: "123456789012"
+                          billingAccountName: Acme Production
+                          billingCenterLevel1: Qui voluptatibus voluptatem rem dignissimos dolores.
+                          billingCenterLevel2: Repellendus sit rerum doloribus.
+                          billingCenterLevel3: Officiis ex quas ex tenetur soluta.
+                          billingCenterLevel4: Aliquam ut eaque sed.
+                          billingCenterLevel5: Voluptate est quidem aliquam voluptatibus temporibus.
+                          billingCenterLevel6: Sunt laudantium rerum iure.
+                          billingCenterLevel7: Unde incidunt.
+                          billingCenterLevel8: Ea vero.
+                          billingCenterLevel9: Dolor doloremque tempora ipsam.
                           chargeCategory: Usage
                           customer: "2001"
                           effectiveChange: "1120.0000000000"
@@ -16659,15 +16690,15 @@ components:
                 billedCost: "12450.0000000000"
                 billingAccountId: "123456789012"
                 billingAccountName: Acme Production
-                billingCenterLevel1: Dolor sequi.
-                billingCenterLevel2: Et quasi facere fuga ea nihil voluptatibus.
-                billingCenterLevel3: Ab dolore magnam voluptatem soluta et possimus.
-                billingCenterLevel4: Eaque alias mollitia.
-                billingCenterLevel5: Sed totam consectetur.
-                billingCenterLevel6: Non ex accusantium optio illo.
-                billingCenterLevel7: Aut et.
-                billingCenterLevel8: Repellendus est molestiae voluptatum dolores voluptas nihil.
-                billingCenterLevel9: Quia et.
+                billingCenterLevel1: Corrupti sed omnis.
+                billingCenterLevel2: Rerum occaecati porro adipisci cum perferendis.
+                billingCenterLevel3: Sit numquam et non id omnis.
+                billingCenterLevel4: Accusamus fuga.
+                billingCenterLevel5: Et laudantium facilis veniam.
+                billingCenterLevel6: Veritatis quasi cum nihil ad laudantium rerum.
+                billingCenterLevel7: Incidunt qui quo.
+                billingCenterLevel8: In quos unde dolores.
+                billingCenterLevel9: Quia quos repellat.
                 chargeCategory: Usage
                 customer: "2001"
                 effectiveChange: "1120.0000000000"
@@ -16701,39 +16732,39 @@ components:
                     type: string
                 billingCenterLevel1:
                     description: Billing center level 1 name
-                    example: Est tempore in.
+                    example: Ea repellendus doloremque.
                     type: string
                 billingCenterLevel2:
                     description: Billing center level 2 name
-                    example: Dolore sint velit modi repellendus.
+                    example: Quod consequatur porro rerum qui.
                     type: string
                 billingCenterLevel3:
                     description: Billing center level 3 name
-                    example: Quo id quae maxime.
+                    example: Corrupti id aut esse.
                     type: string
                 billingCenterLevel4:
                     description: Billing center level 4 name
-                    example: Nam doloribus rem explicabo doloremque aut numquam.
+                    example: Temporibus ipsum perferendis.
                     type: string
                 billingCenterLevel5:
                     description: Billing center level 5 name
-                    example: Vitae libero expedita reiciendis.
+                    example: Nisi inventore tempore qui cum facere.
                     type: string
                 billingCenterLevel6:
                     description: Billing center level 6 name
-                    example: Amet ullam et aut sapiente odit.
+                    example: Et minus repellendus impedit.
                     type: string
                 billingCenterLevel7:
                     description: Billing center level 7 name
-                    example: Dignissimos quaerat quos.
+                    example: Porro sapiente quo voluptas amet mollitia.
                     type: string
                 billingCenterLevel8:
                     description: Billing center level 8 name
-                    example: Dolores modi id.
+                    example: Voluptas sequi dolorum et.
                     type: string
                 billingCenterLevel9:
                     description: Billing center level 9 name
-                    example: Tempore omnis eligendi autem facilis autem aliquam.
+                    example: Quis in sit atque.
                     type: string
                 chargeCategory:
                     description: Charge category
@@ -16987,22 +17018,6 @@ components:
                 credits:
                     description: One or more credit descriptors to be actioned.
                     example:
-                        - amount: "100.00"
-                          billingAccountId: "111222333"
-                          billingAccountName: acme-prod-us-east
-                          creditType: EdpDiscount
-                          customerId: 2001
-                          description: Enterprise Discount Program Discount for AmazonVPC
-                          subAccountId: "777037404548"
-                          subAccountName: acme-prod-us-east
-                        - amount: "100.00"
-                          billingAccountId: "111222333"
-                          billingAccountName: acme-prod-us-east
-                          creditType: EdpDiscount
-                          customerId: 2001
-                          description: Enterprise Discount Program Discount for AmazonVPC
-                          subAccountId: "777037404548"
-                          subAccountName: acme-prod-us-east
                         - amount: "100.00"
                           billingAccountId: "111222333"
                           billingAccountName: acme-prod-us-east
@@ -17305,16 +17320,14 @@ components:
                         - dimensionId: rbd_team
                           percentage: 50
                           value: Orion
+                        - dimensionId: rbd_team
+                          percentage: 50
+                          value: Orion
                     type: equalSplit
                 effectiveFrom: 2025-07
                 effectiveTo: 2025-12
                 name: Equal split for AWS between Teams A, B and C
                 source:
-                    - dimensionId: vendor
-                      valueListCondition:
-                        values:
-                            - AWS
-                            - Azure
                     - dimensionId: vendor
                       valueListCondition:
                         values:
@@ -17341,6 +17354,16 @@ components:
                 source:
                     description: Dimensions that identify the costs to be reallocated. Multiple dimensions are combined using AND logic; only costs that satisfy every dimension are included. At least one dimension is required.
                     example:
+                        - dimensionId: vendor
+                          valueListCondition:
+                            values:
+                                - AWS
+                                - Azure
+                        - dimensionId: vendor
+                          valueListCondition:
+                            values:
+                                - AWS
+                                - Azure
                         - dimensionId: vendor
                           valueListCondition:
                             values:
@@ -17529,14 +17552,6 @@ components:
                           description: Enterprise Discount Program Discount for AmazonVPC
                           subAccountId: "777037404548"
                           subAccountName: acme-prod-us-east
-                        - amount: "100.00"
-                          billingAccountId: "111222333"
-                          billingAccountName: acme-prod-us-east
-                          creditType: EdpDiscount
-                          customerId: 2001
-                          description: Enterprise Discount Program Discount for AmazonVPC
-                          subAccountId: "777037404548"
-                          subAccountName: acme-prod-us-east
                     items:
                         $ref: '#/components/schemas/FinopsBilling_CreditDescriptor'
                     minItems: 1
@@ -17611,12 +17626,14 @@ components:
                     kind: iam:user
                     ref: iam:user:123
                 creditTypes:
-                    - Et nulla.
-                    - Accusamus id nulla.
-                    - Architecto deleniti non facere et voluptate neque.
+                    - Voluptatum perferendis.
+                    - Perferendis omnis.
+                    - Iusto nam placeat.
                 customerIds:
-                    - 1.675584895226872e+19
-                    - 1.4601147206796886e+19
+                    - 6.452356002430984e+18
+                    - 7.808458355815575e+17
+                    - 1.0550619912295664e+19
+                    - 9.970985618919963e+18
                 id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
                 kind: finops:billing-credit-assignment-summary
                 name: EDP Credits Q1
@@ -17661,21 +17678,19 @@ components:
                 creditTypes:
                     description: The unique credit types affected by the credit assignment.
                     example:
-                        - Omnis molestias et.
-                        - Impedit quod voluptas quasi id ullam nulla.
+                        - Eligendi totam et qui voluptatibus velit.
+                        - Et nihil sunt qui.
                     items:
-                        example: Est modi enim sapiente.
+                        example: Quo commodi omnis eveniet eius blanditiis magnam.
                         type: string
                     type: array
                 customerIds:
                     description: The unique customer (child org) identifiers affected by the credit assignment.
                     example:
-                        - 1.717844421245147e+19
-                        - 2.916506360284082e+18
-                        - 1.3131827179667935e+19
-                        - 1.704620068759744e+17
+                        - 9.611538861832909e+18
+                        - 7.75711652423824e+17
                     items:
-                        example: 1.378153802636314e+19
+                        example: 1.5352522936408367e+19
                         type: integer
                     type: array
                 id:
@@ -17842,23 +17857,23 @@ components:
             type: object
         FinopsBilling_CustomRateTier:
             example:
-                endCost: Bernice Kilback
-                rate: Arianna Jerde II
-                startCost: Mr. Sammy Krajcik
+                endCost: Toni Dare PhD
+                rate: Damaris Schneider
+                startCost: Ms. Margot Goodwin
             properties:
                 endCost:
                     description: inclusive upper bound for this tier
-                    example: Gabriel Mayert
+                    example: Mr. Susanna Abshire
                     pattern: ^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$
                     type: string
                 rate:
                     description: unit price applied by this tier
-                    example: Ferne Sanford
+                    example: Mrs. Kailee Lemke
                     pattern: ^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$
                     type: string
                 startCost:
                     description: exclusive lower bound for this tier
-                    example: Orie Witting IV
+                    example: Ursula Carter Sr.
                     pattern: ^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$
                     type: string
             required:
@@ -17942,7 +17957,7 @@ components:
             properties:
                 fault:
                     description: Is the error a server-side fault?
-                    example: false
+                    example: true
                     type: boolean
                 id:
                     description: ID is a unique identifier for this particular occurrence of the problem.
@@ -17958,11 +17973,11 @@ components:
                     type: string
                 temporary:
                     description: Is the error temporary?
-                    example: false
+                    example: true
                     type: boolean
                 timeout:
                     description: Is the error a timeout?
-                    example: false
+                    example: true
                     type: boolean
             required:
                 - name
@@ -18575,14 +18590,6 @@ components:
                           dimensionName: Team
                           percentage: 50
                           value: Orion
-                        - dimensionId: rbd_team
-                          dimensionName: Team
-                          percentage: 50
-                          value: Orion
-                        - dimensionId: rbd_team
-                          dimensionName: Team
-                          percentage: 50
-                          value: Orion
                     type: equalSplit
                 createdAt: "2020-11-26T12:17:38.369Z"
                 createdBy:
@@ -18742,7 +18749,7 @@ components:
                             - taxRefunds
                             - bundledDiscount
                             - distributorDiscount
-                        example: bundledDiscount
+                        example: sppDiscount
                         type: string
                     type: array
             type: object
@@ -18804,78 +18811,6 @@ components:
                 values:
                     description: The requested adjustment rule values.
                     example:
-                        - createdAt: "2020-11-26T12:17:38.369Z"
-                          createdBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                          creditMemo:
-                            credit: "-150"
-                          customUsageRate:
-                            rate: "1.515"
-                          customerIds:
-                            - 1010
-                            - 2020
-                            - 3030
-                          enabled: true
-                          endAfter: "2023-05-17"
-                          fixedAmount:
-                            cost: "150"
-                          id: ae85f96e-6b9e-4d68-a741-d1ea7ca1fb28
-                          kind: finops:billing-adjustment-rule
-                          markupMarkdown:
-                            markup: "7.5"
-                          name: Margin
-                          removeTax:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
-                          startOn: "2020-03-15"
-                          type: markupMarkdown
-                          upchargeDiscount:
-                            amount: "-2.5"
-                          updatedAt: "2020-11-26T12:17:38.369Z"
-                          updatedBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                        - createdAt: "2020-11-26T12:17:38.369Z"
-                          createdBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                          creditMemo:
-                            credit: "-150"
-                          customUsageRate:
-                            rate: "1.515"
-                          customerIds:
-                            - 1010
-                            - 2020
-                            - 3030
-                          enabled: true
-                          endAfter: "2023-05-17"
-                          fixedAmount:
-                            cost: "150"
-                          id: ae85f96e-6b9e-4d68-a741-d1ea7ca1fb28
-                          kind: finops:billing-adjustment-rule
-                          markupMarkdown:
-                            markup: "7.5"
-                          name: Margin
-                          removeTax:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
-                          startOn: "2020-03-15"
-                          type: markupMarkdown
-                          upchargeDiscount:
-                            amount: "-2.5"
-                          updatedAt: "2020-11-26T12:17:38.369Z"
-                          updatedBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
                         - createdAt: "2020-11-26T12:17:38.369Z"
                           createdBy:
                             id: 1234
@@ -19012,12 +18947,13 @@ components:
                             kind: iam:user
                             ref: iam:user:123
                           creditTypes:
-                            - Autem sint qui.
-                            - Ex fugiat omnis quo.
+                            - Id at sunt consequatur optio dignissimos.
+                            - Accusamus dolor vitae et labore omnis quam.
+                            - Minus eligendi explicabo beatae totam eius est.
                           customerIds:
-                            - 7.599159130784154e+18
-                            - 1.0282632977875405e+19
-                            - 1.8256628535295992e+19
+                            - 1.7717540172489044e+19
+                            - 8.71047078358758e+18
+                            - 8.208896729531094e+18
                           id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
                           kind: finops:billing-credit-assignment-summary
                           name: EDP Credits Q1
@@ -19046,46 +18982,13 @@ components:
                             kind: iam:user
                             ref: iam:user:123
                           creditTypes:
-                            - Autem sint qui.
-                            - Ex fugiat omnis quo.
+                            - Id at sunt consequatur optio dignissimos.
+                            - Accusamus dolor vitae et labore omnis quam.
+                            - Minus eligendi explicabo beatae totam eius est.
                           customerIds:
-                            - 7.599159130784154e+18
-                            - 1.0282632977875405e+19
-                            - 1.8256628535295992e+19
-                          id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-                          kind: finops:billing-credit-assignment-summary
-                          name: EDP Credits Q1
-                          provider: AWS
-                          sourceAccounts:
-                            - billingAccountId: "111222333"
-                              billingAccountName: acme-prod-us-east
-                              subAccountId: "777037404548"
-                              subAccountName: acme-prod-us-east
-                          targetBillingAccountId: "4"
-                          targetBillingAccountName: acme-target-us-east
-                          targetCustomerId: 2001
-                          targetSubAccountId: "111122223333"
-                          targetSubAccountName: acme-target-us-east
-                          updatedAt: "2020-11-26T12:17:38.369Z"
-                          updatedBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                        - action: reassign
-                          amount: "100.00"
-                          billMonth: "202601"
-                          createdAt: "2020-11-26T12:17:38.369Z"
-                          createdBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                          creditTypes:
-                            - Autem sint qui.
-                            - Ex fugiat omnis quo.
-                          customerIds:
-                            - 7.599159130784154e+18
-                            - 1.0282632977875405e+19
-                            - 1.8256628535295992e+19
+                            - 1.7717540172489044e+19
+                            - 8.71047078358758e+18
+                            - 8.208896729531094e+18
                           id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
                           kind: finops:billing-credit-assignment-summary
                           name: EDP Credits Q1
@@ -19281,108 +19184,6 @@ components:
                             id: 1234
                             kind: iam:user
                             ref: iam:user:123
-                        - createdAt: "2020-11-26T12:17:38.369Z"
-                          createdBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                          creditMemo:
-                            credit: "-150"
-                          customUsageRate:
-                            rate: "1.515"
-                          enabled: true
-                          endAfter: "2023-05-17"
-                          fixedAmount:
-                            cost: "150"
-                          generateTax:
-                            rate: "7.5"
-                          hideCredits:
-                            creditTypes:
-                                - edpDiscount
-                                - privateRateDiscount
-                          id: ae85f96e-6b9e-4d68-a741-d1ea7ca1fb28
-                          kind: finops:billing-enterprise-rule
-                          markupMarkdown:
-                            markup: "7.5"
-                          name: Margin
-                          removeAzureLicenseCosts:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: cbi-oi-azure-ea-12345678
-                          removeTax:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
-                          startOn: "2020-03-15"
-                          supportCharge:
-                            applyBy: customer
-                            applyMinimum: false
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
-                            tier: business
-                          type: markupMarkdown
-                          upchargeDiscount:
-                            amount: "-2.5"
-                          updatedAt: "2020-11-26T12:17:38.369Z"
-                          updatedBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                        - createdAt: "2020-11-26T12:17:38.369Z"
-                          createdBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                          creditMemo:
-                            credit: "-150"
-                          customUsageRate:
-                            rate: "1.515"
-                          enabled: true
-                          endAfter: "2023-05-17"
-                          fixedAmount:
-                            cost: "150"
-                          generateTax:
-                            rate: "7.5"
-                          hideCredits:
-                            creditTypes:
-                                - edpDiscount
-                                - privateRateDiscount
-                          id: ae85f96e-6b9e-4d68-a741-d1ea7ca1fb28
-                          kind: finops:billing-enterprise-rule
-                          markupMarkdown:
-                            markup: "7.5"
-                          name: Margin
-                          removeAzureLicenseCosts:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: cbi-oi-azure-ea-12345678
-                          removeTax:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
-                          startOn: "2020-03-15"
-                          supportCharge:
-                            applyBy: customer
-                            applyMinimum: false
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
-                            tier: business
-                          type: markupMarkdown
-                          upchargeDiscount:
-                            amount: "-2.5"
-                          updatedAt: "2020-11-26T12:17:38.369Z"
-                          updatedBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
                     items:
                         $ref: '#/components/schemas/FinopsBilling_FlexeraFinopsBillingEnterpriseRule'
                     type: array
@@ -19442,42 +19243,6 @@ components:
                 values:
                     description: The requested adjustment plan values.
                     example:
-                        - createdAt: "2020-11-26T12:17:38.369Z"
-                          createdBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                          customerIds:
-                            - 1010
-                            - 2020
-                            - 3030
-                          description: Gold Tier Customers enjoy our highest discounts
-                          id: c6671c74-513a-4127-b8df-81adfb65bf7f
-                          kind: finops:billing-adjustment-plan
-                          name: Gold Tier
-                          updatedAt: "2020-11-26T12:17:38.369Z"
-                          updatedBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                        - createdAt: "2020-11-26T12:17:38.369Z"
-                          createdBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                          customerIds:
-                            - 1010
-                            - 2020
-                            - 3030
-                          description: Gold Tier Customers enjoy our highest discounts
-                          id: c6671c74-513a-4127-b8df-81adfb65bf7f
-                          kind: finops:billing-adjustment-plan
-                          name: Gold Tier
-                          updatedAt: "2020-11-26T12:17:38.369Z"
-                          updatedBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
                         - createdAt: "2020-11-26T12:17:38.369Z"
                           createdBy:
                             id: 1234
@@ -19800,81 +19565,6 @@ components:
                                 dimension: bill_source
                                 type: dimension_equals
                                 value: aws-123456789012
-                        - azureReservationReallocation:
-                            revertReservation: unownedUsage
-                          azureSavingsPlanReallocation:
-                            revertSavingsPlan: allUsage
-                          createdAt: "2020-11-26T12:17:38.369Z"
-                          createdBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                          creditMemo:
-                            credit: "-150"
-                          customUsageRate:
-                            rate: "1.515"
-                          enabled: true
-                          endAfter: "2023-05-17"
-                          fixedAmount:
-                            cost: "150"
-                          generateTax:
-                            rate: "7.5"
-                          hideCredits:
-                            creditTypes:
-                                - edpDiscount
-                                - privateRateDiscount
-                          id: ae85f96e-6b9e-4d68-a741-d1ea7ca1fb28
-                          kind: finops:billing-adjustment-plan-rule
-                          markupMarkdown:
-                            markup: "7.5"
-                          name: Margin
-                          planId: c6671c74-513a-4127-b8df-81adfb65bf7f
-                          removeAzureLicenseCosts:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: cbi-oi-azure-ea-12345678
-                          removeTax:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
-                          reservationReallocation:
-                            revertReservation: unownedUsage
-                          savingsPlanReallocation:
-                            revertSavingsPlan: allUsage
-                          shareCloudCostManagementFee:
-                            reservedInstance:
-                                distributed: estimate
-                            savingsPlan:
-                                percentage: "7.5"
-                          startOn: "2020-03-15"
-                          supportCharge:
-                            applyBy: customer
-                            applyMinimum: false
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
-                            tier: business
-                          type: markupMarkdown
-                          uncompressPricingTiers:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
-                          upchargeDiscount:
-                            amount: "-2.5"
-                          updatedAt: "2020-11-26T12:17:38.369Z"
-                          updatedBy:
-                            id: 1234
-                            kind: iam:user
-                            ref: iam:user:123
-                          volumeDiscounts:
-                            condition:
-                                dimension: bill_source
-                                type: dimension_equals
-                                value: aws-123456789012
                     items:
                         $ref: '#/components/schemas/FinopsBilling_FlexeraFinopsBillingAdjustmentPlanRule'
                     type: array
@@ -19954,14 +19644,6 @@ components:
                     example:
                         - allocation:
                             destinations:
-                                - dimensionId: rbd_team
-                                  dimensionName: Team
-                                  percentage: 50
-                                  value: Orion
-                                - dimensionId: rbd_team
-                                  dimensionName: Team
-                                  percentage: 50
-                                  value: Orion
                                 - dimensionId: rbd_team
                                   dimensionName: Team
                                   percentage: 50
@@ -20058,6 +19740,8 @@ components:
                 rules:
                     description: List of rules whose priority is changing, with their new priorities.
                     example:
+                        - priority: 1
+                          ruleId: a3f7c92
                         - priority: 1
                           ruleId: a3f7c92
                     items:
@@ -20445,7 +20129,7 @@ components:
                         - listCost
                         - billedCost
                         - modifiedCost
-                    example: modifiedCost
+                    example: billedCost
                     type: string
             type: object
         FinopsBilling_ReservationReallocationSettings:
@@ -20696,7 +20380,7 @@ components:
                         - listCost
                         - billedCost
                         - modifiedCost
-                    example: observedCosts
+                    example: listCost
                     type: string
             required:
                 - baseCostsOn
@@ -20780,6 +20464,18 @@ components:
                 source:
                     description: Dimensions that identify the costs to be reallocated. Multiple dimensions are combined using AND logic; only costs that satisfy every dimension are included.
                     example:
+                        - dimensionId: vendor
+                          dimensionName: Cloud Vendor
+                          valueListCondition:
+                            values:
+                                - AWS
+                                - Azure
+                        - dimensionId: vendor
+                          dimensionName: Cloud Vendor
+                          valueListCondition:
+                            values:
+                                - AWS
+                                - Azure
                         - dimensionId: vendor
                           dimensionName: Cloud Vendor
                           valueListCondition:
@@ -20971,23 +20667,23 @@ components:
             type: object
         FinopsBilling_UpchargeTier:
             example:
-                amount: Ezra Zboncak
-                endCost: Aryanna Tillman
-                startCost: Arlie Bergnaum
+                amount: Kylee Funk
+                endCost: Colton McClure
+                startCost: Derick Braun
             properties:
                 amount:
                     description: upcharge percentage applied by this tier
-                    example: Dave Witting
+                    example: Molly Nicolas MD
                     pattern: ^[-+]?[0-9]+(?:[.][0-9]+)?$
                     type: string
                 endCost:
                     description: inclusive upper bound for this tier
-                    example: Edgardo Torp
+                    example: Ms. Carli Corwin
                     pattern: ^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$
                     type: string
                 startCost:
                     description: exclusive lower bound for this tier
-                    example: Lucienne Bruen IV
+                    example: Sister Langworth
                     pattern: ^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$
                     type: string
             required:
@@ -20999,6 +20695,9 @@ components:
             example:
                 allocation:
                     destinations:
+                        - dimensionId: rbd_team
+                          percentage: 50
+                          value: Orion
                         - dimensionId: rbd_team
                           percentage: 50
                           value: Orion
@@ -21042,6 +20741,16 @@ components:
                             values:
                                 - AWS
                                 - Azure
+                        - dimensionId: vendor
+                          valueListCondition:
+                            values:
+                                - AWS
+                                - Azure
+                        - dimensionId: vendor
+                          valueListCondition:
+                            values:
+                                - AWS
+                                - Azure
                     items:
                         $ref: '#/components/schemas/FinopsBilling_SourceDimensionPayload'
                     minItems: 1
@@ -21066,7 +20775,7 @@ components:
                         - AWS
                         - Azure
                     items:
-                        example: Doloremque numquam.
+                        example: Sit et.
                         type: string
                     minItems: 1
                     type: array
@@ -21196,32 +20905,6 @@ components:
                 values:
                     description: The requested vendor credit values.
                     example:
-                        - amount: "-150.0000000000"
-                          assignedBy: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-                          billMonth: "202601"
-                          billingAccountId: "111222333"
-                          billingAccountName: acme-prod-us-east
-                          chargeDescription: AWS Enterprise Discount Program
-                          creditType: EdpDiscount
-                          customerId: 2001
-                          kind: finops:billing-vendor-credit
-                          lineItemCount: 42
-                          provider: AWS
-                          subAccountId: "777037404548"
-                          subAccountName: acme-prod-us-east
-                        - amount: "-150.0000000000"
-                          assignedBy: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-                          billMonth: "202601"
-                          billingAccountId: "111222333"
-                          billingAccountName: acme-prod-us-east
-                          chargeDescription: AWS Enterprise Discount Program
-                          creditType: EdpDiscount
-                          customerId: 2001
-                          kind: finops:billing-vendor-credit
-                          lineItemCount: 42
-                          provider: AWS
-                          subAccountId: "777037404548"
-                          subAccountName: acme-prod-us-east
                         - amount: "-150.0000000000"
                           assignedBy: a1b2c3d4-e5f6-7890-abcd-ef1234567890
                           billMonth: "202601"
@@ -98054,6 +97737,9 @@ paths:
                                     - dimensionId: rbd_team
                                       percentage: 50
                                       value: Orion
+                                    - dimensionId: rbd_team
+                                      percentage: 50
+                                      value: Orion
                                 type: equalSplit
                             effectiveFrom: 2025-07
                             effectiveTo: 2025-12
@@ -98455,6 +98141,9 @@ paths:
                                     - dimensionId: rbd_team
                                       percentage: 50
                                       value: Orion
+                                    - dimensionId: rbd_team
+                                      percentage: 50
+                                      value: Orion
                                 type: equalSplit
                             effectiveFrom: 2025-07
                             effectiveTo: 2025-12
@@ -98481,14 +98170,6 @@ paths:
                             example:
                                 allocation:
                                     destinations:
-                                        - dimensionId: rbd_team
-                                          dimensionName: Team
-                                          percentage: 50
-                                          value: Orion
-                                        - dimensionId: rbd_team
-                                          dimensionName: Team
-                                          percentage: 50
-                                          value: Orion
                                         - dimensionId: rbd_team
                                           dimensionName: Team
                                           percentage: 50
@@ -98632,6 +98313,10 @@ paths:
                     application/json:
                         example:
                             rules:
+                                - priority: 1
+                                  ruleId: a3f7c92
+                                - priority: 1
+                                  ruleId: a3f7c92
                                 - priority: 1
                                   ruleId: a3f7c92
                         schema:
@@ -160740,6 +160425,11 @@ tags:
         See
         [Billing](https://docs.flexera.com/flexera/EN/Optima/TODO.htm)
         for more details.
+
+        This API also exposes Invoices, Invoice Templates, Invoice Schedules, and
+        Invoice Schedule Invoices — the same resources already available through the
+        finops-customizations API — so customers on the finops-billing gateway can
+        manage invoice generation without needing to call a second API.
       name: Billing
     - description: |-
         The FinOps Billing Audit API returns per-rule impact aggregations sourced from the bill audit dataset.
