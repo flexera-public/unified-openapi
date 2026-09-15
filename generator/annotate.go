@@ -203,8 +203,7 @@ func actionFromOperation(method, path string, op map[string]interface{}) string 
 }
 
 // isCreateOperationID reports whether op's operationId's trailing "_"
-// separated token is exactly "create" (mirrors the verb convention used
-// by flexera-cli's gencli). It only matches an exact trailing token, not
+// separated token is exactly "create". It only matches an exact trailing token, not
 // a substring, so operationIds like "..._create_summary" don't match.
 func isCreateOperationID(op map[string]interface{}) bool {
 	if op == nil {
