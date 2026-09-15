@@ -21,20 +21,33 @@ func TestResourceFromPath(t *testing.T) {
 
 func TestActionFromOperation(t *testing.T) {
 	cases := []struct {
-		method, path, want string
+		method, path, opID, want string
 	}{
-		{"get", "/x/v1/orgs/{orgId}/budgets", "list"},
-		{"get", "/x/v1/orgs/{orgId}/budgets/{id}", "get"},
-		{"post", "/x/v1/orgs/{orgId}/budgets", "create"},
-		{"post", "/x/v1/orgs/{orgId}/budgets/{id}", "action"},
-		{"post", "/x/v1/orgs/{orgId}/budgets/{id}/evaluate", "action"},
-		{"put", "/x/v1/orgs/{orgId}/budgets/{id}", "replace"},
-		{"patch", "/x/v1/orgs/{orgId}/budgets/{id}", "update"},
-		{"delete", "/x/v1/orgs/{orgId}/budgets/{id}", "delete"},
+		{"get", "/x/v1/orgs/{orgId}/budgets", "", "list"},
+		{"get", "/x/v1/orgs/{orgId}/budgets/{id}", "", "get"},
+		{"post", "/x/v1/orgs/{orgId}/budgets", "", "create"},
+		{"post", "/x/v1/orgs/{orgId}/budgets/{id}", "", "action"},
+		{"post", "/x/v1/orgs/{orgId}/budgets/{id}", "X_budget_evaluate", "action"},
+		{"post", "/x/v1/orgs/{orgId}/budgets/{id}", "X_budget_create", "create"},
+		{"post", "/x/v1/orgs/{orgId}/budgets/{id}", "X_budget_create_summary", "action"},
+		{"post", "/x/v1/orgs/{orgId}/budgets/{id}/evaluate", "X_budget_create", "action"},
+		{
+			"post",
+			"/finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}",
+			"FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_create",
+			"create",
+		},
+		{"put", "/x/v1/orgs/{orgId}/budgets/{id}", "", "replace"},
+		{"patch", "/x/v1/orgs/{orgId}/budgets/{id}", "", "update"},
+		{"delete", "/x/v1/orgs/{orgId}/budgets/{id}", "", "delete"},
 	}
 	for _, c := range cases {
-		if got := actionFromOperation(c.method, c.path); got != c.want {
-			t.Errorf("action(%s %s) = %q, want %q", c.method, c.path, got, c.want)
+		var op map[string]interface{}
+		if c.opID != "" {
+			op = map[string]interface{}{"operationId": c.opID}
+		}
+		if got := actionFromOperation(c.method, c.path, op); got != c.want {
+			t.Errorf("action(%s %s, opID=%q) = %q, want %q", c.method, c.path, c.opID, got, c.want)
 		}
 	}
 }

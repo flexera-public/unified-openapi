@@ -99529,7 +99529,7 @@ paths:
             summary: Creates a rule-based dimension
             tags:
                 - Rule-Based Dimension
-            x-flexera-action: action
+            x-flexera-action: create
             x-flexera-resource: rule-based-dimension
             x-flexera-tf-crud-binding:
                 create: FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_create
