@@ -1,0 +1,3865 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Flexera Cloud Cost Optimization Bill Upload API",
+    "description": "You can use this API to upload bills to Flexera.\n\nBefore you can upload bills, remember to create a CBI Bill Connect using the [Flexera CBI Bill Connect API](https://reference.rightscale.com/optima-bill/#/CBIBillConnect).\n\nThe API is available at the following endpoints:\n* (NAM) https://api.optima.flexeraeng.com\n* (EU) https://api.optima-eu.flexeraeng.com\n\nImportant: The billing period (yyyy-mm) is the unit of ingestion. When a bill upload is committed and processed for a billing period, it replaces that month of data for the given bill connect and org. This API is not designed for daily incremental uploads; to change a month, upload the full month and commit again.\n\nTo remove existing billing data for a month, overwrite it by committing a new bill upload for the same billing period that contains no cost rows (for example, a CSV file with only the required header columns and no data rows). Note: a bill upload must contain at least one uploaded file to be committed.\n\nDefault limits (to override those, talk to your Flexera account manager):\n* Up to 500 files max per bill upload;\n* Each file must be at most 1000 MB;\n* 120 seconds \"cool off\" period between bill upload creations, for a given bill connect and billing period.\n\n## Auth\nRequests made to the API must be authenticated using a token obtained from the [Cloud Management API](https://docs.rightscale.com/api/general_usage.html#authentication).\nAn \"API-Version\" header must also be set; the current version is \"1.0\".\nThe API actions below list privileges (aka security scopes) required to access that particular action. Privileges are granted by\nroles in the [user governance application](https://docs.rightscale.com/cm/ref/user_roles.html).\n\nFor more detailed information on roles, see [policy access control](https://docs.rightscale.com/policies/#access-control).\n    ",
+    "version": "1.0"
+  },
+  "host": "localhost:80",
+  "consumes": [
+    "application/json",
+    "application/xml",
+    "application/gob"
+  ],
+  "produces": [
+    "application/json",
+    "application/xml",
+    "application/gob"
+  ],
+  "paths": {
+    "/optima/orgs/{orgId}/billUploads": {
+      "get": {
+        "tags": [
+          "BillUpload"
+        ],
+        "description": "Lists existing bill uploads. You can filter by bill upload and/or billing period, too..\n\n**Required security scopes for JWTAuth**:\n  * `optima:bill_upload:index+optima:bill_connect:index+common:org:own`",
+        "operationId": "BillUpload#index",
+        "parameters": [
+          {
+            "name": "billingPeriod",
+            "in": "query",
+            "description": "Optional filter by billing period",
+            "required": false,
+            "type": "string",
+            "pattern": "^([0-9]{4})-([0-9]{2})$"
+          },
+          {
+            "name": "billConnectId",
+            "in": "query",
+            "description": "Optional filter by bill connect ID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "path",
+            "description": "The relevant organization for the bill upload(s)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT token used to perform authorization",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadBillUploadResponseCollection"
+            }
+          },
+          "400": {
+            "description": "Bad Request response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadIndexBadRequestResponseBody"
+            }
+          },
+          "401": {
+            "description": "Unauthorized response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadIndexUnauthorizedResponseBody"
+            }
+          },
+          "403": {
+            "description": "Forbidden response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadIndexForbiddenResponseBody"
+            }
+          },
+          "404": {
+            "description": "Not Found response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadIndexNotFoundResponseBody"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadIndexTooManyRequestsResponseBody"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadIndexInternalErrorResponseBody"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadIndexBadGatewayResponseBody"
+            }
+          }
+        },
+        "schemes": [
+          "http"
+        ],
+        "security": [
+          {
+            "JWTAuth_header_Authorization": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "BillUpload"
+        ],
+        "description": "Creates a new bill upload, for a given [bill connect](https://reference.rightscale.com/optima-bill/#/CBIBillConnects) and billing period (month, yyyy-mm). Committing and processing a bill upload replaces that month of data for the bill connect/org.\n\n**Required security scopes for JWTAuth**:\n  * `optima:bill_upload:create+optima:bill_connect:create+common:org:own`",
+        "operationId": "BillUpload#create",
+        "parameters": [
+          {
+            "name": "orgId",
+            "in": "path",
+            "description": "The relevant organization for this bill upload",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT token used to perform authorization",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "CreateRequestBody",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateRequestBody",
+              "required": [
+                "billConnectId",
+                "billingPeriod"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateResponseBody"
+            }
+          },
+          "400": {
+            "description": "Bad Request response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateBadRequestResponseBody"
+            }
+          },
+          "401": {
+            "description": "Unauthorized response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateUnauthorizedResponseBody"
+            }
+          },
+          "403": {
+            "description": "Forbidden response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateForbiddenResponseBody"
+            }
+          },
+          "404": {
+            "description": "Not Found response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateNotFoundResponseBody"
+            }
+          },
+          "409": {
+            "description": "Conflict response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateConflictResponseBody"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateTooManyRequestsResponseBody"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateInternalErrorResponseBody"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateBadGatewayResponseBody"
+            }
+          }
+        },
+        "schemes": [
+          "http"
+        ],
+        "security": [
+          {
+            "JWTAuth_header_Authorization": []
+          }
+        ]
+      }
+    },
+    "/optima/orgs/{orgId}/billUploads/{billUploadId}": {
+      "get": {
+        "tags": [
+          "BillUpload"
+        ],
+        "description": "Shows the details of a bill upload, including the list of successfully uploaded files so far.\n\n**Required security scopes for JWTAuth**:\n  * `optima:bill_upload:show+optima:bill_connect:show+common:org:own`",
+        "operationId": "BillUpload#show",
+        "parameters": [
+          {
+            "name": "orgId",
+            "in": "path",
+            "description": "The relevant organization for the bill upload",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "billUploadId",
+            "in": "path",
+            "description": "The identifier of the bill upload",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT token used to perform authorization",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadShowResponseBody"
+            }
+          },
+          "400": {
+            "description": "Bad Request response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadShowBadRequestResponseBody"
+            }
+          },
+          "401": {
+            "description": "Unauthorized response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadShowUnauthorizedResponseBody"
+            }
+          },
+          "403": {
+            "description": "Forbidden response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadShowForbiddenResponseBody"
+            }
+          },
+          "404": {
+            "description": "Not Found response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadShowNotFoundResponseBody"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadShowTooManyRequestsResponseBody"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadShowInternalErrorResponseBody"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadShowBadGatewayResponseBody"
+            }
+          }
+        },
+        "schemes": [
+          "http"
+        ],
+        "security": [
+          {
+            "JWTAuth_header_Authorization": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "BillUpload"
+        ],
+        "description": "Deletes a bill upload, provided  it is in the aborted state.\n\n**Required security scopes for JWTAuth**:\n  * `optima:bill_upload:delete+optima:bill_connect:delete+common:org:own`",
+        "operationId": "BillUpload#delete",
+        "parameters": [
+          {
+            "name": "orgId",
+            "in": "path",
+            "description": "The relevant organization for the bill upload",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "billUploadId",
+            "in": "path",
+            "description": "The identifier of the bill upload",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT token used to perform authorization",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content response."
+          },
+          "400": {
+            "description": "Bad Request response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadDeleteBadRequestResponseBody"
+            }
+          },
+          "401": {
+            "description": "Unauthorized response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadDeleteUnauthorizedResponseBody"
+            }
+          },
+          "403": {
+            "description": "Forbidden response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadDeleteForbiddenResponseBody"
+            }
+          },
+          "404": {
+            "description": "Not Found response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadDeleteNotFoundResponseBody"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadDeleteTooManyRequestsResponseBody"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadDeleteInternalErrorResponseBody"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadDeleteBadGatewayResponseBody"
+            }
+          }
+        },
+        "schemes": [
+          "http"
+        ],
+        "security": [
+          {
+            "JWTAuth_header_Authorization": []
+          }
+        ]
+      }
+    },
+    "/optima/orgs/{orgId}/billUploads/{billUploadId}/files/{fileId}": {
+      "post": {
+        "tags": [
+          "BillUpload"
+        ],
+        "description": "Uploads a file, adding it to the given bill upload.\nNote, by default, you can only upload 500 files max per bill upload, and each must be smaller than 1000 MB.\nIf the upload is successful, a MD5 hash is returned, so that you can verify its integrity.\n        \n\n**Required security scopes for JWTAuth**:\n  * `optima:bill_upload:create+optima:bill_connect:create+common:org:own`",
+        "operationId": "BillUpload#createFile",
+        "parameters": [
+          {
+            "name": "orgId",
+            "in": "path",
+            "description": "The relevant organization for this bill upload",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "billUploadId",
+            "in": "path",
+            "description": "The identifier of the bill upload",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "description": "The basename of the uploaded file (100 characters max), supported extensions: .csv, .json, .jsonl, gzipped or not",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT token used to perform authorization",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileResponseBody"
+            }
+          },
+          "400": {
+            "description": "Bad Request response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileBadRequestResponseBody"
+            }
+          },
+          "401": {
+            "description": "Unauthorized response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileUnauthorizedResponseBody"
+            }
+          },
+          "403": {
+            "description": "Forbidden response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileForbiddenResponseBody"
+            }
+          },
+          "404": {
+            "description": "Not Found response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileNotFoundResponseBody"
+            }
+          },
+          "409": {
+            "description": "Conflict response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileConflictResponseBody"
+            }
+          },
+          "413": {
+            "description": "Request Entity Too Large response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileRequestEntityTooLargeResponseBody"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileTooManyRequestsResponseBody"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileInternalErrorResponseBody"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateFileBadGatewayResponseBody"
+            }
+          }
+        },
+        "schemes": [
+          "http"
+        ],
+        "security": [
+          {
+            "JWTAuth_header_Authorization": []
+          }
+        ]
+      }
+    },
+    "/optima/orgs/{orgId}/billUploads/{billUploadId}/operations": {
+      "post": {
+        "tags": [
+          "BillUpload"
+        ],
+        "description": "Performs an operation (i.e. commit or abort) on a bill upload. Committing triggers processing of all uploaded files and replaces that month of data for the bill connect/org; aborting closes the upload and any uploaded files will not be processed.\n\n**Required security scopes for JWTAuth**:\n  * `optima:bill_upload:create+optima:bill_connect:create+common:org:own`",
+        "operationId": "BillUpload#createOperation",
+        "parameters": [
+          {
+            "name": "orgId",
+            "in": "path",
+            "description": "The relevant organization for this bill upload",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "billUploadId",
+            "in": "path",
+            "description": "The identifier of the bill upload",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT token used to perform authorization",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "CreateOperationRequestBody",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateOperationRequestBody",
+              "required": [
+                "operation"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateOperationResponseBody"
+            }
+          },
+          "400": {
+            "description": "Bad Request response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateOperationBadRequestResponseBody"
+            }
+          },
+          "401": {
+            "description": "Unauthorized response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateOperationUnauthorizedResponseBody"
+            }
+          },
+          "403": {
+            "description": "Forbidden response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateOperationForbiddenResponseBody"
+            }
+          },
+          "404": {
+            "description": "Not Found response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateOperationNotFoundResponseBody"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateOperationTooManyRequestsResponseBody"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateOperationInternalErrorResponseBody"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway response.",
+            "schema": {
+              "$ref": "#/definitions/BillUploadCreateOperationBadGatewayResponseBody"
+            }
+          }
+        },
+        "schemes": [
+          "http"
+        ],
+        "security": [
+          {
+            "JWTAuth_header_Authorization": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BillUploadBillUploadResponseCollection": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; type=collection; view=default",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/BillUploadResponse"
+      },
+      "description": "IndexResponseBody is the result type for an array of BillUploadResponse (default view)",
+      "example": [
+        {
+          "billConnectId": "cbi-integration1-1234567",
+          "billingPeriod": "2020-03",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "files": [
+            {
+              "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+              "createdAt": "2018-06-12T20:31:02Z",
+              "id": "file1.csv",
+              "length": 12345,
+              "md5": "656fc88239fed34577fca4084cf2ad11",
+              "status": "uploaded",
+              "updatedAt": "2018-06-12T20:31:02Z"
+            },
+            {
+              "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+              "createdAt": "2018-06-12T20:31:02Z",
+              "id": "file1.csv",
+              "length": 12345,
+              "md5": "656fc88239fed34577fca4084cf2ad11",
+              "status": "uploaded",
+              "updatedAt": "2018-06-12T20:31:02Z"
+            },
+            {
+              "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+              "createdAt": "2018-06-12T20:31:02Z",
+              "id": "file1.csv",
+              "length": 12345,
+              "md5": "656fc88239fed34577fca4084cf2ad11",
+              "status": "uploaded",
+              "updatedAt": "2018-06-12T20:31:02Z"
+            },
+            {
+              "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+              "createdAt": "2018-06-12T20:31:02Z",
+              "id": "file1.csv",
+              "length": 12345,
+              "md5": "656fc88239fed34577fca4084cf2ad11",
+              "status": "uploaded",
+              "updatedAt": "2018-06-12T20:31:02Z"
+            }
+          ],
+          "id": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "status": "complete",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        },
+        {
+          "billConnectId": "cbi-integration1-1234567",
+          "billingPeriod": "2020-03",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "files": [
+            {
+              "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+              "createdAt": "2018-06-12T20:31:02Z",
+              "id": "file1.csv",
+              "length": 12345,
+              "md5": "656fc88239fed34577fca4084cf2ad11",
+              "status": "uploaded",
+              "updatedAt": "2018-06-12T20:31:02Z"
+            },
+            {
+              "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+              "createdAt": "2018-06-12T20:31:02Z",
+              "id": "file1.csv",
+              "length": 12345,
+              "md5": "656fc88239fed34577fca4084cf2ad11",
+              "status": "uploaded",
+              "updatedAt": "2018-06-12T20:31:02Z"
+            },
+            {
+              "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+              "createdAt": "2018-06-12T20:31:02Z",
+              "id": "file1.csv",
+              "length": 12345,
+              "md5": "656fc88239fed34577fca4084cf2ad11",
+              "status": "uploaded",
+              "updatedAt": "2018-06-12T20:31:02Z"
+            },
+            {
+              "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+              "createdAt": "2018-06-12T20:31:02Z",
+              "id": "file1.csv",
+              "length": 12345,
+              "md5": "656fc88239fed34577fca4084cf2ad11",
+              "status": "uploaded",
+              "updatedAt": "2018-06-12T20:31:02Z"
+            }
+          ],
+          "id": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "status": "complete",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        }
+      ]
+    },
+    "BillUploadCreateBadGatewayResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "create_bad_gateway_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateBadRequestResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "create_bad_request_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateConflictResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "create_conflict_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateFileBadGatewayResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "createFile_bad_gateway_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateFileBadRequestResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "createFile_bad_request_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateFileConflictResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "createFile_conflict_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateFileForbiddenResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "createFile_forbidden_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateFileInternalErrorResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "createFile_internal_error_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateFileNotFoundResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "createFile_not_found_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateFileRequestEntityTooLargeResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "createFile_request_entity_too_large_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateFileResponseBody": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.file; view=default",
+      "type": "object",
+      "properties": {
+        "billUploadId": {
+          "type": "string",
+          "description": "The ID of the bill upload that the file belongs to",
+          "example": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The time when the file was created.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string",
+          "description": "The ID of the file",
+          "example": "file1.csv"
+        },
+        "length": {
+          "type": "integer",
+          "description": "The length of an uploaded file in bytes",
+          "example": 12345,
+          "format": "int64"
+        },
+        "md5": {
+          "type": "string",
+          "description": "The file signature generated using MD5 message-digest",
+          "example": "656fc88239fed34577fca4084cf2ad11"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the file upload",
+          "example": "uploaded",
+          "enum": [
+            "uploaded",
+            "uploading",
+            "failed"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "The time when the file last updated.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        }
+      },
+      "description": "CreateFileResponseBody result type (default view)",
+      "example": {
+        "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+        "createdAt": "2018-06-12T20:31:02Z",
+        "id": "file1.csv",
+        "length": 12345,
+        "md5": "656fc88239fed34577fca4084cf2ad11",
+        "status": "uploaded",
+        "updatedAt": "2018-06-12T20:31:02Z"
+      },
+      "required": [
+        "id",
+        "status",
+        "createdAt",
+        "updatedAt",
+        "md5",
+        "length",
+        "billUploadId"
+      ]
+    },
+    "BillUploadCreateFileTooManyRequestsResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "createFile_too_many_requests_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateFileUnauthorizedResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "createFile_unauthorized_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateForbiddenResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "create_forbidden_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateInternalErrorResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "create_internal_error_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateNotFoundResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "create_not_found_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateOperationBadGatewayResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "createOperation_bad_gateway_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateOperationBadRequestResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "createOperation_bad_request_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateOperationForbiddenResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "createOperation_forbidden_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateOperationInternalErrorResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "createOperation_internal_error_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateOperationNotFoundResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "createOperation_not_found_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateOperationRequestBody": {
+      "title": "BillUploadCreateOperationRequestBody",
+      "type": "object",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "description": "The type of operation to perform on this bill upload, ie commit or abort",
+          "example": "commit",
+          "enum": [
+            "abort",
+            "commit"
+          ]
+        }
+      },
+      "example": {
+        "operation": "abort"
+      },
+      "required": [
+        "operation"
+      ]
+    },
+    "BillUploadCreateOperationResponseBody": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; view=default",
+      "type": "object",
+      "properties": {
+        "billConnectId": {
+          "type": "string",
+          "description": "The bill connect that the bill upload belongs to",
+          "example": "cbi-integration1-1234567"
+        },
+        "billingPeriod": {
+          "type": "string",
+          "description": "The billing period of the bill upload",
+          "example": "2020-03",
+          "pattern": "^([0-9]{4})-([0-9]{2})$"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The time when the bill upload was created.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        },
+        "files": {
+          "$ref": "#/definitions/FileResponseBodyCollection"
+        },
+        "id": {
+          "type": "string",
+          "description": "The ID of the bill upload",
+          "example": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the bill upload",
+          "example": "complete",
+          "enum": [
+            "complete",
+            "in-progress",
+            "aborted"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "The time when the bill upload last updated.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        }
+      },
+      "description": "CreateOperationResponseBody result type (default view)",
+      "example": {
+        "billConnectId": "cbi-integration1-1234567",
+        "billingPeriod": "2020-03",
+        "createdAt": "2018-06-12T20:31:02Z",
+        "files": [
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          }
+        ],
+        "id": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+        "status": "complete",
+        "updatedAt": "2018-06-12T20:31:02Z"
+      },
+      "required": [
+        "id",
+        "billConnectId",
+        "billingPeriod",
+        "status",
+        "files",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "BillUploadCreateOperationTooManyRequestsResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "createOperation_too_many_requests_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateOperationUnauthorizedResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "createOperation_unauthorized_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateRequestBody": {
+      "title": "BillUploadCreateRequestBody",
+      "type": "object",
+      "properties": {
+        "billConnectId": {
+          "type": "string",
+          "description": "The bill connect to use for this bill upload",
+          "example": "cbi-integration1-1234567"
+        },
+        "billingPeriod": {
+          "type": "string",
+          "description": "The billing period covered by this bill upload, formatted as yyyy-mm",
+          "example": "2020-03",
+          "pattern": "^([0-9]{4})-([0-9]{2})$"
+        }
+      },
+      "example": {
+        "billConnectId": "cbi-integration1-1234567",
+        "billingPeriod": "2020-03"
+      },
+      "required": [
+        "billConnectId",
+        "billingPeriod"
+      ]
+    },
+    "BillUploadCreateResponseBody": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; view=default",
+      "type": "object",
+      "properties": {
+        "billConnectId": {
+          "type": "string",
+          "description": "The bill connect that the bill upload belongs to",
+          "example": "cbi-integration1-1234567"
+        },
+        "billingPeriod": {
+          "type": "string",
+          "description": "The billing period of the bill upload",
+          "example": "2020-03",
+          "pattern": "^([0-9]{4})-([0-9]{2})$"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The time when the bill upload was created.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        },
+        "files": {
+          "$ref": "#/definitions/FileResponseBodyCollection"
+        },
+        "id": {
+          "type": "string",
+          "description": "The ID of the bill upload",
+          "example": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the bill upload",
+          "example": "complete",
+          "enum": [
+            "complete",
+            "in-progress",
+            "aborted"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "The time when the bill upload last updated.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        }
+      },
+      "description": "CreateResponseBody result type (default view)",
+      "example": {
+        "billConnectId": "cbi-integration1-1234567",
+        "billingPeriod": "2020-03",
+        "createdAt": "2018-06-12T20:31:02Z",
+        "files": [
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          }
+        ],
+        "id": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+        "status": "complete",
+        "updatedAt": "2018-06-12T20:31:02Z"
+      },
+      "required": [
+        "id",
+        "billConnectId",
+        "billingPeriod",
+        "status",
+        "files",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "BillUploadCreateTooManyRequestsResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "create_too_many_requests_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadCreateUnauthorizedResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "create_unauthorized_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadDeleteBadGatewayResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "delete_bad_gateway_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadDeleteBadRequestResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "delete_bad_request_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadDeleteForbiddenResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "delete_forbidden_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadDeleteInternalErrorResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "delete_internal_error_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadDeleteNotFoundResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "delete_not_found_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadDeleteTooManyRequestsResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "delete_too_many_requests_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadDeleteUnauthorizedResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "delete_unauthorized_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadIndexBadGatewayResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "index_bad_gateway_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadIndexBadRequestResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "index_bad_request_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadIndexForbiddenResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "index_forbidden_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadIndexInternalErrorResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "index_internal_error_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadIndexNotFoundResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "index_not_found_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadIndexTooManyRequestsResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "index_too_many_requests_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadIndexUnauthorizedResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "index_unauthorized_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadResponse": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; view=default",
+      "type": "object",
+      "properties": {
+        "billConnectId": {
+          "type": "string",
+          "description": "The bill connect that the bill upload belongs to",
+          "example": "cbi-integration1-1234567"
+        },
+        "billingPeriod": {
+          "type": "string",
+          "description": "The billing period of the bill upload",
+          "example": "2020-03",
+          "pattern": "^([0-9]{4})-([0-9]{2})$"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The time when the bill upload was created.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        },
+        "files": {
+          "$ref": "#/definitions/FileResponseCollection"
+        },
+        "id": {
+          "type": "string",
+          "description": "The ID of the bill upload",
+          "example": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the bill upload",
+          "example": "complete",
+          "enum": [
+            "complete",
+            "in-progress",
+            "aborted"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "The time when the bill upload last updated.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        }
+      },
+      "description": "The bill upload resource groups a set of related billing files for a particular \n                billing period (single month) and adds a transaction semantic for uploading multiple related files,\n                allowing the client to signal when it has finished uploading all billing data for a single billing period (default view)",
+      "example": {
+        "billConnectId": "cbi-integration1-1234567",
+        "billingPeriod": "2020-03",
+        "createdAt": "2018-06-12T20:31:02Z",
+        "files": [
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          }
+        ],
+        "id": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+        "status": "complete",
+        "updatedAt": "2018-06-12T20:31:02Z"
+      },
+      "required": [
+        "id",
+        "billConnectId",
+        "billingPeriod",
+        "status",
+        "files",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "BillUploadShowBadGatewayResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "show_bad_gateway_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadShowBadRequestResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "show_bad_request_response_body result type (default view)",
+      "example": {
+        "fault": false,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadShowForbiddenResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "show_forbidden_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadShowInternalErrorResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "show_internal_error_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": false,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadShowNotFoundResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": true
+        }
+      },
+      "description": "show_not_found_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": false
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadShowResponseBody": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; view=default",
+      "type": "object",
+      "properties": {
+        "billConnectId": {
+          "type": "string",
+          "description": "The bill connect that the bill upload belongs to",
+          "example": "cbi-integration1-1234567"
+        },
+        "billingPeriod": {
+          "type": "string",
+          "description": "The billing period of the bill upload",
+          "example": "2020-03",
+          "pattern": "^([0-9]{4})-([0-9]{2})$"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The time when the bill upload was created.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        },
+        "files": {
+          "$ref": "#/definitions/FileResponseBodyCollection"
+        },
+        "id": {
+          "type": "string",
+          "description": "The ID of the bill upload",
+          "example": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the bill upload",
+          "example": "complete",
+          "enum": [
+            "complete",
+            "in-progress",
+            "aborted"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "The time when the bill upload last updated.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        }
+      },
+      "description": "ShowResponseBody result type (default view)",
+      "example": {
+        "billConnectId": "cbi-integration1-1234567",
+        "billingPeriod": "2020-03",
+        "createdAt": "2018-06-12T20:31:02Z",
+        "files": [
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          },
+          {
+            "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+            "createdAt": "2018-06-12T20:31:02Z",
+            "id": "file1.csv",
+            "length": 12345,
+            "md5": "656fc88239fed34577fca4084cf2ad11",
+            "status": "uploaded",
+            "updatedAt": "2018-06-12T20:31:02Z"
+          }
+        ],
+        "id": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+        "status": "complete",
+        "updatedAt": "2018-06-12T20:31:02Z"
+      },
+      "required": [
+        "id",
+        "billConnectId",
+        "billingPeriod",
+        "status",
+        "files",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "BillUploadShowTooManyRequestsResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": true
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "show_too_many_requests_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "BillUploadShowUnauthorizedResponseBody": {
+      "title": "Mediatype identifier: application/vnd.goa.error; view=default",
+      "type": "object",
+      "properties": {
+        "fault": {
+          "type": "boolean",
+          "description": "Is the error a server-side fault?",
+          "example": false
+        },
+        "id": {
+          "type": "string",
+          "description": "ID is a unique identifier for this particular occurrence of the problem.",
+          "example": "123abc"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message is a human-readable explanation specific to this occurrence of the problem.",
+          "example": "parameter 'p' must be an integer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name is the name of this class of errors.",
+          "example": "bad_request"
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Is the error temporary?",
+          "example": false
+        },
+        "timeout": {
+          "type": "boolean",
+          "description": "Is the error a timeout?",
+          "example": false
+        }
+      },
+      "description": "show_unauthorized_response_body result type (default view)",
+      "example": {
+        "fault": true,
+        "id": "123abc",
+        "message": "parameter 'p' must be an integer",
+        "name": "bad_request",
+        "temporary": true,
+        "timeout": true
+      },
+      "required": [
+        "name",
+        "id",
+        "message",
+        "temporary",
+        "timeout",
+        "fault"
+      ]
+    },
+    "FileResponse": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.file; view=default",
+      "type": "object",
+      "properties": {
+        "billUploadId": {
+          "type": "string",
+          "description": "The ID of the bill upload that the file belongs to",
+          "example": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The time when the file was created.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string",
+          "description": "The ID of the file",
+          "example": "file1.csv"
+        },
+        "length": {
+          "type": "integer",
+          "description": "The length of an uploaded file in bytes",
+          "example": 12345,
+          "format": "int64"
+        },
+        "md5": {
+          "type": "string",
+          "description": "The file signature generated using MD5 message-digest",
+          "example": "656fc88239fed34577fca4084cf2ad11"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the file upload",
+          "example": "uploaded",
+          "enum": [
+            "uploaded",
+            "uploading",
+            "failed"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "The time when the file last updated.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        }
+      },
+      "description": "The file resource is a sub resource of bill uploads and represents a single billing file that has been uploaded for a bill upload.\n                 The resource tracks the success of each upload as well as the file signature of the uploaded file,\n                allowing the client to validate that an upload was successful. (default view)",
+      "example": {
+        "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+        "createdAt": "2018-06-12T20:31:02Z",
+        "id": "file1.csv",
+        "length": 12345,
+        "md5": "656fc88239fed34577fca4084cf2ad11",
+        "status": "uploaded",
+        "updatedAt": "2018-06-12T20:31:02Z"
+      },
+      "required": [
+        "id",
+        "status",
+        "createdAt",
+        "updatedAt",
+        "md5",
+        "length",
+        "billUploadId"
+      ]
+    },
+    "FileResponseBody": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.file; view=default",
+      "type": "object",
+      "properties": {
+        "billUploadId": {
+          "type": "string",
+          "description": "The ID of the bill upload that the file belongs to",
+          "example": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The time when the file was created.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string",
+          "description": "The ID of the file",
+          "example": "file1.csv"
+        },
+        "length": {
+          "type": "integer",
+          "description": "The length of an uploaded file in bytes",
+          "example": 12345,
+          "format": "int64"
+        },
+        "md5": {
+          "type": "string",
+          "description": "The file signature generated using MD5 message-digest",
+          "example": "656fc88239fed34577fca4084cf2ad11"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the file upload",
+          "example": "uploaded",
+          "enum": [
+            "uploaded",
+            "uploading",
+            "failed"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "The time when the file last updated.",
+          "example": "2018-06-12T20:31:02Z",
+          "format": "date-time"
+        }
+      },
+      "description": "The file resource is a sub resource of bill uploads and represents a single billing file that has been uploaded for a bill upload.\n                 The resource tracks the success of each upload as well as the file signature of the uploaded file,\n                allowing the client to validate that an upload was successful. (default view)",
+      "example": {
+        "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+        "createdAt": "2018-06-12T20:31:02Z",
+        "id": "file1.csv",
+        "length": 12345,
+        "md5": "656fc88239fed34577fca4084cf2ad11",
+        "status": "uploaded",
+        "updatedAt": "2018-06-12T20:31:02Z"
+      },
+      "required": [
+        "id",
+        "status",
+        "createdAt",
+        "updatedAt",
+        "md5",
+        "length",
+        "billUploadId"
+      ]
+    },
+    "FileResponseBodyCollection": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.file; type=collection; view=default",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FileResponseBody"
+      },
+      "description": "FileCollectionResponseBody is the result type for an array of FileResponseBody (default view)",
+      "example": [
+        {
+          "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "id": "file1.csv",
+          "length": 12345,
+          "md5": "656fc88239fed34577fca4084cf2ad11",
+          "status": "uploaded",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        },
+        {
+          "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "id": "file1.csv",
+          "length": 12345,
+          "md5": "656fc88239fed34577fca4084cf2ad11",
+          "status": "uploaded",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        },
+        {
+          "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "id": "file1.csv",
+          "length": 12345,
+          "md5": "656fc88239fed34577fca4084cf2ad11",
+          "status": "uploaded",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        },
+        {
+          "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "id": "file1.csv",
+          "length": 12345,
+          "md5": "656fc88239fed34577fca4084cf2ad11",
+          "status": "uploaded",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        }
+      ]
+    },
+    "FileResponseCollection": {
+      "title": "Mediatype identifier: application/vnd.flexera.optima-bill.file; type=collection; view=default",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FileResponse"
+      },
+      "description": "FileCollectionResponse is the result type for an array of FileResponse (default view)",
+      "example": [
+        {
+          "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "id": "file1.csv",
+          "length": 12345,
+          "md5": "656fc88239fed34577fca4084cf2ad11",
+          "status": "uploaded",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        },
+        {
+          "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "id": "file1.csv",
+          "length": 12345,
+          "md5": "656fc88239fed34577fca4084cf2ad11",
+          "status": "uploaded",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        },
+        {
+          "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "id": "file1.csv",
+          "length": 12345,
+          "md5": "656fc88239fed34577fca4084cf2ad11",
+          "status": "uploaded",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        },
+        {
+          "billUploadId": "0ae0f4c1-7c3a-4172-bcce-e96b9927fa07",
+          "createdAt": "2018-06-12T20:31:02Z",
+          "id": "file1.csv",
+          "length": 12345,
+          "md5": "656fc88239fed34577fca4084cf2ad11",
+          "status": "uploaded",
+          "updatedAt": "2018-06-12T20:31:02Z"
+        }
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "JWTAuth_header_Authorization": {
+      "type": "apiKey",
+      "description": "\n**Security Scopes**:\n  * `optima:bill_upload:create+optima:bill_connect:create+common:org:own`: Allows creation of bill uploads, files and operations\n  * `optima:bill_upload:delete+optima:bill_connect:delete+common:org:own`: Allows deletion of bill uploads\n  * `optima:bill_upload:index+optima:bill_connect:index+common:org:own`: Allow indexing of bill uploads\n  * `optima:bill_upload:show+optima:bill_connect:show+common:org:own`: Allow viewing of individual bill uploads\n  * `cm:legacy:enterprise_manager+common:org:own`: Partner access",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

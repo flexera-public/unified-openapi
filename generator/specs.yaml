@@ -237,6 +237,41 @@ specs:
             enum: ["", "-eu", "-apac"]
             description: "'' = NAM, -eu = EU, -apac = APAC"
 
+  - id: rightscale-bill-upload
+    name: "RightScale Optima Bill Upload API"
+    vendor: rightscale
+    service: bill_upload
+    version: ""
+    include_in_merge: true
+    source:
+      type: url
+      url: "https://reference.rightscale.com/optima-bill-upload/swagger.json"
+    format: swagger2-json
+    output:
+      path: "sources/rightscale/bill_upload"
+      filename: "openapi.yaml"
+    processing:
+      - type: download
+        output: "swagger.json"
+      - type: convert
+        from: "swagger2"
+        to: "openapi3"
+        input: "swagger.json"
+        output: "openapi.yaml"
+        format: yaml
+    # Confirmed via infra-optima's optima-api-virtualservice Istio config
+    # (production-{us,eu,au}/optima-ba/ingresses): the /optima/orgs/{orgId}/billUploads
+    # route is served on api.optima(-eu|-apac).flexeraeng.com, not the default
+    # Flexera One api.flexera.{zone} gateway host used by other merged specs.
+    merge_servers:
+      - url: "https://api.optima{zone}.flexeraeng.com"
+        description: "Flexera Optima Bill Upload API"
+        variables:
+          zone:
+            default: ""
+            enum: ["", "-eu", "-apac"]
+            description: "'' = NAM, -eu = EU, -apac = APAC"
+
   - id: rightscale-bill-analysis
     name: "RightScale Bill Analysis API"
     vendor: rightscale
