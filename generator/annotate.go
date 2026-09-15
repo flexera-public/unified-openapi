@@ -49,7 +49,7 @@ func annotateForCLI(doc map[string]interface{}) {
 			if resource != "" {
 				op["x-flexera-resource"] = resource
 			}
-			op["x-flexera-action"] = actionFromOperation(method, pathKey)
+			op["x-flexera-action"] = actionFromOperation(method, pathKey, op)
 
 			ref, paginated := paginatedItemRef(op, schemas)
 			if paginated {
@@ -152,8 +152,11 @@ func singularize(s string) string {
 }
 
 // actionFromOperation derives a coarse-grained CLI action verb from the
-// HTTP method and path shape.
-func actionFromOperation(method, path string) string {
+// HTTP method and path shape. op (may be nil) supplies operation metadata
+// (currently just operationId) used to disambiguate POST .../{id} paths
+// between genuine RPC-style actions and create-with-client-supplied-ID
+// operations.
+func actionFromOperation(method, path string, op map[string]interface{}) string {
 	method = strings.ToLower(method)
 	segs := strings.Split(strings.Trim(path, "/"), "/")
 	endsWithID := len(segs) > 0 && pathVarRE.MatchString(segs[len(segs)-1])
@@ -165,8 +168,15 @@ func actionFromOperation(method, path string) string {
 		}
 		return "list"
 	case "post":
-		// POST on a resource itself is a custom action.
+		// POST on a resource itself is usually a custom action, but a
+		// small number of endpoints let the caller supply the ID of
+		// the resource being created (upsert-by-id). The operationId
+		// naming convention already distinguishes these: only trust
+		// it when it explicitly ends in "_create".
 		if endsWithID {
+			if isCreateOperationID(op) {
+				return "create"
+			}
 			return "action"
 		}
 		// POST on /parent/{id}/sub-action — last seg literal,
@@ -190,6 +200,22 @@ func actionFromOperation(method, path string) string {
 	default:
 		return method
 	}
+}
+
+// isCreateOperationID reports whether op's operationId's trailing "_"
+// separated token is exactly "create" (mirrors the verb convention used
+// by flexera-cli's gencli). It only matches an exact trailing token, not
+// a substring, so operationIds like "..._create_summary" don't match.
+func isCreateOperationID(op map[string]interface{}) bool {
+	if op == nil {
+		return false
+	}
+	opID, _ := op["operationId"].(string)
+	if opID == "" {
+		return false
+	}
+	parts := strings.Split(opID, "_")
+	return parts[len(parts)-1] == "create"
 }
 
 // paginatedItemRef inspects an operation's 200/201 response schema for
