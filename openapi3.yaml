@@ -5007,6 +5007,2631 @@ components:
             required:
                 - commitment_reallocation_settings
             type: object
+        BillUpload_BillUploadBillUploadResponseCollection:
+            description: IndexResponseBody is the result type for an array of BillUploadResponse (default view)
+            example:
+                - billConnectId: cbi-integration1-1234567
+                  billingPeriod: 2020-03
+                  createdAt: "2018-06-12T20:31:02Z"
+                  files:
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                  id: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  status: complete
+                  updatedAt: "2018-06-12T20:31:02Z"
+                - billConnectId: cbi-integration1-1234567
+                  billingPeriod: 2020-03
+                  createdAt: "2018-06-12T20:31:02Z"
+                  files:
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                  id: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  status: complete
+                  updatedAt: "2018-06-12T20:31:02Z"
+            items:
+                $ref: '#/components/schemas/BillUpload_BillUploadResponse'
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; type=collection; view=default'
+            type: array
+        BillUpload_BillUploadCreateBadGatewayResponseBody:
+            description: create_bad_gateway_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateBadRequestResponseBody:
+            description: create_bad_request_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateConflictResponseBody:
+            description: create_conflict_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileBadGatewayResponseBody:
+            description: createFile_bad_gateway_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileBadRequestResponseBody:
+            description: createFile_bad_request_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileConflictResponseBody:
+            description: createFile_conflict_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileForbiddenResponseBody:
+            description: createFile_forbidden_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileInternalErrorResponseBody:
+            description: createFile_internal_error_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileNotFoundResponseBody:
+            description: createFile_not_found_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileRequestEntityTooLargeResponseBody:
+            description: createFile_request_entity_too_large_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileResponseBody:
+            description: CreateFileResponseBody result type (default view)
+            example:
+                billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                createdAt: "2018-06-12T20:31:02Z"
+                id: file1.csv
+                length: 12345
+                md5: 656fc88239fed34577fca4084cf2ad11
+                status: uploaded
+                updatedAt: "2018-06-12T20:31:02Z"
+            properties:
+                billUploadId:
+                    description: The ID of the bill upload that the file belongs to
+                    example: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                    format: uuid
+                    type: string
+                createdAt:
+                    description: The time when the file was created.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+                id:
+                    description: The ID of the file
+                    example: file1.csv
+                    type: string
+                length:
+                    description: The length of an uploaded file in bytes
+                    example: 12345
+                    format: int64
+                    type: integer
+                md5:
+                    description: The file signature generated using MD5 message-digest
+                    example: 656fc88239fed34577fca4084cf2ad11
+                    type: string
+                status:
+                    description: The current status of the file upload
+                    enum:
+                        - uploaded
+                        - uploading
+                        - failed
+                    example: uploaded
+                    type: string
+                updatedAt:
+                    description: The time when the file last updated.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+            required:
+                - id
+                - status
+                - createdAt
+                - updatedAt
+                - md5
+                - length
+                - billUploadId
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.file; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileTooManyRequestsResponseBody:
+            description: createFile_too_many_requests_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateFileUnauthorizedResponseBody:
+            description: createFile_unauthorized_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateForbiddenResponseBody:
+            description: create_forbidden_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateInternalErrorResponseBody:
+            description: create_internal_error_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateNotFoundResponseBody:
+            description: create_not_found_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateOperationBadGatewayResponseBody:
+            description: createOperation_bad_gateway_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateOperationBadRequestResponseBody:
+            description: createOperation_bad_request_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateOperationForbiddenResponseBody:
+            description: createOperation_forbidden_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateOperationInternalErrorResponseBody:
+            description: createOperation_internal_error_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateOperationNotFoundResponseBody:
+            description: createOperation_not_found_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateOperationRequestBody:
+            example:
+                operation: abort
+            properties:
+                operation:
+                    description: The type of operation to perform on this bill upload, ie commit or abort
+                    enum:
+                        - abort
+                        - commit
+                    example: commit
+                    type: string
+            required:
+                - operation
+            title: BillUploadCreateOperationRequestBody
+            type: object
+        BillUpload_BillUploadCreateOperationResponseBody:
+            description: CreateOperationResponseBody result type (default view)
+            example:
+                billConnectId: cbi-integration1-1234567
+                billingPeriod: 2020-03
+                createdAt: "2018-06-12T20:31:02Z"
+                files:
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                id: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                status: complete
+                updatedAt: "2018-06-12T20:31:02Z"
+            properties:
+                billConnectId:
+                    description: The bill connect that the bill upload belongs to
+                    example: cbi-integration1-1234567
+                    type: string
+                billingPeriod:
+                    description: The billing period of the bill upload
+                    example: 2020-03
+                    pattern: ^([0-9]{4})-([0-9]{2})$
+                    type: string
+                createdAt:
+                    description: The time when the bill upload was created.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+                files:
+                    $ref: '#/components/schemas/BillUpload_FileResponseBodyCollection'
+                id:
+                    description: The ID of the bill upload
+                    example: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                    format: uuid
+                    type: string
+                status:
+                    description: The current status of the bill upload
+                    enum:
+                        - complete
+                        - in-progress
+                        - aborted
+                    example: complete
+                    type: string
+                updatedAt:
+                    description: The time when the bill upload last updated.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+            required:
+                - id
+                - billConnectId
+                - billingPeriod
+                - status
+                - files
+                - createdAt
+                - updatedAt
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; view=default'
+            type: object
+        BillUpload_BillUploadCreateOperationTooManyRequestsResponseBody:
+            description: createOperation_too_many_requests_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateOperationUnauthorizedResponseBody:
+            description: createOperation_unauthorized_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateRequestBody:
+            example:
+                billConnectId: cbi-integration1-1234567
+                billingPeriod: 2020-03
+            properties:
+                billConnectId:
+                    description: The bill connect to use for this bill upload
+                    example: cbi-integration1-1234567
+                    type: string
+                billingPeriod:
+                    description: The billing period covered by this bill upload, formatted as yyyy-mm
+                    example: 2020-03
+                    pattern: ^([0-9]{4})-([0-9]{2})$
+                    type: string
+            required:
+                - billConnectId
+                - billingPeriod
+            title: BillUploadCreateRequestBody
+            type: object
+        BillUpload_BillUploadCreateResponseBody:
+            description: CreateResponseBody result type (default view)
+            example:
+                billConnectId: cbi-integration1-1234567
+                billingPeriod: 2020-03
+                createdAt: "2018-06-12T20:31:02Z"
+                files:
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                id: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                status: complete
+                updatedAt: "2018-06-12T20:31:02Z"
+            properties:
+                billConnectId:
+                    description: The bill connect that the bill upload belongs to
+                    example: cbi-integration1-1234567
+                    type: string
+                billingPeriod:
+                    description: The billing period of the bill upload
+                    example: 2020-03
+                    pattern: ^([0-9]{4})-([0-9]{2})$
+                    type: string
+                createdAt:
+                    description: The time when the bill upload was created.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+                files:
+                    $ref: '#/components/schemas/BillUpload_FileResponseBodyCollection'
+                id:
+                    description: The ID of the bill upload
+                    example: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                    format: uuid
+                    type: string
+                status:
+                    description: The current status of the bill upload
+                    enum:
+                        - complete
+                        - in-progress
+                        - aborted
+                    example: complete
+                    type: string
+                updatedAt:
+                    description: The time when the bill upload last updated.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+            required:
+                - id
+                - billConnectId
+                - billingPeriod
+                - status
+                - files
+                - createdAt
+                - updatedAt
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; view=default'
+            type: object
+        BillUpload_BillUploadCreateTooManyRequestsResponseBody:
+            description: create_too_many_requests_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadCreateUnauthorizedResponseBody:
+            description: create_unauthorized_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadDeleteBadGatewayResponseBody:
+            description: delete_bad_gateway_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadDeleteBadRequestResponseBody:
+            description: delete_bad_request_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadDeleteForbiddenResponseBody:
+            description: delete_forbidden_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadDeleteInternalErrorResponseBody:
+            description: delete_internal_error_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadDeleteNotFoundResponseBody:
+            description: delete_not_found_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadDeleteTooManyRequestsResponseBody:
+            description: delete_too_many_requests_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadDeleteUnauthorizedResponseBody:
+            description: delete_unauthorized_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadIndexBadGatewayResponseBody:
+            description: index_bad_gateway_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadIndexBadRequestResponseBody:
+            description: index_bad_request_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadIndexForbiddenResponseBody:
+            description: index_forbidden_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadIndexInternalErrorResponseBody:
+            description: index_internal_error_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadIndexNotFoundResponseBody:
+            description: index_not_found_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadIndexTooManyRequestsResponseBody:
+            description: index_too_many_requests_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadIndexUnauthorizedResponseBody:
+            description: index_unauthorized_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadResponse:
+            description: "The bill upload resource groups a set of related billing files for a particular \n                billing period (single month) and adds a transaction semantic for uploading multiple related files,\n                allowing the client to signal when it has finished uploading all billing data for a single billing period (default view)"
+            example:
+                billConnectId: cbi-integration1-1234567
+                billingPeriod: 2020-03
+                createdAt: "2018-06-12T20:31:02Z"
+                files:
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                id: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                status: complete
+                updatedAt: "2018-06-12T20:31:02Z"
+            properties:
+                billConnectId:
+                    description: The bill connect that the bill upload belongs to
+                    example: cbi-integration1-1234567
+                    type: string
+                billingPeriod:
+                    description: The billing period of the bill upload
+                    example: 2020-03
+                    pattern: ^([0-9]{4})-([0-9]{2})$
+                    type: string
+                createdAt:
+                    description: The time when the bill upload was created.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+                files:
+                    $ref: '#/components/schemas/BillUpload_FileResponseCollection'
+                id:
+                    description: The ID of the bill upload
+                    example: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                    format: uuid
+                    type: string
+                status:
+                    description: The current status of the bill upload
+                    enum:
+                        - complete
+                        - in-progress
+                        - aborted
+                    example: complete
+                    type: string
+                updatedAt:
+                    description: The time when the bill upload last updated.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+            required:
+                - id
+                - billConnectId
+                - billingPeriod
+                - status
+                - files
+                - createdAt
+                - updatedAt
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; view=default'
+            type: object
+        BillUpload_BillUploadShowBadGatewayResponseBody:
+            description: show_bad_gateway_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadShowBadRequestResponseBody:
+            description: show_bad_request_response_body result type (default view)
+            example:
+                fault: false
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadShowForbiddenResponseBody:
+            description: show_forbidden_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadShowInternalErrorResponseBody:
+            description: show_internal_error_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: false
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: true
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadShowNotFoundResponseBody:
+            description: show_not_found_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: false
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: true
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadShowResponseBody:
+            description: ShowResponseBody result type (default view)
+            example:
+                billConnectId: cbi-integration1-1234567
+                billingPeriod: 2020-03
+                createdAt: "2018-06-12T20:31:02Z"
+                files:
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                    - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                      createdAt: "2018-06-12T20:31:02Z"
+                      id: file1.csv
+                      length: 12345
+                      md5: 656fc88239fed34577fca4084cf2ad11
+                      status: uploaded
+                      updatedAt: "2018-06-12T20:31:02Z"
+                id: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                status: complete
+                updatedAt: "2018-06-12T20:31:02Z"
+            properties:
+                billConnectId:
+                    description: The bill connect that the bill upload belongs to
+                    example: cbi-integration1-1234567
+                    type: string
+                billingPeriod:
+                    description: The billing period of the bill upload
+                    example: 2020-03
+                    pattern: ^([0-9]{4})-([0-9]{2})$
+                    type: string
+                createdAt:
+                    description: The time when the bill upload was created.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+                files:
+                    $ref: '#/components/schemas/BillUpload_FileResponseBodyCollection'
+                id:
+                    description: The ID of the bill upload
+                    example: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                    format: uuid
+                    type: string
+                status:
+                    description: The current status of the bill upload
+                    enum:
+                        - complete
+                        - in-progress
+                        - aborted
+                    example: complete
+                    type: string
+                updatedAt:
+                    description: The time when the bill upload last updated.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+            required:
+                - id
+                - billConnectId
+                - billingPeriod
+                - status
+                - files
+                - createdAt
+                - updatedAt
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.bill_upload; view=default'
+            type: object
+        BillUpload_BillUploadShowTooManyRequestsResponseBody:
+            description: show_too_many_requests_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: true
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_BillUploadShowUnauthorizedResponseBody:
+            description: show_unauthorized_response_body result type (default view)
+            example:
+                fault: true
+                id: 123abc
+                message: parameter 'p' must be an integer
+                name: bad_request
+                temporary: true
+                timeout: true
+            properties:
+                fault:
+                    description: Is the error a server-side fault?
+                    example: false
+                    type: boolean
+                id:
+                    description: ID is a unique identifier for this particular occurrence of the problem.
+                    example: 123abc
+                    type: string
+                message:
+                    description: Message is a human-readable explanation specific to this occurrence of the problem.
+                    example: parameter 'p' must be an integer
+                    type: string
+                name:
+                    description: Name is the name of this class of errors.
+                    example: bad_request
+                    type: string
+                temporary:
+                    description: Is the error temporary?
+                    example: false
+                    type: boolean
+                timeout:
+                    description: Is the error a timeout?
+                    example: false
+                    type: boolean
+            required:
+                - name
+                - id
+                - message
+                - temporary
+                - timeout
+                - fault
+            title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+            type: object
+        BillUpload_FileResponse:
+            description: |-
+                The file resource is a sub resource of bill uploads and represents a single billing file that has been uploaded for a bill upload.
+                                 The resource tracks the success of each upload as well as the file signature of the uploaded file,
+                                allowing the client to validate that an upload was successful. (default view)
+            example:
+                billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                createdAt: "2018-06-12T20:31:02Z"
+                id: file1.csv
+                length: 12345
+                md5: 656fc88239fed34577fca4084cf2ad11
+                status: uploaded
+                updatedAt: "2018-06-12T20:31:02Z"
+            properties:
+                billUploadId:
+                    description: The ID of the bill upload that the file belongs to
+                    example: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                    format: uuid
+                    type: string
+                createdAt:
+                    description: The time when the file was created.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+                id:
+                    description: The ID of the file
+                    example: file1.csv
+                    type: string
+                length:
+                    description: The length of an uploaded file in bytes
+                    example: 12345
+                    format: int64
+                    type: integer
+                md5:
+                    description: The file signature generated using MD5 message-digest
+                    example: 656fc88239fed34577fca4084cf2ad11
+                    type: string
+                status:
+                    description: The current status of the file upload
+                    enum:
+                        - uploaded
+                        - uploading
+                        - failed
+                    example: uploaded
+                    type: string
+                updatedAt:
+                    description: The time when the file last updated.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+            required:
+                - id
+                - status
+                - createdAt
+                - updatedAt
+                - md5
+                - length
+                - billUploadId
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.file; view=default'
+            type: object
+        BillUpload_FileResponseBody:
+            description: |-
+                The file resource is a sub resource of bill uploads and represents a single billing file that has been uploaded for a bill upload.
+                                 The resource tracks the success of each upload as well as the file signature of the uploaded file,
+                                allowing the client to validate that an upload was successful. (default view)
+            example:
+                billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                createdAt: "2018-06-12T20:31:02Z"
+                id: file1.csv
+                length: 12345
+                md5: 656fc88239fed34577fca4084cf2ad11
+                status: uploaded
+                updatedAt: "2018-06-12T20:31:02Z"
+            properties:
+                billUploadId:
+                    description: The ID of the bill upload that the file belongs to
+                    example: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                    format: uuid
+                    type: string
+                createdAt:
+                    description: The time when the file was created.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+                id:
+                    description: The ID of the file
+                    example: file1.csv
+                    type: string
+                length:
+                    description: The length of an uploaded file in bytes
+                    example: 12345
+                    format: int64
+                    type: integer
+                md5:
+                    description: The file signature generated using MD5 message-digest
+                    example: 656fc88239fed34577fca4084cf2ad11
+                    type: string
+                status:
+                    description: The current status of the file upload
+                    enum:
+                        - uploaded
+                        - uploading
+                        - failed
+                    example: uploaded
+                    type: string
+                updatedAt:
+                    description: The time when the file last updated.
+                    example: "2018-06-12T20:31:02Z"
+                    format: date-time
+                    type: string
+            required:
+                - id
+                - status
+                - createdAt
+                - updatedAt
+                - md5
+                - length
+                - billUploadId
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.file; view=default'
+            type: object
+        BillUpload_FileResponseBodyCollection:
+            description: FileCollectionResponseBody is the result type for an array of FileResponseBody (default view)
+            example:
+                - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  createdAt: "2018-06-12T20:31:02Z"
+                  id: file1.csv
+                  length: 12345
+                  md5: 656fc88239fed34577fca4084cf2ad11
+                  status: uploaded
+                  updatedAt: "2018-06-12T20:31:02Z"
+                - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  createdAt: "2018-06-12T20:31:02Z"
+                  id: file1.csv
+                  length: 12345
+                  md5: 656fc88239fed34577fca4084cf2ad11
+                  status: uploaded
+                  updatedAt: "2018-06-12T20:31:02Z"
+                - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  createdAt: "2018-06-12T20:31:02Z"
+                  id: file1.csv
+                  length: 12345
+                  md5: 656fc88239fed34577fca4084cf2ad11
+                  status: uploaded
+                  updatedAt: "2018-06-12T20:31:02Z"
+                - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  createdAt: "2018-06-12T20:31:02Z"
+                  id: file1.csv
+                  length: 12345
+                  md5: 656fc88239fed34577fca4084cf2ad11
+                  status: uploaded
+                  updatedAt: "2018-06-12T20:31:02Z"
+            items:
+                $ref: '#/components/schemas/BillUpload_FileResponseBody'
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.file; type=collection; view=default'
+            type: array
+        BillUpload_FileResponseCollection:
+            description: FileCollectionResponse is the result type for an array of FileResponse (default view)
+            example:
+                - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  createdAt: "2018-06-12T20:31:02Z"
+                  id: file1.csv
+                  length: 12345
+                  md5: 656fc88239fed34577fca4084cf2ad11
+                  status: uploaded
+                  updatedAt: "2018-06-12T20:31:02Z"
+                - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  createdAt: "2018-06-12T20:31:02Z"
+                  id: file1.csv
+                  length: 12345
+                  md5: 656fc88239fed34577fca4084cf2ad11
+                  status: uploaded
+                  updatedAt: "2018-06-12T20:31:02Z"
+                - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  createdAt: "2018-06-12T20:31:02Z"
+                  id: file1.csv
+                  length: 12345
+                  md5: 656fc88239fed34577fca4084cf2ad11
+                  status: uploaded
+                  updatedAt: "2018-06-12T20:31:02Z"
+                - billUploadId: 0ae0f4c1-7c3a-4172-bcce-e96b9927fa07
+                  createdAt: "2018-06-12T20:31:02Z"
+                  id: file1.csv
+                  length: 12345
+                  md5: 656fc88239fed34577fca4084cf2ad11
+                  status: uploaded
+                  updatedAt: "2018-06-12T20:31:02Z"
+            items:
+                $ref: '#/components/schemas/BillUpload_FileResponse'
+            title: 'Mediatype identifier: application/vnd.flexera.optima-bill.file; type=collection; view=default'
+            type: array
         BillingCenterService_AccessRuleTinyResponse:
             example:
                 created_at: 2018-01-23T00:13:18
@@ -124765,6 +127390,454 @@ paths:
                 - Authentication
             x-flexera-action: create
             x-flexera-resource: token
+    /optima/orgs/{orgId}/billUploads:
+        get:
+            description: |-
+                Lists existing bill uploads. You can filter by bill upload and/or billing period, too..
+
+                **Required security scopes for JWTAuth**:
+                  * `optima:bill_upload:index+optima:bill_connect:index+common:org:own`
+            operationId: BillUpload_BillUpload_index
+            parameters:
+                - description: Optional filter by billing period
+                  in: query
+                  name: billingPeriod
+                  required: false
+                  schema:
+                    pattern: ^([0-9]{4})-([0-9]{2})$
+                    type: string
+                - description: Optional filter by bill connect ID
+                  in: query
+                  name: billConnectId
+                  required: false
+                  schema:
+                    type: string
+                - description: The relevant organization for the bill upload(s)
+                  in: path
+                  name: orgId
+                  required: true
+                  schema:
+                    type: integer
+            responses:
+                "200":
+                    description: OK response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadBillUploadResponseCollection'
+                "400":
+                    description: Bad Request response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadIndexBadRequestResponseBody'
+                "401":
+                    description: Unauthorized response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadIndexUnauthorizedResponseBody'
+                "403":
+                    description: Forbidden response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadIndexForbiddenResponseBody'
+                "404":
+                    description: Not Found response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadIndexNotFoundResponseBody'
+                "429":
+                    description: Too Many Requests response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadIndexTooManyRequestsResponseBody'
+                "500":
+                    description: Internal Server Error response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadIndexInternalErrorResponseBody'
+                "502":
+                    description: Bad Gateway response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadIndexBadGatewayResponseBody'
+            schemes:
+                - http
+            security:
+                - FlexeraBearerAuth: []
+            tags:
+                - BillUpload
+            x-flexera-action: list
+            x-flexera-resource: billUpload
+        post:
+            description: |-
+                Creates a new bill upload, for a given [bill connect](https://reference.rightscale.com/optima-bill/#/CBIBillConnects) and billing period (month, yyyy-mm). Committing and processing a bill upload replaces that month of data for the bill connect/org.
+
+                **Required security scopes for JWTAuth**:
+                  * `optima:bill_upload:create+optima:bill_connect:create+common:org:own`
+            operationId: BillUpload_BillUpload_create
+            parameters:
+                - description: The relevant organization for this bill upload
+                  in: path
+                  name: orgId
+                  required: true
+                  schema:
+                    type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BillUpload_BillUploadCreateRequestBody'
+                            required:
+                                - billConnectId
+                                - billingPeriod
+                required: true
+            responses:
+                "201":
+                    description: Created response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateResponseBody'
+                "400":
+                    description: Bad Request response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateBadRequestResponseBody'
+                "401":
+                    description: Unauthorized response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateUnauthorizedResponseBody'
+                "403":
+                    description: Forbidden response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateForbiddenResponseBody'
+                "404":
+                    description: Not Found response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateNotFoundResponseBody'
+                "409":
+                    description: Conflict response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateConflictResponseBody'
+                "429":
+                    description: Too Many Requests response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateTooManyRequestsResponseBody'
+                "500":
+                    description: Internal Server Error response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateInternalErrorResponseBody'
+                "502":
+                    description: Bad Gateway response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateBadGatewayResponseBody'
+            schemes:
+                - http
+            security:
+                - FlexeraBearerAuth: []
+            tags:
+                - BillUpload
+            x-flexera-action: create
+            x-flexera-resource: billUpload
+        servers:
+            - description: Flexera Optima Bill Upload API
+              url: https://api.optima{zone}.flexeraeng.com
+              variables:
+                zone:
+                    default: ""
+                    description: ''''' = NAM, -eu = EU, -apac = APAC'
+                    enum:
+                        - ""
+                        - -eu
+                        - -apac
+    /optima/orgs/{orgId}/billUploads/{billUploadId}:
+        delete:
+            description: |-
+                Deletes a bill upload, provided  it is in the aborted state.
+
+                **Required security scopes for JWTAuth**:
+                  * `optima:bill_upload:delete+optima:bill_connect:delete+common:org:own`
+            operationId: BillUpload_BillUpload_delete
+            parameters:
+                - description: The relevant organization for the bill upload
+                  in: path
+                  name: orgId
+                  required: true
+                  schema:
+                    type: integer
+                - description: The identifier of the bill upload
+                  in: path
+                  name: billUploadId
+                  required: true
+                  schema:
+                    format: uuid
+                    type: string
+            responses:
+                "204":
+                    description: No Content response.
+                "400":
+                    description: Bad Request response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadDeleteBadRequestResponseBody'
+                "401":
+                    description: Unauthorized response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadDeleteUnauthorizedResponseBody'
+                "403":
+                    description: Forbidden response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadDeleteForbiddenResponseBody'
+                "404":
+                    description: Not Found response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadDeleteNotFoundResponseBody'
+                "429":
+                    description: Too Many Requests response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadDeleteTooManyRequestsResponseBody'
+                "500":
+                    description: Internal Server Error response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadDeleteInternalErrorResponseBody'
+                "502":
+                    description: Bad Gateway response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadDeleteBadGatewayResponseBody'
+            schemes:
+                - http
+            security:
+                - FlexeraBearerAuth: []
+            tags:
+                - BillUpload
+            x-flexera-action: delete
+            x-flexera-resource: billUpload
+        get:
+            description: |-
+                Shows the details of a bill upload, including the list of successfully uploaded files so far.
+
+                **Required security scopes for JWTAuth**:
+                  * `optima:bill_upload:show+optima:bill_connect:show+common:org:own`
+            operationId: BillUpload_BillUpload_show
+            parameters:
+                - description: The relevant organization for the bill upload
+                  in: path
+                  name: orgId
+                  required: true
+                  schema:
+                    type: integer
+                - description: The identifier of the bill upload
+                  in: path
+                  name: billUploadId
+                  required: true
+                  schema:
+                    format: uuid
+                    type: string
+            responses:
+                "200":
+                    description: OK response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadShowResponseBody'
+                "400":
+                    description: Bad Request response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadShowBadRequestResponseBody'
+                "401":
+                    description: Unauthorized response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadShowUnauthorizedResponseBody'
+                "403":
+                    description: Forbidden response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadShowForbiddenResponseBody'
+                "404":
+                    description: Not Found response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadShowNotFoundResponseBody'
+                "429":
+                    description: Too Many Requests response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadShowTooManyRequestsResponseBody'
+                "500":
+                    description: Internal Server Error response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadShowInternalErrorResponseBody'
+                "502":
+                    description: Bad Gateway response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadShowBadGatewayResponseBody'
+            schemes:
+                - http
+            security:
+                - FlexeraBearerAuth: []
+            tags:
+                - BillUpload
+            x-flexera-action: get
+            x-flexera-resource: billUpload
+        servers:
+            - description: Flexera Optima Bill Upload API
+              url: https://api.optima{zone}.flexeraeng.com
+              variables:
+                zone:
+                    default: ""
+                    description: ''''' = NAM, -eu = EU, -apac = APAC'
+                    enum:
+                        - ""
+                        - -eu
+                        - -apac
+    /optima/orgs/{orgId}/billUploads/{billUploadId}/files/{fileId}:
+        post:
+            description: "Uploads a file, adding it to the given bill upload.\nNote, by default, you can only upload 500 files max per bill upload, and each must be smaller than 1000 MB.\nIf the upload is successful, a MD5 hash is returned, so that you can verify its integrity.\n        \n\n**Required security scopes for JWTAuth**:\n  * `optima:bill_upload:create+optima:bill_connect:create+common:org:own`"
+            operationId: BillUpload_BillUpload_createFile
+            parameters:
+                - description: The relevant organization for this bill upload
+                  in: path
+                  name: orgId
+                  required: true
+                  schema:
+                    type: integer
+                - description: The identifier of the bill upload
+                  in: path
+                  name: billUploadId
+                  required: true
+                  schema:
+                    format: uuid
+                    type: string
+                - description: 'The basename of the uploaded file (100 characters max), supported extensions: .csv, .json, .jsonl, gzipped or not'
+                  in: path
+                  name: fileId
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "201":
+                    description: Created response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileResponseBody'
+                "400":
+                    description: Bad Request response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileBadRequestResponseBody'
+                "401":
+                    description: Unauthorized response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileUnauthorizedResponseBody'
+                "403":
+                    description: Forbidden response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileForbiddenResponseBody'
+                "404":
+                    description: Not Found response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileNotFoundResponseBody'
+                "409":
+                    description: Conflict response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileConflictResponseBody'
+                "413":
+                    description: Request Entity Too Large response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileRequestEntityTooLargeResponseBody'
+                "429":
+                    description: Too Many Requests response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileTooManyRequestsResponseBody'
+                "500":
+                    description: Internal Server Error response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileInternalErrorResponseBody'
+                "502":
+                    description: Bad Gateway response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateFileBadGatewayResponseBody'
+            schemes:
+                - http
+            security:
+                - FlexeraBearerAuth: []
+            tags:
+                - BillUpload
+            x-flexera-action: action
+            x-flexera-resource: billUpload-files
+        servers:
+            - description: Flexera Optima Bill Upload API
+              url: https://api.optima{zone}.flexeraeng.com
+              variables:
+                zone:
+                    default: ""
+                    description: ''''' = NAM, -eu = EU, -apac = APAC'
+                    enum:
+                        - ""
+                        - -eu
+                        - -apac
+    /optima/orgs/{orgId}/billUploads/{billUploadId}/operations:
+        post:
+            description: |-
+                Performs an operation (i.e. commit or abort) on a bill upload. Committing triggers processing of all uploaded files and replaces that month of data for the bill connect/org; aborting closes the upload and any uploaded files will not be processed.
+
+                **Required security scopes for JWTAuth**:
+                  * `optima:bill_upload:create+optima:bill_connect:create+common:org:own`
+            operationId: BillUpload_BillUpload_createOperation
+            parameters:
+                - description: The relevant organization for this bill upload
+                  in: path
+                  name: orgId
+                  required: true
+                  schema:
+                    type: integer
+                - description: The identifier of the bill upload
+                  in: path
+                  name: billUploadId
+                  required: true
+                  schema:
+                    format: uuid
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BillUpload_BillUploadCreateOperationRequestBody'
+                            required:
+                                - operation
+                required: true
+            responses:
+                "200":
+                    description: OK response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateOperationResponseBody'
+                "400":
+                    description: Bad Request response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateOperationBadRequestResponseBody'
+                "401":
+                    description: Unauthorized response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateOperationUnauthorizedResponseBody'
+                "403":
+                    description: Forbidden response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateOperationForbiddenResponseBody'
+                "404":
+                    description: Not Found response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateOperationNotFoundResponseBody'
+                "429":
+                    description: Too Many Requests response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateOperationTooManyRequestsResponseBody'
+                "500":
+                    description: Internal Server Error response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateOperationInternalErrorResponseBody'
+                "502":
+                    description: Bad Gateway response.
+                    schema:
+                        $ref: '#/components/schemas/BillUpload_BillUploadCreateOperationBadGatewayResponseBody'
+            schemes:
+                - http
+            security:
+                - FlexeraBearerAuth: []
+            tags:
+                - BillUpload
+            x-flexera-action: action
+            x-flexera-resource: billUpload-operations
+        servers:
+            - description: Flexera Optima Bill Upload API
+              url: https://api.optima{zone}.flexeraeng.com
+              variables:
+                zone:
+                    default: ""
+                    description: ''''' = NAM, -eu = EU, -apac = APAC'
+                    enum:
+                        - ""
+                        - -eu
+                        - -apac
     /policy/v1/orgs/{orgId}/custom-catalog:
         get:
             description: "Index returns a list of published templates which can be filtered by the catalogSource parameter. \nThe default setting only includes templates made available to all MSP child orgs.\nUsing different catalogSource value enables users to preview what templates will be available to their child orgs with other \"policy-catalog-reference-org\" settings.\nThis setting can be changed at the [Customization Value](https://developer.flexera.com/docs/api/policy/v1#/Customization%20Value) endpoint."
