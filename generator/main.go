@@ -191,6 +191,7 @@ type ProcessingStep struct {
 	Method      string `yaml:"method,omitempty"`
 	OperationID string `yaml:"operation_id,omitempty"`
 	Variant     string `yaml:"variant,omitempty"`
+	RequestBody string `yaml:"request_body,omitempty"`
 	Reason      string `yaml:"reason,omitempty"`
 	Notes       string `yaml:"notes,omitempty"`
 }
@@ -400,6 +401,10 @@ func processStep(spec SpecConfig, step ProcessingStep, outputDir string) error {
 		filePath := filepath.Join(outputDir, spec.Output.Filename)
 		return setOperationID(filePath, step.Path, step.Method, step.OperationID)
 
+	case "add-request-body":
+		filePath := filepath.Join(outputDir, spec.Output.Filename)
+		return addRequestBody(filePath, step.Path, step.Method, step.RequestBody)
+
 	case "manual":
 		// Skip manual steps
 		return nil
@@ -551,8 +556,9 @@ func convertSwagger2ToOpenAPI3(swagger map[string]interface{}) map[string]interf
 // convertRequestBodies converts Swagger 2.0 "in": "body" operation
 // parameters into OpenAPI 3.0 requestBody objects. Swagger 2.0 allows at
 // most one body parameter per operation; its "schema" becomes the
-// requestBody's application/json schema and its "required" flag carries
-// over directly.
+// requestBody's schema and its "required" flag carry over directly. When an
+// operation declares Swagger consumes media types, the first declared value is
+// used; otherwise application/json remains the backwards-compatible default.
 func convertRequestBodies(openapi map[string]interface{}) {
 	paths, ok := openapi["paths"].(map[string]interface{})
 	if !ok {
@@ -584,7 +590,7 @@ func convertRequestBodies(openapi map[string]interface{}) {
 					operation["requestBody"] = map[string]interface{}{
 						"required": required,
 						"content": map[string]interface{}{
-							"application/json": map[string]interface{}{
+							requestBodyContentType(operation): map[string]interface{}{
 								"schema": param["schema"],
 							},
 						},
@@ -598,8 +604,22 @@ func convertRequestBodies(openapi map[string]interface{}) {
 			} else {
 				delete(operation, "parameters")
 			}
+			delete(operation, "consumes")
 		}
 	}
+}
+
+func requestBodyContentType(operation map[string]interface{}) string {
+	consumes, ok := operation["consumes"].([]interface{})
+	if !ok {
+		return "application/json"
+	}
+	for _, contentType := range consumes {
+		if contentType, ok := contentType.(string); ok && contentType != "" {
+			return contentType
+		}
+	}
+	return "application/json"
 }
 
 // updateRefs recursively updates all $ref pointers from Swagger 2.0 to OpenAPI 3.0 format
@@ -790,6 +810,80 @@ func setOperationID(filePath, path, method, operationID string) error {
 	out, err = formatJSONBytes(out)
 	if err != nil {
 		return fmt.Errorf("failed to format JSON: %w", err)
+	}
+	if err := os.WriteFile(filePath, out, 0o644); err != nil {
+		return fmt.Errorf("failed to write file: %w", err)
+	}
+	return nil
+}
+
+// addRequestBody injects an OpenAPI 3 requestBody object onto the given
+// operation. It is intended for documented upstream workarounds where a
+// legacy API's description clearly implies a request body (e.g. a raw file
+// upload) but the source document itself fails to declare one. The target
+// file may be JSON or YAML (detected by extension), so it can run either
+// against an already-converted OpenAPI 3 document (e.g. a directly-fetched
+// OpenAPI 3 spec) or as the final step after a swagger2->openapi3 "convert"
+// step. It fails loudly if the path/method is missing (the upstream document
+// may have changed) and if a requestBody is already present (the upstream
+// bug may have been fixed upstream, so this workaround should be removed).
+func addRequestBody(filePath, path, method, requestBodyJSON string) error {
+	if path == "" || method == "" || strings.TrimSpace(requestBodyJSON) == "" {
+		return fmt.Errorf("path, method, and request_body are required")
+	}
+
+	var requestBody interface{}
+	if err := json.Unmarshal([]byte(requestBodyJSON), &requestBody); err != nil {
+		return fmt.Errorf("failed to parse request_body JSON: %w", err)
+	}
+
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return fmt.Errorf("failed to read file: %w", err)
+	}
+
+	isYAML := strings.HasSuffix(filePath, ".yaml") || strings.HasSuffix(filePath, ".yml")
+
+	var doc map[string]interface{}
+	if isYAML {
+		if err := yaml.Unmarshal(data, &doc); err != nil {
+			return fmt.Errorf("failed to parse YAML: %w", err)
+		}
+	} else {
+		if err := json.Unmarshal(data, &doc); err != nil {
+			return fmt.Errorf("failed to parse JSON: %w", err)
+		}
+	}
+
+	paths, ok := doc["paths"].(map[string]interface{})
+	if !ok {
+		return fmt.Errorf("paths object not found in %s", filePath)
+	}
+	pathItem, ok := paths[path].(map[string]interface{})
+	if !ok {
+		return fmt.Errorf("path %q not found in %s; the upstream document may have changed", path, filePath)
+	}
+	method = strings.ToLower(method)
+	operation, ok := pathItem[method].(map[string]interface{})
+	if !ok {
+		return fmt.Errorf("method %s not found at path %q in %s; the upstream document may have changed", strings.ToUpper(method), path, filePath)
+	}
+	if _, exists := operation["requestBody"]; exists {
+		return fmt.Errorf("operation %s %s in %s already declares a requestBody; the upstream document may have been fixed, so this workaround should be removed", strings.ToUpper(method), path, filePath)
+	}
+	operation["requestBody"] = requestBody
+
+	var out []byte
+	if isYAML {
+		out, err = yaml.Marshal(doc)
+	} else {
+		out, err = json.Marshal(doc)
+		if err == nil {
+			out, err = formatJSONBytes(out)
+		}
+	}
+	if err != nil {
+		return fmt.Errorf("failed to marshal output: %w", err)
 	}
 	if err := os.WriteFile(filePath, out, 0o644); err != nil {
 		return fmt.Errorf("failed to write file: %w", err)

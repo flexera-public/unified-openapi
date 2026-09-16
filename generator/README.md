@@ -109,6 +109,7 @@ Two additional fields control merge-time behavior:
 | `unwrap-single-anyof` | Collapse `anyOf: [X]` singletons into `X` (workaround for codegen issues) |
 | `remove-local-ref` | Remove an array member containing only a specific local `$ref`; fails when the ref is absent |
 | `set-operation-id` | Set a stable operation ID by exact path and HTTP method; fails when either is absent |
+| `add-request-body` | Inject an OpenAPI 3 `requestBody` onto an operation identified by exact path and HTTP method; for legacy APIs whose description implies a body (e.g. raw file upload) but whose spec omits it. Works on JSON or YAML output. Fails when the path/method is absent, or when the operation already declares a `requestBody` (a signal the upstream bug may have been fixed) |
 
 ### Manually-curated sources (`source.type: manual`)
 

@@ -66,6 +66,18 @@ specs:
       filename: "openapi.json"
     processing:
       - type: download
+      - type: add-request-body
+        path: "/saas/v1/orgs/{orgId}/saas-data/{id}"
+        method: patch
+        request_body: '{"required":true,"description":"The file content to upload, in JSON-L (newline-delimited JSON) format. May be gzip-compressed; when compressed, set the Content-Encoding header to gzip.","content":{"application/json":{"schema":{"type":"string"}}}}'
+        reason: >
+          SaaS Data#upload ("Upload data") describes uploading a file and requires
+          Content-Type (application/json, locked), Content-Encoding (gzip), and
+          Checksum (MD5 of the uploaded file) headers, but the spec declares no
+          requestBody at all. Per the "SaaS Data Import Job API Instructions" doc from
+          the API owner: the uploaded file is JSON-L (newline-delimited JSON), sent
+          with Content-Type: application/json and optionally GZIP-compressed
+          (Content-Encoding: gzip).
 
   - id: flexera-cred-v2
     name: "Flexera Credential API"
@@ -259,6 +271,15 @@ specs:
         input: "swagger.json"
         output: "openapi.yaml"
         format: yaml
+      - type: add-request-body
+        path: "/optima/orgs/{orgId}/billUploads/{billUploadId}/files/{fileId}"
+        method: post
+        request_body: '{"required":true,"description":"The raw content of the file to upload","content":{"application/octet-stream":{"schema":{"type":"string","format":"binary"}}}}'
+        reason: >
+          Upstream RightScale swagger.json
+          (https://reference.rightscale.com/optima-bill-upload/swagger.json) documents
+          BillUpload#createFile as accepting a raw file upload but does not declare a
+          body parameter or consumes media type on the operation.
     # Confirmed via infra-optima's optima-api-virtualservice Istio config
     # (production-{us,eu,au}/optima-ba/ingresses): the /optima/orgs/{orgId}/billUploads
     # route is served on api.optima(-eu|-apac).flexeraeng.com, not the default

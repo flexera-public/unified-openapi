@@ -180,6 +180,40 @@ func TestSedReplace_RemovesDanglingUnionArm(t *testing.T) {
 	}
 }
 
+func TestConvertRequestBodiesUsesOperationConsumes(t *testing.T) {
+	doc := map[string]interface{}{
+		"paths": map[string]interface{}{
+			"/files": map[string]interface{}{
+				"post": map[string]interface{}{
+					"consumes": []interface{}{"application/octet-stream"},
+					"parameters": []interface{}{
+						map[string]interface{}{
+							"name":     "file",
+							"in":       "body",
+							"required": true,
+							"schema":   map[string]interface{}{"type": "string", "format": "binary"},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	convertRequestBodies(doc)
+	post := doc["paths"].(map[string]interface{})["/files"].(map[string]interface{})["post"].(map[string]interface{})
+	body := post["requestBody"].(map[string]interface{})
+	content := body["content"].(map[string]interface{})
+	if _, ok := content["application/octet-stream"]; !ok {
+		t.Fatalf("expected binary content type, got %v", content)
+	}
+	if _, ok := post["parameters"]; ok {
+		t.Fatalf("expected body parameter to be removed, got %v", post["parameters"])
+	}
+	if _, ok := post["consumes"]; ok {
+		t.Fatalf("expected Swagger consumes field to be removed, got %v", post["consumes"])
+	}
+}
+
 func TestSedReplace_MissingPatternIsActionable(t *testing.T) {
 	path := filepath.Join(t.TempDir(), "openapi.json")
 	if err := os.WriteFile(path, []byte(`{"openapi":"3.0.3"}`), 0o644); err != nil {
@@ -269,5 +303,81 @@ func TestSetOperationID_MissingPathIsActionable(t *testing.T) {
 	err := setOperationID(path, "/missing", "get", "Missing")
 	if err == nil || !strings.Contains(err.Error(), "upstream document may have changed") {
 		t.Fatalf("setOperationID() error = %v, want upstream-change guidance", err)
+	}
+}
+
+func TestAddRequestBody_InjectsBodyOnJSON(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.json")
+	input := `{"paths":{"/files/{id}":{"post":{"operationId":"Files#create"}}}}`
+	if err := os.WriteFile(path, []byte(input), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	requestBody := `{"required":true,"content":{"application/octet-stream":{"schema":{"type":"string","format":"binary"}}}}`
+	if err := addRequestBody(path, "/files/{id}", "POST", requestBody); err != nil {
+		t.Fatalf("addRequestBody() error = %v", err)
+	}
+
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var doc map[string]interface{}
+	if err := json.Unmarshal(data, &doc); err != nil {
+		t.Fatal(err)
+	}
+	operation := doc["paths"].(map[string]interface{})["/files/{id}"].(map[string]interface{})["post"].(map[string]interface{})
+	rb, ok := operation["requestBody"].(map[string]interface{})
+	if !ok {
+		t.Fatalf("requestBody not injected, operation = %#v", operation)
+	}
+	if rb["required"] != true {
+		t.Fatalf("requestBody.required = %v, want true", rb["required"])
+	}
+}
+
+func TestAddRequestBody_InjectsBodyOnYAML(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.yaml")
+	input := "paths:\n    /files/{id}:\n        post:\n            operationId: Files#create\n"
+	if err := os.WriteFile(path, []byte(input), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	requestBody := `{"required":true,"content":{"application/octet-stream":{"schema":{"type":"string","format":"binary"}}}}`
+	if err := addRequestBody(path, "/files/{id}", "post", requestBody); err != nil {
+		t.Fatalf("addRequestBody() error = %v", err)
+	}
+
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(data), "requestBody") || !strings.Contains(string(data), "application/octet-stream") {
+		t.Fatalf("YAML output missing injected requestBody: %s", data)
+	}
+}
+
+func TestAddRequestBody_MissingPathIsActionable(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.json")
+	if err := os.WriteFile(path, []byte(`{"paths":{}}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	err := addRequestBody(path, "/missing", "post", `{"required":true}`)
+	if err == nil || !strings.Contains(err.Error(), "upstream document may have changed") {
+		t.Fatalf("addRequestBody() error = %v, want upstream-change guidance", err)
+	}
+}
+
+func TestAddRequestBody_ExistingRequestBodyIsActionable(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "openapi.json")
+	input := `{"paths":{"/files/{id}":{"post":{"requestBody":{"required":true,"content":{}}}}}}`
+	if err := os.WriteFile(path, []byte(input), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	err := addRequestBody(path, "/files/{id}", "post", `{"required":true}`)
+	if err == nil || !strings.Contains(err.Error(), "already declares a requestBody") {
+		t.Fatalf("addRequestBody() error = %v, want already-declares guidance", err)
 	}
 }
