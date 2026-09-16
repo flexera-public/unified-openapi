@@ -382,22 +382,6 @@
             "title": "Includeinventory",
             "type": "string"
           },
-          "OnboardingType": {
-            "anyOf": [
-              {
-                "enum": [
-                  "AutoDiscovery",
-                  "Individual"
-                ],
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Onboarding type.",
-            "title": "Onboardingtype"
-          },
           "PartnerTenantId": {
             "anyOf": [
               {
@@ -631,22 +615,6 @@
             "description": "Include inventory flag.",
             "title": "Includeinventory"
           },
-          "OnboardingType": {
-            "anyOf": [
-              {
-                "enum": [
-                  "AutoDiscovery",
-                  "Individual"
-                ],
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Onboarding type.",
-            "title": "Onboardingtype"
-          },
           "PartnerTenantId": {
             "anyOf": [
               {
@@ -793,27 +761,8 @@
           "content": {
             "application/json": {
               "examples": {
-                "AWS - Auto Discovery": {
-                  "summary": "AWS Auto Discovery (Master/Linked) onboarding with CCO",
-                  "value": {
-                    "BillingAccountId": "123456789012",
-                    "ConnectorName": "my-aws-master-connector",
-                    "CostAndUsage": {
-                      "BillingAccountId": "123456789012",
-                      "BillingS3Bucket": "my-master-billing-bucket",
-                      "EffectiveFrom": "2024-01",
-                      "ReportPrefix": "reports/billing"
-                    },
-                    "ExternalId": "ext-id-123",
-                    "IncludeBPC": "false",
-                    "IncludeCostAndUsage": "true",
-                    "IncludeInventory": "true",
-                    "Provider": "aws",
-                    "RoleARN": "arn:aws:iam::123456789012:role/FlexeraMasterRole"
-                  }
-                },
-                "AWS - Individual": {
-                  "summary": "AWS Individual onboarding with CCO",
+                "AWS - Individual onboarding": {
+                  "summary": "AWS Individual onboarding",
                   "value": {
                     "BillingAccountId": "123456789012",
                     "ConnectorName": "my-aws-connector",
@@ -1397,23 +1346,8 @@
           "content": {
             "application/json": {
               "examples": {
-                "AWS - Auto Discovery update CostAndUsage": {
-                  "summary": "AWS Auto Discovery update CostAndUsage",
-                  "value": {
-                    "ConnectorName": "my-aws-connector",
-                    "CostAndUsage": {
-                      "BillingAccountId": "123456789012",
-                      "BillingS3Bucket": "my-master-billing-bucket",
-                      "EffectiveFrom": "2024-01",
-                      "ReportPrefix": "reports/billing"
-                    },
-                    "IncludeBPC": "true",
-                    "IncludeCostAndUsage": "true",
-                    "IncludeInventory": "true"
-                  }
-                },
-                "AWS - update CostAndUsage": {
-                  "summary": "AWS Individual update CostAndUsage",
+                "AWS - Individual onboarding update": {
+                  "summary": "AWS Individual onboarding update",
                   "value": {
                     "ConnectorName": "my-aws-connector",
                     "CostAndUsage": {
@@ -1424,13 +1358,15 @@
                     },
                     "IncludeBPC": "true",
                     "IncludeCostAndUsage": "true",
-                    "IncludeInventory": "true"
+                    "IncludeInventory": "true",
+                    "RoleARN": "arn:aws:iam::123456789012:role/FlexeraRole"
                   }
                 },
                 "Azure CSP - enable CCO (first time)": {
                   "summary": "Azure CSP enable CCO for the first time (full AzureCostAndUsageModel)",
                   "value": {
                     "AccountType": "CSP",
+                    "ClientSecret": "client-secret",
                     "ConnectorName": "my-azure-csp-connector",
                     "CostAndUsage": {
                       "ActualExportUrl": "https://storageaccount.blob.core.windows.net/container/actual-export",
@@ -1448,6 +1384,7 @@
                   "summary": "Azure EA update export URLs and Effective from Date (CCO already enabled)",
                   "value": {
                     "AccountType": "EA",
+                    "ClientSecret": "client-secret",
                     "ConnectorName": "my-azure-ea-connector",
                     "CostAndUsage": {
                       "ActualExportUrl": "https://storageaccount.blob.core.windows.net/container/actual-export",
@@ -1463,6 +1400,7 @@
                   "summary": "Azure MCA update BillingProfileIds/InvoiceSectionIds/urls/date (CCO already enabled)",
                   "value": {
                     "AccountType": "MCA",
+                    "ClientSecret": "client-secret",
                     "ConnectorName": "my-azure-mca-connector",
                     "CostAndUsage": {
                       "ActualExportUrl": "https://storageaccount.blob.core.windows.net/container/actual-export",
