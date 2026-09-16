@@ -101,7 +101,7 @@
             "type": "array"
           },
           "type": {
-            "description": "The allocation strategy.",
+            "description": "The allocation strategy, and the discriminator for which of a destination's fields carry meaning. equalSplit distributes the pooled cost equally across the destinations. fixedPercentageSplit uses the percentage supplied for each destination, and those percentages must sum to 100. usageBasedProportionalSplit derives each destination's share from that destination's own usage when the bill runs, so the shares are not known at the time a rule is read or written. Further strategies may be added, so consumers must tolerate a value they do not recognize.",
             "example": "equalSplit",
             "type": "string"
           }
@@ -132,7 +132,7 @@
             "type": "string"
           },
           "percentage": {
-            "description": "The effective percentage of costs allocated to this destination. For equalSplit, this is computed by the server as 100/N (where N is the number of destinations). For fixedPercentageSplit, this is the client-supplied value. All percentages sum to 100.",
+            "description": "The effective percentage of costs allocated to this destination. For equalSplit this is computed by the server as 100/N (where N is the number of destinations) and for fixedPercentageSplit it is the client-supplied value; in both cases all percentages sum to 100. For usageBasedProportionalSplit this field is omitted because the effective share is derived from usage at bill run time and is not known when the rule is read.",
             "example": 50,
             "maximum": 100,
             "minimum": 0,
@@ -146,8 +146,7 @@
         },
         "required": [
           "dimensionId",
-          "value",
-          "percentage"
+          "value"
         ],
         "type": "object"
       },
@@ -165,7 +164,7 @@
             "type": "string"
           },
           "percentage": {
-            "description": "The percentage of costs allocated to this destination. Required for fixedPercentageSplit (all percentages must sum to 100). Ignored for equalSplit (the server computes equal shares automatically).",
+            "description": "The percentage of costs allocated to this destination. Required for fixedPercentageSplit (all percentages must sum to 100). Ignored for equalSplit (the server computes equal shares automatically) and for usageBasedProportionalSplit (shares are derived from usage at bill run time).",
             "example": 50,
             "maximum": 100,
             "minimum": 0,
@@ -212,10 +211,11 @@
             "type": "array"
           },
           "type": {
-            "description": "The allocation strategy.",
+            "description": "The allocation strategy, and the discriminator for which of a destination's fields are required. equalSplit distributes the pooled cost equally across the destinations. fixedPercentageSplit uses the percentage supplied for each destination, and those percentages must sum to 100. usageBasedProportionalSplit derives each destination's share from that destination's own usage when the bill runs, so the shares are not known at the time a rule is read or written.",
             "enum": [
               "equalSplit",
-              "fixedPercentageSplit"
+              "fixedPercentageSplit",
+              "usageBasedProportionalSplit"
             ],
             "example": "equalSplit",
             "type": "string"
@@ -2994,6 +2994,7 @@
             ],
             "type": "equalSplit"
           },
+          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Platform+Services+Recovery&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
           "createdAt": "2020-11-26T12:17:38.369Z",
           "createdBy": {
             "id": 1234,
@@ -3017,6 +3018,11 @@
         "properties": {
           "allocation": {
             "$ref": "#/components/schemas/Allocation"
+          },
+          "analyzeSpendQuery": {
+            "description": "URL query string that opens the Analyze tabular view filtered to this rule. Append it to the tabular view URL as-is; it is already percent-encoded. Rebuilt on every read, so treat it as opaque rather than storing it.",
+            "example": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Platform+Services+Recovery&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
+            "type": "string"
           },
           "createdAt": {
             "description": "timestamp when the shared cost rule was created",
@@ -3092,7 +3098,8 @@
           "createdAt",
           "updatedAt",
           "createdBy",
-          "updatedBy"
+          "updatedBy",
+          "analyzeSpendQuery"
         ],
         "type": "object"
       },
@@ -4324,6 +4331,7 @@
                 ],
                 "type": "fixedPercentageSplit"
               },
+              "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Platform+Services+Recovery&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
               "createdAt": "2020-11-26T12:17:38.369Z",
               "createdBy": {
                 "id": 1234,
@@ -4350,18 +4358,17 @@
                   {
                     "dimensionId": "rbd_team",
                     "dimensionName": "Team",
-                    "percentage": 50,
                     "value": "Orion"
                   },
                   {
                     "dimensionId": "rbd_team",
                     "dimensionName": "Team",
-                    "percentage": 50,
                     "value": "Atlas"
                   }
                 ],
-                "type": "fixedPercentageSplit"
+                "type": "usageBasedProportionalSplit"
               },
+              "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Usage-based+split+for+BU+4&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
               "createdAt": "2020-11-26T12:17:38.369Z",
               "createdBy": {
                 "id": 1234,
@@ -4372,7 +4379,7 @@
               "effectiveTo": "2025-12",
               "id": "b8e2a41",
               "kind": "finops:billing-shared-cost-rule",
-              "name": "Percentage rate for BU 4",
+              "name": "Usage-based split for BU 4",
               "priority": 2,
               "status": "active",
               "updatedAt": "2020-11-26T12:17:38.369Z",
@@ -4408,6 +4415,7 @@
                   ],
                   "type": "equalSplit"
                 },
+                "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Platform+Services+Recovery&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
                 "createdAt": "2020-11-26T12:17:38.369Z",
                 "createdBy": {
                   "id": 1234,
@@ -5393,6 +5401,7 @@
             ],
             "type": "fixedPercentageSplit"
           },
+          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Platform+Services+Recovery&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
           "createdAt": "2020-11-26T12:17:38.369Z",
           "createdBy": {
             "id": 1234,
@@ -5428,6 +5437,11 @@
         "properties": {
           "allocation": {
             "$ref": "#/components/schemas/Allocation"
+          },
+          "analyzeSpendQuery": {
+            "description": "URL query string that opens the Analyze tabular view filtered to this rule. Append it to the tabular view URL as-is; it is already percent-encoded. Rebuilt on every read, so treat it as opaque rather than storing it.",
+            "example": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Platform+Services+Recovery&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
+            "type": "string"
           },
           "createdAt": {
             "description": "timestamp when the shared cost rule was created",
@@ -5544,7 +5558,8 @@
           "createdAt",
           "updatedAt",
           "createdBy",
-          "updatedBy"
+          "updatedBy",
+          "analyzeSpendQuery"
         ],
         "type": "object"
       },
@@ -14013,6 +14028,7 @@
                             ],
                             "type": "fixedPercentageSplit"
                           },
+                          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Platform+Services+Recovery&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
                           "createdAt": "2020-11-26T12:17:38.369Z",
                           "createdBy": {
                             "id": 1234,
@@ -14039,18 +14055,17 @@
                               {
                                 "dimensionId": "rbd_team",
                                 "dimensionName": "Team",
-                                "percentage": 50,
                                 "value": "Orion"
                               },
                               {
                                 "dimensionId": "rbd_team",
                                 "dimensionName": "Team",
-                                "percentage": 50,
                                 "value": "Atlas"
                               }
                             ],
-                            "type": "fixedPercentageSplit"
+                            "type": "usageBasedProportionalSplit"
                           },
+                          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Usage-based+split+for+BU+4&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
                           "createdAt": "2020-11-26T12:17:38.369Z",
                           "createdBy": {
                             "id": 1234,
@@ -14061,7 +14076,7 @@
                           "effectiveTo": "2025-12",
                           "id": "b8e2a41",
                           "kind": "finops:billing-shared-cost-rule",
-                          "name": "Percentage rate for BU 4",
+                          "name": "Usage-based split for BU 4",
                           "priority": 2,
                           "status": "active",
                           "updatedAt": "2020-11-26T12:17:38.369Z",
@@ -14303,6 +14318,7 @@
                         ],
                         "type": "fixedPercentageSplit"
                       },
+                      "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2026-09-01&filterBy=filter.AllocatedMethodId.Fixed+percentage+split+for+AWS+between+Teams+Orion+and+Atlas&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2026-01-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
                       "createdAt": "2020-11-26T12:17:38.369Z",
                       "createdBy": {
                         "id": 1234,
@@ -14915,6 +14931,7 @@
                         ],
                         "type": "fixedPercentageSplit"
                       },
+                      "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Platform+Services+Recovery&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
                       "createdAt": "2020-11-26T12:17:38.369Z",
                       "createdBy": {
                         "id": 1234,
@@ -15203,6 +15220,7 @@
                     ],
                     "type": "equalSplit"
                   },
+                  "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Platform+Services+Recovery&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
                   "createdAt": "2020-11-26T12:17:38.369Z",
                   "createdBy": {
                     "id": 1234,
@@ -15439,7 +15457,7 @@
       "name": "Settings"
     },
     {
-      "description": "Shared cost rules let you redistribute a set of costs across multiple destinations\nbased on configurable allocation strategies such as equal splits or fixed-percentage splits.\nRules are evaluated in priority order (lowest priority number first). Each rule identifies\nsource costs via dimensions (FOCUS dimensions, custom dimensions) and\ndistributes them to one or more destination dimension values.\nProcessing unit: allocations are applied in isolation per bill connect and per bill month.\nRules do not allocate costs across different bill connects or across different bill months.",
+      "description": "Shared cost rules let you redistribute a set of costs across multiple destinations\nbased on configurable allocation strategies such as equal splits, fixed-percentage splits, or\nusage-based proportional splits.\nRules are evaluated in priority order (lowest priority number first). Each rule identifies\nsource costs via dimensions (FOCUS dimensions, custom dimensions) and\ndistributes them to one or more destination dimension values.\nProcessing unit: allocations are applied in isolation per bill connect and per bill month.\nRules do not allocate costs across different bill connects or across different bill months.",
       "name": "Shared Cost Rules"
     }
   ]

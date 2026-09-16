@@ -98,7 +98,7 @@
             "type": "string"
           },
           "effectiveFrom": {
-            "description": "The earliest billing year-month from when to start processing data.",
+            "description": "The earliest billing month (UTC) from which to start processing data, formatted YYYY-MM.",
             "example": "2025-10",
             "type": "string"
           },
@@ -1738,7 +1738,7 @@
             "type": "string"
           },
           "effectiveFrom": {
-            "description": "The earliest billing year-month from when to start processing data.",
+            "description": "The earliest billing month (UTC) from which to start processing data, formatted YYYY-MM. If omitted when creating an AWS bill connect, the current UTC month is used. If omitted when updating, the existing value is unchanged.",
             "example": "2025-10",
             "pattern": "^20[\\d]{2}-((0[1-9])|(1[012]))$",
             "type": "string"
@@ -1808,7 +1808,7 @@
             "type": "string"
           },
           "effectiveFrom": {
-            "description": "The earliest billing year-month from when to start processing data.",
+            "description": "The earliest billing month (UTC) from which to start processing data, formatted YYYY-MM. If omitted when creating an AWS bill connect, the current UTC month is used. If omitted when updating, the existing value is unchanged.",
             "example": "2025-10",
             "pattern": "^20[\\d]{2}-((0[1-9])|(1[012]))$",
             "type": "string"
@@ -3547,7 +3547,7 @@
             "type": "string"
           },
           "effectiveFrom": {
-            "description": "The earliest billing year-month from when to start processing data.",
+            "description": "The earliest billing month (UTC) from which to start processing data, formatted YYYY-MM. If omitted when creating an AWS bill connect, the current UTC month is used. If omitted when updating, the existing value is unchanged.",
             "example": "2025-10",
             "pattern": "^20[\\d]{2}-((0[1-9])|(1[012]))$",
             "type": "string"
@@ -3602,7 +3602,7 @@
             "type": "string"
           },
           "effectiveFrom": {
-            "description": "The earliest billing year-month from when to start processing data.",
+            "description": "The earliest billing month (UTC) from which to start processing data, formatted YYYY-MM. If omitted when creating an AWS bill connect, the current UTC month is used. If omitted when updating, the existing value is unchanged.",
             "example": "2025-10",
             "pattern": "^20[\\d]{2}-((0[1-9])|(1[012]))$",
             "type": "string"
@@ -9138,7 +9138,7 @@
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/gcp/{id}": {
       "delete": {
-        "description": "Removes a GCP bill connect associated with a given bill connect ID.",
+        "description": "Removes a GCP bill connect associated with a given bill connect ID.\nBill Connects provisioned through Unified Onboarding are read-only in this API. Update and delete operations will be rejected with a 403 Forbidden. Use Unified Onboarding to manage these resources.\nYou can identify these Bill Connects by the onboardingOrigin field:\n- \"platform\": created via Unified Onboarding\n- \"finops\": created and managed through this API (default)",
         "operationId": "Bill Connect - GCP#delete",
         "parameters": [
           {
@@ -9404,7 +9404,7 @@
         ]
       },
       "patch": {
-        "description": "Modifies an existing GCP bill connect associated with a given bill connect ID.",
+        "description": "Modifies an existing GCP bill connect associated with a given bill connect ID.\nBill Connects provisioned through Unified Onboarding are read-only in this API. Update and delete operations will be rejected with a 403 Forbidden. Use Unified Onboarding to manage these resources.\nYou can identify these Bill Connects by the onboardingOrigin field:\n- \"platform\": created via Unified Onboarding\n- \"finops\": created and managed through this API (default)",
         "operationId": "Bill Connect - GCP#update",
         "parameters": [
           {
