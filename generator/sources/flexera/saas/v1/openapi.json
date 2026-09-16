@@ -529,7 +529,7 @@
             "type": "integer"
           },
           "totalAnnualCost": {
-            "description": "Total Annual cost for the group. The currency (default is USD) can be set globally in Administration -> SaaS Settings -> General within app.flexera.com.",
+            "description": "Total Annual cost for the group. The currency (default is USD) can be set globally in Administration -\u003e SaaS Settings -\u003e General within app.flexera.com.",
             "example": 25000,
             "format": "double",
             "type": "number"
@@ -707,7 +707,7 @@
             "type": "string"
           },
           "operator": {
-            "description": "Comparison operator for the allocation rule, such as '=', '!=', '<', '>', 'in', or 'not_in'.",
+            "description": "Comparison operator for the allocation rule, such as '=', '!=', '\u003c', '\u003e', 'in', or 'not_in'.",
             "enum": [
               "equal",
               "not_equal",
@@ -9049,7 +9049,7 @@
             "type": "string"
           },
           "annualCost": {
-            "description": "Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -> SaaS Settings -> General within app.flexera.com.",
+            "description": "Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -\u003e SaaS Settings -\u003e General within app.flexera.com.",
             "example": 25000,
             "format": "double",
             "type": "number"
@@ -18714,7 +18714,7 @@
             "type": "string"
           },
           "annualCost": {
-            "description": "Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -> SaaS Settings -> General within app.flexera.com.",
+            "description": "Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -\u003e SaaS Settings -\u003e General within app.flexera.com.",
             "example": 25000,
             "format": "double",
             "type": "number"
@@ -19352,7 +19352,7 @@
             "type": "string"
           },
           "annualCost": {
-            "description": "Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -> SaaS Settings -> General within app.flexera.com.",
+            "description": "Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -\u003e SaaS Settings -\u003e General within app.flexera.com.",
             "example": 25000,
             "format": "double",
             "type": "number"
@@ -46396,6 +46396,17 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "The file content to upload, in JSON-L (newline-delimited JSON) format. May be gzip-compressed; when compressed, set the Content-Encoding header to gzip.",
+          "required": true
+        },
         "responses": {
           "204": {
             "description": "No Content response."
@@ -47049,7 +47060,7 @@
     },
     "/saas/v1/orgs/{orgId}/stored-metric-queries/{queryName}": {
       "post": {
-        "description": "The query endpoint takes in a metric query request, pulls the relevant raw data from the \n\t\t\tmetrics service and, marshals the result into a query result.\n\n## Stored Queries\n\t\t\nHere is a description of each default stored query available.\n| queryName                \t\t| Description                                                                                                                            |\n|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|\n| departmentSpend          \t\t| The amount spent per department within the scope of the managed application. This query requires organizational data to be available.  |\n| applicationUsage         \t\t| The number of active/inactive/never active app users within the activity threshold.                                                    |\n| applicationUsageOverTime \t\t| The number of active/inactive/never active app users over a given time period.                                                         |\n| daysSinceActiveRange     \t\t| The number of active/inactive/never application users within the given time range.                                                     |\n| licenseUsage             \t\t| The number of active/inactive/never application users per managed application per license.                                             |\n| licenseUsageOverTime     \t\t| The number of active/inactive/never application users per managed application per license over a given time period .                   |\n| totalNumberOfUsers     \t\t| The number of total app users within the activity threshold.                                                                           |\n| totalNumberOfUsersOverTime    \t| The number of total app users over a given time period.                                                                                |\n| orgInfo                  \t\t| The estimated amount spent, number of active managed apps, licenses and total inactive, never active users for entire org are returned.|\n| orgGroupSpend            \t\t| The amount spent per department for each department in the org, sorted by amount desc                                                  |\n| orgApplicationUsage      \t\t| The number of active/inactive/never active app users within the activity threshold for all apps in the org, sorted by total users desc.|\n\n## Dimensions\nDimensions that the query can be split upon.\n| Dimensions     | Description                                                                                                                                                             |\n|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| resourceType   | If there is more than one resourceType can be a value such as appUser. If there are more resourceTypes available, they show up in the resourceType dimension construct. |\n| group          | The groups as defined by the organizational data. For example, if department is available, the data will be split by department.                                        |\n| resourceStatus | If the resource, such as AppUser has a status of active, never active, or inactive, the result will be split along those lines.     \t\t\t\t\t                   |\n\n## Granularity\n| Granularity  | Description                                                                  |\n|--------------|------------------------------------------------------------------------------|\n| day          | Each data point represents 24 hours in UTC.                                  |\n| month        | Each data point represents an entire calendar month of data.                 |\n| firstOfMonth | Each data point represents the first of the month of each month of the year. |\n\n## Metrics\n| Granularity  | Description                                                                  |\n|--------------|------------------------------------------------------------------------------|\n| day          | Each data point represents 24 hours in UTC.                                  |\n| month        | Each data point represents an entire calendar month of data.                 |\n| firstOfMonth | Each data point represents the first of the month of each month of the year. |\n\n## Filter\n| Filter       | Description                                                       |\n|--------------|-------------------------------------------------------------------|\n| managedAppId | The managed application id                                        |\n| date         | A date in the format YYYY-MM-DD                                   |\n| sku          | This value allows the filtering down to a particular license sku. |\n\n## Currency \n\nThe currency (default is USD) can be set globally in Administration -> SaaS Settings -> General within app.flexera.com.\n\n",
+        "description": "The query endpoint takes in a metric query request, pulls the relevant raw data from the \n\t\t\tmetrics service and, marshals the result into a query result.\n\n## Stored Queries\n\t\t\nHere is a description of each default stored query available.\n| queryName                \t\t| Description                                                                                                                            |\n|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|\n| departmentSpend          \t\t| The amount spent per department within the scope of the managed application. This query requires organizational data to be available.  |\n| applicationUsage         \t\t| The number of active/inactive/never active app users within the activity threshold.                                                    |\n| applicationUsageOverTime \t\t| The number of active/inactive/never active app users over a given time period.                                                         |\n| daysSinceActiveRange     \t\t| The number of active/inactive/never application users within the given time range.                                                     |\n| licenseUsage             \t\t| The number of active/inactive/never application users per managed application per license.                                             |\n| licenseUsageOverTime     \t\t| The number of active/inactive/never application users per managed application per license over a given time period .                   |\n| totalNumberOfUsers     \t\t| The number of total app users within the activity threshold.                                                                           |\n| totalNumberOfUsersOverTime    \t| The number of total app users over a given time period.                                                                                |\n| orgInfo                  \t\t| The estimated amount spent, number of active managed apps, licenses and total inactive, never active users for entire org are returned.|\n| orgGroupSpend            \t\t| The amount spent per department for each department in the org, sorted by amount desc                                                  |\n| orgApplicationUsage      \t\t| The number of active/inactive/never active app users within the activity threshold for all apps in the org, sorted by total users desc.|\n\n## Dimensions\nDimensions that the query can be split upon.\n| Dimensions     | Description                                                                                                                                                             |\n|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| resourceType   | If there is more than one resourceType can be a value such as appUser. If there are more resourceTypes available, they show up in the resourceType dimension construct. |\n| group          | The groups as defined by the organizational data. For example, if department is available, the data will be split by department.                                        |\n| resourceStatus | If the resource, such as AppUser has a status of active, never active, or inactive, the result will be split along those lines.     \t\t\t\t\t                   |\n\n## Granularity\n| Granularity  | Description                                                                  |\n|--------------|------------------------------------------------------------------------------|\n| day          | Each data point represents 24 hours in UTC.                                  |\n| month        | Each data point represents an entire calendar month of data.                 |\n| firstOfMonth | Each data point represents the first of the month of each month of the year. |\n\n## Metrics\n| Granularity  | Description                                                                  |\n|--------------|------------------------------------------------------------------------------|\n| day          | Each data point represents 24 hours in UTC.                                  |\n| month        | Each data point represents an entire calendar month of data.                 |\n| firstOfMonth | Each data point represents the first of the month of each month of the year. |\n\n## Filter\n| Filter       | Description                                                       |\n|--------------|-------------------------------------------------------------------|\n| managedAppId | The managed application id                                        |\n| date         | A date in the format YYYY-MM-DD                                   |\n| sku          | This value allows the filtering down to a particular license sku. |\n\n## Currency \n\nThe currency (default is USD) can be set globally in Administration -\u003e SaaS Settings -\u003e General within app.flexera.com.\n\n",
         "operationId": "Metric Query#query",
         "parameters": [
           {

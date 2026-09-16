@@ -2937,6 +2937,14 @@ paths:
                   required: false
                   schema:
                     type: string
+            requestBody:
+                content:
+                    application/octet-stream:
+                        schema:
+                            format: binary
+                            type: string
+                description: The raw content of the file to upload
+                required: true
             responses:
                 "201":
                     description: Created response.

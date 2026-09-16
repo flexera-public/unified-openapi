@@ -170479,6 +170479,18 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "format": "binary",
+                "type": "string"
+              }
+            }
+          },
+          "description": "The raw content of the file to upload",
+          "required": true
+        },
         "responses": {
           "201": {
             "description": "Created response.",
@@ -207250,6 +207262,17 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "The file content to upload, in JSON-L (newline-delimited JSON) format. May be gzip-compressed; when compressed, set the Content-Encoding header to gzip.",
+          "required": true
+        },
         "responses": {
           "204": {
             "description": "No Content response."
