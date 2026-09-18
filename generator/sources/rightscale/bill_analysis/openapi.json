@@ -1219,6 +1219,24 @@
                           "date": "10"
                         },
                         "type": "invoice_finalization"
+                      },
+                      "azure_csp": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_ea": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_mca": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
                       }
                     },
                     "type": "exact_date"
@@ -1346,6 +1364,24 @@
                         "date": "10"
                       },
                       "type": "invoice_finalization"
+                    },
+                    "azure_csp": {
+                      "options": {
+                        "date": "10"
+                      },
+                      "type": "invoice_finalization"
+                    },
+                    "azure_ea": {
+                      "options": {
+                        "date": "10"
+                      },
+                      "type": "invoice_finalization"
+                    },
+                    "azure_mca": {
+                      "options": {
+                        "date": "10"
+                      },
+                      "type": "invoice_finalization"
                     }
                   },
                   "type": "exact_date"
@@ -1369,6 +1405,24 @@
                     },
                     "providers": {
                       "aws": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_csp": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_ea": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_mca": {
                         "options": {
                           "date": "10"
                         },
@@ -10750,11 +10804,38 @@
         "properties": {
           "aws": {
             "$ref": "#/components/schemas/BillLockingProviderSetting"
+          },
+          "azure_csp": {
+            "$ref": "#/components/schemas/BillLockingProviderSetting"
+          },
+          "azure_ea": {
+            "$ref": "#/components/schemas/BillLockingProviderSetting"
+          },
+          "azure_mca": {
+            "$ref": "#/components/schemas/BillLockingProviderSetting"
           }
         },
-        "description": "Per-provider locking overrides (currently AWS only)",
+        "description": "Per-provider locking overrides",
         "example": {
           "aws": {
+            "options": {
+              "date": "10"
+            },
+            "type": "invoice_finalization"
+          },
+          "azure_csp": {
+            "options": {
+              "date": "10"
+            },
+            "type": "invoice_finalization"
+          },
+          "azure_ea": {
+            "options": {
+              "date": "10"
+            },
+            "type": "invoice_finalization"
+          },
+          "azure_mca": {
             "options": {
               "date": "10"
             },
@@ -10802,6 +10883,24 @@
           },
           "providers": {
             "aws": {
+              "options": {
+                "date": "10"
+              },
+              "type": "invoice_finalization"
+            },
+            "azure_csp": {
+              "options": {
+                "date": "10"
+              },
+              "type": "invoice_finalization"
+            },
+            "azure_ea": {
+              "options": {
+                "date": "10"
+              },
+              "type": "invoice_finalization"
+            },
+            "azure_mca": {
               "options": {
                 "date": "10"
               },
@@ -10985,6 +11084,24 @@
             },
             "providers": {
               "aws": {
+                "options": {
+                  "date": "10"
+                },
+                "type": "invoice_finalization"
+              },
+              "azure_csp": {
+                "options": {
+                  "date": "10"
+                },
+                "type": "invoice_finalization"
+              },
+              "azure_ea": {
+                "options": {
+                  "date": "10"
+                },
+                "type": "invoice_finalization"
+              },
+              "azure_mca": {
                 "options": {
                   "date": "10"
                 },
@@ -14583,12 +14700,12 @@
             "example": "bc-index"
           },
           "config": {
-            "type": "string",
+            "type": "object",
+            "additionalProperties": true,
             "description": "A json blob used by the UI",
             "example": {
               "foo": "bar"
-            },
-            "format": "binary"
+            }
           },
           "created_at": {
             "type": "string",

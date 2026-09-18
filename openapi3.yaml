@@ -3913,11 +3913,11 @@ components:
                     example: bc-index
                     type: string
                 config:
+                    additionalProperties: true
                     description: A json blob used by the UI
                     example:
                         foo: bar
-                    format: binary
-                    type: string
+                    type: object
                 created_at:
                     description: Creation timestamp
                     example: "2018-01-01T00:00:00Z"

@@ -5331,12 +5331,12 @@
             "type": "string"
           },
           "config": {
+            "additionalProperties": true,
             "description": "A json blob used by the UI",
             "example": {
               "foo": "bar"
             },
-            "format": "binary",
-            "type": "string"
+            "type": "object"
           },
           "created_at": {
             "description": "Creation timestamp",
