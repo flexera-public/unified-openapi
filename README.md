@@ -2,7 +2,7 @@
 
 Unified Flexera One OpenAPI specification and the generator tool that builds it.
 
-## ⚠️ Experimental
+## Experimental
 
 This project is currently considered **experimental** and is in the `v0.x` stage of development.
 
