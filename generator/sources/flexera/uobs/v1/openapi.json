@@ -672,6 +672,15 @@
                     {
                       "accountId": "835981850943",
                       "billingAccountId": "999888777666",
+                      "connectionInfo": {
+                        "errors": [
+                          {
+                            "code": "StatusCode.FAILED_PRECONDITION",
+                            "message": "User: arn:aws:sts::123456789012:assumed-role/staging_customer_access/rss-indirect-role-session is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::123456789012:role/FlexeraAccessRole"
+                          }
+                        ],
+                        "warnings": []
+                      },
                       "connectorId": "9E720086-F290-4646-B580-380A752223F3",
                       "connectorName": "AWS Connector",
                       "credentialId": "act-123274f7",
