@@ -1478,9 +1478,27 @@
         "type": "object"
       },
       "BillAnalysis_BillLockingProviders": {
-        "description": "Per-provider locking overrides (currently AWS only)",
+        "description": "Per-provider locking overrides",
         "example": {
           "aws": {
+            "options": {
+              "date": "10"
+            },
+            "type": "invoice_finalization"
+          },
+          "azure_csp": {
+            "options": {
+              "date": "10"
+            },
+            "type": "invoice_finalization"
+          },
+          "azure_ea": {
+            "options": {
+              "date": "10"
+            },
+            "type": "invoice_finalization"
+          },
+          "azure_mca": {
             "options": {
               "date": "10"
             },
@@ -1489,6 +1507,15 @@
         },
         "properties": {
           "aws": {
+            "$ref": "#/components/schemas/BillAnalysis_BillLockingProviderSetting"
+          },
+          "azure_csp": {
+            "$ref": "#/components/schemas/BillAnalysis_BillLockingProviderSetting"
+          },
+          "azure_ea": {
+            "$ref": "#/components/schemas/BillAnalysis_BillLockingProviderSetting"
+          },
+          "azure_mca": {
             "$ref": "#/components/schemas/BillAnalysis_BillLockingProviderSetting"
           }
         },
@@ -1502,6 +1529,24 @@
           },
           "providers": {
             "aws": {
+              "options": {
+                "date": "10"
+              },
+              "type": "invoice_finalization"
+            },
+            "azure_csp": {
+              "options": {
+                "date": "10"
+              },
+              "type": "invoice_finalization"
+            },
+            "azure_ea": {
+              "options": {
+                "date": "10"
+              },
+              "type": "invoice_finalization"
+            },
+            "azure_mca": {
               "options": {
                 "date": "10"
               },
@@ -1711,6 +1756,24 @@
             },
             "providers": {
               "aws": {
+                "options": {
+                  "date": "10"
+                },
+                "type": "invoice_finalization"
+              },
+              "azure_csp": {
+                "options": {
+                  "date": "10"
+                },
+                "type": "invoice_finalization"
+              },
+              "azure_ea": {
+                "options": {
+                  "date": "10"
+                },
+                "type": "invoice_finalization"
+              },
+              "azure_mca": {
                 "options": {
                   "date": "10"
                 },
@@ -24437,7 +24500,7 @@
         "type": "object"
       },
       "FinopsBilling_AdjustmentCondition": {
-        "description": "An adjustment condition, used by adjustment rules and adjustment plan rules.\n\nA rule's condition may be omitted or null, which will match unconditionally.\n\nOtherwise the **\"type\"** field is required and controls which other fields are required.\nThe following types are supported in billing adjustment rules:\n\nType **\"dimension_equals\"** evaluates whether the specified **\"dimension\"** contains exactly the specified **\"value\"**.\n\n```\n{\"type\":\"dimension_equals\", \"dimension\":\"ProviderName\", \"value\":\"AWS\"}\n```\n\nFor rule types _azureReservationReallocation_, _azureSavingsPlanReallocation_, _removeAzureLicenseCosts_, _removeTax_, _reservationReallocation_, _savingsPlanReallocation_, _supportCharge_, _uncompressPricingTiers_, and _volumeDiscounts_, **\"dimension\"** may only be **\"bill_source\"**.\nFor rule types _creditMemo_ and _fixedAmount_, **\"dimension\"** may be **\"SubAccountId\"** or **\"SubAccountName\"**.\nFor other rule types, **\"dimension\"** may be any of most [FOCUS columns](https://focus.finops.org/focus-columns),\n[Rule-Based Dimensions](https://docs.flexera.com/flexera/EN/Administration/CreatingRule-BasedDimensions.htm)\ndefined within your organization (names starting with **rbd\\_**),\n[Tag Dimensions](https://docs.flexera.com/flexera/EN/Administration/TagDimensions.htm)\ndefined within your organization (names starting with **tag\\_**),\nor a few dimensions Flexera populates for you.\n\nA 'value' specified as an empty string (\"\") matches dimensions with either a null or an empty string value.\n\nTypes **\"and\"** and **\"or\"** evaluate whether all or any of the conditions specified in the array **\"expressions\"** are true.\nType **\"not\"** evaluates to the opposite of the single condition specified in **\"expression\"**.\n\n```\n{\"type\":\"and\", \"expressions\":[{...}]}\n```\n```\n{\"type\":\"or\", \"expressions\":[{...}]}\n```\n```\n{\"type\":\"not\", \"expression\":{...}}\n```\n\nTogether types **\"and\"**, **\"or\"**, and **\"not\"** enable complex combinations of other conditions.",
+        "description": "An adjustment condition, used by adjustment rules and adjustment plan rules.\n\nA rule's condition may be omitted or null, which will match unconditionally.\n\nOtherwise the **\"type\"** field is required and controls which other fields are required.\nThe following types are supported in billing adjustment rules:\n\nType **\"dimension_equals\"** evaluates whether the specified **\"dimension\"** contains exactly the specified **\"value\"**.\n\n```\n{\"type\":\"dimension_equals\", \"dimension\":\"ProviderName\", \"value\":\"AWS\"}\n```\n\nFor rule types _azureReservationReallocation_, _azureSavingsPlanReallocation_, _hideCredits_, _removeAzureLicenseCosts_, _removeTax_, _reservationReallocation_, _savingsPlanReallocation_, _supportCharge_, _uncompressPricingTiers_, and _volumeDiscounts_, **\"dimension\"** may only be **\"bill_source\"**.\nFor rule types _creditMemo_ and _fixedAmount_, **\"dimension\"** may be **\"SubAccountId\"** or **\"SubAccountName\"**.\nFor other rule types, **\"dimension\"** may be any of most [FOCUS columns](https://focus.finops.org/focus-columns),\n[Rule-Based Dimensions](https://docs.flexera.com/flexera/EN/Administration/CreatingRule-BasedDimensions.htm)\ndefined within your organization (names starting with **rbd\\_**),\n[Tag Dimensions](https://docs.flexera.com/flexera/EN/Administration/TagDimensions.htm)\ndefined within your organization (names starting with **tag\\_**),\nor a few dimensions Flexera populates for you.\n\nA 'value' specified as an empty string (\"\") matches dimensions with either a null or an empty string value.\n\nTypes **\"and\"** and **\"or\"** evaluate whether all or any of the conditions specified in the array **\"expressions\"** are true.\nType **\"not\"** evaluates to the opposite of the single condition specified in **\"expression\"**.\n\n```\n{\"type\":\"and\", \"expressions\":[{...}]}\n```\n```\n{\"type\":\"or\", \"expressions\":[{...}]}\n```\n```\n{\"type\":\"not\", \"expression\":{...}}\n```\n\nTogether types **\"and\"**, **\"or\"**, and **\"not\"** enable complex combinations of other conditions.",
         "example": {
           "dimension": "vendor",
           "type": "dimension_equals",
@@ -24522,6 +24585,18 @@
           "destinations": {
             "description": "The destinations that receive the reallocated costs.",
             "example": [
+              {
+                "dimensionId": "rbd_team",
+                "dimensionName": "Team",
+                "percentage": 50,
+                "value": "Orion"
+              },
+              {
+                "dimensionId": "rbd_team",
+                "dimensionName": "Team",
+                "percentage": 50,
+                "value": "Orion"
+              },
               {
                 "dimensionId": "rbd_team",
                 "dimensionName": "Team",
@@ -24621,6 +24696,11 @@
         "description": "Defines the allocation strategy and destination inputs for create/update operations.",
         "example": {
           "destinations": [
+            {
+              "dimensionId": "rbd_team",
+              "percentage": 50,
+              "value": "Orion"
+            },
             {
               "dimensionId": "rbd_team",
               "percentage": 50,
@@ -24827,7 +24907,7 @@
                 "ruleName",
                 "ruleId"
               ],
-              "example": "customer",
+              "example": "billingCenterLevel1",
               "type": "string"
             },
             "minItems": 1,
@@ -24921,7 +25001,7 @@
                 "ruleName",
                 "ruleId"
               ],
-              "example": "billingCenterLevel5",
+              "example": "planName",
               "type": "string"
             },
             "type": "array"
@@ -24950,15 +25030,15 @@
                 "billedCost": "12450.0000000000",
                 "billingAccountId": "123456789012",
                 "billingAccountName": "Acme Production",
-                "billingCenterLevel1": "Qui voluptatibus voluptatem rem dignissimos dolores.",
-                "billingCenterLevel2": "Repellendus sit rerum doloribus.",
-                "billingCenterLevel3": "Officiis ex quas ex tenetur soluta.",
-                "billingCenterLevel4": "Aliquam ut eaque sed.",
-                "billingCenterLevel5": "Voluptate est quidem aliquam voluptatibus temporibus.",
-                "billingCenterLevel6": "Sunt laudantium rerum iure.",
-                "billingCenterLevel7": "Unde incidunt.",
-                "billingCenterLevel8": "Ea vero.",
-                "billingCenterLevel9": "Dolor doloremque tempora ipsam.",
+                "billingCenterLevel1": "Repudiandae sunt laudantium.",
+                "billingCenterLevel2": "Iure sint.",
+                "billingCenterLevel3": "Incidunt corporis ea.",
+                "billingCenterLevel4": "Magnam dolor doloremque tempora ipsam.",
+                "billingCenterLevel5": "Blanditiis ab quia qui nisi sit.",
+                "billingCenterLevel6": "Itaque dolor eos officia et.",
+                "billingCenterLevel7": "Rerum rerum tenetur velit tenetur.",
+                "billingCenterLevel8": "Saepe rerum.",
+                "billingCenterLevel9": "Sunt sint nostrum sunt.",
                 "chargeCategory": "Usage",
                 "customer": "2001",
                 "effectiveChange": "1120.0000000000",
@@ -24979,73 +25059,15 @@
                 "billedCost": "12450.0000000000",
                 "billingAccountId": "123456789012",
                 "billingAccountName": "Acme Production",
-                "billingCenterLevel1": "Qui voluptatibus voluptatem rem dignissimos dolores.",
-                "billingCenterLevel2": "Repellendus sit rerum doloribus.",
-                "billingCenterLevel3": "Officiis ex quas ex tenetur soluta.",
-                "billingCenterLevel4": "Aliquam ut eaque sed.",
-                "billingCenterLevel5": "Voluptate est quidem aliquam voluptatibus temporibus.",
-                "billingCenterLevel6": "Sunt laudantium rerum iure.",
-                "billingCenterLevel7": "Unde incidunt.",
-                "billingCenterLevel8": "Ea vero.",
-                "billingCenterLevel9": "Dolor doloremque tempora ipsam.",
-                "chargeCategory": "Usage",
-                "customer": "2001",
-                "effectiveChange": "1120.0000000000",
-                "effectiveCost": "11200.0000000000",
-                "modifiedBilledCost": "13695.0000000000",
-                "modifiedEffectiveCost": "12320.0000000000",
-                "planName": "Premium Support",
-                "ruleId": "7d3f1a2b-4c5e-6789-abcd-ef0123456789",
-                "ruleName": "Premium Support Upcharge",
-                "ruleType": "upchargeDiscount",
-                "serviceCategory": "Compute",
-                "serviceName": "AmazonEC2",
-                "subAccountId": "987654321098",
-                "subAccountName": "acme-prod-us-east"
-              },
-              {
-                "billedChange": "1245.0000000000",
-                "billedCost": "12450.0000000000",
-                "billingAccountId": "123456789012",
-                "billingAccountName": "Acme Production",
-                "billingCenterLevel1": "Qui voluptatibus voluptatem rem dignissimos dolores.",
-                "billingCenterLevel2": "Repellendus sit rerum doloribus.",
-                "billingCenterLevel3": "Officiis ex quas ex tenetur soluta.",
-                "billingCenterLevel4": "Aliquam ut eaque sed.",
-                "billingCenterLevel5": "Voluptate est quidem aliquam voluptatibus temporibus.",
-                "billingCenterLevel6": "Sunt laudantium rerum iure.",
-                "billingCenterLevel7": "Unde incidunt.",
-                "billingCenterLevel8": "Ea vero.",
-                "billingCenterLevel9": "Dolor doloremque tempora ipsam.",
-                "chargeCategory": "Usage",
-                "customer": "2001",
-                "effectiveChange": "1120.0000000000",
-                "effectiveCost": "11200.0000000000",
-                "modifiedBilledCost": "13695.0000000000",
-                "modifiedEffectiveCost": "12320.0000000000",
-                "planName": "Premium Support",
-                "ruleId": "7d3f1a2b-4c5e-6789-abcd-ef0123456789",
-                "ruleName": "Premium Support Upcharge",
-                "ruleType": "upchargeDiscount",
-                "serviceCategory": "Compute",
-                "serviceName": "AmazonEC2",
-                "subAccountId": "987654321098",
-                "subAccountName": "acme-prod-us-east"
-              },
-              {
-                "billedChange": "1245.0000000000",
-                "billedCost": "12450.0000000000",
-                "billingAccountId": "123456789012",
-                "billingAccountName": "Acme Production",
-                "billingCenterLevel1": "Qui voluptatibus voluptatem rem dignissimos dolores.",
-                "billingCenterLevel2": "Repellendus sit rerum doloribus.",
-                "billingCenterLevel3": "Officiis ex quas ex tenetur soluta.",
-                "billingCenterLevel4": "Aliquam ut eaque sed.",
-                "billingCenterLevel5": "Voluptate est quidem aliquam voluptatibus temporibus.",
-                "billingCenterLevel6": "Sunt laudantium rerum iure.",
-                "billingCenterLevel7": "Unde incidunt.",
-                "billingCenterLevel8": "Ea vero.",
-                "billingCenterLevel9": "Dolor doloremque tempora ipsam.",
+                "billingCenterLevel1": "Repudiandae sunt laudantium.",
+                "billingCenterLevel2": "Iure sint.",
+                "billingCenterLevel3": "Incidunt corporis ea.",
+                "billingCenterLevel4": "Magnam dolor doloremque tempora ipsam.",
+                "billingCenterLevel5": "Blanditiis ab quia qui nisi sit.",
+                "billingCenterLevel6": "Itaque dolor eos officia et.",
+                "billingCenterLevel7": "Rerum rerum tenetur velit tenetur.",
+                "billingCenterLevel8": "Saepe rerum.",
+                "billingCenterLevel9": "Sunt sint nostrum sunt.",
                 "chargeCategory": "Usage",
                 "customer": "2001",
                 "effectiveChange": "1120.0000000000",
@@ -25090,15 +25112,15 @@
           "billedCost": "12450.0000000000",
           "billingAccountId": "123456789012",
           "billingAccountName": "Acme Production",
-          "billingCenterLevel1": "Corrupti sed omnis.",
-          "billingCenterLevel2": "Rerum occaecati porro adipisci cum perferendis.",
-          "billingCenterLevel3": "Sit numquam et non id omnis.",
-          "billingCenterLevel4": "Accusamus fuga.",
-          "billingCenterLevel5": "Et laudantium facilis veniam.",
-          "billingCenterLevel6": "Veritatis quasi cum nihil ad laudantium rerum.",
-          "billingCenterLevel7": "Incidunt qui quo.",
-          "billingCenterLevel8": "In quos unde dolores.",
-          "billingCenterLevel9": "Quia quos repellat.",
+          "billingCenterLevel1": "Quisquam sint fugiat.",
+          "billingCenterLevel2": "Et minima.",
+          "billingCenterLevel3": "Omnis quod esse est.",
+          "billingCenterLevel4": "Facere mollitia.",
+          "billingCenterLevel5": "Beatae suscipit labore sit aperiam deleniti.",
+          "billingCenterLevel6": "Quo cum quisquam non aspernatur.",
+          "billingCenterLevel7": "Non odit ea at recusandae.",
+          "billingCenterLevel8": "Provident maxime eveniet.",
+          "billingCenterLevel9": "In omnis deleniti qui quibusdam tempora perferendis.",
           "chargeCategory": "Usage",
           "customer": "2001",
           "effectiveChange": "1120.0000000000",
@@ -25137,47 +25159,47 @@
           },
           "billingCenterLevel1": {
             "description": "Billing center level 1 name",
-            "example": "Ea repellendus doloremque.",
+            "example": "Harum quia quos repellat itaque.",
             "type": "string"
           },
           "billingCenterLevel2": {
             "description": "Billing center level 2 name",
-            "example": "Quod consequatur porro rerum qui.",
+            "example": "Voluptas error voluptatum eum quo commodi omnis.",
             "type": "string"
           },
           "billingCenterLevel3": {
             "description": "Billing center level 3 name",
-            "example": "Corrupti id aut esse.",
+            "example": "Eius blanditiis magnam in eligendi eligendi.",
             "type": "string"
           },
           "billingCenterLevel4": {
             "description": "Billing center level 4 name",
-            "example": "Temporibus ipsum perferendis.",
+            "example": "Et qui voluptatibus velit vitae et nihil.",
             "type": "string"
           },
           "billingCenterLevel5": {
             "description": "Billing center level 5 name",
-            "example": "Nisi inventore tempore qui cum facere.",
+            "example": "Qui nesciunt non consequatur magni doloremque.",
             "type": "string"
           },
           "billingCenterLevel6": {
             "description": "Billing center level 6 name",
-            "example": "Et minus repellendus impedit.",
+            "example": "Voluptatum perferendis.",
             "type": "string"
           },
           "billingCenterLevel7": {
             "description": "Billing center level 7 name",
-            "example": "Porro sapiente quo voluptas amet mollitia.",
+            "example": "Perferendis omnis.",
             "type": "string"
           },
           "billingCenterLevel8": {
             "description": "Billing center level 8 name",
-            "example": "Voluptas sequi dolorum et.",
+            "example": "Iusto nam placeat.",
             "type": "string"
           },
           "billingCenterLevel9": {
             "description": "Billing center level 9 name",
-            "example": "Quis in sit atque.",
+            "example": "Labore repudiandae voluptatem libero dolorem at dolor.",
             "type": "string"
           },
           "chargeCategory": {
@@ -25277,6 +25299,11 @@
             "rate": "7.5"
           },
           "hideCredits": {
+            "condition": {
+              "dimension": "bill_source",
+              "type": "dimension_equals",
+              "value": "aws-123456789012"
+            },
             "creditTypes": [
               "edpDiscount",
               "privateRateDiscount"
@@ -25486,6 +25513,16 @@
           "credits": {
             "description": "One or more credit descriptors to be actioned.",
             "example": [
+              {
+                "amount": "100.00",
+                "billingAccountId": "111222333",
+                "billingAccountName": "acme-prod-us-east",
+                "creditType": "EdpDiscount",
+                "customerId": 2001,
+                "description": "Enterprise Discount Program Discount for AmazonVPC",
+                "subAccountId": "777037404548",
+                "subAccountName": "acme-prod-us-east"
+              },
               {
                 "amount": "100.00",
                 "billingAccountId": "111222333",
@@ -25862,11 +25899,6 @@
                 "dimensionId": "rbd_team",
                 "percentage": 50,
                 "value": "Orion"
-              },
-              {
-                "dimensionId": "rbd_team",
-                "percentage": 50,
-                "value": "Orion"
               }
             ],
             "type": "equalSplit"
@@ -25875,6 +25907,15 @@
           "effectiveTo": "2025-12",
           "name": "Equal split for AWS between Teams A, B and C",
           "source": [
+            {
+              "dimensionId": "vendor",
+              "valueListCondition": {
+                "values": [
+                  "AWS",
+                  "Azure"
+                ]
+              }
+            },
             {
               "dimensionId": "vendor",
               "valueListCondition": {
@@ -25903,9 +25944,11 @@
             "type": "string"
           },
           "name": {
-            "description": "Display name for the shared cost rule. Must be unique within the organization.",
+            "description": "Display name for the shared cost rule. Must be unique within the organization. Must not contain \"(\", \")\" or \"\u003e\".",
             "example": "Equal split for AWS between Teams A, B and C",
+            "maxLength": 255,
             "minLength": 1,
+            "pattern": "^[^()\u003e]+$",
             "type": "string"
           },
           "source": {
@@ -26138,16 +26181,6 @@
                 "description": "Enterprise Discount Program Discount for AmazonVPC",
                 "subAccountId": "777037404548",
                 "subAccountName": "acme-prod-us-east"
-              },
-              {
-                "amount": "100.00",
-                "billingAccountId": "111222333",
-                "billingAccountName": "acme-prod-us-east",
-                "creditType": "EdpDiscount",
-                "customerId": 2001,
-                "description": "Enterprise Discount Program Discount for AmazonVPC",
-                "subAccountId": "777037404548",
-                "subAccountName": "acme-prod-us-east"
               }
             ],
             "items": {
@@ -26242,15 +26275,15 @@
             "ref": "iam:user:123"
           },
           "creditTypes": [
-            "Voluptatum perferendis.",
-            "Perferendis omnis.",
-            "Iusto nam placeat."
+            "Temporibus et tempora similique.",
+            "Autem blanditiis quo.",
+            "Exercitationem animi qui fuga unde dolor.",
+            "Dignissimos odit blanditiis ut consectetur debitis excepturi."
           ],
           "customerIds": [
-            6452356002430984000,
-            780845835581557500,
-            10550619912295664000,
-            9970985618919963000
+            11135824717448464000,
+            4674087155031100000,
+            6485437795460295000
           ],
           "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
           "kind": "finops:billing-credit-assignment-summary",
@@ -26306,11 +26339,11 @@
           "creditTypes": {
             "description": "The unique credit types affected by the credit assignment.",
             "example": [
-              "Eligendi totam et qui voluptatibus velit.",
-              "Et nihil sunt qui."
+              "Quia quidem repellendus sapiente in veritatis.",
+              "Nisi hic cupiditate quia."
             ],
             "items": {
-              "example": "Quo commodi omnis eveniet eius blanditiis magnam.",
+              "example": "Alias architecto sit et et mollitia rerum.",
               "type": "string"
             },
             "type": "array"
@@ -26318,11 +26351,11 @@
           "customerIds": {
             "description": "The unique customer (child org) identifiers affected by the credit assignment.",
             "example": [
-              9611538861832909000,
-              775711652423824000
+              15063507951440372000,
+              10457454758038733000
             ],
             "items": {
-              "example": 15352522936408367000,
+              "example": 1847660803184269300,
               "type": "integer"
             },
             "type": "array"
@@ -26537,26 +26570,26 @@
       },
       "FinopsBilling_CustomRateTier": {
         "example": {
-          "endCost": "Toni Dare PhD",
-          "rate": "Damaris Schneider",
-          "startCost": "Ms. Margot Goodwin"
+          "endCost": "Waylon Goodwin",
+          "rate": "Lenny Robel Sr.",
+          "startCost": "Berneice Stracke"
         },
         "properties": {
           "endCost": {
             "description": "inclusive upper bound for this tier",
-            "example": "Mr. Susanna Abshire",
+            "example": "Greta Rath",
             "pattern": "^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$",
             "type": "string"
           },
           "rate": {
             "description": "unit price applied by this tier",
-            "example": "Mrs. Kailee Lemke",
+            "example": "Allene Mraz MD",
             "pattern": "^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$",
             "type": "string"
           },
           "startCost": {
             "description": "exclusive lower bound for this tier",
-            "example": "Ursula Carter Sr.",
+            "example": "Dr. Rebeca Nikolaus",
             "pattern": "^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$",
             "type": "string"
           }
@@ -26680,12 +26713,12 @@
           },
           "temporary": {
             "description": "Is the error temporary?",
-            "example": true,
+            "example": false,
             "type": "boolean"
           },
           "timeout": {
             "description": "Is the error a timeout?",
-            "example": true,
+            "example": false,
             "type": "boolean"
           }
         },
@@ -26877,6 +26910,11 @@
             "rate": "7.5"
           },
           "hideCredits": {
+            "condition": {
+              "dimension": "bill_source",
+              "type": "dimension_equals",
+              "value": "aws-123456789012"
+            },
             "creditTypes": [
               "edpDiscount",
               "privateRateDiscount"
@@ -27264,6 +27302,11 @@
             "rate": "7.5"
           },
           "hideCredits": {
+            "condition": {
+              "dimension": "bill_source",
+              "type": "dimension_equals",
+              "value": "aws-123456789012"
+            },
             "creditTypes": [
               "edpDiscount",
               "privateRateDiscount"
@@ -27429,7 +27472,7 @@
             ],
             "type": "equalSplit"
           },
-          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Platform+Services+Recovery\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8e%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
           "createdAt": "2020-11-26T12:17:38.369Z",
           "createdBy": {
             "id": 1234,
@@ -27438,7 +27481,7 @@
           },
           "effectiveFrom": "2025-07",
           "effectiveTo": "2025-12",
-          "id": "a3f7c92",
+          "id": "68f2a91c4b3d2e1f5a6b7c8d",
           "kind": "finops:billing-shared-cost-rule",
           "name": "Platform Services Recovery",
           "priority": 1,
@@ -27455,8 +27498,8 @@
             "$ref": "#/components/schemas/FinopsBilling_Allocation"
           },
           "analyzeSpendQuery": {
-            "description": "URL query string that opens the Analyze tabular view filtered to this rule. Append it to the tabular view URL as-is; it is already percent-encoded. Rebuilt on every read, so treat it as opaque rather than storing it.",
-            "example": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Platform+Services+Recovery\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+            "description": "URL query string that opens the Analyze tabular view filtered to this rule. Use it as the query component of the tabular view URL, after the \"?\", without decoding or re-encoding it; it is already percent-encoded. Rebuilt on every read, so treat it as opaque rather than storing it.",
+            "example": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8e%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
             "type": "string"
           },
           "createdAt": {
@@ -27482,7 +27525,7 @@
           },
           "id": {
             "description": "Unique identifier of the shared cost rule.",
-            "example": "a3f7c92",
+            "example": "68f2a91c4b3d2e1f5a6b7c8d",
             "type": "string"
           },
           "kind": {
@@ -27506,9 +27549,6 @@
           },
           "status": {
             "description": "Current lifecycle status of the rule.",
-            "enum": [
-              "active"
-            ],
             "example": "active",
             "type": "string"
           },
@@ -27612,14 +27652,22 @@
       "FinopsBilling_HideCreditsSettings": {
         "description": "Configure how vendor credits are, or are not, applied.",
         "example": {
+          "condition": {
+            "dimension": "bill_source",
+            "type": "dimension_equals",
+            "value": "aws-123456789012"
+          },
           "creditTypes": [
             "edpDiscount",
             "taxRefunds"
           ]
         },
         "properties": {
+          "condition": {
+            "$ref": "#/components/schemas/FinopsBilling_AdjustmentCondition"
+          },
           "creditTypes": {
-            "description": "CreditTypes lists the credits that will be hidden.",
+            "description": "CreditTypes lists the credits that will be hidden. As a special case, an empty list will hide all credits.",
             "example": [
               "edpDiscount",
               "taxRefunds"
@@ -27634,12 +27682,15 @@
                 "bundledDiscount",
                 "distributorDiscount"
               ],
-              "example": "sppDiscount",
+              "example": "bundledDiscount",
               "type": "string"
             },
             "type": "array"
           }
         },
+        "required": [
+          "creditTypes"
+        ],
         "type": "object"
       },
       "FinopsBilling_IndexAdjustmentRulesResult": {
@@ -27899,14 +27950,14 @@
                   "ref": "iam:user:123"
                 },
                 "creditTypes": [
-                  "Id at sunt consequatur optio dignissimos.",
-                  "Accusamus dolor vitae et labore omnis quam.",
-                  "Minus eligendi explicabo beatae totam eius est."
+                  "Aperiam dolorum amet dolor sed.",
+                  "Necessitatibus quis ut id."
                 ],
                 "customerIds": [
-                  17717540172489044000,
-                  8710470783587580000,
-                  8208896729531094000
+                  5816907658813449000,
+                  3238647990704806400,
+                  16754210261474847000,
+                  1153833336386589200
                 ],
                 "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
                 "kind": "finops:billing-credit-assignment-summary",
@@ -27943,14 +27994,14 @@
                   "ref": "iam:user:123"
                 },
                 "creditTypes": [
-                  "Id at sunt consequatur optio dignissimos.",
-                  "Accusamus dolor vitae et labore omnis quam.",
-                  "Minus eligendi explicabo beatae totam eius est."
+                  "Aperiam dolorum amet dolor sed.",
+                  "Necessitatibus quis ut id."
                 ],
                 "customerIds": [
-                  17717540172489044000,
-                  8710470783587580000,
-                  8208896729531094000
+                  5816907658813449000,
+                  3238647990704806400,
+                  16754210261474847000,
+                  1153833336386589200
                 ],
                 "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
                 "kind": "finops:billing-credit-assignment-summary",
@@ -28095,6 +28146,11 @@
                   "rate": "7.5"
                 },
                 "hideCredits": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  },
                   "creditTypes": [
                     "edpDiscount",
                     "privateRateDiscount"
@@ -28164,6 +28220,159 @@
                   "rate": "7.5"
                 },
                 "hideCredits": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  },
+                  "creditTypes": [
+                    "edpDiscount",
+                    "privateRateDiscount"
+                  ]
+                },
+                "id": "ae85f96e-6b9e-4d68-a741-d1ea7ca1fb28",
+                "kind": "finops:billing-enterprise-rule",
+                "markupMarkdown": {
+                  "markup": "7.5"
+                },
+                "name": "Margin",
+                "removeAzureLicenseCosts": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "cbi-oi-azure-ea-12345678"
+                  }
+                },
+                "removeTax": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  }
+                },
+                "startOn": "2020-03-15",
+                "supportCharge": {
+                  "applyBy": "customer",
+                  "applyMinimum": false,
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  },
+                  "tier": "business"
+                },
+                "type": "markupMarkdown",
+                "upchargeDiscount": {
+                  "amount": "-2.5"
+                },
+                "updatedAt": "2020-11-26T12:17:38.369Z",
+                "updatedBy": {
+                  "id": 1234,
+                  "kind": "iam:user",
+                  "ref": "iam:user:123"
+                }
+              },
+              {
+                "createdAt": "2020-11-26T12:17:38.369Z",
+                "createdBy": {
+                  "id": 1234,
+                  "kind": "iam:user",
+                  "ref": "iam:user:123"
+                },
+                "creditMemo": {
+                  "credit": "-150"
+                },
+                "customUsageRate": {
+                  "rate": "1.515"
+                },
+                "enabled": true,
+                "endAfter": "2023-05-17",
+                "fixedAmount": {
+                  "cost": "150"
+                },
+                "generateTax": {
+                  "rate": "7.5"
+                },
+                "hideCredits": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  },
+                  "creditTypes": [
+                    "edpDiscount",
+                    "privateRateDiscount"
+                  ]
+                },
+                "id": "ae85f96e-6b9e-4d68-a741-d1ea7ca1fb28",
+                "kind": "finops:billing-enterprise-rule",
+                "markupMarkdown": {
+                  "markup": "7.5"
+                },
+                "name": "Margin",
+                "removeAzureLicenseCosts": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "cbi-oi-azure-ea-12345678"
+                  }
+                },
+                "removeTax": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  }
+                },
+                "startOn": "2020-03-15",
+                "supportCharge": {
+                  "applyBy": "customer",
+                  "applyMinimum": false,
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  },
+                  "tier": "business"
+                },
+                "type": "markupMarkdown",
+                "upchargeDiscount": {
+                  "amount": "-2.5"
+                },
+                "updatedAt": "2020-11-26T12:17:38.369Z",
+                "updatedBy": {
+                  "id": 1234,
+                  "kind": "iam:user",
+                  "ref": "iam:user:123"
+                }
+              },
+              {
+                "createdAt": "2020-11-26T12:17:38.369Z",
+                "createdBy": {
+                  "id": 1234,
+                  "kind": "iam:user",
+                  "ref": "iam:user:123"
+                },
+                "creditMemo": {
+                  "credit": "-150"
+                },
+                "customUsageRate": {
+                  "rate": "1.515"
+                },
+                "enabled": true,
+                "endAfter": "2023-05-17",
+                "fixedAmount": {
+                  "cost": "150"
+                },
+                "generateTax": {
+                  "rate": "7.5"
+                },
+                "hideCredits": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  },
                   "creditTypes": [
                     "edpDiscount",
                     "privateRateDiscount"
@@ -28447,6 +28656,11 @@
                   "rate": "7.5"
                 },
                 "hideCredits": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  },
                   "creditTypes": [
                     "edpDiscount",
                     "privateRateDiscount"
@@ -28551,6 +28765,11 @@
                   "rate": "7.5"
                 },
                 "hideCredits": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  },
                   "creditTypes": [
                     "edpDiscount",
                     "privateRateDiscount"
@@ -28655,6 +28874,11 @@
                   "rate": "7.5"
                 },
                 "hideCredits": {
+                  "condition": {
+                    "dimension": "bill_source",
+                    "type": "dimension_equals",
+                    "value": "aws-123456789012"
+                  },
                   "creditTypes": [
                     "edpDiscount",
                     "privateRateDiscount"
@@ -28766,7 +28990,7 @@
                 ],
                 "type": "fixedPercentageSplit"
               },
-              "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Platform+Services+Recovery\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+              "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8e%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
               "createdAt": "2020-11-26T12:17:38.369Z",
               "createdBy": {
                 "id": 1234,
@@ -28775,7 +28999,7 @@
               },
               "effectiveFrom": "2025-07",
               "effectiveTo": "2025-12",
-              "id": "a3f7c92",
+              "id": "68f2a91c4b3d2e1f5a6b7c8d",
               "kind": "finops:billing-shared-cost-rule",
               "name": "Platform Services Recovery",
               "priority": 1,
@@ -28803,7 +29027,7 @@
                 ],
                 "type": "usageBasedProportionalSplit"
               },
-              "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Usage-based+split+for+BU+4\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+              "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Usage-based%2520split%2520for%2520BU%25204%2520%2868f2a91c4b3d2e1f5a6b7c8e%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
               "createdAt": "2020-11-26T12:17:38.369Z",
               "createdBy": {
                 "id": 1234,
@@ -28812,7 +29036,7 @@
               },
               "effectiveFrom": "2025-07",
               "effectiveTo": "2025-12",
-              "id": "b8e2a41",
+              "id": "68f2a91c4b3d2e1f5a6b7c8e",
               "kind": "finops:billing-shared-cost-rule",
               "name": "Usage-based split for BU 4",
               "priority": 2,
@@ -28837,41 +29061,7 @@
           },
           "values": {
             "description": "The shared cost rules.",
-            "example": [
-              {
-                "allocation": {
-                  "destinations": [
-                    {
-                      "dimensionId": "rbd_team",
-                      "dimensionName": "Team",
-                      "percentage": 50,
-                      "value": "Orion"
-                    }
-                  ],
-                  "type": "equalSplit"
-                },
-                "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Platform+Services+Recovery\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
-                "createdAt": "2020-11-26T12:17:38.369Z",
-                "createdBy": {
-                  "id": 1234,
-                  "kind": "iam:user",
-                  "ref": "iam:user:123"
-                },
-                "effectiveFrom": "2025-07",
-                "effectiveTo": "2025-12",
-                "id": "a3f7c92",
-                "kind": "finops:billing-shared-cost-rule",
-                "name": "Platform Services Recovery",
-                "priority": 1,
-                "status": "active",
-                "updatedAt": "2020-11-26T12:17:38.369Z",
-                "updatedBy": {
-                  "id": 1234,
-                  "kind": "iam:user",
-                  "ref": "iam:user:123"
-                }
-              }
-            ],
+            "example": [],
             "items": {
               "$ref": "#/components/schemas/FinopsBilling_FlexeraFinopsBillingSharedCostRuleSummary"
             },
@@ -28923,7 +29113,7 @@
         "description": "Maps a shared cost rule to its new priority position.",
         "example": {
           "priority": 1,
-          "ruleId": "a3f7c92"
+          "ruleId": "68f2a91c4b3d2e1f5a6b7c8d"
         },
         "properties": {
           "priority": {
@@ -28934,7 +29124,7 @@
           },
           "ruleId": {
             "description": "Unique identifier of the shared cost rule.",
-            "example": "a3f7c92",
+            "example": "68f2a91c4b3d2e1f5a6b7c8d",
             "minLength": 1,
             "type": "string"
           }
@@ -28966,7 +29156,11 @@
           "rules": [
             {
               "priority": 1,
-              "ruleId": "a3f7c92"
+              "ruleId": "68f2a91c4b3d2e1f5a6b7c8d"
+            },
+            {
+              "priority": 1,
+              "ruleId": "68f2a91c4b3d2e1f5a6b7c8d"
             }
           ]
         },
@@ -28976,11 +29170,11 @@
             "example": [
               {
                 "priority": 1,
-                "ruleId": "a3f7c92"
+                "ruleId": "68f2a91c4b3d2e1f5a6b7c8d"
               },
               {
                 "priority": 1,
-                "ruleId": "a3f7c92"
+                "ruleId": "68f2a91c4b3d2e1f5a6b7c8d"
               }
             ],
             "items": {
@@ -29019,6 +29213,11 @@
             "rate": "7.5"
           },
           "hideCredits": {
+            "condition": {
+              "dimension": "bill_source",
+              "type": "dimension_equals",
+              "value": "aws-123456789012"
+            },
             "creditTypes": [
               "edpDiscount",
               "privateRateDiscount"
@@ -29199,6 +29398,11 @@
             "rate": "7.5"
           },
           "hideCredits": {
+            "condition": {
+              "dimension": "bill_source",
+              "type": "dimension_equals",
+              "value": "aws-123456789012"
+            },
             "creditTypes": [
               "edpDiscount",
               "privateRateDiscount"
@@ -29466,7 +29670,7 @@
               "billedCost",
               "modifiedCost"
             ],
-            "example": "billedCost",
+            "example": "observedCosts",
             "type": "string"
           }
         },
@@ -29808,7 +30012,7 @@
               "billedCost",
               "modifiedCost"
             ],
-            "example": "listCost",
+            "example": "modifiedCost",
             "type": "string"
           }
         },
@@ -29836,7 +30040,7 @@
             ],
             "type": "fixedPercentageSplit"
           },
-          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Platform+Services+Recovery\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8e%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
           "createdAt": "2020-11-26T12:17:38.369Z",
           "createdBy": {
             "id": 1234,
@@ -29845,7 +30049,7 @@
           },
           "effectiveFrom": "2025-07",
           "effectiveTo": "2025-12",
-          "id": "a3f7c92",
+          "id": "68f2a91c4b3d2e1f5a6b7c8d",
           "kind": "finops:billing-shared-cost-rule",
           "name": "Platform Services Recovery",
           "priority": 1,
@@ -29874,8 +30078,8 @@
             "$ref": "#/components/schemas/FinopsBilling_Allocation"
           },
           "analyzeSpendQuery": {
-            "description": "URL query string that opens the Analyze tabular view filtered to this rule. Append it to the tabular view URL as-is; it is already percent-encoded. Rebuilt on every read, so treat it as opaque rather than storing it.",
-            "example": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Platform+Services+Recovery\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+            "description": "URL query string that opens the Analyze tabular view filtered to this rule. Use it as the query component of the tabular view URL, after the \"?\", without decoding or re-encoding it; it is already percent-encoded. Rebuilt on every read, so treat it as opaque rather than storing it.",
+            "example": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8e%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
             "type": "string"
           },
           "createdAt": {
@@ -29901,7 +30105,7 @@
           },
           "id": {
             "description": "Unique identifier of the shared cost rule.",
-            "example": "a3f7c92",
+            "example": "68f2a91c4b3d2e1f5a6b7c8d",
             "type": "string"
           },
           "kind": {
@@ -29965,9 +30169,6 @@
           },
           "status": {
             "description": "Current lifecycle status of the rule.",
-            "enum": [
-              "active"
-            ],
             "example": "active",
             "type": "string"
           },
@@ -30201,26 +30402,26 @@
       },
       "FinopsBilling_UpchargeTier": {
         "example": {
-          "amount": "Kylee Funk",
-          "endCost": "Colton McClure",
-          "startCost": "Derick Braun"
+          "amount": "Anabelle Morar",
+          "endCost": "Carley Heathcote",
+          "startCost": "Unique Padberg"
         },
         "properties": {
           "amount": {
             "description": "upcharge percentage applied by this tier",
-            "example": "Molly Nicolas MD",
+            "example": "Art Wehner",
             "pattern": "^[-+]?[0-9]+(?:[.][0-9]+)?$",
             "type": "string"
           },
           "endCost": {
             "description": "inclusive upper bound for this tier",
-            "example": "Ms. Carli Corwin",
+            "example": "Jacey Hansen",
             "pattern": "^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$",
             "type": "string"
           },
           "startCost": {
             "description": "exclusive lower bound for this tier",
-            "example": "Sister Langworth",
+            "example": "Katheryn Ortiz",
             "pattern": "^[-+]?[0-9]+(?:[.][0-9]+)?(?:[eE][-+]?[0-9]+)?$",
             "type": "string"
           }
@@ -30245,19 +30446,23 @@
                 "dimensionId": "rbd_team",
                 "percentage": 50,
                 "value": "Orion"
-              },
-              {
-                "dimensionId": "rbd_team",
-                "percentage": 50,
-                "value": "Orion"
               }
             ],
             "type": "equalSplit"
           },
           "effectiveFrom": "2025-07",
           "effectiveTo": "2025-12",
-          "name": "Equal split for AWS between Teams A, B and C (Updated)",
+          "name": "Equal split for AWS between Teams A, B and C - revised",
           "source": [
+            {
+              "dimensionId": "vendor",
+              "valueListCondition": {
+                "values": [
+                  "AWS",
+                  "Azure"
+                ]
+              }
+            },
             {
               "dimensionId": "vendor",
               "valueListCondition": {
@@ -30287,9 +30492,11 @@
             "type": "string"
           },
           "name": {
-            "description": "Updated display name for the shared cost rule.",
-            "example": "Equal split for AWS between Teams A, B and C (Updated)",
+            "description": "Updated display name for the shared cost rule. Must not contain \"(\", \")\" or \"\u003e\".",
+            "example": "Equal split for AWS between Teams A, B and C - revised",
+            "maxLength": 255,
             "minLength": 1,
+            "pattern": "^[^()\u003e]+$",
             "type": "string"
           },
           "source": {
@@ -30356,7 +30563,7 @@
               "Azure"
             ],
             "items": {
-              "example": "Sit et.",
+              "example": "Dicta et nulla impedit.",
               "type": "string"
             },
             "minItems": 1,
@@ -105599,6 +105806,24 @@
                           "date": "10"
                         },
                         "type": "invoice_finalization"
+                      },
+                      "azure_csp": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_ea": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_mca": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
                       }
                     },
                     "type": "exact_date"
@@ -105726,6 +105951,24 @@
                         "date": "10"
                       },
                       "type": "invoice_finalization"
+                    },
+                    "azure_csp": {
+                      "options": {
+                        "date": "10"
+                      },
+                      "type": "invoice_finalization"
+                    },
+                    "azure_ea": {
+                      "options": {
+                        "date": "10"
+                      },
+                      "type": "invoice_finalization"
+                    },
+                    "azure_mca": {
+                      "options": {
+                        "date": "10"
+                      },
+                      "type": "invoice_finalization"
                     }
                   },
                   "type": "exact_date"
@@ -105749,6 +105992,24 @@
                     },
                     "providers": {
                       "aws": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_csp": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_ea": {
+                        "options": {
+                          "date": "10"
+                        },
+                        "type": "invoice_finalization"
+                      },
+                      "azure_mca": {
                         "options": {
                           "date": "10"
                         },
@@ -126939,6 +127200,11 @@
                     "enabled": true,
                     "endAfter": "2023-05-17",
                     "hideCredits": {
+                      "condition": {
+                        "dimension": "bill_source",
+                        "type": "dimension_equals",
+                        "value": "aws-123456789012"
+                      },
                       "creditTypes": [
                         "edpDiscount",
                         "taxRefunds"
@@ -130971,12 +131237,12 @@
           },
           {
             "allowEmptyValue": true,
-            "description": "Optional orderBy query allows to specify an expression for determining what values are used to order the entities.\n            Multiple expressions can be specified using comma separated values.",
+            "description": "Optional orderBy query allows to specify an expression for determining what values are used to order the entities.\nMultiple expressions can be specified using comma separated values.",
             "example": "action desc, name asc",
             "in": "query",
             "name": "orderBy",
             "schema": {
-              "description": "Optional orderBy query allows to specify an expression for determining what values are used to order the entities.\n            Multiple expressions can be specified using comma separated values.",
+              "description": "Optional orderBy query allows to specify an expression for determining what values are used to order the entities.\nMultiple expressions can be specified using comma separated values.",
               "example": "action desc, name asc",
               "type": "string"
             }
@@ -131901,12 +132167,12 @@
           },
           {
             "allowEmptyValue": true,
-            "description": "Optional orderBy query allows to specify an expression for determining what values are used to order the entities.\n            Multiple expressions can be specified using comma separated values.",
+            "description": "Optional orderBy query allows to specify an expression for determining what values are used to order the entities.\nMultiple expressions can be specified using comma separated values.",
             "example": "amount desc, lineItemCount desc",
             "in": "query",
             "name": "orderBy",
             "schema": {
-              "description": "Optional orderBy query allows to specify an expression for determining what values are used to order the entities.\n            Multiple expressions can be specified using comma separated values.",
+              "description": "Optional orderBy query allows to specify an expression for determining what values are used to order the entities.\nMultiple expressions can be specified using comma separated values.",
               "example": "amount desc, lineItemCount desc",
               "type": "string"
             }
@@ -132113,7 +132379,7 @@
                             ],
                             "type": "fixedPercentageSplit"
                           },
-                          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Platform+Services+Recovery\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+                          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8e%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
                           "createdAt": "2020-11-26T12:17:38.369Z",
                           "createdBy": {
                             "id": 1234,
@@ -132122,7 +132388,7 @@
                           },
                           "effectiveFrom": "2025-07",
                           "effectiveTo": "2025-12",
-                          "id": "a3f7c92",
+                          "id": "68f2a91c4b3d2e1f5a6b7c8d",
                           "kind": "finops:billing-shared-cost-rule",
                           "name": "Platform Services Recovery",
                           "priority": 1,
@@ -132150,7 +132416,7 @@
                             ],
                             "type": "usageBasedProportionalSplit"
                           },
-                          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Usage-based+split+for+BU+4\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+                          "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Usage-based%2520split%2520for%2520BU%25204%2520%2868f2a91c4b3d2e1f5a6b7c8e%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
                           "createdAt": "2020-11-26T12:17:38.369Z",
                           "createdBy": {
                             "id": 1234,
@@ -132159,7 +132425,7 @@
                           },
                           "effectiveFrom": "2025-07",
                           "effectiveTo": "2025-12",
-                          "id": "b8e2a41",
+                          "id": "68f2a91c4b3d2e1f5a6b7c8e",
                           "kind": "finops:billing-shared-cost-rule",
                           "name": "Usage-based split for BU 4",
                           "priority": 2,
@@ -132300,11 +132566,6 @@
                       "dimensionId": "rbd_team",
                       "percentage": 50,
                       "value": "Orion"
-                    },
-                    {
-                      "dimensionId": "rbd_team",
-                      "percentage": 50,
-                      "value": "Orion"
                     }
                   ],
                   "type": "equalSplit"
@@ -132313,6 +132574,15 @@
                 "effectiveTo": "2025-12",
                 "name": "Equal split for AWS between Teams A, B and C",
                 "source": [
+                  {
+                    "dimensionId": "vendor",
+                    "valueListCondition": {
+                      "values": [
+                        "AWS",
+                        "Azure"
+                      ]
+                    }
+                  },
                   {
                     "dimensionId": "vendor",
                     "valueListCondition": {
@@ -132365,7 +132635,7 @@
                         ],
                         "type": "fixedPercentageSplit"
                       },
-                      "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2026-09-01\u0026filterBy=filter.AllocatedMethodId.Fixed+percentage+split+for+AWS+between+Teams+Orion+and+Atlas\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2026-01-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+                      "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2026-09-01\u0026filterBy=filter.AllocatedMethodId.Fixed%2520percentage%2520split%2520for%2520AWS%2520between%2520Teams%2520Orion%2520and%2520Atlas%2520%2868f2a91c4b3d2e1f5a6b7c8d%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2026-01-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
                       "createdAt": "2020-11-26T12:17:38.369Z",
                       "createdBy": {
                         "id": 1234,
@@ -132373,7 +132643,7 @@
                         "ref": "iam:user:1234"
                       },
                       "effectiveFrom": "2026-01",
-                      "id": "a3f7c92",
+                      "id": "68f2a91c4b3d2e1f5a6b7c8d",
                       "kind": "finops:billing-shared-cost-rule",
                       "name": "Fixed percentage split for AWS between Teams Orion and Atlas",
                       "priority": 3,
@@ -132550,15 +132820,7 @@
                 "rules": [
                   {
                     "priority": 1,
-                    "ruleId": "a3f7c92"
-                  },
-                  {
-                    "priority": 1,
-                    "ruleId": "a3f7c92"
-                  },
-                  {
-                    "priority": 1,
-                    "ruleId": "a3f7c92"
+                    "ruleId": "68f2a91c4b3d2e1f5a6b7c8d"
                   }
                 ]
               },
@@ -132689,13 +132951,13 @@
           },
           {
             "description": "Unique identifier of the shared cost rule",
-            "example": "a3f7c92",
+            "example": "68f2a91c4b3d2e1f5a6b7c8d",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
               "description": "Unique identifier of the shared cost rule",
-              "example": "a3f7c92",
+              "example": "68f2a91c4b3d2e1f5a6b7c8d",
               "type": "string"
             }
           },
@@ -132828,13 +133090,13 @@
           },
           {
             "description": "Unique identifier of the shared cost rule",
-            "example": "a3f7c92",
+            "example": "68f2a91c4b3d2e1f5a6b7c8d",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
               "description": "Unique identifier of the shared cost rule",
-              "example": "a3f7c92",
+              "example": "68f2a91c4b3d2e1f5a6b7c8d",
               "type": "string"
             }
           }
@@ -132864,7 +133126,7 @@
                         ],
                         "type": "fixedPercentageSplit"
                       },
-                      "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Platform+Services+Recovery\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+                      "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8e%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
                       "createdAt": "2020-11-26T12:17:38.369Z",
                       "createdBy": {
                         "id": 1234,
@@ -132873,7 +133135,7 @@
                       },
                       "effectiveFrom": "2025-07",
                       "effectiveTo": "2025-12",
-                      "id": "a3f7c92",
+                      "id": "68f2a91c4b3d2e1f5a6b7c8d",
                       "kind": "finops:billing-shared-cost-rule",
                       "name": "Platform Services Recovery",
                       "priority": 1,
@@ -133020,13 +133282,13 @@
           },
           {
             "description": "Unique identifier of the shared cost rule",
-            "example": "a3f7c92",
+            "example": "68f2a91c4b3d2e1f5a6b7c8d",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
               "description": "Unique identifier of the shared cost rule",
-              "example": "a3f7c92",
+              "example": "68f2a91c4b3d2e1f5a6b7c8d",
               "type": "string"
             }
           },
@@ -133058,19 +133320,23 @@
                       "dimensionId": "rbd_team",
                       "percentage": 50,
                       "value": "Orion"
-                    },
-                    {
-                      "dimensionId": "rbd_team",
-                      "percentage": 50,
-                      "value": "Orion"
                     }
                   ],
                   "type": "equalSplit"
                 },
                 "effectiveFrom": "2025-07",
                 "effectiveTo": "2025-12",
-                "name": "Equal split for AWS between Teams A, B and C (Updated)",
+                "name": "Equal split for AWS between Teams A, B and C - revised",
                 "source": [
+                  {
+                    "dimensionId": "vendor",
+                    "valueListCondition": {
+                      "values": [
+                        "AWS",
+                        "Azure"
+                      ]
+                    }
+                  },
                   {
                     "dimensionId": "vendor",
                     "valueListCondition": {
@@ -133115,7 +133381,7 @@
                     ],
                     "type": "equalSplit"
                   },
-                  "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Platform+Services+Recovery\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
+                  "analyzeSpendQuery": "costType=cost_amortized_unblended_adj\u0026dashboardID=default\u0026endDate=2025-12-01\u0026filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8e%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29\u0026granularity=Monthly\u0026groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2\u0026periodType=charge_period\u0026startDate=2025-07-01\u0026tableCostsVisible=tabular-view\u0026valueFormat=%7B%7D",
                   "createdAt": "2020-11-26T12:17:38.369Z",
                   "createdBy": {
                     "id": 1234,
@@ -133124,21 +133390,11 @@
                   },
                   "effectiveFrom": "2025-07",
                   "effectiveTo": "2025-12",
-                  "id": "a3f7c92",
+                  "id": "68f2a91c4b3d2e1f5a6b7c8d",
                   "kind": "finops:billing-shared-cost-rule",
                   "name": "Platform Services Recovery",
                   "priority": 1,
                   "source": [
-                    {
-                      "dimensionId": "vendor",
-                      "dimensionName": "Cloud Vendor",
-                      "valueListCondition": {
-                        "values": [
-                          "AWS",
-                          "Azure"
-                        ]
-                      }
-                    },
                     {
                       "dimensionId": "vendor",
                       "dimensionName": "Cloud Vendor",
