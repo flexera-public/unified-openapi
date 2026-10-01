@@ -102752,39 +102752,56 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowResponseBody"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableShowBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -102850,54 +102867,79 @@
             "description": "No Content response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "409": {
-            "description": "Conflict response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertConflictResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertConflictResponseBody"
+                }
+              }
+            },
+            "description": "Conflict response."
           },
           "422": {
-            "description": "Unprocessable Entity response.",
-            "schema": {
-              "items": {
-                "$ref": "#/components/schemas/BillingCenterService_InvalidAllocationTableRuleErrorResponse"
-              },
-              "type": "array"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/BillingCenterService_InvalidAllocationTableRuleErrorResponse"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Unprocessable Entity response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AllocationTableUpsertBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -102971,51 +103013,76 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersBillingCenterResponseCollection"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersBillingCenterResponseCollection"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           },
           "503": {
-            "description": "Service Unavailable response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexServiceUnavailableResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersIndexServiceUnavailableResponseBody"
+                }
+              }
+            },
+            "description": "Service Unavailable response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -103070,84 +103137,123 @@
         },
         "responses": {
           "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateResponseBody",
+                  "required": [
+                    "id",
+                    "href",
+                    "name",
+                    "description",
+                    "created_at",
+                    "updated_at",
+                    "kind"
+                  ]
+                }
+              }
+            },
             "description": "Created response.",
             "headers": {
               "Location": {
                 "description": "Location of resource",
-                "type": "string"
+                "schema": {
+                  "type": "string"
+                }
               }
-            },
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateResponseBody",
-              "required": [
-                "id",
-                "href",
-                "name",
-                "description",
-                "created_at",
-                "updated_at",
-                "kind"
-              ]
             }
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "409": {
-            "description": "Conflict response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateConflictResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateConflictResponseBody"
+                }
+              }
+            },
+            "description": "Conflict response."
           },
           "422": {
-            "description": "Unprocessable Entity response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateUnprocessableEntityResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateUnprocessableEntityResponseBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           },
           "503": {
-            "description": "Service Unavailable response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateServiceUnavailableResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersCreateServiceUnavailableResponseBody"
+                }
+              }
+            },
+            "description": "Service Unavailable response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -103218,51 +103324,76 @@
             "description": "No Content response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "405": {
-            "description": "Method Not Allowed response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteMethodNotAllowedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteMethodNotAllowedResponseBody"
+                }
+              }
+            },
+            "description": "Method Not Allowed response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           },
           "503": {
-            "description": "Service Unavailable response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteServiceUnavailableResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersDeleteServiceUnavailableResponseBody"
+                }
+              }
+            },
+            "description": "Service Unavailable response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -103311,51 +103442,76 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowResponseBody"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           },
           "503": {
-            "description": "Service Unavailable response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowServiceUnavailableResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowServiceUnavailableResponseBody"
+                }
+              }
+            },
+            "description": "Service Unavailable response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -103421,63 +103577,96 @@
             "description": "No Content response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "405": {
-            "description": "Method Not Allowed response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateMethodNotAllowedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateMethodNotAllowedResponseBody"
+                }
+              }
+            },
+            "description": "Method Not Allowed response."
           },
           "409": {
-            "description": "Conflict response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateConflictResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateConflictResponseBody"
+                }
+              }
+            },
+            "description": "Conflict response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           },
           "503": {
-            "description": "Service Unavailable response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateServiceUnavailableResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpdateServiceUnavailableResponseBody"
+                }
+              }
+            },
+            "description": "Service Unavailable response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -103563,33 +103752,46 @@
             "description": "No Content response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesGrantBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesGrantBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesGrantForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesGrantForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesGrantInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesGrantInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesGrantBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesGrantBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -103658,39 +103860,56 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesSubjectRoleReportResponseCollection"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesSubjectRoleReportResponseCollection"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesReportForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesReportForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesReportNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesReportNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesReportInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesReportInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesReportBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesReportBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -103776,33 +103995,46 @@
             "description": "No Content response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesRevokeBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesRevokeBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesRevokeForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesRevokeForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesRevokeInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesRevokeInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesRevokeBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCenterAccessRulesRevokeBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -103870,51 +104102,76 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableResponseBody"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           },
           "503": {
-            "description": "Service Unavailable response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableServiceUnavailableResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersShowAllocationTableServiceUnavailableResponseBody"
+                }
+              }
+            },
+            "description": "Service Unavailable response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -103988,66 +104245,99 @@
             "description": "No Content response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "409": {
-            "description": "Conflict response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableConflictResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableConflictResponseBody"
+                }
+              }
+            },
+            "description": "Conflict response."
           },
           "422": {
-            "description": "Unprocessable Entity response.",
-            "schema": {
-              "items": {
-                "$ref": "#/components/schemas/BillingCenterService_InvalidAllocationTableRuleErrorResponse"
-              },
-              "type": "array"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/BillingCenterService_InvalidAllocationTableRuleErrorResponse"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Unprocessable Entity response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           },
           "503": {
-            "description": "Service Unavailable response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableServiceUnavailableResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_BillingCentersUpsertAllocationTableServiceUnavailableResponseBody"
+                }
+              }
+            },
+            "description": "Service Unavailable response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -104116,45 +104406,66 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesScopeRoleReportResponseCollection"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesScopeRoleReportResponseCollection"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesGroupReportBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -104224,45 +104535,66 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesScopeRoleReportResponseCollection"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesScopeRoleReportResponseCollection"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_AccessRulesUserReportBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -104354,45 +104686,66 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersUserBillingCenterResponseCollection"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersUserBillingCenterResponseCollection"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersIndexBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -104468,45 +104821,66 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowResponseBody"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingCenterService_UserBillingCentersShowBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -171839,57 +172213,86 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadBillUploadResponseCollection"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadBillUploadResponseCollection"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadIndexBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadIndexBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadIndexUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadIndexUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadIndexForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadIndexForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadIndexNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadIndexNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "429": {
-            "description": "Too Many Requests response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadIndexTooManyRequestsResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadIndexTooManyRequestsResponseBody"
+                }
+              }
+            },
+            "description": "Too Many Requests response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadIndexInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadIndexInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadIndexBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadIndexBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -171931,63 +172334,96 @@
         },
         "responses": {
           "201": {
-            "description": "Created response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateResponseBody"
+                }
+              }
+            },
+            "description": "Created response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "409": {
-            "description": "Conflict response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateConflictResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateConflictResponseBody"
+                }
+              }
+            },
+            "description": "Conflict response."
           },
           "429": {
-            "description": "Too Many Requests response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateTooManyRequestsResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateTooManyRequestsResponseBody"
+                }
+              }
+            },
+            "description": "Too Many Requests response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -172047,51 +172483,76 @@
             "description": "No Content response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadDeleteBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadDeleteBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadDeleteUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadDeleteUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadDeleteForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadDeleteForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadDeleteNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadDeleteNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "429": {
-            "description": "Too Many Requests response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadDeleteTooManyRequestsResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadDeleteTooManyRequestsResponseBody"
+                }
+              }
+            },
+            "description": "Too Many Requests response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadDeleteInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadDeleteInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadDeleteBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadDeleteBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -172129,57 +172590,86 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadShowResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadShowResponseBody"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadShowBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadShowBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadShowUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadShowUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadShowForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadShowForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadShowNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadShowNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "429": {
-            "description": "Too Many Requests response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadShowTooManyRequestsResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadShowTooManyRequestsResponseBody"
+                }
+              }
+            },
+            "description": "Too Many Requests response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadShowInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadShowInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadShowBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadShowBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -172257,69 +172747,106 @@
         },
         "responses": {
           "201": {
-            "description": "Created response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileResponseBody"
+                }
+              }
+            },
+            "description": "Created response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "409": {
-            "description": "Conflict response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileConflictResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileConflictResponseBody"
+                }
+              }
+            },
+            "description": "Conflict response."
           },
           "413": {
-            "description": "Request Entity Too Large response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileRequestEntityTooLargeResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileRequestEntityTooLargeResponseBody"
+                }
+              }
+            },
+            "description": "Request Entity Too Large response."
           },
           "429": {
-            "description": "Too Many Requests response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileTooManyRequestsResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileTooManyRequestsResponseBody"
+                }
+              }
+            },
+            "description": "Too Many Requests response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateFileBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -172389,57 +172916,86 @@
         },
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationResponseBody"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "401": {
-            "description": "Unauthorized response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationUnauthorizedResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationUnauthorizedResponseBody"
+                }
+              }
+            },
+            "description": "Unauthorized response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "429": {
-            "description": "Too Many Requests response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationTooManyRequestsResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationTooManyRequestsResponseBody"
+                }
+              }
+            },
+            "description": "Too Many Requests response."
           },
           "500": {
-            "description": "Internal Server Error response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationInternalErrorResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationInternalErrorResponseBody"
+                }
+              }
+            },
+            "description": "Internal Server Error response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillUpload_BillUploadCreateOperationBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -189134,13 +189690,12 @@
         "x-flexera-resource": "misconfiguration-rule-suppress"
       }
     },
-    "/recommendations/orgs/{orgID}/recommendations": {
+    "/recommendations/orgs/{orgId}/recommendations": {
       "get": {
         "description": "List all recommendations.\nUser must have the 'optima:recommendation:index' privilege on the org or on the specified billing center(s) to make this call.\n\n**Required security scopes for GlobalSession**:\n  * `common:org:affiliated+common:org:own`",
         "operationId": "OptimaRecommendations_Recommendations_index",
         "parameters": [
           {
-            "collectionFormat": "multi",
             "description": "IDs of BillingCenters to get recommendations for. It is not allowed for any of the BillingCenterIDs to be an ancestor of another specified BillingCenterID.",
             "in": "query",
             "name": "billingCenterIDs",
@@ -189167,7 +189722,6 @@
             }
           },
           {
-            "collectionFormat": "multi",
             "description": "Recommendation statuses to get",
             "in": "query",
             "name": "statuses",
@@ -189191,7 +189745,7 @@
           {
             "description": "The organization ID",
             "in": "path",
-            "name": "orgID",
+            "name": "orgId",
             "required": true,
             "schema": {
               "type": "integer"
@@ -189200,45 +189754,66 @@
         ],
         "responses": {
           "200": {
-            "description": "OK response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsRecommendationResultResponseCollection"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsRecommendationResultResponseCollection"
+                }
+              }
+            },
+            "description": "OK response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "409": {
-            "description": "Conflict response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexConflictResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexConflictResponseBody"
+                }
+              }
+            },
+            "description": "Conflict response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsIndexBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []
@@ -189269,7 +189844,7 @@
         }
       ]
     },
-    "/recommendations/orgs/{orgID}/recommendations/updatestatus": {
+    "/recommendations/orgs/{orgId}/recommendations/updatestatus": {
       "put": {
         "description": "Update the status of a recommendation\n\n**Required security scopes for GlobalSession**:\n  * `common:org:affiliated+common:org:own`",
         "operationId": "OptimaRecommendations_Recommendations_updateStatus",
@@ -189277,7 +189852,7 @@
           {
             "description": "Organization ID",
             "in": "path",
-            "name": "orgID",
+            "name": "orgId",
             "required": true,
             "schema": {
               "type": "integer"
@@ -189303,39 +189878,56 @@
             "description": "OK response."
           },
           "400": {
-            "description": "Bad Request response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusBadRequestResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusBadRequestResponseBody"
+                }
+              }
+            },
+            "description": "Bad Request response."
           },
           "403": {
-            "description": "Forbidden response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusForbiddenResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusForbiddenResponseBody"
+                }
+              }
+            },
+            "description": "Forbidden response."
           },
           "404": {
-            "description": "Not Found response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusNotFoundResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusNotFoundResponseBody"
+                }
+              }
+            },
+            "description": "Not Found response."
           },
           "409": {
-            "description": "Conflict response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusConflictResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusConflictResponseBody"
+                }
+              }
+            },
+            "description": "Conflict response."
           },
           "502": {
-            "description": "Bad Gateway response.",
-            "schema": {
-              "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusBadGatewayResponseBody"
-            }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimaRecommendations_RecommendationsUpdateStatusBadGatewayResponseBody"
+                }
+              }
+            },
+            "description": "Bad Gateway response."
           }
         },
-        "schemes": [
-          "http"
-        ],
         "security": [
           {
             "FlexeraBearerAuth": []

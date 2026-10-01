@@ -942,8 +942,7 @@ paths:
                   * `common:org:affiliated+common:org:own`
             operationId: Recommendations#index
             parameters:
-                - collectionFormat: multi
-                  description: IDs of BillingCenters to get recommendations for. It is not allowed for any of the BillingCenterIDs to be an ancestor of another specified BillingCenterID.
+                - description: IDs of BillingCenters to get recommendations for. It is not allowed for any of the BillingCenterIDs to be an ancestor of another specified BillingCenterID.
                   in: query
                   name: billingCenterIDs
                   required: false
@@ -961,8 +960,7 @@ paths:
                         - default
                         - extended
                     type: string
-                - collectionFormat: multi
-                  description: Recommendation statuses to get
+                - description: Recommendation statuses to get
                   in: query
                   name: statuses
                   required: false
@@ -991,31 +989,41 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsRecommendationResultResponseCollection'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsRecommendationResultResponseCollection'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsIndexBadRequestResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsIndexForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsIndexNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsIndexNotFoundResponseBody'
                 "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsIndexConflictResponseBody'
                     description: Conflict response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsIndexConflictResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: List all recommendations
@@ -1055,27 +1063,35 @@ paths:
                 "200":
                     description: OK response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsUpdateStatusBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsUpdateStatusBadRequestResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsUpdateStatusForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsUpdateStatusForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsUpdateStatusNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsUpdateStatusNotFoundResponseBody'
                 "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsUpdateStatusConflictResponseBody'
                     description: Conflict response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsUpdateStatusConflictResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecommendationsUpdateStatusBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/RecommendationsUpdateStatusBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: updateStatus Recommendations

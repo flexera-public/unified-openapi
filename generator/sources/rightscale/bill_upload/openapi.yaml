@@ -2667,39 +2667,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadBillUploadResponseCollection'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadBillUploadResponseCollection'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadIndexForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadIndexNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadIndexNotFoundResponseBody'
                 "429":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadIndexTooManyRequestsResponseBody'
                     description: Too Many Requests response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadIndexTooManyRequestsResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - JWTAuth_header_Authorization: []
             tags:
@@ -2735,43 +2749,59 @@ paths:
                 required: true
             responses:
                 "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateResponseBody'
                     description: Created response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateNotFoundResponseBody'
                 "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateConflictResponseBody'
                     description: Conflict response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateConflictResponseBody'
                 "429":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateTooManyRequestsResponseBody'
                     description: Too Many Requests response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateTooManyRequestsResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - JWTAuth_header_Authorization: []
             tags:
@@ -2808,35 +2838,47 @@ paths:
                 "204":
                     description: No Content response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadDeleteBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadDeleteBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadDeleteUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadDeleteUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadDeleteForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadDeleteForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadDeleteNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadDeleteNotFoundResponseBody'
                 "429":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadDeleteTooManyRequestsResponseBody'
                     description: Too Many Requests response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadDeleteTooManyRequestsResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadDeleteInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadDeleteInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadDeleteBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadDeleteBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - JWTAuth_header_Authorization: []
             tags:
@@ -2870,39 +2912,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadShowResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadShowResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadShowNotFoundResponseBody'
                 "429":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadShowTooManyRequestsResponseBody'
                     description: Too Many Requests response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadShowTooManyRequestsResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - JWTAuth_header_Authorization: []
             tags:
@@ -2947,47 +3003,65 @@ paths:
                 required: true
             responses:
                 "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileResponseBody'
                     description: Created response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileNotFoundResponseBody'
                 "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileConflictResponseBody'
                     description: Conflict response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileConflictResponseBody'
                 "413":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileRequestEntityTooLargeResponseBody'
                     description: Request Entity Too Large response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileRequestEntityTooLargeResponseBody'
                 "429":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileTooManyRequestsResponseBody'
                     description: Too Many Requests response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileTooManyRequestsResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateFileBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateFileBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - JWTAuth_header_Authorization: []
             tags:
@@ -3030,39 +3104,53 @@ paths:
                 required: true
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateOperationResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateOperationResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateOperationBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateOperationBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateOperationUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateOperationUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateOperationForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateOperationForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateOperationNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateOperationNotFoundResponseBody'
                 "429":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateOperationTooManyRequestsResponseBody'
                     description: Too Many Requests response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateOperationTooManyRequestsResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateOperationInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateOperationInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillUploadCreateOperationBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/BillUploadCreateOperationBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - JWTAuth_header_Authorization: []
             tags:

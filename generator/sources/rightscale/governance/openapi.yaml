@@ -26365,41 +26365,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateIndexOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident list.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateIndexOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateIndexForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index incident_aggregates
@@ -26458,45 +26470,59 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident_aggregate.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident_aggregate.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show an aggregate
@@ -26548,41 +26574,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowNonCatalogOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident_aggregate.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowNonCatalogOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident_aggregate.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowNonCatalogBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowNonCatalogBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowNonCatalogUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowNonCatalogUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowNonCatalogForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowNonCatalogForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowNonCatalogInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowNonCatalogInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentAggregateShowNonCatalogBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentAggregateShowNonCatalogBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show non-catalog incidents
@@ -26605,8 +26643,7 @@ paths:
                     enum:
                         - default
                     type: string
-                - collectionFormat: multi
-                  description: name is a filter to only show policy aggregates that match this name.
+                - description: name is a filter to only show policy aggregates that match this name.
                   in: query
                   name: name
                   required: false
@@ -26642,41 +26679,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateIndexOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the policy aggregate list.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateIndexOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the policy aggregate list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateIndexForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index policy aggregates
@@ -26724,33 +26773,44 @@ paths:
                     description: Accepted response.
                     headers:
                         location:
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateCreateBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateCreateBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateCreateUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateCreateUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateCreateForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateCreateForbiddenResponseBody'
                 "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateCreateUnprocessableEntityResponseBody'
                     description: Unprocessable Entity response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateCreateUnprocessableEntityResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateCreateInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateCreateInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateCreateBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateCreateBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Create a policy aggregate
@@ -26795,31 +26855,41 @@ paths:
                 "202":
                     description: Accepted response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateDeleteBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateDeleteBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateDeleteUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateDeleteUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateDeleteForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateDeleteForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateDeleteNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateDeleteNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateDeleteInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateDeleteInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateDeleteBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateDeleteBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Delete a policy aggregate
@@ -26870,35 +26940,47 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show a policy aggregate
@@ -26948,27 +27030,35 @@ paths:
                 "202":
                     description: Accepted response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateUpdateBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateUpdateBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateUpdateUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateUpdateUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateUpdateForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateUpdateForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateUpdateInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateUpdateInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateUpdateBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateUpdateBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Update a policy aggregate
@@ -27014,31 +27104,41 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowNonCatalogResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowNonCatalogResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowNonCatalogBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowNonCatalogBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowNonCatalogUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowNonCatalogUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowNonCatalogForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowNonCatalogForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowNonCatalogInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowNonCatalogInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyAggregateShowNonCatalogBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyAggregateShowNonCatalogBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show non catalog applied policies
@@ -27096,41 +27196,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateIndexOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the published template list.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateIndexOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the published template list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateIndexForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index published templates
@@ -27174,44 +27286,59 @@ paths:
                 required: true
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateCreateResponseBody'
+                                required:
+                                    - location
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateCreateResponseBody'
-                        required:
-                            - location
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateCreateBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateCreateBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateCreateUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateCreateUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateCreateForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateCreateForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateCreateNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateCreateNotFoundResponseBody'
                 "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateCreateConflictResponseBody'
                     description: Conflict response.
                     headers:
                         Location:
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateCreateConflictResponseBody'
+                            schema:
+                                type: string
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateCreateInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateCreateInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateCreateBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateCreateBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Creates a published template
@@ -27256,31 +27383,41 @@ paths:
                 "204":
                     description: No Content response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateDeleteBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateDeleteBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateDeleteUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateDeleteUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateDeleteForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateDeleteForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateDeleteNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateDeleteNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateDeleteInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateDeleteInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateDeleteBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateDeleteBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Delete a published template
@@ -27332,35 +27469,47 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateShowResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateShowResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateShowNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show a published template
@@ -27412,31 +27561,41 @@ paths:
                 "200":
                     description: OK response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUpdateBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUpdateBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUpdateUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUpdateUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUpdateForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUpdateForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUpdateNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUpdateNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUpdateInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUpdateInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUpdateBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUpdateBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Update a published template
@@ -27481,31 +27640,41 @@ paths:
                 "200":
                     description: OK response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateHideBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateHideBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateHideUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateHideUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateHideForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateHideForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateHideNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateHideNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateHideInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateHideInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateHideBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateHideBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Hide a published template
@@ -27550,31 +27719,41 @@ paths:
                 "200":
                     description: OK response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUnhideBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUnhideBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUnhideUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUnhideUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUnhideForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUnhideForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUnhideNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUnhideNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUnhideInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUnhideInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PublishedTemplateUnhideBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PublishedTemplateUnhideBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Unhide a published template
@@ -27637,41 +27816,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusIndexOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the action list.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusIndexOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the action list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusIndexForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index action statuses.
@@ -27723,35 +27914,47 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusShowResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusShowResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusShowNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ActionStatusShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ActionStatusShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show a single action status
@@ -27774,8 +27977,7 @@ paths:
                     enum:
                         - default
                     type: string
-                - collectionFormat: multi
-                  description: name is a filter to only show applied policies that match this name.
+                - description: name is a filter to only show applied policies that match this name.
                   in: query
                   name: name
                   required: false
@@ -27811,41 +28013,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyIndexOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the applied policy list.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyIndexOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the applied policy list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyIndexForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index applied policies
@@ -27890,35 +28104,47 @@ paths:
                 required: true
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyCreateResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyCreateResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyCreateBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyCreateBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyCreateUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyCreateUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyCreateForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyCreateForbiddenResponseBody'
                 "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyCreateUnprocessableEntityResponseBody'
                     description: Unprocessable Entity response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyCreateUnprocessableEntityResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyCreateInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyCreateInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyCreateBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyCreateBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Create an applied policy
@@ -27963,31 +28189,41 @@ paths:
                 "204":
                     description: No Content response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyDeleteBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyDeleteBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyDeleteUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyDeleteUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyDeleteForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyDeleteForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyDeleteNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyDeleteNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyDeleteInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyDeleteInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyDeleteBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyDeleteBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Delete an applied policy
@@ -28038,35 +28274,47 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show an applied policy
@@ -28116,31 +28364,41 @@ paths:
                 "204":
                     description: No Content response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyUpdateBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyUpdateBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyUpdateUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyUpdateUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyUpdateForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyUpdateForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyUpdateNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyUpdateNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyUpdateInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyUpdateInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyUpdateBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyUpdateBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Updates an applied policy and evaulates it
@@ -28185,31 +28443,41 @@ paths:
                 "204":
                     description: No Content response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyEvaluateBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyEvaluateBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyEvaluateUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyEvaluateUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyEvaluateForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyEvaluateForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyEvaluateNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyEvaluateNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyEvaluateInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyEvaluateInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyEvaluateBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyEvaluateBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Evaluate an applied policy
@@ -28256,53 +28524,66 @@ paths:
                   required: false
                   schema:
                     type: string
-            produces:
-                - text/markdown
             responses:
                 "200":
+                    content:
+                        text/markdown:
+                            schema:
+                                type: string
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the applied policy list.
-                            type: string
+                            schema:
+                                type: string
                         Last-Modified:
                             description: last_evaluation_finish is the timestamp of the finish of the last policy evaluation.
-                            format: date-time
-                            type: string
-                    schema:
-                        type: string
+                            schema:
+                                format: date-time
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the applied policy list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        text/markdown:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowLogBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowLogBadRequestResponseBody'
                 "401":
+                    content:
+                        text/markdown:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowLogUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowLogUnauthorizedResponseBody'
                 "403":
+                    content:
+                        text/markdown:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowLogForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowLogForbiddenResponseBody'
                 "404":
+                    content:
+                        text/markdown:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowLogNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowLogNotFoundResponseBody'
                 "500":
+                    content:
+                        text/markdown:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowLogInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowLogInternalErrorResponseBody'
                 "502":
+                    content:
+                        text/markdown:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowLogBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowLogBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show the last evaluation log of an applied policy
@@ -28345,35 +28626,47 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowStatusResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowStatusResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowStatusBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowStatusBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowStatusUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowStatusUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowStatusForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowStatusForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowStatusNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowStatusNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowStatusInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowStatusInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppliedPolicyShowStatusBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/AppliedPolicyShowStatusBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show the evaluation status of an applied policy
@@ -28397,8 +28690,7 @@ paths:
                         - default
                         - extended
                     type: string
-                - collectionFormat: multi
-                  description: Optional resource ID to filter. Multiple may be specified.
+                - description: Optional resource ID to filter. Multiple may be specified.
                   in: query
                   name: id
                   required: false
@@ -28418,8 +28710,7 @@ paths:
                   required: false
                   schema:
                     type: string
-                - collectionFormat: multi
-                  description: Status of the approval to filter on. Multiple may be specified.
+                - description: Status of the approval to filter on. Multiple may be specified.
                   in: query
                   name: status
                   required: false
@@ -28459,41 +28750,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalIndexOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is a HTTP ETag for the list.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/ApprovalIndexOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is a HTTP ETag for the list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalIndexForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index approval requests
@@ -28545,35 +28848,47 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalShowResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalShowResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalShowNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show an approval request
@@ -28624,31 +28939,41 @@ paths:
                 "202":
                     description: Accepted response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalApproveBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalApproveBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalApproveUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalApproveUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalApproveForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalApproveForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalApproveNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalApproveNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalApproveInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalApproveInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalApproveBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalApproveBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Approve an approval request
@@ -28699,31 +29024,41 @@ paths:
                 "202":
                     description: Accepted response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalDenyBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalDenyBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalDenyUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalDenyUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalDenyForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalDenyForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalDenyNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalDenyNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalDenyInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalDenyInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ApprovalDenyBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ApprovalDenyBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Deny an approval request
@@ -28747,8 +29082,7 @@ paths:
                         - default
                         - extended
                     type: string
-                - collectionFormat: multi
-                  description: state is a filter to only show archived_incidents that are in this state.
+                - description: state is a filter to only show archived_incidents that are in this state.
                   in: query
                   name: state
                   required: false
@@ -28793,41 +29127,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident list.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index archived_incidents
@@ -28886,45 +29232,59 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentShowOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentShowOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentShowNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show an archived incident
@@ -28967,35 +29327,47 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexEscalationsBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index escalations and their statuses for an archived incident
@@ -29038,39 +29410,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsNotFoundResponseBody'
                 "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsUnprocessableEntityResponseBody'
                     description: Unprocessable Entity response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsUnprocessableEntityResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/ArchivedIncidentIndexResolutionsBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index resolutions and their statuses for an archived incident
@@ -29093,8 +29479,7 @@ paths:
                     enum:
                         - default
                     type: string
-                - collectionFormat: multi
-                  description: state is a filter to only show incidents that are in this state.
+                - description: state is a filter to only show incidents that are in this state.
                   in: query
                   name: state
                   required: false
@@ -29140,41 +29525,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident list.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index incidents
@@ -29233,45 +29630,59 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentShowOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/IncidentShowOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the incident.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentShowNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show an incident
@@ -29329,44 +29740,60 @@ paths:
                     description: Accepted response.
                     headers:
                         location:
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentRunActionBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentRunActionBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentRunActionUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentRunActionUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentRunActionForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentRunActionForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentRunActionNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentRunActionNotFoundResponseBody'
                 "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentRunActionConflictResponseBody'
                     description: Conflict response.
                     headers:
                         location:
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/IncidentRunActionConflictResponseBody'
+                            schema:
+                                type: string
                 "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentRunActionUnprocessableEntityResponseBody'
                     description: Unprocessable Entity response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentRunActionUnprocessableEntityResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentRunActionInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentRunActionInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentRunActionBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentRunActionBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Run an action against an incident.
@@ -29409,35 +29836,47 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexEscalationsResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexEscalationsResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexEscalationsBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexEscalationsBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexEscalationsUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexEscalationsUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexEscalationsForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexEscalationsForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexEscalationsNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexEscalationsNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexEscalationsInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexEscalationsInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexEscalationsBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexEscalationsBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index escalations and their statuses for an incident. *DEPRECATED*.
@@ -29480,39 +29919,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexResolutionsResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexResolutionsResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexResolutionsBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexResolutionsBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexResolutionsUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexResolutionsUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexResolutionsForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexResolutionsForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexResolutionsNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexResolutionsNotFoundResponseBody'
                 "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexResolutionsUnprocessableEntityResponseBody'
                     description: Unprocessable Entity response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexResolutionsUnprocessableEntityResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexResolutionsInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexResolutionsInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentIndexResolutionsBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentIndexResolutionsBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index resolutions and their statuses for an incident. *DEPRECATED*.
@@ -29563,35 +30016,47 @@ paths:
                 "204":
                     description: No Content response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentResolveBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentResolveBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentResolveUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentResolveUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentResolveForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentResolveForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentResolveNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentResolveNotFoundResponseBody'
                 "412":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentResolvePreconditionFailedResponseBody'
                     description: Precondition Failed response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentResolvePreconditionFailedResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentResolveInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentResolveInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IncidentResolveBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/IncidentResolveBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Resolve an incident
@@ -29643,41 +30108,53 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateIndexOKResponseBody'
                     description: OK response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the policy template list.
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateIndexOKResponseBody'
+                            schema:
+                                type: string
                 "304":
                     description: Not Modified response.
                     headers:
                         ETag:
                             description: etag is an HTTP ETag for the policy template list.
-                            type: string
+                            schema:
+                                type: string
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateIndexBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateIndexBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateIndexUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateIndexForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateIndexForbiddenResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateIndexInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateIndexBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Index policy templates
@@ -29722,42 +30199,57 @@ paths:
                 required: true
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUploadResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUploadResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUploadBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUploadBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUploadUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUploadUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUploadForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUploadForbiddenResponseBody'
                 "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUploadConflictResponseBody'
                     description: Conflict response.
                     headers:
                         Location:
-                            type: string
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUploadConflictResponseBody'
+                            schema:
+                                type: string
                 "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUploadInvalidTemplateResponseBody'
                     description: Unprocessable Entity response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUploadInvalidTemplateResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUploadInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUploadInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUploadBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUploadBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Upload a policy template
@@ -29802,31 +30294,41 @@ paths:
                 "204":
                     description: No Content response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateDeleteBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateDeleteBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateDeleteUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateDeleteUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateDeleteForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateDeleteForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateDeleteNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateDeleteNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateDeleteInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateDeleteInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateDeleteBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateDeleteBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Delete a policy template
@@ -29878,35 +30380,47 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateShowResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateShowResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateShowBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateShowBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateShowUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateShowUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateShowForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateShowForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateShowNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateShowNotFoundResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateShowInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateShowInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateShowBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateShowBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Show a policy template
@@ -29957,39 +30471,53 @@ paths:
                 required: true
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUpdateResponseBody'
                     description: OK response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUpdateResponseBody'
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUpdateBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUpdateBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUpdateUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUpdateUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUpdateForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUpdateForbiddenResponseBody'
                 "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUpdateNotFoundResponseBody'
                     description: Not Found response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUpdateNotFoundResponseBody'
                 "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUpdateInvalidTemplateResponseBody'
                     description: Unprocessable Entity response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUpdateInvalidTemplateResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUpdateInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUpdateInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateUpdateBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateUpdateBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Update a policy template
@@ -30038,37 +30566,49 @@ paths:
                 required: true
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: '#/components/schemas/DataResponse'
+                                type: array
                     description: OK response.
-                    schema:
-                        items:
-                            $ref: '#/components/schemas/DataResponse'
-                        type: array
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateRetrieveDataBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateRetrieveDataBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateRetrieveDataUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateRetrieveDataUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateRetrieveDataForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateRetrieveDataForbiddenResponseBody'
                 "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateRetrieveDataUnprocessableEntityResponseBody'
                     description: Unprocessable Entity response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateRetrieveDataUnprocessableEntityResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateRetrieveDataInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateRetrieveDataInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateRetrieveDataBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateRetrieveDataBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Retrieves data sources and resources from a given policy template
@@ -30116,31 +30656,41 @@ paths:
                 "200":
                     description: OK response.
                 "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateCompileBadRequestResponseBody'
                     description: Bad Request response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateCompileBadRequestResponseBody'
                 "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateCompileUnauthorizedResponseBody'
                     description: Unauthorized response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateCompileUnauthorizedResponseBody'
                 "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateCompileForbiddenResponseBody'
                     description: Forbidden response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateCompileForbiddenResponseBody'
                 "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateCompileInvalidTemplateResponseBody'
                     description: Unprocessable Entity response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateCompileInvalidTemplateResponseBody'
                 "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateCompileInternalErrorResponseBody'
                     description: Internal Server Error response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateCompileInternalErrorResponseBody'
                 "502":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PolicyTemplateCompileBadGatewayResponseBody'
                     description: Bad Gateway response.
-                    schema:
-                        $ref: '#/components/schemas/PolicyTemplateCompileBadGatewayResponseBody'
-            schemes:
-                - http
             security:
                 - GlobalSession_header_Authorization: []
             summary: Compile a policy template
