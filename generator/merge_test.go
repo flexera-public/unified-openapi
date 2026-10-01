@@ -370,6 +370,33 @@ func TestValidateOpenAPIDocument_DetectsMissingServerVariableDefinition(t *testi
 	}
 }
 
+func TestNormalizeOrgPathParameterName_RenamesOrgAndOrgID(t *testing.T) {
+	for _, legacy := range []string{"org", "orgID"} {
+		doc := map[string]interface{}{
+			"paths": map[string]interface{}{
+				"/svc/orgs/{" + legacy + "}/items": map[string]interface{}{
+					"get": map[string]interface{}{
+						"parameters": []interface{}{
+							map[string]interface{}{"in": "path", "name": legacy, "required": true},
+						},
+					},
+				},
+			},
+		}
+
+		normalizeOrgPathParameterName(doc)
+
+		pathItem, ok := doc["paths"].(map[string]interface{})["/svc/orgs/{orgId}/items"].(map[string]interface{})
+		if !ok {
+			t.Fatalf("%s: expected path renamed to {orgId}, got %v", legacy, doc["paths"])
+		}
+		param := pathItem["get"].(map[string]interface{})["parameters"].([]interface{})[0].(map[string]interface{})
+		if param["name"] != "orgId" {
+			t.Fatalf("%s: expected parameter renamed to orgId, got %v", legacy, param["name"])
+		}
+	}
+}
+
 func TestNormalizePathTemplateParameterNames_FixesSnakeCasePathParam(t *testing.T) {
 	doc := map[string]interface{}{
 		"paths": map[string]interface{}{

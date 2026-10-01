@@ -214,6 +214,151 @@ func TestConvertRequestBodiesUsesOperationConsumes(t *testing.T) {
 	}
 }
 
+func TestConvertSwagger2ToOpenAPI3_ResponsesAndCollectionFormat(t *testing.T) {
+	swagger := map[string]interface{}{
+		"swagger":  "2.0",
+		"produces": []interface{}{"application/json"},
+		"paths": map[string]interface{}{
+			"/items": map[string]interface{}{
+				"get": map[string]interface{}{
+					"schemes": []interface{}{"http"},
+					"parameters": []interface{}{
+						map[string]interface{}{"name": "ids", "in": "query", "type": "array", "items": map[string]interface{}{"type": "string"}, "collectionFormat": "multi"},
+						map[string]interface{}{"name": "tags", "in": "query", "type": "array", "items": map[string]interface{}{"type": "string"}, "collectionFormat": "csv"},
+					},
+					"responses": map[string]interface{}{
+						"200": map[string]interface{}{
+							"description": "OK",
+							"schema":      map[string]interface{}{"$ref": "#/definitions/Item"},
+							"headers":     map[string]interface{}{"Location": map[string]interface{}{"type": "string"}},
+						},
+					},
+				},
+			},
+		},
+		"definitions": map[string]interface{}{"Item": map[string]interface{}{"type": "object"}},
+	}
+
+	got := convertSwagger2ToOpenAPI3(swagger)
+	op := got["paths"].(map[string]interface{})["/items"].(map[string]interface{})["get"].(map[string]interface{})
+	if _, ok := op["schemes"]; ok {
+		t.Fatalf("expected schemes to be removed")
+	}
+	resp := op["responses"].(map[string]interface{})["200"].(map[string]interface{})
+	if _, ok := resp["schema"]; ok {
+		t.Fatalf("expected Swagger response schema to be removed, got %v", resp)
+	}
+	schema := resp["content"].(map[string]interface{})["application/json"].(map[string]interface{})["schema"].(map[string]interface{})
+	if schema["$ref"] != "#/components/schemas/Item" {
+		t.Fatalf("unexpected response schema %v", schema)
+	}
+	header := resp["headers"].(map[string]interface{})["Location"].(map[string]interface{})
+	if header["schema"].(map[string]interface{})["type"] != "string" || header["type"] != nil {
+		t.Fatalf("expected header type wrapped in schema, got %v", header)
+	}
+	params := op["parameters"].([]interface{})
+	for _, p := range params {
+		if _, ok := p.(map[string]interface{})["collectionFormat"]; ok {
+			t.Fatalf("expected collectionFormat to be removed, got %v", p)
+		}
+	}
+	if params[1].(map[string]interface{})["explode"] != false {
+		t.Fatalf("expected csv query param to set explode=false, got %v", params[1])
+	}
+}
+
+func TestConvertSwagger2ToOpenAPI3_ResponseMediaTypes(t *testing.T) {
+	tests := []struct {
+		name              string
+		globalProduces    interface{}
+		operationProduces interface{}
+		want              []string
+	}{
+		{
+			name:           "inherits all document media types",
+			globalProduces: []interface{}{"application/json", "application/xml", "application/gob"},
+			want:           []string{"application/json", "application/xml", "application/gob"},
+		},
+		{
+			name:              "operation overrides document media types",
+			globalProduces:    []interface{}{"application/json", "application/gob"},
+			operationProduces: []interface{}{"application/xml", "text/markdown"},
+			want:              []string{"application/xml", "text/markdown"},
+		},
+		{
+			name: "missing produces defaults to JSON",
+			want: []string{"application/json"},
+		},
+		{
+			name:           "empty document produces defaults to JSON",
+			globalProduces: []interface{}{},
+			want:           []string{"application/json"},
+		},
+		{
+			name:              "empty operation produces does not inherit",
+			globalProduces:    []interface{}{"application/xml"},
+			operationProduces: []interface{}{},
+			want:              []string{"application/json"},
+		},
+		{
+			name:           "ignores empty invalid and duplicate entries",
+			globalProduces: []interface{}{"", nil, 42, "application/xml", "application/xml", "application/gob"},
+			want:           []string{"application/xml", "application/gob"},
+		},
+		{
+			name:           "unusable entries default to JSON",
+			globalProduces: []interface{}{"", nil, 42},
+			want:           []string{"application/json"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			responses := map[string]interface{}{
+				"200": map[string]interface{}{"description": "OK", "schema": map[string]interface{}{"$ref": "#/definitions/Item"}},
+				"400": map[string]interface{}{"description": "Error", "schema": map[string]interface{}{"$ref": "#/definitions/Item"}},
+				"204": map[string]interface{}{"description": "No content"},
+			}
+			operation := map[string]interface{}{"responses": responses}
+			if tt.operationProduces != nil {
+				operation["produces"] = tt.operationProduces
+			}
+			swagger := map[string]interface{}{
+				"swagger":     "2.0",
+				"produces":    tt.globalProduces,
+				"paths":       map[string]interface{}{"/items": map[string]interface{}{"get": operation}},
+				"definitions": map[string]interface{}{"Item": map[string]interface{}{"type": "object"}},
+			}
+			convertSwagger2ToOpenAPI3(swagger)
+			if _, ok := operation["produces"]; ok {
+				t.Fatal("expected Swagger produces field to be removed")
+			}
+			for _, code := range []string{"200", "400"} {
+				response := responses[code].(map[string]interface{})
+				if _, ok := response["schema"]; ok {
+					t.Fatalf("response %s still contains Swagger schema", code)
+				}
+				content := response["content"].(map[string]interface{})
+				if len(content) != len(tt.want) {
+					t.Fatalf("response %s content = %v, want media types %v", code, content, tt.want)
+				}
+				for _, mediaType := range tt.want {
+					media, ok := content[mediaType].(map[string]interface{})
+					if !ok {
+						t.Fatalf("response %s missing media type %s", code, mediaType)
+					}
+					schema := media["schema"].(map[string]interface{})
+					if schema["$ref"] != "#/components/schemas/Item" {
+						t.Fatalf("response %s media type %s schema = %v", code, mediaType, schema)
+					}
+				}
+			}
+			if _, ok := responses["204"].(map[string]interface{})["content"]; ok {
+				t.Fatal("expected response without schema to remain without content")
+			}
+		})
+	}
+}
+
 func TestSedReplace_MissingPatternIsActionable(t *testing.T) {
 	path := filepath.Join(t.TempDir(), "openapi.json")
 	if err := os.WriteFile(path, []byte(`{"openapi":"3.0.3"}`), 0o644); err != nil {

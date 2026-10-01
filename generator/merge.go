@@ -1174,8 +1174,8 @@ func validateParameters(doc map[string]interface{}) error {
 	return nil
 }
 
-// normalizeOrgPathParameterName renames the legacy RightScale "{org}" path
-// template placeholder (and its matching "org" parameter name) to the
+// normalizeOrgPathParameterName renames legacy RightScale "{org}" / "{orgID}" path
+// template placeholders (and their matching parameter names) to the
 // unified "{orgId}" convention used by every other merged service. Without
 // this, downstream codegen (unified-go-client, flexera-cli) can't recognize
 // the org-identifier path param and fails to wire it to the global org ID.
@@ -1204,7 +1204,7 @@ func normalizeOrgPathParameterName(doc map[string]interface{}) {
 func renameOrgPathSegment(pathTemplate string) string {
 	segments := strings.Split(pathTemplate, "/")
 	for i, seg := range segments {
-		if seg == "{org}" {
+		if seg == "{org}" || seg == "{orgID}" {
 			segments[i] = "{orgId}"
 		}
 	}
@@ -1224,7 +1224,7 @@ func renameOrgPathParameters(raw interface{}) {
 		if in, _ := parameter["in"].(string); in != "path" {
 			continue
 		}
-		if name, _ := parameter["name"].(string); name == "org" {
+		if name, _ := parameter["name"].(string); name == "org" || name == "orgID" {
 			parameter["name"] = "orgId"
 		}
 	}

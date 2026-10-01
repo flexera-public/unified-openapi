@@ -547,10 +547,96 @@ func convertSwagger2ToOpenAPI3(swagger map[string]interface{}) map[string]interf
 	// requestBody objects (must run before convertParameters below).
 	convertRequestBodies(openapi)
 
+	convertResponses(openapi, swagger["produces"])
+
 	// Convert Swagger 2.0 parameters to OpenAPI 3.0 format
 	convertParameters(openapi)
 
 	return openapi
+}
+
+// convertResponses moves Swagger 2.0 response "schema" into OpenAPI 3.0
+// "content" keyed by every operation (or document) produces media type,
+// wraps response header type fields in a schema, and drops Swagger-only
+// operation fields (produces, schemes).
+func convertResponses(openapi map[string]interface{}, globalProduces interface{}) {
+	paths, ok := openapi["paths"].(map[string]interface{})
+	if !ok {
+		return
+	}
+	for _, pathItemValue := range paths {
+		pathItem, ok := pathItemValue.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		for _, method := range operationMethods {
+			operation, ok := pathItem[method].(map[string]interface{})
+			if !ok {
+				continue
+			}
+			produces := operation["produces"]
+			if produces == nil {
+				produces = globalProduces
+			}
+			mediaTypes := responseMediaTypes(produces)
+			if responses, ok := operation["responses"].(map[string]interface{}); ok {
+				for _, responseValue := range responses {
+					response, ok := responseValue.(map[string]interface{})
+					if !ok {
+						continue
+					}
+					if schema, ok := response["schema"]; ok {
+						content := map[string]interface{}{}
+						for _, mediaType := range mediaTypes {
+							content[mediaType] = map[string]interface{}{"schema": schema}
+						}
+						response["content"] = content
+						delete(response, "schema")
+					}
+					if headers, ok := response["headers"].(map[string]interface{}); ok {
+						for _, headerValue := range headers {
+							if header, ok := headerValue.(map[string]interface{}); ok {
+								convertHeader(header)
+							}
+						}
+					}
+				}
+			}
+			delete(operation, "produces")
+			delete(operation, "schemes")
+		}
+	}
+}
+
+func convertHeader(header map[string]interface{}) {
+	if _, ok := header["type"]; !ok {
+		return
+	}
+	schema := map[string]interface{}{}
+	for _, field := range []string{"type", "format", "items", "minimum", "maximum",
+		"minLength", "maxLength", "pattern", "enum", "default"} {
+		if val, ok := header[field]; ok {
+			schema[field] = val
+			delete(header, field)
+		}
+	}
+	delete(header, "collectionFormat")
+	header["schema"] = schema
+}
+
+func responseMediaTypes(value interface{}) []string {
+	var mediaTypes []string
+	if list, ok := value.([]interface{}); ok {
+		for _, item := range list {
+			if s, ok := item.(string); ok && s != "" {
+				mediaTypes = append(mediaTypes, s)
+			}
+		}
+	}
+	if len(mediaTypes) == 0 {
+		return []string{"application/json"}
+	}
+	return mediaTypes
 }
 
 // convertRequestBodies converts Swagger 2.0 "in": "body" operation
@@ -673,6 +759,15 @@ func convertParameters(obj interface{}) {
 					if len(schema) > 0 {
 						v["schema"] = schema
 					}
+				}
+
+				// OAS3 defaults (form/simple style) match Swagger 2 multi for
+				// query and csv for path/header; only query csv needs explode=false.
+				if cf, ok := v["collectionFormat"].(string); ok {
+					if cf == "csv" && v["in"] == "query" {
+						v["explode"] = false
+					}
+					delete(v, "collectionFormat")
 				}
 
 				// Continue recursing through remaining fields
