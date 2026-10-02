@@ -367,6 +367,18 @@
             "description": "External ID.",
             "title": "Externalid"
           },
+          "HaveBillingAccess": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Indicates if the service principal has billing access.",
+            "title": "Havebillingaccess"
+          },
           "IncludeBPC": {
             "description": "Include BPC flag.",
             "title": "Includebpc",
@@ -578,6 +590,18 @@
             ],
             "description": "External ID.",
             "title": "Externalid"
+          },
+          "HaveBillingAccess": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Indicates if the service principal has billing access.",
+            "title": "Havebillingaccess"
           },
           "IncludeBPC": {
             "anyOf": [

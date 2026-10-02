@@ -6031,7 +6031,9 @@
         "description": "A subdomain is a customer-specific segment prepended to Flexera's base domain. For example, a customer\n\twith the subdomain \"xxx\" in the NA zone can access Flexera One at \"https://xxx.app.flexera.com\".",
         "example": {
           "kind": "iam#subdomain",
-          "name": "customer-x"
+          "name": "customer-x",
+          "shouldInherit": true,
+          "source": "child"
         },
         "properties": {
           "kind": {
@@ -6046,6 +6048,20 @@
             "description": "The unique name of the subdomain.",
             "example": "customer-x",
             "pattern": "^[a-z0-9][a-z0-9-]{0,98}[a-z0-9]$",
+            "type": "string"
+          },
+          "shouldInherit": {
+            "description": "Whether this subdomain should be inherited by child orgs (omitted/true=inherit, false=do not inherit)",
+            "example": true,
+            "type": "boolean"
+          },
+          "source": {
+            "description": "Origin of the subdomain in the effective result: \"child\" means defined by the current organization; \"parent\" means inherited from the parent organization.",
+            "enum": [
+              "child",
+              "parent"
+            ],
+            "example": "child",
             "type": "string"
           }
         },
@@ -11338,7 +11354,9 @@
           "subdomains": [
             {
               "kind": "iam#subdomain",
-              "name": "flx"
+              "name": "flx",
+              "shouldInherit": true,
+              "source": "child"
             }
           ],
           "updatedAt": "1980-05-07T17:22:49Z"
@@ -11384,7 +11402,9 @@
             "example": [
               {
                 "kind": "iam#subdomain",
-                "name": "flx"
+                "name": "flx",
+                "shouldInherit": true,
+                "source": "child"
               }
             ],
             "items": {
@@ -14288,6 +14308,92 @@
         },
         "type": "object"
       },
+      "ShowResponseBodyExtended2": {
+        "description": "ShowResponseBody result type (extended view)",
+        "example": {
+          "company": "Acme, Inc.",
+          "createdAt": "2022-03-24T21:12:13.020627Z",
+          "email": "someone@SomeWhere.com",
+          "firstName": "Jane",
+          "id": 12345,
+          "isNameManagedByIDP": false,
+          "kind": "iam#user",
+          "lastName": "Smith",
+          "phoneNumber": "123-456-7890",
+          "timezone": "America/Los_Angeles",
+          "updatedAt": "2023-02-22T21:11:10.020627Z"
+        },
+        "properties": {
+          "company": {
+            "description": "Company name of the user",
+            "example": "Acme, Inc.",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "Creation timestamp in UTC",
+            "example": "2022-03-24T21:12:13.020627Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email address of the user",
+            "example": "someone@SomeWhere.com",
+            "pattern": "^[a-zA-Z0-9!#$%&'*+/=?^_.`{|}~-]+@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]$",
+            "type": "string"
+          },
+          "firstName": {
+            "description": "First name of the user",
+            "example": "Jane",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the user",
+            "example": 12345,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "isNameManagedByIDP": {
+            "description": "Indicates whether this user's name is managed by an\nexternal identity provider (AD/SAML).\n\nWhen **true**, the user last authenticated via SSO/SAML federation. Name edits may be\noverridden on their next SSO login if the IdP attribute mapping still points to different values.\n\nThe UI should display a warning when this flag is true, explaining that the name\nchange may not persist through the next SSO login.",
+            "example": false,
+            "type": "boolean"
+          },
+          "kind": {
+            "description": "The resource's type",
+            "enum": [
+              "iam#user"
+            ],
+            "example": "iam#user",
+            "type": "string"
+          },
+          "lastName": {
+            "description": "Last name of the user",
+            "example": "Smith",
+            "type": "string"
+          },
+          "phoneNumber": {
+            "description": "Phone number of the user",
+            "example": "123-456-7890",
+            "type": "string"
+          },
+          "timezone": {
+            "description": "Timezone of the user",
+            "example": "America/Los_Angeles",
+            "type": "string"
+          },
+          "updatedAt": {
+            "description": "Last update timestamp in UTC",
+            "example": "2023-02-22T21:11:10.020627Z",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "kind"
+        ],
+        "type": "object"
+      },
       "ShowResponseBodyIndex": {
         "description": "ShowResponseBody result type (index view)",
         "example": {
@@ -15317,14 +15423,30 @@
       },
       "UserProfile": {
         "example": {
+          "company": "Acme, Inc.",
+          "createdAt": "2022-03-24T21:12:13.020627Z",
           "email": "someone@SomeWhere.com",
           "firstName": "Jane",
           "id": 12345,
           "isNameManagedByIDP": false,
           "kind": "iam#user",
-          "lastName": "Smith"
+          "lastName": "Smith",
+          "phoneNumber": "123-456-7890",
+          "timezone": "America/Los_Angeles",
+          "updatedAt": "2023-02-22T21:11:10.020627Z"
         },
         "properties": {
+          "company": {
+            "description": "Company name of the user",
+            "example": "Acme, Inc.",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "Creation timestamp in UTC",
+            "example": "2022-03-24T21:12:13.020627Z",
+            "format": "date-time",
+            "type": "string"
+          },
           "email": {
             "description": "Email address of the user",
             "example": "someone@SomeWhere.com",
@@ -15358,6 +15480,22 @@
           "lastName": {
             "description": "Last name of the user",
             "example": "Smith",
+            "type": "string"
+          },
+          "phoneNumber": {
+            "description": "Phone number of the user",
+            "example": "123-456-7890",
+            "type": "string"
+          },
+          "timezone": {
+            "description": "Timezone of the user",
+            "example": "America/Los_Angeles",
+            "type": "string"
+          },
+          "updatedAt": {
+            "description": "Last update timestamp in UTC",
+            "example": "2023-02-22T21:11:10.020627Z",
+            "format": "date-time",
             "type": "string"
           }
         },
@@ -17737,7 +17875,9 @@
                   "subdomains": [
                     {
                       "kind": "iam#subdomain",
-                      "name": "flx"
+                      "name": "flx",
+                      "shouldInherit": true,
+                      "source": "child"
                     }
                   ],
                   "updatedAt": "2002-10-17T04:45:24Z"
@@ -30001,7 +30141,7 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "Ea est autem ea ipsum placeat."
+                  "id": "Autem ea ipsum placeat autem."
                 },
                 "schema": {
                   "$ref": "#/components/schemas/SingleIdentityProviderID"
@@ -38805,7 +38945,9 @@
                   "subdomains": [
                     {
                       "kind": "iam#subdomain",
-                      "name": "flx"
+                      "name": "flx",
+                      "shouldInherit": true,
+                      "source": "child"
                     }
                   ],
                   "updatedAt": "1991-12-20T16:09:41Z"
@@ -47247,20 +47389,45 @@
       "get": {
         "description": "Returns the profile of the currently authenticated user.\n\n**isNameManagedByIDP**: When `true`, the user last authenticated via an external SSO/SAML\nidentity provider. This means name edits made via PATCH /iam/v1/users/me may be overridden\non the user's next SSO login if the IdP attribute mapping still points to different values.\nThe UI should display a warning when this flag is true.\n\n**Authentication**: Only the authenticated user's own profile is returned. There is no\nadmin variant of this endpoint — use GET /iam/v1/orgs/{orgId}/users/{id} for viewing\nanother user's profile.",
         "operationId": "User Profile#show",
+        "parameters": [
+          {
+            "allowEmptyValue": true,
+            "description": "View used to render the user's profile",
+            "example": "extended",
+            "in": "query",
+            "name": "view",
+            "schema": {
+              "default": "default",
+              "description": "View used to render the user's profile",
+              "enum": [
+                "default",
+                "extended"
+              ],
+              "example": "default",
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "example": {
+                  "company": "Acme, Inc.",
+                  "createdAt": "2022-03-24T21:12:13.020627Z",
                   "email": "someone@SomeWhere.com",
                   "firstName": "Jane",
                   "id": 12345,
                   "isNameManagedByIDP": false,
                   "kind": "iam#user",
-                  "lastName": "Smith"
+                  "lastName": "Smith",
+                  "phoneNumber": "123-456-7890",
+                  "timezone": "America/Los_Angeles",
+                  "updatedAt": "2023-02-22T21:11:10.020627Z"
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/UserProfile"
+                  "$ref": "#/components/schemas/UserProfile",
+                  "description": "Response body may alternatively be #/components/schemas/ShowResponseBodyExtended2"
                 }
               }
             },
@@ -47534,15 +47701,21 @@
             "content": {
               "application/json": {
                 "example": {
+                  "company": "Acme, Inc.",
+                  "createdAt": "2022-03-24T21:12:13.020627Z",
                   "email": "someone@SomeWhere.com",
                   "firstName": "Jane",
                   "id": 12345,
                   "isNameManagedByIDP": false,
                   "kind": "iam#user",
-                  "lastName": "Smith"
+                  "lastName": "Smith",
+                  "phoneNumber": "123-456-7890",
+                  "timezone": "America/Los_Angeles",
+                  "updatedAt": "2023-02-22T21:11:10.020627Z"
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/UserProfile"
+                  "$ref": "#/components/schemas/UserProfile",
+                  "description": "Response body may alternatively be #/components/schemas/ShowResponseBodyExtended2"
                 }
               }
             },
@@ -47847,7 +48020,7 @@
           {
             "allowEmptyValue": true,
             "description": "The scope/context of the setting, either 'org' or 'global'.",
-            "example": "org",
+            "example": "global",
             "in": "query",
             "name": "type",
             "schema": {
@@ -47856,7 +48029,7 @@
                 "global",
                 "org"
               ],
-              "example": "global",
+              "example": "org",
               "type": "string"
             }
           }
@@ -47940,7 +48113,7 @@
                   "id": "preferredLoginMethod",
                   "kind": "iam#user-setting-blob",
                   "orgId": 100,
-                  "type": "org",
+                  "type": "global",
                   "url": "https://iam-user-setting-blob-staging-us-east-1/1101/232323/serid/optima/cloud-dashboards/sdjhdkjahdkja"
                 },
                 "schema": {
