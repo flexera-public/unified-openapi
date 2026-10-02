@@ -5999,31 +5999,61 @@ paths:
             responses:
                 "200":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableShowResponseBody'
                     description: OK response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableShowForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableShowNotFoundResponseBody'
                     description: Not Found response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableShowInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableShowBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableShowBadGatewayResponseBody'
                     description: Bad Gateway response.
@@ -6079,31 +6109,65 @@ paths:
                     description: No Content response.
                 "400":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertBadRequestResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertBadRequestResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableUpsertBadRequestResponseBody'
                     description: Bad Request response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableUpsertForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableUpsertNotFoundResponseBody'
                     description: Not Found response.
                 "409":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertConflictResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertConflictResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableUpsertConflictResponseBody'
                     description: Conflict response.
                 "422":
                     content:
+                        application/gob:
+                            schema:
+                                items:
+                                    $ref: '#/components/schemas/InvalidAllocationTableRuleErrorResponse'
+                                type: array
                         application/json:
+                            schema:
+                                items:
+                                    $ref: '#/components/schemas/InvalidAllocationTableRuleErrorResponse'
+                                type: array
+                        application/xml:
                             schema:
                                 items:
                                     $ref: '#/components/schemas/InvalidAllocationTableRuleErrorResponse'
@@ -6111,13 +6175,25 @@ paths:
                     description: Unprocessable Entity response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableUpsertInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AllocationTableUpsertBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AllocationTableUpsertBadGatewayResponseBody'
                     description: Bad Gateway response.
@@ -6168,43 +6244,85 @@ paths:
             responses:
                 "200":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersBillingCenterResponseCollection'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersBillingCenterResponseCollection'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersBillingCenterResponseCollection'
                     description: OK response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersIndexForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersIndexNotFoundResponseBody'
                     description: Not Found response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
                 "503":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexServiceUnavailableResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersIndexServiceUnavailableResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersIndexServiceUnavailableResponseBody'
                     description: Service Unavailable response.
@@ -6253,7 +6371,29 @@ paths:
             responses:
                 "201":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateResponseBody'
+                                required:
+                                    - id
+                                    - href
+                                    - name
+                                    - description
+                                    - created_at
+                                    - updated_at
+                                    - kind
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateResponseBody'
+                                required:
+                                    - id
+                                    - href
+                                    - name
+                                    - description
+                                    - created_at
+                                    - updated_at
+                                    - kind
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateResponseBody'
                                 required:
@@ -6272,55 +6412,109 @@ paths:
                                 type: string
                 "400":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateBadRequestResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateBadRequestResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateBadRequestResponseBody'
                     description: Bad Request response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateNotFoundResponseBody'
                     description: Not Found response.
                 "409":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateConflictResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateConflictResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateConflictResponseBody'
                     description: Conflict response.
                 "422":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateUnprocessableEntityResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateUnprocessableEntityResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateUnprocessableEntityResponseBody'
                     description: Unprocessable Entity response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateBadGatewayResponseBody'
                     description: Bad Gateway response.
                 "503":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateServiceUnavailableResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersCreateServiceUnavailableResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersCreateServiceUnavailableResponseBody'
                     description: Service Unavailable response.
@@ -6368,43 +6562,85 @@ paths:
                     description: No Content response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersDeleteUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersDeleteForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersDeleteNotFoundResponseBody'
                     description: Not Found response.
                 "405":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteMethodNotAllowedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteMethodNotAllowedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersDeleteMethodNotAllowedResponseBody'
                     description: Method Not Allowed response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersDeleteInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersDeleteBadGatewayResponseBody'
                     description: Bad Gateway response.
                 "503":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteServiceUnavailableResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersDeleteServiceUnavailableResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersDeleteServiceUnavailableResponseBody'
                     description: Service Unavailable response.
@@ -6449,43 +6685,85 @@ paths:
             responses:
                 "200":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowResponseBody'
                     description: OK response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowNotFoundResponseBody'
                     description: Not Found response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowBadGatewayResponseBody'
                     description: Bad Gateway response.
                 "503":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowServiceUnavailableResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowServiceUnavailableResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowServiceUnavailableResponseBody'
                     description: Service Unavailable response.
@@ -6541,55 +6819,109 @@ paths:
                     description: No Content response.
                 "400":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateBadRequestResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateBadRequestResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpdateBadRequestResponseBody'
                     description: Bad Request response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpdateUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpdateForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpdateNotFoundResponseBody'
                     description: Not Found response.
                 "405":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateMethodNotAllowedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateMethodNotAllowedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpdateMethodNotAllowedResponseBody'
                     description: Method Not Allowed response.
                 "409":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateConflictResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateConflictResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpdateConflictResponseBody'
                     description: Conflict response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpdateInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpdateBadGatewayResponseBody'
                     description: Bad Gateway response.
                 "503":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateServiceUnavailableResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpdateServiceUnavailableResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpdateServiceUnavailableResponseBody'
                     description: Service Unavailable response.
@@ -6647,25 +6979,49 @@ paths:
                     description: No Content response.
                 "400":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesGrantBadRequestResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesGrantBadRequestResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesGrantBadRequestResponseBody'
                     description: Bad Request response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesGrantForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesGrantForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesGrantForbiddenResponseBody'
                     description: Forbidden response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesGrantInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesGrantInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesGrantInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesGrantBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesGrantBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesGrantBadGatewayResponseBody'
                     description: Bad Gateway response.
@@ -6717,31 +7073,61 @@ paths:
             responses:
                 "200":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesSubjectRoleReportResponseCollection'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesSubjectRoleReportResponseCollection'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesSubjectRoleReportResponseCollection'
                     description: OK response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesReportForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesReportForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesReportForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesReportNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesReportNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesReportNotFoundResponseBody'
                     description: Not Found response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesReportInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesReportInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesReportInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesReportBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesReportBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesReportBadGatewayResponseBody'
                     description: Bad Gateway response.
@@ -6799,25 +7185,49 @@ paths:
                     description: No Content response.
                 "400":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesRevokeBadRequestResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesRevokeBadRequestResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesRevokeBadRequestResponseBody'
                     description: Bad Request response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesRevokeForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesRevokeForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesRevokeForbiddenResponseBody'
                     description: Forbidden response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesRevokeInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesRevokeInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesRevokeInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesRevokeBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCenterAccessRulesRevokeBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCenterAccessRulesRevokeBadGatewayResponseBody'
                     description: Bad Gateway response.
@@ -6863,43 +7273,85 @@ paths:
             responses:
                 "200":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowAllocationTableResponseBody'
                     description: OK response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowAllocationTableUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowAllocationTableForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowAllocationTableNotFoundResponseBody'
                     description: Not Found response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowAllocationTableInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowAllocationTableBadGatewayResponseBody'
                     description: Bad Gateway response.
                 "503":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableServiceUnavailableResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersShowAllocationTableServiceUnavailableResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersShowAllocationTableServiceUnavailableResponseBody'
                     description: Service Unavailable response.
@@ -6960,37 +7412,77 @@ paths:
                     description: No Content response.
                 "400":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableBadRequestResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableBadRequestResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpsertAllocationTableBadRequestResponseBody'
                     description: Bad Request response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpsertAllocationTableUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpsertAllocationTableForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpsertAllocationTableNotFoundResponseBody'
                     description: Not Found response.
                 "409":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableConflictResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableConflictResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpsertAllocationTableConflictResponseBody'
                     description: Conflict response.
                 "422":
                     content:
+                        application/gob:
+                            schema:
+                                items:
+                                    $ref: '#/components/schemas/InvalidAllocationTableRuleErrorResponse'
+                                type: array
                         application/json:
+                            schema:
+                                items:
+                                    $ref: '#/components/schemas/InvalidAllocationTableRuleErrorResponse'
+                                type: array
+                        application/xml:
                             schema:
                                 items:
                                     $ref: '#/components/schemas/InvalidAllocationTableRuleErrorResponse'
@@ -6998,19 +7490,37 @@ paths:
                     description: Unprocessable Entity response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpsertAllocationTableInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpsertAllocationTableBadGatewayResponseBody'
                     description: Bad Gateway response.
                 "503":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableServiceUnavailableResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/BillingCentersUpsertAllocationTableServiceUnavailableResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/BillingCentersUpsertAllocationTableServiceUnavailableResponseBody'
                     description: Service Unavailable response.
@@ -7057,37 +7567,73 @@ paths:
             responses:
                 "200":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesScopeRoleReportResponseCollection'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesScopeRoleReportResponseCollection'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesScopeRoleReportResponseCollection'
                     description: OK response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesGroupReportUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesGroupReportForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesGroupReportNotFoundResponseBody'
                     description: Not Found response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesGroupReportInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesGroupReportBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesGroupReportBadGatewayResponseBody'
                     description: Bad Gateway response.
@@ -7135,37 +7681,73 @@ paths:
             responses:
                 "200":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesScopeRoleReportResponseCollection'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesScopeRoleReportResponseCollection'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesScopeRoleReportResponseCollection'
                     description: OK response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesUserReportUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesUserReportForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesUserReportNotFoundResponseBody'
                     description: Not Found response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesUserReportInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/AccessRulesUserReportBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/AccessRulesUserReportBadGatewayResponseBody'
                     description: Bad Gateway response.
@@ -7230,37 +7812,73 @@ paths:
             responses:
                 "200":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersUserBillingCenterResponseCollection'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersUserBillingCenterResponseCollection'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersUserBillingCenterResponseCollection'
                     description: OK response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersIndexUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersIndexForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersIndexNotFoundResponseBody'
                     description: Not Found response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersIndexInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersIndexBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersIndexBadGatewayResponseBody'
                     description: Bad Gateway response.
@@ -7311,37 +7929,73 @@ paths:
             responses:
                 "200":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersShowResponseBody'
                     description: OK response.
                 "401":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowUnauthorizedResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowUnauthorizedResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersShowUnauthorizedResponseBody'
                     description: Unauthorized response.
                 "403":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowForbiddenResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowForbiddenResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersShowForbiddenResponseBody'
                     description: Forbidden response.
                 "404":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowNotFoundResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowNotFoundResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersShowNotFoundResponseBody'
                     description: Not Found response.
                 "500":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowInternalErrorResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowInternalErrorResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersShowInternalErrorResponseBody'
                     description: Internal Server Error response.
                 "502":
                     content:
+                        application/gob:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowBadGatewayResponseBody'
                         application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBillingCentersShowBadGatewayResponseBody'
+                        application/xml:
                             schema:
                                 $ref: '#/components/schemas/UserBillingCentersShowBadGatewayResponseBody'
                     description: Bad Gateway response.

@@ -45,12 +45,14 @@
           "BillingDatasetId": {
             "description": "BigQuery dataset containing the billing export.",
             "minLength": 1,
+            "pattern": "^[A-Za-z0-9_]{1,1024}$",
             "title": "Billingdatasetid",
             "type": "string"
           },
           "BillingProjectId": {
             "description": "GCP project used for billing queries.",
             "minLength": 1,
+            "pattern": "^(?:[a-z][a-z0-9-]{4,28}[a-z0-9]|[a-z0-9][a-z0-9.-]*\\.[a-z]{2,}:[a-z][a-z0-9-]{1,}[a-z0-9])$",
             "title": "Billingprojectid",
             "type": "string"
           },
@@ -62,8 +64,8 @@
           }
         },
         "required": [
-          "BillingDatasetId",
           "BillingProjectId",
+          "BillingDatasetId",
           "GoogleGcsExportUri"
         ],
         "title": "GcpCostAndUsageCreateRequest",
@@ -100,7 +102,8 @@
           },
           "ConnectorName": {
             "description": "Connector name.",
-            "minLength": 1,
+            "minLength": 3,
+            "pattern": "^[a-zA-Z0-9._-]+$",
             "title": "Connectorname",
             "type": "string"
           },
@@ -136,7 +139,8 @@
           "ConnectorName": {
             "anyOf": [
               {
-                "minLength": 1,
+                "minLength": 3,
+                "pattern": "^[a-zA-Z0-9._-]+$",
                 "type": "string"
               },
               {
