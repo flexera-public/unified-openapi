@@ -105606,7 +105606,7 @@
         "tags": [
           "anomalies"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "anomaly-report"
       },
       "servers": [
@@ -106909,7 +106909,7 @@
         "tags": [
           "costs"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "cost-aggregated"
       },
       "servers": [
@@ -107866,7 +107866,7 @@
         "tags": [
           "costs"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "cost-select"
       },
       "servers": [
@@ -109602,7 +109602,7 @@
         "tags": [
           "forecasts"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "forecast-report"
       },
       "servers": [
@@ -111181,7 +111181,7 @@
         "tags": [
           "anomalies"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "v2-anomalies"
       },
       "servers": [
@@ -111331,7 +111331,7 @@
         "tags": [
           "anomalies"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "v2-anomalies-aggregated"
       },
       "servers": [
@@ -188927,7 +188927,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-list-item-ref": "#/components/schemas/Risk_FailedAssetItem",
         "x-flexera-paginated": true,
         "x-flexera-resource": "misconfiguration-failed-asset"
@@ -189051,7 +189051,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "misconfiguration-failed-asset-export"
       }
     },
@@ -189173,7 +189173,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "misconfiguration-list"
       }
     },
@@ -189295,7 +189295,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "misconfiguration-overview"
       }
     },
@@ -189564,7 +189564,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "list",
+        "x-flexera-action": "get",
         "x-flexera-resource": "misconfiguration-risk-details"
       }
     },
@@ -189686,7 +189686,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "action",
         "x-flexera-resource": "misconfiguration-rule-suppress"
       }
     },
@@ -190076,7 +190076,7 @@
         "tags": [
           "compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "compliance-cis"
       }
     },
@@ -190198,7 +190198,7 @@
         "tags": [
           "compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "compliance-export"
       }
     },
@@ -190442,7 +190442,7 @@
         "tags": [
           "compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "compliance-standard"
       }
     },
@@ -190564,7 +190564,7 @@
         "tags": [
           "compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "compliance-trend"
       }
     },
@@ -190697,7 +190697,7 @@
         "tags": [
           "compliance"
         ],
-        "x-flexera-action": "action",
+        "x-flexera-action": "list",
         "x-flexera-resource": "compliance-control"
       }
     },
@@ -190954,7 +190954,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-list-item-ref": "#/components/schemas/Risk_FailedAssetItem",
         "x-flexera-paginated": true,
         "x-flexera-resource": "misconfiguration-failed-asset"
@@ -191078,7 +191078,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "misconfiguration-failed-asset-export"
       }
     },
@@ -191200,7 +191200,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "misconfiguration-list"
       }
     },
@@ -191322,7 +191322,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "misconfiguration-overview"
       }
     },
@@ -191591,7 +191591,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "list",
+        "x-flexera-action": "get",
         "x-flexera-resource": "misconfiguration-risk-details"
       }
     },
@@ -191713,7 +191713,7 @@
         "tags": [
           "misconfiguration-ui"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "action",
         "x-flexera-resource": "misconfiguration-rule-suppress"
       }
     },
@@ -191956,7 +191956,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "regulatory-compliance-asset-statistics"
       }
     },
@@ -192077,7 +192077,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "regulatory-compliance-catalog-filter"
       }
     },
@@ -192198,7 +192198,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "regulatory-compliance-conformity-summary"
       }
     },
@@ -192330,7 +192330,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "regulatory-compliance-failed-asset"
       }
     },
@@ -192451,7 +192451,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "regulatory-compliance-lifecycle-forecast"
       }
     },
@@ -192572,7 +192572,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "regulatory-compliance-lifecycle-trend"
       }
     },
@@ -192693,7 +192693,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "regulatory-compliance-list"
       }
     },
@@ -192814,7 +192814,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "regulatory-compliance-misconfiguration-overview"
       }
     },
@@ -192937,7 +192937,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "action",
         "x-flexera-resource": "regulatory-compliance-rule-suppress"
       }
     },
@@ -193058,7 +193058,7 @@
           "regulatory-compliance",
           "regulatory-compliance"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "regulatory-compliance-year-wise-asset-list"
       }
     },
@@ -193302,7 +193302,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "vulnerability-enumerate"
       }
     },
@@ -193423,7 +193423,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "vulnerability-failed-assets"
       }
     },
@@ -193544,7 +193544,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "vulnerability-failed-assets-export"
       }
     },
@@ -193667,7 +193667,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "vulnerability-findings-distribution"
       }
     },
@@ -193790,7 +193790,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "vulnerability-findings-distribution-export"
       }
     },
@@ -193911,7 +193911,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "vulnerability-findings-trend"
       }
     },
@@ -194034,7 +194034,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "vulnerability-list"
       }
     },
@@ -194157,7 +194157,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "vulnerability-list-export"
       }
     },
@@ -194388,7 +194388,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "vulnerability-open-cve"
       }
     },
@@ -194507,7 +194507,7 @@
         "tags": [
           "vulnerability"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "vulnerability-total-findings"
       }
     },
@@ -195519,7 +195519,7 @@
         "tags": [
           "Application User Activity Count"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "list",
         "x-flexera-resource": "application-user-activity-count-by-range"
       }
     },
@@ -210295,7 +210295,7 @@
         "tags": [
           "Metric Query"
         ],
-        "x-flexera-action": "action",
+        "x-flexera-action": "get",
         "x-flexera-resource": "stored-metric-query"
       }
     },
@@ -218731,7 +218731,7 @@
         "tags": [
           "Device"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "device-delete-estimate"
       }
     },
@@ -218953,7 +218953,7 @@
         "tags": [
           "Device"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "action",
         "x-flexera-resource": "device-delete-submit"
       }
     },
@@ -219560,7 +219560,7 @@
         "tags": [
           "Query"
         ],
-        "x-flexera-action": "create",
+        "x-flexera-action": "get",
         "x-flexera-resource": "query"
       }
     },
@@ -220213,7 +220213,7 @@
         "tags": [
           "vulnerability-local"
         ],
-        "x-flexera-action": "action",
+        "x-flexera-action": "list",
         "x-flexera-resource": "enumerate"
       }
     },
@@ -220334,7 +220334,7 @@
         "tags": [
           "vulnerability-local"
         ],
-        "x-flexera-action": "action",
+        "x-flexera-action": "list",
         "x-flexera-resource": "failed-asset"
       }
     },
@@ -220457,7 +220457,7 @@
         "tags": [
           "vulnerability-local"
         ],
-        "x-flexera-action": "action",
+        "x-flexera-action": "list",
         "x-flexera-resource": "findings-distribution"
       }
     },
@@ -220578,7 +220578,7 @@
         "tags": [
           "vulnerability-local"
         ],
-        "x-flexera-action": "action",
+        "x-flexera-action": "get",
         "x-flexera-resource": "findings-trend"
       }
     },
@@ -220701,7 +220701,7 @@
         "tags": [
           "vulnerability-local"
         ],
-        "x-flexera-action": "action",
+        "x-flexera-action": "list",
         "x-flexera-resource": "list"
       }
     },
@@ -220932,7 +220932,7 @@
         "tags": [
           "vulnerability-local"
         ],
-        "x-flexera-action": "action",
+        "x-flexera-action": "get",
         "x-flexera-resource": "open-cve"
       }
     },
@@ -221051,7 +221051,7 @@
         "tags": [
           "vulnerability-local"
         ],
-        "x-flexera-action": "action",
+        "x-flexera-action": "get",
         "x-flexera-resource": "total-finding"
       }
     }

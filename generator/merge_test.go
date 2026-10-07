@@ -5,6 +5,63 @@ import (
 	"testing"
 )
 
+func TestApplyCLIActionOverrides(t *testing.T) {
+	const (
+		path           = "/risk/v1/orgs/{orgId}/misconfiguration/overview"
+		regulatoryPath = "/risk/v1/orgs/{orgId}/regulatory-compliance/misconfiguration/overview"
+	)
+	doc := map[string]interface{}{
+		"paths": map[string]interface{}{
+			path: map[string]interface{}{
+				"post": map[string]interface{}{"x-flexera-action": "create"},
+			},
+			regulatoryPath: map[string]interface{}{
+				"post": map[string]interface{}{"x-flexera-action": "create"},
+			},
+		},
+	}
+	specs := []SpecConfig{{
+		ID: "flexera-risk-v1",
+		CLIActionOverrides: []CLIActionOverride{{
+			Path:   path,
+			Method: "POST",
+			Action: "list",
+			Reason: "The POST proxy endpoint retrieves the misconfiguration overview.",
+		}},
+	}}
+
+	if err := applyCLIActionOverrides(doc, specs); err != nil {
+		t.Fatalf("applyCLIActionOverrides() error = %v", err)
+	}
+	paths := doc["paths"].(map[string]interface{})
+	if got := paths[path].(map[string]interface{})["post"].(map[string]interface{})["x-flexera-action"]; got != "list" {
+		t.Errorf("overridden action = %v, want list", got)
+	}
+	if got := paths[regulatoryPath].(map[string]interface{})["post"].(map[string]interface{})["x-flexera-action"]; got != "create" {
+		t.Errorf("unconfigured regulatory action = %v, want create", got)
+	}
+}
+
+func TestApplyCLIActionOverridesRequiresExactMatch(t *testing.T) {
+	doc := map[string]interface{}{
+		"paths": map[string]interface{}{
+			"/items": map[string]interface{}{"get": map[string]interface{}{}},
+		},
+	}
+	specs := []SpecConfig{{
+		ID: "test",
+		CLIActionOverrides: []CLIActionOverride{{
+			Path:   "/missing",
+			Method: "get",
+			Action: "list",
+			Reason: "test",
+		}},
+	}}
+	if err := applyCLIActionOverrides(doc, specs); err == nil {
+		t.Fatal("applyCLIActionOverrides() error = nil, want unmatched path error")
+	}
+}
+
 func TestPrefixComponentNamesAndRefs(t *testing.T) {
 	doc := map[string]interface{}{
 		"paths": map[string]interface{}{

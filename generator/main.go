@@ -140,6 +140,18 @@ type SpecConfig struct {
 	// it takes precedence over the document-level `servers` array per the
 	// OpenAPI 3 spec.
 	MergeServers []ServerConfig `yaml:"merge_servers,omitempty"`
+
+	// CLIActionOverrides pins x-flexera-action for operations whose semantics
+	// cannot be inferred from their HTTP method and path.
+	CLIActionOverrides []CLIActionOverride `yaml:"cli_action_overrides,omitempty"`
+}
+
+// CLIActionOverride pins an action annotation for one exact operation.
+type CLIActionOverride struct {
+	Path   string `yaml:"path"`
+	Method string `yaml:"method"`
+	Action string `yaml:"action"`
+	Reason string `yaml:"reason"`
 }
 
 // ServerConfig represents an OpenAPI Server Object.

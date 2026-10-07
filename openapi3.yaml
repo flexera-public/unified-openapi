@@ -81705,7 +81705,7 @@ paths:
             summary: report anomalies
             tags:
                 - anomalies
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: anomaly-report
         servers:
             - description: Flexera Optima Bill Analysis API
@@ -82563,7 +82563,7 @@ paths:
             summary: aggregated costs
             tags:
                 - costs
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: cost-aggregated
         servers:
             - description: Flexera Optima Bill Analysis API
@@ -83188,7 +83188,7 @@ paths:
             summary: select costs
             tags:
                 - costs
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: cost-select
         servers:
             - description: Flexera Optima Bill Analysis API
@@ -84330,7 +84330,7 @@ paths:
             summary: report forecasts
             tags:
                 - forecasts
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: forecast-report
         servers:
             - description: Flexera Optima Bill Analysis API
@@ -85359,7 +85359,7 @@ paths:
             summary: index anomalies
             tags:
                 - anomalies
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: v2-anomalies
         servers:
             - description: Flexera Optima Bill Analysis API
@@ -85573,7 +85573,7 @@ paths:
             summary: aggregated anomalies
             tags:
                 - anomalies
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: v2-anomalies-aggregated
         servers:
             - description: Flexera Optima Bill Analysis API
@@ -142455,7 +142455,7 @@ paths:
             summary: Failed Assets List.
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-list-item-ref: '#/components/schemas/Risk_FailedAssetItem'
             x-flexera-paginated: true
             x-flexera-resource: misconfiguration-failed-asset
@@ -142532,7 +142532,7 @@ paths:
             summary: Export Failed Assets List.
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: misconfiguration-failed-asset-export
     /recommendation/v1/orgs/{orgId}/misconfiguration/list:
         post:
@@ -142607,7 +142607,7 @@ paths:
             summary: Risk Misconfiguration Rules List.
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: misconfiguration-list
     /recommendation/v1/orgs/{orgId}/misconfiguration/overview:
         post:
@@ -142682,7 +142682,7 @@ paths:
             summary: Risk Misconfiguration Overview.
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: misconfiguration-overview
     /recommendation/v1/orgs/{orgId}/misconfiguration/remediation-steps/{riskId}/{remediationMethod}:
         get:
@@ -142853,7 +142853,7 @@ paths:
             summary: Risk Details
             tags:
                 - misconfiguration-ui
-            x-flexera-action: list
+            x-flexera-action: get
             x-flexera-resource: misconfiguration-risk-details
     /recommendation/v1/orgs/{orgId}/misconfiguration/rule/suppress:
         post:
@@ -142928,7 +142928,7 @@ paths:
             summary: Suppress API for Rule and Failed Asset
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: action
             x-flexera-resource: misconfiguration-rule-suppress
     /recommendations/orgs/{orgId}/recommendations:
         get:
@@ -143190,7 +143190,7 @@ paths:
             summary: Get Standard Control Details.
             tags:
                 - compliance
-            x-flexera-action: action
+            x-flexera-action: list
             x-flexera-resource: compliance-control
     /risk/v1/orgs/{orgId}/compliance/cis:
         post:
@@ -143265,7 +143265,7 @@ paths:
             summary: Get CIS Benchmark Details.
             tags:
                 - compliance
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: compliance-cis
     /risk/v1/orgs/{orgId}/compliance/export:
         post:
@@ -143340,7 +143340,7 @@ paths:
             summary: Export Compliance Chart Data.
             tags:
                 - compliance
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: compliance-export
     /risk/v1/orgs/{orgId}/compliance/favorite:
         patch:
@@ -143490,7 +143490,7 @@ paths:
             summary: Compliance Standards.
             tags:
                 - compliance
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: compliance-standard
     /risk/v1/orgs/{orgId}/compliance/trend:
         post:
@@ -143565,7 +143565,7 @@ paths:
             summary: Compliance Favorites.
             tags:
                 - compliance
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: compliance-trend
     /risk/v1/orgs/{orgId}/compliances/:
         get:
@@ -143726,7 +143726,7 @@ paths:
             summary: Failed Assets List.
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-list-item-ref: '#/components/schemas/Risk_FailedAssetItem'
             x-flexera-paginated: true
             x-flexera-resource: misconfiguration-failed-asset
@@ -143803,7 +143803,7 @@ paths:
             summary: Export Failed Assets List.
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: misconfiguration-failed-asset-export
     /risk/v1/orgs/{orgId}/misconfiguration/list:
         post:
@@ -143878,7 +143878,7 @@ paths:
             summary: Risk Misconfiguration Rules List.
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: misconfiguration-list
     /risk/v1/orgs/{orgId}/misconfiguration/overview:
         post:
@@ -143953,7 +143953,7 @@ paths:
             summary: Risk Misconfiguration Overview.
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: misconfiguration-overview
     /risk/v1/orgs/{orgId}/misconfiguration/remediation-steps/{riskId}/{remediationMethod}:
         get:
@@ -144124,7 +144124,7 @@ paths:
             summary: Risk Details
             tags:
                 - misconfiguration-ui
-            x-flexera-action: list
+            x-flexera-action: get
             x-flexera-resource: misconfiguration-risk-details
     /risk/v1/orgs/{orgId}/misconfiguration/rule/suppress:
         post:
@@ -144199,7 +144199,7 @@ paths:
             summary: Suppress API for Rule and Failed Asset
             tags:
                 - misconfiguration-ui
-            x-flexera-action: create
+            x-flexera-action: action
             x-flexera-resource: misconfiguration-rule-suppress
     /risk/v1/orgs/{orgId}/notifications/create:
         post:
@@ -144349,7 +144349,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: regulatory-compliance-asset-statistics
     /risk/v1/orgs/{orgId}/regulatory-compliance/catalog/filter:
         post:
@@ -144424,7 +144424,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: regulatory-compliance-catalog-filter
     /risk/v1/orgs/{orgId}/regulatory-compliance/conformity-summary:
         post:
@@ -144499,7 +144499,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: regulatory-compliance-conformity-summary
     /risk/v1/orgs/{orgId}/regulatory-compliance/failed-asset:
         post:
@@ -144582,7 +144582,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: regulatory-compliance-failed-asset
     /risk/v1/orgs/{orgId}/regulatory-compliance/lifecycle-forecast:
         post:
@@ -144657,7 +144657,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: regulatory-compliance-lifecycle-forecast
     /risk/v1/orgs/{orgId}/regulatory-compliance/lifecycle-trend:
         post:
@@ -144732,7 +144732,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: regulatory-compliance-lifecycle-trend
     /risk/v1/orgs/{orgId}/regulatory-compliance/list:
         post:
@@ -144807,7 +144807,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: regulatory-compliance-list
     /risk/v1/orgs/{orgId}/regulatory-compliance/misconfiguration/overview:
         post:
@@ -144882,7 +144882,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: regulatory-compliance-misconfiguration-overview
     /risk/v1/orgs/{orgId}/regulatory-compliance/rule/suppress:
         post:
@@ -144958,7 +144958,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: action
             x-flexera-resource: regulatory-compliance-rule-suppress
     /risk/v1/orgs/{orgId}/regulatory-compliance/year-wise-asset-list:
         post:
@@ -145033,7 +145033,7 @@ paths:
             tags:
                 - regulatory-compliance
                 - regulatory-compliance
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: regulatory-compliance-year-wise-asset-list
     /risk/v1/orgs/{orgId}/vulnerability/cve:
         get:
@@ -145192,7 +145192,7 @@ paths:
             summary: Enumerate unique values for a filter attribute
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: vulnerability-enumerate
     /risk/v1/orgs/{orgId}/vulnerability/failed-assets/:
         post:
@@ -145269,7 +145269,7 @@ paths:
             summary: Get Failed Assets (Virtual Machines, Container Images, or All)
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: vulnerability-failed-assets
     /risk/v1/orgs/{orgId}/vulnerability/failed-assets/export/:
         post:
@@ -145343,7 +145343,7 @@ paths:
             summary: Export failed assets with CVE details to XLSX
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: vulnerability-failed-assets-export
     /risk/v1/orgs/{orgId}/vulnerability/findings-distribution/:
         post:
@@ -145419,7 +145419,7 @@ paths:
             summary: Get findings distribution data
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: vulnerability-findings-distribution
     /risk/v1/orgs/{orgId}/vulnerability/findings-distribution/export/:
         post:
@@ -145495,7 +145495,7 @@ paths:
             summary: Export findings distribution data to CSV
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: vulnerability-findings-distribution-export
     /risk/v1/orgs/{orgId}/vulnerability/findings-trend/:
         post:
@@ -145569,7 +145569,7 @@ paths:
             summary: Get findings trend time-series data (line chart)
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: vulnerability-findings-trend
     /risk/v1/orgs/{orgId}/vulnerability/list/:
         post:
@@ -145645,7 +145645,7 @@ paths:
             summary: Get vulnerability list findings distribution
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: vulnerability-list
     /risk/v1/orgs/{orgId}/vulnerability/list/export/:
         post:
@@ -145721,7 +145721,7 @@ paths:
             summary: Export vulnerability list findings distribution to CSV
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: vulnerability-list-export
     /risk/v1/orgs/{orgId}/vulnerability/oneagent-onboarding-status:
         get:
@@ -145879,7 +145879,7 @@ paths:
             summary: Get Open CVE counts grouped by attribute (stacked bar chart)
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: vulnerability-open-cve
     /risk/v1/orgs/{orgId}/vulnerability/total-findings/:
         post:
@@ -145951,7 +145951,7 @@ paths:
             summary: Get findings summary for dashboard
             tags:
                 - vulnerability
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: vulnerability-total-findings
     /saas/v1/orgs/{orgId}/app-events:
         get:
@@ -146638,7 +146638,7 @@ paths:
             summary: List activity counts of the user
             tags:
                 - Application User Activity Count
-            x-flexera-action: create
+            x-flexera-action: list
             x-flexera-resource: application-user-activity-count-by-range
     /saas/v1/orgs/{orgId}/customer-group-types:
         get:
@@ -157167,7 +157167,7 @@ paths:
             summary: Query metrics service
             tags:
                 - Metric Query
-            x-flexera-action: action
+            x-flexera-action: get
             x-flexera-resource: stored-metric-query
     /saas/v1/orgs/{orgId}/stored-metric-queries/event-counts-by-type:
         get:
@@ -163484,7 +163484,7 @@ paths:
             summary: Estimate device evidence that would be deleted using the query
             tags:
                 - Device
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: device-delete-estimate
     /vis/v2/orgs/{orgId}/devices/delete/submit:
         post:
@@ -163635,7 +163635,7 @@ paths:
             summary: delete the device evidence for the given device ids using the query
             tags:
                 - Device
-            x-flexera-action: create
+            x-flexera-action: action
             x-flexera-resource: device-delete-submit
     /vis/v2/orgs/{orgId}/exports:
         get:
@@ -164068,7 +164068,7 @@ paths:
             summary: Execute a query on the delta export data
             tags:
                 - Query
-            x-flexera-action: create
+            x-flexera-action: get
             x-flexera-resource: query
     /vis/v2/orgs/{orgId}/queries/{id}:
         get:
@@ -164521,7 +164521,7 @@ paths:
             summary: Enumerate unique values for a filter attribute
             tags:
                 - vulnerability-local
-            x-flexera-action: action
+            x-flexera-action: list
             x-flexera-resource: enumerate
     /vulnerability/failed-assets/{orgId}:
         post:
@@ -164598,7 +164598,7 @@ paths:
             summary: Get Failed Assets (Virtual Machines, Container Images, or All)
             tags:
                 - vulnerability-local
-            x-flexera-action: action
+            x-flexera-action: list
             x-flexera-resource: failed-asset
     /vulnerability/findings-distribution/{orgId}:
         post:
@@ -164674,7 +164674,7 @@ paths:
             summary: Get findings distribution for dashboard
             tags:
                 - vulnerability-local
-            x-flexera-action: action
+            x-flexera-action: list
             x-flexera-resource: findings-distribution
     /vulnerability/findings-trend/{orgId}:
         post:
@@ -164748,7 +164748,7 @@ paths:
             summary: Get findings trend time-series data (line chart)
             tags:
                 - vulnerability-local
-            x-flexera-action: action
+            x-flexera-action: get
             x-flexera-resource: findings-trend
     /vulnerability/list/{orgId}:
         post:
@@ -164824,7 +164824,7 @@ paths:
             summary: Get vulnerability list findings distribution
             tags:
                 - vulnerability-local
-            x-flexera-action: action
+            x-flexera-action: list
             x-flexera-resource: list
     /vulnerability/oneagent-onboarding-status/{orgId}:
         get:
@@ -164979,7 +164979,7 @@ paths:
             summary: Get Open CVE counts grouped by attribute (stacked bar chart)
             tags:
                 - vulnerability-local
-            x-flexera-action: action
+            x-flexera-action: get
             x-flexera-resource: open-cve
     /vulnerability/total-findings/{orgId}:
         post:
@@ -165051,7 +165051,7 @@ paths:
             summary: Get findings summary for dashboard
             tags:
                 - vulnerability-local
-            x-flexera-action: action
+            x-flexera-action: get
             x-flexera-resource: total-finding
 security:
     - FlexeraBearerAuth: []

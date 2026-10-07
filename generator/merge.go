@@ -134,6 +134,9 @@ func buildUnifiedSpec(baseDir string, specs []SpecConfig) (map[string]interface{
 
 	unified["tags"] = sortTags(tagsByName)
 	annotateForCLI(unified)
+	if err := applyCLIActionOverrides(unified, specs); err != nil {
+		return nil, err
+	}
 
 	// Apply optional TF override file (tf-overrides.yaml). Missing file =
 	// pure heuristic mode (default). Present file MUST validate.
@@ -145,6 +148,67 @@ func buildUnifiedSpec(baseDir string, specs []SpecConfig) (map[string]interface{
 		return nil, fmt.Errorf("apply tf overrides: %w", err)
 	}
 	return unified, nil
+}
+
+func applyCLIActionOverrides(doc map[string]interface{}, specs []SpecConfig) error {
+	paths, ok := doc["paths"].(map[string]interface{})
+	if !ok {
+		return fmt.Errorf("apply CLI action overrides: unified spec has no paths")
+	}
+
+	seen := make(map[string]string)
+	for _, spec := range specs {
+		for _, override := range spec.CLIActionOverrides {
+			path := strings.TrimSpace(override.Path)
+			method := strings.ToLower(strings.TrimSpace(override.Method))
+			action := strings.TrimSpace(override.Action)
+			if path == "" || method == "" || action == "" || strings.TrimSpace(override.Reason) == "" {
+				return fmt.Errorf("spec %s CLI action override must specify path, method, action, and reason", spec.ID)
+			}
+			if !isOperationMethod(method) {
+				return fmt.Errorf("spec %s CLI action override has unsupported method %q", spec.ID, override.Method)
+			}
+			switch action {
+			case "list", "get", "create", "update", "replace", "delete", "action":
+			default:
+				return fmt.Errorf("spec %s CLI action override has unsupported action %q", spec.ID, action)
+			}
+
+			key := method + " " + path
+			if previousSpec, exists := seen[key]; exists {
+				return fmt.Errorf("duplicate CLI action override for %s in specs %s and %s", key, previousSpec, spec.ID)
+			}
+			seen[key] = spec.ID
+
+			pathItem, exists := paths[path]
+			if !exists {
+				return fmt.Errorf("spec %s CLI action override does not match path %q", spec.ID, path)
+			}
+			operations, ok := pathItem.(map[string]interface{})
+			if !ok {
+				return fmt.Errorf("spec %s CLI action override path %q is not an operation object", spec.ID, path)
+			}
+			operation, exists := operations[method]
+			if !exists {
+				return fmt.Errorf("spec %s CLI action override does not match %s", spec.ID, key)
+			}
+			op, ok := operation.(map[string]interface{})
+			if !ok {
+				return fmt.Errorf("spec %s CLI action override target %s is not an operation object", spec.ID, key)
+			}
+			op["x-flexera-action"] = action
+		}
+	}
+	return nil
+}
+
+func isOperationMethod(method string) bool {
+	for _, candidate := range operationMethods {
+		if candidate == method {
+			return true
+		}
+	}
+	return false
 }
 
 func newUnifiedSpec() map[string]interface{} {

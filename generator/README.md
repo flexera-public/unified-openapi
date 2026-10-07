@@ -88,7 +88,7 @@ specs:
         reason: "Fix duplicate typename"
 ```
 
-Two additional fields control merge-time behavior:
+Optional fields control additional merge-time behavior:
 
 ```yaml
   - id: rightscale-bill-analysis
@@ -97,7 +97,18 @@ Two additional fields control merge-time behavior:
     merge_exclude_paths:           # drop specific source paths that duplicate an existing Flexera endpoint
       - path: "/orgs/{org}/budgets"
         reason: "Migrated to Flexera Budget API: GET/POST /finops-analytics/v1/orgs/{orgId}/budgets"
+    cli_action_overrides:          # override inferred x-flexera-action on exact merged operations
+      - path: "/service/v1/items/search"
+        method: post
+        action: list
+        reason: "POST endpoint performs a read-only search."
 ```
+
+`cli_action_overrides` is optional and belongs to the source spec that contributes
+the operation. Each override must include an exact path, HTTP method, supported
+action (`list`, `get`, `create`, `update`, `replace`, `delete`, or `action`),
+and a reason. Overrides are applied after heuristic CLI annotation, and merge
+fails if an override is duplicated or its exact operation no longer exists.
 
 ### Processing step types
 
@@ -165,7 +176,7 @@ cd generator && go run . validate enabled-flexera
    - enriches the OIDC token endpoint with form-encoded request body
 5. Prefixes all component names and operation IDs with the service slug (e.g. `Policy_`, `Budget_`) to avoid cross-spec collisions.
 6. Merges all service documents into a single spec with one canonical `servers` entry.
-7. Annotates each operation with CLI extensions: `x-flexera-resource`, `x-flexera-action`, `x-flexera-paginated`, `x-flexera-list-item-ref`.
+7. Annotates each operation with CLI extensions: `x-flexera-resource`, `x-flexera-action`, `x-flexera-paginated`, `x-flexera-list-item-ref`; then applies any exact `cli_action_overrides` from `specs.yaml`.
 8. Optionally applies Terraform provider overrides from `tf-overrides.yaml`.
 9. Writes `openapi3.json` and `openapi3.yaml` to `--output-dir`.
 

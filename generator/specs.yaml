@@ -78,6 +78,15 @@ specs:
           the API owner: the uploaded file is JSON-L (newline-delimited JSON), sent
           with Content-Type: application/json and optionally GZIP-compressed
           (Content-Encoding: gzip).
+    cli_action_overrides:
+      - path: "/saas/v1/orgs/{orgId}/application-user-activity-count/by-range"
+        method: post
+        action: list
+        reason: "The POST endpoint returns activity counts over the requested date ranges."
+      - path: "/saas/v1/orgs/{orgId}/stored-metric-queries/{queryName}"
+        method: post
+        action: get
+        reason: "The POST endpoint queries metric data without mutating a resource."
 
   - id: flexera-cred-v2
     name: "Flexera Credential API"
@@ -248,6 +257,31 @@ specs:
             default: ""
             enum: ["", "-eu", "-apac"]
             description: "'' = NAM, -eu = EU, -apac = APAC"
+    cli_action_overrides:
+      - path: "/bill-analysis/orgs/{orgId}/anomalies/report"
+        method: post
+        action: get
+        reason: "The POST endpoint generates an anomaly report from query parameters."
+      - path: "/bill-analysis/orgs/{orgId}/costs/aggregated"
+        method: post
+        action: get
+        reason: "The POST endpoint queries aggregated costs without mutating resources."
+      - path: "/bill-analysis/orgs/{orgId}/costs/select"
+        method: post
+        action: get
+        reason: "The POST endpoint queries costs without mutating resources."
+      - path: "/bill-analysis/orgs/{orgId}/forecasts/report"
+        method: post
+        action: get
+        reason: "The POST endpoint generates a forecast report from query parameters."
+      - path: "/bill-analysis/orgs/{orgId}/v2/anomalies"
+        method: post
+        action: list
+        reason: "The POST endpoint lists anomalies using the supplied filters."
+      - path: "/bill-analysis/orgs/{orgId}/v2/anomalies/aggregated"
+        method: post
+        action: list
+        reason: "The POST endpoint lists aggregated anomaly metrics using the supplied filters."
 
   - id: rightscale-bill-upload
     name: "RightScale Optima Bill Upload API"
@@ -485,6 +519,19 @@ specs:
         method: get
         operation_id: ExportDownload
         reason: "Give the upstream list and download operations distinct, stable names."
+    cli_action_overrides:
+      - path: "/vis/v2/orgs/{orgId}/devices/delete/estimate"
+        method: post
+        action: get
+        reason: "The POST endpoint estimates the effect of a device deletion without deleting data."
+      - path: "/vis/v2/orgs/{orgId}/devices/delete/submit"
+        method: post
+        action: action
+        reason: "The POST endpoint deletes device evidence using the submitted query."
+      - path: "/vis/v2/orgs/{orgId}/queries"
+        method: post
+        action: get
+        reason: "The POST endpoint executes a read-only query against delta export data."
 
   # - id: flexera-inventory-v1
   #   name: "Flexera Inventory Device State Management API"
@@ -542,6 +589,183 @@ specs:
         reason: "Upstream risk spec remains unfixed: it is modeled as a second anyOf array variant, causing duplicate generated Providers0-style types; drop that const-all variant because callers can pass the literal within the remaining string array. Matched structurally (parsed JSON), independent of upstream formatting."
       - type: unwrap-single-anyof
         reason: "Risk spec uses `anyOf:[X]` (singletons after null-variant stripping) as a placeholder for non-required fields; oapi-codegen generates index-suffixed types per anyOf variant that collide on titles like 'Providers'. Collapse singleton anyOf wrappers."
+    cli_action_overrides:
+      - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/failed-asset"
+        method: post
+        action: list
+        reason: "The POST proxy endpoint lists failed assets."
+      - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/failed-asset/export"
+        method: post
+        action: get
+        reason: "The POST proxy endpoint exports failed assets without mutating a resource."
+      - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/list"
+        method: post
+        action: list
+        reason: "The POST proxy endpoint lists misconfiguration rules."
+      - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/overview"
+        method: post
+        action: list
+        reason: "The POST proxy endpoint retrieves the misconfiguration overview."
+      - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/risk/{riskId}/details"
+        method: get
+        action: get
+        reason: "The endpoint retrieves details for a specific risk."
+      - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/rule/suppress"
+        method: post
+        action: action
+        reason: "The POST proxy endpoint suppresses a rule or failed asset."
+      - path: "/risk/v1/orgs/{orgId}/misconfiguration/failed-asset"
+        method: post
+        action: list
+        reason: "The POST proxy endpoint lists failed assets."
+      - path: "/risk/v1/orgs/{orgId}/misconfiguration/failed-asset/export"
+        method: post
+        action: get
+        reason: "The POST proxy endpoint exports failed assets without mutating a resource."
+      - path: "/risk/v1/orgs/{orgId}/misconfiguration/list"
+        method: post
+        action: list
+        reason: "The POST proxy endpoint lists misconfiguration rules."
+      - path: "/risk/v1/orgs/{orgId}/misconfiguration/overview"
+        method: post
+        action: list
+        reason: "The POST proxy endpoint retrieves the misconfiguration overview."
+      - path: "/risk/v1/orgs/{orgId}/misconfiguration/risk/{riskId}/details"
+        method: get
+        action: get
+        reason: "The endpoint retrieves details for a specific risk."
+      - path: "/risk/v1/orgs/{orgId}/misconfiguration/rule/suppress"
+        method: post
+        action: action
+        reason: "The POST proxy endpoint suppresses a rule or failed asset."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/misconfiguration/overview"
+        method: post
+        action: list
+        reason: "The POST endpoint retrieves the regulatory-compliance misconfiguration overview."
+      - path: "/risk/v1/orgs/{orgId}/compliance/cis"
+        method: post
+        action: get
+        reason: "The POST endpoint retrieves CIS benchmark details."
+      - path: "/risk/v1/orgs/{orgId}/compliance/export"
+        method: post
+        action: get
+        reason: "The POST endpoint exports compliance chart data."
+      - path: "/risk/v1/orgs/{orgId}/compliance/standard"
+        method: post
+        action: list
+        reason: "The POST endpoint returns compliance standards and their control status."
+      - path: "/risk/v1/orgs/{orgId}/compliance/trend"
+        method: post
+        action: list
+        reason: "The POST endpoint returns favorite compliance standards and their control status."
+      - path: "/risk/v1/orgs/{orgId}/compliance/{standard_name}/control"
+        method: post
+        action: list
+        reason: "The POST endpoint returns control details for a compliance standard."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/asset-statistics"
+        method: post
+        action: get
+        reason: "The POST endpoint retrieves regulatory-compliance asset statistics."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/catalog/filter"
+        method: post
+        action: list
+        reason: "The POST endpoint returns regulatory-compliance catalog filter options."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/conformity-summary"
+        method: post
+        action: get
+        reason: "The POST endpoint retrieves regulatory-compliance conformity counts."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/failed-asset"
+        method: post
+        action: list
+        reason: "The POST endpoint returns a paginated list of failed assets."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/lifecycle-forecast"
+        method: post
+        action: get
+        reason: "The POST endpoint retrieves projected lifecycle distributions."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/lifecycle-trend"
+        method: post
+        action: get
+        reason: "The POST endpoint retrieves historical lifecycle trends."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/list"
+        method: post
+        action: list
+        reason: "The POST endpoint returns regulatory-compliance rules."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/rule/suppress"
+        method: post
+        action: action
+        reason: "The POST endpoint suppresses a regulatory-compliance rule or failed asset."
+      - path: "/risk/v1/orgs/{orgId}/regulatory-compliance/year-wise-asset-list"
+        method: post
+        action: list
+        reason: "The POST endpoint returns assets grouped by end-of-support year."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/enumerate/"
+        method: post
+        action: list
+        reason: "The POST endpoint enumerates unique filter values."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/failed-assets/"
+        method: post
+        action: list
+        reason: "The POST endpoint returns filtered and paginated failed assets."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/failed-assets/export/"
+        method: post
+        action: get
+        reason: "The POST endpoint exports failed assets with CVE details."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/findings-distribution/"
+        method: post
+        action: list
+        reason: "The POST endpoint returns vulnerability findings grouped by field."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/findings-distribution/export/"
+        method: post
+        action: get
+        reason: "The POST endpoint exports vulnerability findings distribution data."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/findings-trend/"
+        method: post
+        action: get
+        reason: "The POST endpoint retrieves a vulnerability findings time series."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/list/"
+        method: post
+        action: list
+        reason: "The POST endpoint returns a filtered and paginated vulnerability list."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/list/export/"
+        method: post
+        action: get
+        reason: "The POST endpoint exports vulnerability findings to CSV."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/open-cve/"
+        method: post
+        action: get
+        reason: "The POST endpoint retrieves open-CVE counts grouped by attribute."
+      - path: "/risk/v1/orgs/{orgId}/vulnerability/total-findings/"
+        method: post
+        action: get
+        reason: "The POST endpoint retrieves vulnerability findings summary counts."
+      - path: "/vulnerability/enumerate/{orgId}"
+        method: post
+        action: list
+        reason: "The legacy POST endpoint enumerates unique vulnerability filter values."
+      - path: "/vulnerability/failed-assets/{orgId}"
+        method: post
+        action: list
+        reason: "The legacy POST endpoint returns filtered and paginated failed assets."
+      - path: "/vulnerability/findings-distribution/{orgId}"
+        method: post
+        action: list
+        reason: "The legacy POST endpoint returns vulnerability findings grouped by field."
+      - path: "/vulnerability/findings-trend/{orgId}"
+        method: post
+        action: get
+        reason: "The legacy POST endpoint retrieves a vulnerability findings time series."
+      - path: "/vulnerability/list/{orgId}"
+        method: post
+        action: list
+        reason: "The legacy POST endpoint returns a filtered and paginated vulnerability list."
+      - path: "/vulnerability/open-cve/{orgId}"
+        method: post
+        action: get
+        reason: "The legacy POST endpoint retrieves open-CVE counts grouped by attribute."
+      - path: "/vulnerability/total-findings/{orgId}"
+        method: post
+        action: get
+        reason: "The legacy POST endpoint retrieves vulnerability findings summary counts."
 
   # - id: flexera-content-v2
   #   name: "Flexera Technopedia API"
