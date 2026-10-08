@@ -59,6 +59,21 @@ generates `openapi3.json` and `openapi3.yaml`. Prefer `make generate` in CI and
 release verification so builds use reviewed snapshots and do not depend on
 unreviewed upstream changes.
 
+### Metadata fidelity
+
+The merger retains operation descriptions, parameter/schema annotations, named
+examples, deprecation, documentation links, and extensions in path items and
+components. Swagger conversion carries body-parameter descriptions into
+`requestBody.description`, translates scalar/array constraints into parameter
+and header schemas, and moves media-type response examples into OpenAPI content.
+`metadata_test.go` covers these annotations through conversion and merging.
+
+Conversion runs when fetching source snapshots; `make generate` only merges the
+already processed, committed snapshots. Converter fixes therefore take effect
+for existing Swagger sources on their next reviewed fetch. Do not infer new
+enums, defaults, filter grammars, or resource relationships from prose; such
+additions require upstream corrections or separately reviewed overrides.
+
 ## Configuration
 
 ### `specs.yaml`

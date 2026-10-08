@@ -607,10 +607,17 @@ func convertResponses(openapi map[string]interface{}, globalProduces interface{}
 					if schema, ok := response["schema"]; ok {
 						content := map[string]interface{}{}
 						for _, mediaType := range mediaTypes {
-							content[mediaType] = map[string]interface{}{"schema": schema}
+							media := map[string]interface{}{"schema": schema}
+							if examples, ok := response["examples"].(map[string]interface{}); ok {
+								if example, exists := examples[mediaType]; exists {
+									media["example"] = example
+								}
+							}
+							content[mediaType] = media
 						}
 						response["content"] = content
 						delete(response, "schema")
+						delete(response, "examples")
 					}
 					if headers, ok := response["headers"].(map[string]interface{}); ok {
 						for _, headerValue := range headers {
@@ -627,13 +634,18 @@ func convertResponses(openapi map[string]interface{}, globalProduces interface{}
 	}
 }
 
+var swaggerSchemaFields = []string{
+	"type", "format", "items", "minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum",
+	"minLength", "maxLength", "pattern", "enum", "default", "multipleOf",
+	"minItems", "maxItems", "uniqueItems",
+}
+
 func convertHeader(header map[string]interface{}) {
 	if _, ok := header["type"]; !ok {
 		return
 	}
 	schema := map[string]interface{}{}
-	for _, field := range []string{"type", "format", "items", "minimum", "maximum",
-		"minLength", "maxLength", "pattern", "enum", "default"} {
+	for _, field := range swaggerSchemaFields {
 		if val, ok := header[field]; ok {
 			schema[field] = val
 			delete(header, field)
@@ -700,6 +712,9 @@ func convertRequestBodies(openapi map[string]interface{}) {
 							},
 						},
 					}
+					if description, exists := param["description"]; exists {
+						operation["requestBody"].(map[string]interface{})["description"] = description
+					}
 					continue
 				}
 				remaining = append(remaining, paramValue)
@@ -765,9 +780,7 @@ func convertParameters(obj interface{}) {
 					schema := make(map[string]interface{})
 
 					// Move type-related fields to schema
-					typeFields := []string{"type", "format", "items", "minimum", "maximum",
-						"minLength", "maxLength", "pattern", "enum", "default"}
-					for _, field := range typeFields {
+					for _, field := range swaggerSchemaFields {
 						if val, ok := v[field]; ok {
 							schema[field] = val
 							delete(v, field)
