@@ -87,7 +87,30 @@ specs:
         method: post
         action: get
         reason: "The POST endpoint queries metric data without mutating a resource."
-
+      - path: "/saas/v1/orgs/{orgId}/licenses/{licenseId}/fees"
+        method: post
+        action: create
+        reason: "The POST endpoint creates a license agreement fee in the fees sub-collection."
+      - path: "/saas/v1/orgs/{orgId}/licenses/{licenseId}/notes"
+        method: post
+        action: create
+        reason: "The POST endpoint creates a note in the notes sub-collection."
+      - path: "/saas/v1/orgs/{orgId}/licenses/{licenseId}/terms"
+        method: post
+        action: create
+        reason: "The POST endpoint creates a license term in the terms sub-collection."
+      - path: "/saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}/purchases"
+        method: post
+        action: create
+        reason: "The POST endpoint creates a purchase in the purchases sub-collection."
+      - path: "/saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}/purchases/{purchaseId}/allocations"
+        method: post
+        action: create
+        reason: "The POST endpoint creates an allocation in the allocations sub-collection."
+      - path: "/saas/v1/orgs/{orgId}/usage-groups/{usageGroupID}/costs"
+        method: post
+        action: create
+        reason: "The POST endpoint creates a usage cost in the costs sub-collection."
   - id: flexera-cred-v2
     name: "Flexera Credential API"
     vendor: flexera
@@ -147,7 +170,15 @@ specs:
       filename: "openapi.json"
     processing:
       - type: download
-
+    cli_action_overrides:
+      - path: "/finops-billing/v1/orgs/{orgId}/adjustment/customer-status"
+        method: get
+        action: get
+        reason: "The GET endpoint returns the single billing customer status object, not a collection."
+      - path: "/finops-billing/v1/orgs/{orgId}/adjustment/plans/{planId}/rules"
+        method: post
+        action: create
+        reason: "The POST endpoint creates an adjustment plan rule in the rules sub-collection."
   - id: flexera-grs
     name: "Flexera Global Resource Service API"
     vendor: flexera
@@ -282,9 +313,29 @@ specs:
         method: post
         action: list
         reason: "The POST endpoint lists aggregated anomaly metrics using the supplied filters."
+    schema_format_removals:
+      - schema: BillAnalysis_BillMonth
+        property: last_process_end_at
+        reason: "Live responses may return an empty string instead of a date-time."
+      - schema: BillAnalysis_BillMonth
+        property: last_process_start_at
+        reason: "Live responses may return an empty string instead of a date-time."
+      - schema: BillAnalysis_BillMonth
+        property: last_unlocked_and_processed_at
+        reason: "Live responses may return an empty string instead of a date-time."
+      - schema: BillAnalysis_BillMonth
+        property: locked_at
+        reason: "Live responses may return an empty string instead of a date-time."
+      - schema: BillAnalysis_BillMonth
+        property: new_vendor_data_available_at
+        reason: "Live responses return the sentinel 'No' when no new vendor data is available."
+      - schema: BillAnalysis_BillMonthSearchResponse
+        property: updated_at
+        reason: "Declared format date, but live responses carry a full RFC 3339 timestamp."
 
   - id: rightscale-bill-upload
     name: "RightScale Optima Bill Upload API"
+    title: "Bill Upload"
     vendor: rightscale
     service: bill_upload
     version: ""
@@ -336,9 +387,9 @@ specs:
     source:
       type: manual
       description: "Hand-curated minimal OpenAPI subset for the Bill Analysis API. This file documents only the Bill Analysis endpoints that have not been migrated to Flexera API Gateway. Add new endpoints only when a downstream consumer requires them; remove this spec once Bill Analysis is fully deprecated."
-
       url: "https://github.com/flexera/bill_analysis/blob/master/front_service/gen/http/openapi3.json"
     # Bill Analysis Public-URL source
+    # We are using manual exports until Cost Export endpoint docs are published or new cost API endpoints supercede these.
     # source:
     #   type: url
     #   url: "https://reference.rightscale.com/bill_analysis/swagger.json"
@@ -589,31 +640,22 @@ specs:
         reason: "Upstream risk spec remains unfixed: it is modeled as a second anyOf array variant, causing duplicate generated Providers0-style types; drop that const-all variant because callers can pass the literal within the remaining string array. Matched structurally (parsed JSON), independent of upstream formatting."
       - type: unwrap-single-anyof
         reason: "Risk spec uses `anyOf:[X]` (singletons after null-variant stripping) as a placeholder for non-required fields; oapi-codegen generates index-suffixed types per anyOf variant that collide on titles like 'Providers'. Collapse singleton anyOf wrappers."
-    cli_action_overrides:
+    merge_exclude_paths:
       - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/failed-asset"
-        method: post
-        action: list
-        reason: "The POST proxy endpoint lists failed assets."
+        reason: "Legacy proxy twin of /risk/v1/orgs/{orgId}/misconfiguration/failed-asset; keeping both duplicates every misconfiguration-ui CLI command."
       - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/failed-asset/export"
-        method: post
-        action: get
-        reason: "The POST proxy endpoint exports failed assets without mutating a resource."
+        reason: "Legacy proxy twin of /risk/v1/orgs/{orgId}/misconfiguration/failed-asset/export; keeping both duplicates every misconfiguration-ui CLI command."
       - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/list"
-        method: post
-        action: list
-        reason: "The POST proxy endpoint lists misconfiguration rules."
+        reason: "Legacy proxy twin of /risk/v1/orgs/{orgId}/misconfiguration/list; keeping both duplicates every misconfiguration-ui CLI command."
       - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/overview"
-        method: post
-        action: list
-        reason: "The POST proxy endpoint retrieves the misconfiguration overview."
+        reason: "Legacy proxy twin of /risk/v1/orgs/{orgId}/misconfiguration/overview; keeping both duplicates every misconfiguration-ui CLI command."
+      - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/remediation-steps/{riskId}/{remediationMethod}"
+        reason: "Legacy proxy twin of /risk/v1/orgs/{orgId}/misconfiguration/remediation-steps/{riskId}/{remediationMethod}; keeping both duplicates every misconfiguration-ui CLI command."
       - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/risk/{riskId}/details"
-        method: get
-        action: get
-        reason: "The endpoint retrieves details for a specific risk."
+        reason: "Legacy proxy twin of /risk/v1/orgs/{orgId}/misconfiguration/risk/{riskId}/details; keeping both duplicates every misconfiguration-ui CLI command."
       - path: "/recommendation/v1/orgs/{orgId}/misconfiguration/rule/suppress"
-        method: post
-        action: action
-        reason: "The POST proxy endpoint suppresses a rule or failed asset."
+        reason: "Legacy proxy twin of /risk/v1/orgs/{orgId}/misconfiguration/rule/suppress; keeping both duplicates every misconfiguration-ui CLI command."
+    cli_action_overrides:
       - path: "/risk/v1/orgs/{orgId}/misconfiguration/failed-asset"
         method: post
         action: list

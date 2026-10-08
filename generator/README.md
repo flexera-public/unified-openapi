@@ -70,6 +70,7 @@ All spec sources, processing rules, and output paths are declared in
 specs:
   - id: flexera-policy-v1          # unique identifier
     name: "Flexera Policy API"     # human-readable name
+    title: "Policy"                # optional service display title (default: name minus vendor prefix and " API")
     vendor: flexera                # flexera | rightscale
     service: policy                # service slug (used for component prefixing)
     version: v1                    # version string
@@ -102,6 +103,10 @@ Optional fields control additional merge-time behavior:
         method: post
         action: list
         reason: "POST endpoint performs a read-only search."
+    schema_format_removals:        # drop `format` from a component property whose live values violate it
+      - schema: Service_Item
+        property: locked_at
+        reason: "Live responses may return an empty string."
 ```
 
 `cli_action_overrides` is optional and belongs to the source spec that contributes
@@ -109,6 +114,35 @@ the operation. Each override must include an exact path, HTTP method, supported
 action (`list`, `get`, `create`, `update`, `replace`, `delete`, or `action`),
 and a reason. Overrides are applied after heuristic CLI annotation, and merge
 fails if an override is duplicated or its exact operation no longer exists.
+
+`schema_format_removals` corrects component property formats that live responses
+violate, after the merge and component prefixing (so `schema` uses the merged,
+prefixed component name). Each entry needs a reason. Merge fails when an entry is
+duplicated, no longer matches, or the property has no `format`, so stale
+corrections are removed rather than silently kept.
+
+CLI resource-tree analysis and public command naming belong to the downstream
+`flexera-cli` generator. This generator preserves documentation tags and SDK
+operation IDs, supplies semantic action annotations, and retains the existing
+`x-flexera-resource` contract used by Terraform. It does not emit
+`x-flexera-cli` hierarchy or presentation metadata.
+
+### Service metadata
+
+Every merged operation records the API service that contributed it, so
+consumers can group by service without parsing operation IDs. Tags are not
+service-unique after merge (for example `Project` comes from both GRS and IAM),
+so the service is stamped per operation:
+
+| Location | Extension | Value |
+|---|---|---|
+| operation | `x-flexera-service` | service slug from `specs.yaml` (`auth` for the token endpoint) |
+| tag | `x-flexera-services` | sorted service slugs whose operations use the tag |
+| root | `x-flexera-services` | registry keyed by slug: `title`, `name`, `vendor`, `version`, `specId`, `operationIdPrefix`, `sourceUrl`, `tags` |
+| root | `x-tagGroups` | Redoc-style `[{name: <title>, tags: [...]}]`, sorted by title |
+
+Merge fails if any operation lacks a registered service. Services that
+contribute no operations are omitted.
 
 ### Processing step types
 
@@ -176,9 +210,10 @@ cd generator && go run . validate enabled-flexera
    - enriches the OIDC token endpoint with form-encoded request body
 5. Prefixes all component names and operation IDs with the service slug (e.g. `Policy_`, `Budget_`) to avoid cross-spec collisions.
 6. Merges all service documents into a single spec with one canonical `servers` entry.
-7. Annotates each operation with CLI extensions: `x-flexera-resource`, `x-flexera-action`, `x-flexera-paginated`, `x-flexera-list-item-ref`; then applies any exact `cli_action_overrides` from `specs.yaml`.
-8. Optionally applies Terraform provider overrides from `tf-overrides.yaml`.
-9. Writes `openapi3.json` and `openapi3.yaml` to `--output-dir`.
+7. Annotates each operation with extensions: `x-flexera-resource`, `x-flexera-action`, `x-flexera-paginated`, `x-flexera-list-item-ref`; then applies any exact `cli_action_overrides` and `schema_format_removals` from `specs.yaml`.
+8. Records service metadata (`x-flexera-service`, `x-flexera-services`, `x-tagGroups`); see [Service metadata](#service-metadata).
+9. Optionally applies Terraform provider overrides from `tf-overrides.yaml`.
+10. Writes `openapi3.json` and `openapi3.yaml` to `--output-dir`.
 
 ## Adding a new API
 

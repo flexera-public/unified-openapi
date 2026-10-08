@@ -109,8 +109,11 @@ type Config struct {
 
 // SpecConfig represents a single API specification
 type SpecConfig struct {
-	ID         string           `yaml:"id"`
-	Name       string           `yaml:"name"`
+	ID   string `yaml:"id"`
+	Name string `yaml:"name"`
+	// Title is the human-readable service name published in
+	// x-flexera-services; derived from Name when empty.
+	Title      string           `yaml:"title,omitempty"`
 	Vendor     string           `yaml:"vendor"`
 	Service    string           `yaml:"service"`
 	Version    string           `yaml:"version"`
@@ -144,6 +147,10 @@ type SpecConfig struct {
 	// CLIActionOverrides pins x-flexera-action for operations whose semantics
 	// cannot be inferred from their HTTP method and path.
 	CLIActionOverrides []CLIActionOverride `yaml:"cli_action_overrides,omitempty"`
+
+	// SchemaFormatRemovals drops `format` from component properties whose live
+	// values violate it, keeping strictly typed clients able to decode them.
+	SchemaFormatRemovals []SchemaFormatRemoval `yaml:"schema_format_removals,omitempty"`
 }
 
 // CLIActionOverride pins an action annotation for one exact operation.

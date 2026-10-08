@@ -90,6 +90,7 @@ func buildUnifiedSpec(baseDir string, specs []SpecConfig) (map[string]interface{
 	paths := unified["paths"].(map[string]interface{})
 	components := unified["components"].(map[string]interface{})
 	tagsByName := map[string]map[string]interface{}{}
+	services := make([]serviceInfo, 0, len(specs)+1)
 
 	for _, spec := range specs {
 		sourcePath := filepath.Join(baseDir, spec.Output.Path, spec.Output.Filename)
@@ -109,6 +110,7 @@ func buildUnifiedSpec(baseDir string, specs []SpecConfig) (map[string]interface{
 		}
 
 		applyMergeServers(normalized, spec.MergeServers)
+		services = append(services, serviceInfoFromSpec(spec))
 
 		if err := mergeDocumentIntoUnified(normalized, paths, components, tagsByName); err != nil {
 			return nil, fmt.Errorf("merge %s: %w", spec.ID, err)
@@ -130,11 +132,18 @@ func buildUnifiedSpec(baseDir string, specs []SpecConfig) (map[string]interface{
 		if err := mergeDocumentIntoUnified(normalized, paths, components, tagsByName); err != nil {
 			return nil, fmt.Errorf("merge okta token service: %w", err)
 		}
+		services = append(services, authServiceInfo())
 	}
 
 	unified["tags"] = sortTags(tagsByName)
+	if err := applyServiceMetadata(unified, services); err != nil {
+		return nil, err
+	}
 	annotateForCLI(unified)
 	if err := applyCLIActionOverrides(unified, specs); err != nil {
+		return nil, err
+	}
+	if err := applySchemaFormatRemovals(unified, specs); err != nil {
 		return nil, err
 	}
 
@@ -473,6 +482,7 @@ func normalizeServiceDocument(doc map[string]interface{}, spec SpecConfig) (map[
 	rewriteRefs(clone, renameMap)
 	prefixOperationIDs(clone, namespace)
 	normalizeOperationTags(clone, spec.Name)
+	stampOperationService(clone, spec.Service)
 	applyBearerSecurity(clone)
 	removeSourceSecuritySchemes(clone)
 	removeRedundantAuthorizationHeaderParams(clone)
@@ -519,6 +529,7 @@ func normalizeTokenDocument(doc map[string]interface{}) (map[string]interface{},
 	rewriteRefs(normalized, renameMap)
 	prefixOperationIDs(normalized, namespace)
 	applyTokenEndpointEnrichment(normalized)
+	stampOperationService(normalized, authServiceID)
 	removeSourceSecuritySchemes(normalized)
 	return normalized, nil
 }
