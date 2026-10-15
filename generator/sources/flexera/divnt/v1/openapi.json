@@ -53,7 +53,7 @@
         "type": "object"
       },
       "AzureCostAndUsageModel": {
-        "description": "Azure Cost \u0026 Usage configuration.\nAccountType is declared here alongside BillingScope and scope-specific fields.\n\nBillingScope rules (validated in OnboardingCreateRequest):\n    - EA  (any scope)    : EnrollmentId (optional)\n    - MCA Billing Account: no extra fields required\n    - MCA Billing Profile: BillingProfileIds (required list)\n    - MCA Invoice        : InvoiceSectionIds (required list)\n    - CSP Billing Account: no extra fields required\n    - CSP Billing Profile: BillingProfileIds (required list)\n    - CSP Customer Tenant: CustomerTenantId (required)\n\nAlways optional:\n    - ActualExportUrl, AmortizedExportUrl, EffectiveFrom",
+        "description": "Azure Cost \u0026 Usage configuration.\nAccountType is declared here alongside BillingScope and scope-specific fields.\n\nBillingScope rules (validated in OnboardingCreateRequest):\n    - EA  (any scope)    : EnrollmentId (optional)\n    - MCA Billing Account: no extra fields required\n    - MCA Billing Profile: BillingProfileIds (required list)\n    - MCA Invoice        : InvoiceSectionIds (required list)\n    - CSP Billing Account: no extra fields required\n    - CSP Billing Profile: BillingProfileIds (required list)\n    - CSP Customer Tenant: CustomerTenantId (required)\n    - CSP Subscription: SubscriptionId, ActualExportUrl and AmortizedExportUrl (all required)\n\nOptional:\n    - ActualExportUrl, AmortizedExportUrl, EffectiveFrom",
         "properties": {
           "ActualExportUrl": {
             "anyOf": [
@@ -113,7 +113,8 @@
                   "Billing Account",
                   "Billing Profile",
                   "Invoice",
-                  "Customer Tenant"
+                  "Customer Tenant",
+                  "Subscription"
                 ],
                 "type": "string"
               },
@@ -121,8 +122,20 @@
                 "type": "null"
               }
             ],
-            "description": "Billing scope. Required for MCA ('Billing Account', 'Billing Profile', 'Invoice') and CSP ('Billing Account', 'Billing Profile', 'Customer Tenant') account types.",
+            "description": "Billing scope. Required for MCA ('Billing Account', 'Billing Profile', 'Invoice') and CSP ('Billing Account', 'Billing Profile', 'Customer Tenant', 'Subscription') account types.",
             "title": "Billingscope"
+          },
+          "CspSubscriptionId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Subscription ID - required for CSP + Subscription scope.",
+            "title": "Cspsubscriptionid"
           },
           "CustomerTenantId": {
             "anyOf": [
