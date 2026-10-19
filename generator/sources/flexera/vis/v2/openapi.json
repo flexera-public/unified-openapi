@@ -85,14 +85,14 @@
         "type": "object"
       },
       "DeviceDatasourceSelection": {
-        "description": "A selection of datasources to delete devices from. If included in the datasources filter, only 1 property should be set",
+        "description": "Identifies a datasource by one property. When multiple selectors are provided, a datasource is included if it matches any selector.",
         "example": {
           "field": "type",
           "value": "SCCM"
         },
         "properties": {
           "field": {
-            "description": "The field to use for the selection of datasources",
+            "description": "Datasource property to compare: id for the datasource ID, name for the datasource name, or type for the datasource type",
             "enum": [
               "id",
               "name",
@@ -102,7 +102,7 @@
             "type": "string"
           },
           "value": {
-            "description": "The value for the datasource selection",
+            "description": "Exact value that the selected datasource property must match",
             "example": "SCCM",
             "type": "string"
           }
@@ -146,12 +146,12 @@
           },
           "temporary": {
             "description": "Is the error temporary?",
-            "example": false,
+            "example": true,
             "type": "boolean"
           },
           "timeout": {
             "description": "Is the error a timeout?",
-            "example": true,
+            "example": false,
             "type": "boolean"
           }
         },
@@ -169,40 +169,21 @@
         "example": {
           "datasourceSelectors": [
             {
-              "field": "type",
-              "value": "SCCM"
-            },
-            {
-              "field": "type",
-              "value": "SCCM"
-            },
-            {
-              "field": "type",
-              "value": "SCCM"
-            },
-            {
-              "field": "type",
-              "value": "SCCM"
+              "field": "id",
+              "value": "a8d416e5-7212-4a9a-93f3-0b8602ad06f4"
             }
           ],
           "deviceIds": [
-            "Voluptatum optio laudantium illum doloribus delectus ea.",
-            "Vitae repellat voluptatum ipsum.",
-            "Sint vel provident voluptates ut asperiores aliquam.",
-            "Occaecati architecto."
+            "4e0e3471-ccbc-41c7-a21e-c384f2eb5669"
           ]
         },
         "properties": {
           "datasourceSelectors": {
-            "description": "List of datasources to delete devices from",
+            "description": "Optional datasource selectors. A datasource is included when it matches any selector. Omit this attribute to include all datasources associated with the specified devices.",
             "example": [
               {
-                "field": "type",
-                "value": "SCCM"
-              },
-              {
-                "field": "type",
-                "value": "SCCM"
+                "field": "id",
+                "value": "a8d416e5-7212-4a9a-93f3-0b8602ad06f4"
               }
             ],
             "items": {
@@ -211,15 +192,12 @@
             "type": "array"
           },
           "deviceIds": {
-            "description": "List of device IDs to delete",
+            "description": "Device IDs whose evidence should be included. Send no more than 500 unique IDs per request; this recommendation is not enforced by the API.",
             "example": [
-              "Quasi cum itaque fugiat.",
-              "Voluptatibus aliquam iste ipsa.",
-              "Aliquid nam.",
-              "Enim laboriosam tempore."
+              "4e0e3471-ccbc-41c7-a21e-c384f2eb5669"
             ],
             "items": {
-              "example": "Blanditiis fugiat magni.",
+              "example": "Perferendis ullam et sunt accusantium.",
               "type": "string"
             },
             "type": "array"
@@ -232,6 +210,20 @@
       },
       "ExportDataCollection": {
         "example": [
+          {
+            "createdAt": "2018-05-16T16:31:52.1000Z",
+            "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "name": "hardware_inventory",
+            "size": 1080,
+            "type": "snapshot"
+          },
+          {
+            "createdAt": "2018-05-16T16:31:52.1000Z",
+            "id": "7d795afa-c508-4d47-92ae-248113a792d1",
+            "name": "hardware_inventory",
+            "size": 1080,
+            "type": "snapshot"
+          },
           {
             "createdAt": "2018-05-16T16:31:52.1000Z",
             "id": "7d795afa-c508-4d47-92ae-248113a792d1",
@@ -258,13 +250,6 @@
           "nextPage": "/vis/v2/orgs/{orgId}/exports?skipToken=19u2349",
           "prevPage": "/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u",
           "values": [
-            {
-              "createdAt": "2018-05-16T16:31:52.1000Z",
-              "id": "7d795afa-c508-4d47-92ae-248113a792d1",
-              "name": "hardware_inventory",
-              "size": 1080,
-              "type": "snapshot"
-            },
             {
               "createdAt": "2018-05-16T16:31:52.1000Z",
               "id": "7d795afa-c508-4d47-92ae-248113a792d1",
@@ -313,16 +298,17 @@
         "type": "object"
       },
       "FlexeraVisDeviceDeletionSummary": {
-        "description": "A count of devices that would be deleted by the query.",
+        "description": "Summarizes the device evidence selected by a deletion request for one datasource.",
         "example": {
           "count": 150,
           "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
           "datasourceName": "SCCM_PROD_AP",
-          "datasourceType": "SCCM"
+          "datasourceType": "SCCM",
+          "kind": "vis:device-deletion-summary"
         },
         "properties": {
           "count": {
-            "description": "The number of devices that would be deleted",
+            "description": "The number of devices whose evidence is selected",
             "example": 150,
             "type": "integer"
           },
@@ -340,9 +326,18 @@
             "description": "The type of the datasource",
             "example": "SCCM",
             "type": "string"
+          },
+          "kind": {
+            "description": "The resource's type",
+            "enum": [
+              "vis:device-deletion-summary"
+            ],
+            "example": "vis:device-deletion-summary",
+            "type": "string"
           }
         },
         "required": [
+          "kind",
           "count",
           "datasourceId",
           "datasourceName",
@@ -454,13 +449,13 @@
   "info": {
     "description": "Flexera API for all IT Visibility services.\n\nThe API is available at the following endpoints, dependent upon the user/tenant zone:\n| Zone        | Base URL    |\n| ----------- | ----------- |\n| NAM         | https://api.flexera.com/vis/ |\n| EU          | https://api.flexera.eu/vis/ |\n| APAC        | https://api.flexera.au/vis/ |\n",
     "title": "IT Visibility API",
-    "version": "2.0.0"
+    "version": "2.1.0"
   },
   "openapi": "3.0.3",
   "paths": {
     "/vis/v2/orgs/{orgId}/devices/delete/estimate": {
       "post": {
-        "description": "Returns an estimated number of device evidences associated with the datasource data that would be deleted using the query.",
+        "description": "Estimates the device evidence that would be deleted for the specified device IDs, grouped by datasource.\n\nA datasource is included if it matches any datasource selector. If no datasource selectors are provided, evidence from every datasource associated with the specified devices is included.\n\nThe estimate reflects the inventory available when the request is made. Because inventory may change, it does not guarantee that a later request will delete the same evidence.\n\n### Client guidance\n* Submit no more than 500 unique device IDs per request. This recommendation is not enforced, but larger requests provide no processing benefit and may increase latency or timeout risk.\n* Split larger workloads into batches and process them sequentially. Use the same datasource selectors for every batch in one logical operation.\n* There is currently no specific concurrency limit or hard cap in place. We recommend that customers test and tune their request volume based on their network conditions, performance requirements, and business needs.\n* The API does not automatically retry failed estimate requests. Clients may retry transient failures using exponential backoff with jitter.",
         "operationId": "Device#estimateDelete",
         "parameters": [
           {
@@ -483,19 +478,12 @@
               "example": {
                 "datasourceSelectors": [
                   {
-                    "field": "type",
-                    "value": "SCCM"
-                  },
-                  {
-                    "field": "type",
-                    "value": "SCCM"
+                    "field": "id",
+                    "value": "a8d416e5-7212-4a9a-93f3-0b8602ad06f4"
                   }
                 ],
                 "deviceIds": [
-                  "Quo nesciunt fuga laborum quam.",
-                  "Corrupti atque quibusdam est sit maiores fugit.",
-                  "Similique eum ratione accusantium ea id ut.",
-                  "Culpa qui aspernatur neque."
+                  "4e0e3471-ccbc-41c7-a21e-c384f2eb5669"
                 ]
               },
               "schema": {
@@ -514,25 +502,15 @@
                     "count": 150,
                     "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
                     "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
+                    "datasourceType": "SCCM",
+                    "kind": "vis:device-deletion-summary"
                   },
                   {
-                    "count": 150,
-                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                    "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
-                  },
-                  {
-                    "count": 150,
-                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                    "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
-                  },
-                  {
-                    "count": 150,
-                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                    "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
+                    "count": 42,
+                    "datasourceId": "a8d416e5-7212-4a9a-93f3-0b8602ad06f4",
+                    "datasourceName": "ServiceNow Import",
+                    "datasourceType": "ServiceNow",
+                    "kind": "vis:device-deletion-summary"
                   }
                 ],
                 "schema": {
@@ -541,13 +519,15 @@
                       "count": 150,
                       "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
                       "datasourceName": "SCCM_PROD_AP",
-                      "datasourceType": "SCCM"
+                      "datasourceType": "SCCM",
+                      "kind": "vis:device-deletion-summary"
                     },
                     {
-                      "count": 150,
-                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                      "datasourceName": "SCCM_PROD_AP",
-                      "datasourceType": "SCCM"
+                      "count": 42,
+                      "datasourceId": "a8d416e5-7212-4a9a-93f3-0b8602ad06f4",
+                      "datasourceName": "ServiceNow Import",
+                      "datasourceType": "ServiceNow",
+                      "kind": "vis:device-deletion-summary"
                     }
                   ],
                   "items": {
@@ -705,7 +685,7 @@
             ]
           }
         ],
-        "summary": "Estimate device evidence that would be deleted using the query",
+        "summary": "Estimate device evidence deletion",
         "tags": [
           "Device"
         ]
@@ -713,7 +693,7 @@
     },
     "/vis/v2/orgs/{orgId}/devices/delete/submit": {
       "post": {
-        "description": "Deletes device evidence for the specified device IDs and datasource selectors.",
+        "description": "Submits a request to delete device evidence for the specified device IDs.\n\nA datasource is included if it matches any datasource selector. If no datasource selectors are provided, evidence from every datasource associated with the specified devices is included.\n\nSubmitting a deletion request does not guarantee that all selected evidence will be deleted because inventory may change while the request is processed. If a device remains active in the environment, its evidence may reappear after new inventory data is collected.\n\nRepeating a deletion request is allowed and does not return an error when the selected evidence has already been deleted.\n\n### Client guidance\n* Submit no more than 500 unique device IDs per request. This recommendation is not enforced, but larger requests provide no processing benefit and may increase latency or timeout risk.\n* Split larger workloads into batches and process one batch at a time per organization. Use the same datasource selectors for every batch in one logical operation.\n* There is currently no specific concurrency limit or hard cap in place. We recommend that customers test and tune their request volume based on their network conditions, performance requirements, and business needs.\n* The API does not automatically retry failed deletion requests. Clients must not automatically retry timed-out requests because inventory may change and the original deletion may already have been submitted.",
         "operationId": "Device#delete",
         "parameters": [
           {
@@ -736,18 +716,12 @@
               "example": {
                 "datasourceSelectors": [
                   {
-                    "field": "type",
-                    "value": "SCCM"
-                  },
-                  {
-                    "field": "type",
-                    "value": "SCCM"
+                    "field": "id",
+                    "value": "a8d416e5-7212-4a9a-93f3-0b8602ad06f4"
                   }
                 ],
                 "deviceIds": [
-                  "Id suscipit.",
-                  "Explicabo dolore corrupti esse.",
-                  "Quia iste velit doloremque quisquam."
+                  "4e0e3471-ccbc-41c7-a21e-c384f2eb5669"
                 ]
               },
               "schema": {
@@ -763,43 +737,21 @@
               "application/json": {
                 "example": [
                   {
-                    "count": 150,
-                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                    "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
-                  },
-                  {
-                    "count": 150,
-                    "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                    "datasourceName": "SCCM_PROD_AP",
-                    "datasourceType": "SCCM"
+                    "count": 42,
+                    "datasourceId": "a8d416e5-7212-4a9a-93f3-0b8602ad06f4",
+                    "datasourceName": "ServiceNow Import",
+                    "datasourceType": "ServiceNow",
+                    "kind": "vis:device-deletion-summary"
                   }
                 ],
                 "schema": {
                   "example": [
                     {
-                      "count": 150,
-                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                      "datasourceName": "SCCM_PROD_AP",
-                      "datasourceType": "SCCM"
-                    },
-                    {
-                      "count": 150,
-                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                      "datasourceName": "SCCM_PROD_AP",
-                      "datasourceType": "SCCM"
-                    },
-                    {
-                      "count": 150,
-                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                      "datasourceName": "SCCM_PROD_AP",
-                      "datasourceType": "SCCM"
-                    },
-                    {
-                      "count": 150,
-                      "datasourceId": "4e0e3471-ccbc-41c7-a21e-c384f2eb5669",
-                      "datasourceName": "SCCM_PROD_AP",
-                      "datasourceType": "SCCM"
+                      "count": 42,
+                      "datasourceId": "a8d416e5-7212-4a9a-93f3-0b8602ad06f4",
+                      "datasourceName": "ServiceNow Import",
+                      "datasourceType": "ServiceNow",
+                      "kind": "vis:device-deletion-summary"
                     }
                   ],
                   "items": {
@@ -957,7 +909,7 @@
             ]
           }
         ],
-        "summary": "delete the device evidence for the given device ids using the query",
+        "summary": "Delete device evidence",
         "tags": [
           "Device"
         ]
@@ -1015,13 +967,6 @@
                   "nextPage": "/vis/v2/orgs/{orgId}/exports?skipToken=19u2349",
                   "prevPage": "/vis/v2/orgs/{orgId}/exports?skipToken=8b1750u",
                   "values": [
-                    {
-                      "createdAt": "2018-05-16T16:31:52.1000Z",
-                      "id": "7d795afa-c508-4d47-92ae-248113a792d1",
-                      "name": "hardware_inventory",
-                      "size": 1080,
-                      "type": "snapshot"
-                    },
                     {
                       "createdAt": "2018-05-16T16:31:52.1000Z",
                       "id": "7d795afa-c508-4d47-92ae-248113a792d1",
@@ -1242,11 +1187,11 @@
             "headers": {
               "Content-Length": {
                 "description": "content length in bytes of file",
-                "example": 7729251450684401000,
+                "example": 9062665688256244000,
                 "required": true,
                 "schema": {
                   "description": "content length in bytes of file",
-                  "example": 4773412612854586000,
+                  "example": 5681364957264677000,
                   "format": "int64",
                   "type": "integer"
                 }
