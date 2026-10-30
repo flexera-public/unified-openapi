@@ -123978,18 +123978,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-api-key",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_API_Key_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_API_Key_Credential_show_org",
-          "update": "Cred_API_Key_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "org-api-key-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'API Key' scheme.",
@@ -124191,17 +124180,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-api-key",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_API_Key_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_API_Key_Credential_show_org",
-          "update": "Cred_API_Key_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-api-key-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'API Key' scheme.",
@@ -124423,17 +124402,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-api-key",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_API_Key_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_API_Key_Credential_show_org",
-          "update": "Cred_API_Key_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-api-key-credential"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/orgs/{orgId}/credentials/aws-sts/{id}": {
@@ -124650,18 +124619,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-aws-sts",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_STS_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_AWS_STS_Credential_show_org",
-          "update": "Cred_AWS_STS_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "org-aws-sts-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'AWS STS' scheme.",
@@ -124869,17 +124827,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-aws-sts",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_STS_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_AWS_STS_Credential_show_org",
-          "update": "Cred_AWS_STS_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-aws-sts-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'AWS STS' scheme.",
@@ -125107,21 +125055,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-aws-sts",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_STS_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_AWS_STS_Credential_show_org",
-          "update": "Cred_AWS_STS_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-aws-sts-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "accessKey",
-          "secretKey"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/orgs/{orgId}/credentials/aws/{id}": {
@@ -125333,18 +125267,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-aws",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_AWS_Credential_show_org",
-          "update": "Cred_AWS_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "org-aws-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'AWS' scheme.",
@@ -125547,17 +125470,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-aws",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_AWS_Credential_show_org",
-          "update": "Cred_AWS_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-aws-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'AWS' scheme.",
@@ -125780,21 +125693,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-aws",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_AWS_Credential_show_org",
-          "update": "Cred_AWS_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-aws-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "accessKey",
-          "secretKey"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/orgs/{orgId}/credentials/basic/{id}": {
@@ -126003,18 +125902,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-basic",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Basic_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_Basic_Credential_show_org",
-          "update": "Cred_Basic_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "org-basic-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'Basic' scheme.",
@@ -126214,17 +126102,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-basic",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Basic_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_Basic_Credential_show_org",
-          "update": "Cred_Basic_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-basic-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'Basic' scheme.",
@@ -126444,20 +126322,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-basic",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Basic_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_Basic_Credential_show_org",
-          "update": "Cred_Basic_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-basic-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "password"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/orgs/{orgId}/credentials/digest/{id}": {
@@ -126666,18 +126531,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-digest",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Digest_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_Digest_Credential_show_org",
-          "update": "Cred_Digest_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "org-digest-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'Digest' scheme.",
@@ -126877,17 +126731,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-digest",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Digest_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_Digest_Credential_show_org",
-          "update": "Cred_Digest_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-digest-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'Digest' scheme.",
@@ -127107,20 +126951,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-digest",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Digest_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_Digest_Credential_show_org",
-          "update": "Cred_Digest_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-digest-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "password"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/orgs/{orgId}/credentials/ntlm/{id}": {
@@ -127329,18 +127160,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-ntlm",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_NTLM_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_NTLM_Credential_show_org",
-          "update": "Cred_NTLM_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "org-ntlm-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'NTLM' scheme.",
@@ -127540,17 +127360,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-ntlm",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_NTLM_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_NTLM_Credential_show_org",
-          "update": "Cred_NTLM_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-ntlm-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'NTLM' scheme.",
@@ -127770,20 +127580,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-ntlm",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_NTLM_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_NTLM_Credential_show_org",
-          "update": "Cred_NTLM_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-ntlm-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "password"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/orgs/{orgId}/credentials/oauth2/{id}": {
@@ -128000,17 +127797,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-oauth2",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_OAuth2_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_OAuth2_Credential_show_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "org-oauth2-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'OAuth2' scheme.",
@@ -128217,13 +128004,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-oauth2",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_OAuth2_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_OAuth2_Credential_show_org"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'OAuth2' scheme.",
@@ -128450,16 +128231,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-oauth2",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_OAuth2_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_OAuth2_Credential_show_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-oauth2-credential"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/orgs/{orgId}/credentials/oracle/{id}": {
@@ -128670,18 +128442,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-oracle",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Oracle_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_Oracle_Credential_show_org",
-          "update": "Cred_Oracle_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "org-oracle-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'Oracle' scheme.",
@@ -128884,17 +128645,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-oracle",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Oracle_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_Oracle_Credential_show_org",
-          "update": "Cred_Oracle_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-oracle-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'Oracle' scheme.",
@@ -129117,20 +128868,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-oracle",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Oracle_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_Oracle_Credential_show_org",
-          "update": "Cred_Oracle_Credential_update_org"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "org-oracle-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "password"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/orgs/{orgId}/credentials/{scheme}/{id}": {
@@ -129322,26 +129060,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "credential",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "credential-api-key",
-          "credential-aws",
-          "credential-aws-sts",
-          "credential-basic",
-          "credential-digest",
-          "credential-ntlm",
-          "credential-oauth2",
-          "credential-oracle",
-          "org-api-key-credential",
-          "org-aws-credential",
-          "org-aws-sts-credential",
-          "org-basic-credential",
-          "org-digest-credential",
-          "org-ntlm-credential",
-          "org-oauth2-credential",
-          "org-oracle-credential"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/projects/{projectId}/credentials": {
@@ -129882,18 +129601,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-api-key",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_API_Key_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_API_Key_Credential_show_project",
-          "update": "Cred_API_Key_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{projectId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "project-api-key-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'API Key' scheme.",
@@ -130095,17 +129803,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-api-key",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_API_Key_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_API_Key_Credential_show_project",
-          "update": "Cred_API_Key_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-api-key-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'API Key' scheme.",
@@ -130327,17 +130025,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-api-key",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_API_Key_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_API_Key_Credential_show_project",
-          "update": "Cred_API_Key_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-api-key-credential"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/projects/{projectId}/credentials/aws-sts/{id}": {
@@ -130554,18 +130242,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-aws-sts",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_STS_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_AWS_STS_Credential_show_project",
-          "update": "Cred_AWS_STS_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{projectId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "project-aws-sts-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'AWS STS' scheme.",
@@ -130773,17 +130450,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-aws-sts",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_STS_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_AWS_STS_Credential_show_project",
-          "update": "Cred_AWS_STS_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-aws-sts-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'AWS STS' scheme.",
@@ -131011,21 +130678,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-aws-sts",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_STS_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_AWS_STS_Credential_show_project",
-          "update": "Cred_AWS_STS_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-aws-sts-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "accessKey",
-          "secretKey"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/projects/{projectId}/credentials/aws/{id}": {
@@ -131237,18 +130890,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-aws",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_AWS_Credential_show_project",
-          "update": "Cred_AWS_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{projectId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "project-aws-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'AWS' scheme.",
@@ -131451,17 +131093,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-aws",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_AWS_Credential_show_project",
-          "update": "Cred_AWS_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-aws-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'AWS' scheme.",
@@ -131684,21 +131316,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-aws",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_AWS_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_AWS_Credential_show_project",
-          "update": "Cred_AWS_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-aws-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "accessKey",
-          "secretKey"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/projects/{projectId}/credentials/basic/{id}": {
@@ -131907,18 +131525,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-basic",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Basic_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_Basic_Credential_show_project",
-          "update": "Cred_Basic_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{projectId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "project-basic-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'Basic' scheme.",
@@ -132118,17 +131725,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-basic",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Basic_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_Basic_Credential_show_project",
-          "update": "Cred_Basic_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-basic-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'Basic' scheme.",
@@ -132348,20 +131945,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-basic",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Basic_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_Basic_Credential_show_project",
-          "update": "Cred_Basic_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-basic-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "password"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/projects/{projectId}/credentials/digest/{id}": {
@@ -132570,18 +132154,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-digest",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Digest_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_Digest_Credential_show_project",
-          "update": "Cred_Digest_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{projectId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "project-digest-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'Digest' scheme.",
@@ -132781,17 +132354,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-digest",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Digest_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_Digest_Credential_show_project",
-          "update": "Cred_Digest_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-digest-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'Digest' scheme.",
@@ -133011,20 +132574,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-digest",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Digest_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_Digest_Credential_show_project",
-          "update": "Cred_Digest_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-digest-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "password"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/projects/{projectId}/credentials/ntlm/{id}": {
@@ -133233,18 +132783,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-ntlm",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_NTLM_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_NTLM_Credential_show_project",
-          "update": "Cred_NTLM_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{projectId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "project-ntlm-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'NTLM' scheme.",
@@ -133444,17 +132983,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-ntlm",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_NTLM_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_NTLM_Credential_show_project",
-          "update": "Cred_NTLM_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-ntlm-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'NTLM' scheme.",
@@ -133674,20 +133203,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-ntlm",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_NTLM_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_NTLM_Credential_show_project",
-          "update": "Cred_NTLM_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-ntlm-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "password"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/projects/{projectId}/credentials/oauth2/{id}": {
@@ -133904,17 +133420,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-oauth2",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_OAuth2_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_OAuth2_Credential_show_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{projectId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "project-oauth2-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'OAuth2' scheme.",
@@ -134121,13 +133627,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-oauth2",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_OAuth2_Credential_create_org",
-          "delete": "Cred_Credential_delete_org",
-          "read": "Cred_OAuth2_Credential_show_org"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'OAuth2' scheme.",
@@ -134354,16 +133854,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-oauth2",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_OAuth2_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_OAuth2_Credential_show_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-oauth2-credential"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/projects/{projectId}/credentials/oracle/{id}": {
@@ -134574,18 +134065,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "credential-oracle",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Oracle_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_Oracle_Credential_show_project",
-          "update": "Cred_Oracle_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{projectId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "project-oracle-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "patch": {
         "description": "Update a Credential that uses the 'Oracle' scheme.",
@@ -134788,17 +134268,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "credential-oracle",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Oracle_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_Oracle_Credential_show_project",
-          "update": "Cred_Oracle_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-oracle-credential"
-        ]
+        "x-flexera-service": "cred"
       },
       "put": {
         "description": "Create a Credential that uses the 'Oracle' scheme.",
@@ -135021,20 +134491,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "credential-oracle",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-crud-binding": {
-          "create": "Cred_Oracle_Credential_create_project",
-          "delete": "Cred_Credential_delete_project",
-          "read": "Cred_Oracle_Credential_show_project",
-          "update": "Cred_Oracle_Credential_update_project"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-oracle-credential"
-        ],
-        "x-flexera-tf-sensitive": [
-          "password"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/cred/v2/projects/{projectId}/credentials/{scheme}/{id}": {
@@ -135226,18 +134683,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "credential",
-        "x-flexera-service": "cred",
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "project-api-key-credential",
-          "project-aws-credential",
-          "project-aws-sts-credential",
-          "project-basic-credential",
-          "project-digest-credential",
-          "project-ntlm-credential",
-          "project-oauth2-credential",
-          "project-oracle-credential"
-        ]
+        "x-flexera-service": "cred"
       }
     },
     "/data-inventory/v1/orgs/{org_id}/onboarding/": {
@@ -136270,14 +135716,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "budget",
-        "x-flexera-service": "budget",
-        "x-flexera-tf-crud-binding": {
-          "create": "Budget_Budget_create",
-          "delete": "Budget_Budget_delete",
-          "read": "Budget_Budget_show",
-          "update": "Budget_Budget_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "budget"
       },
       "post": {
         "description": "Creates a budget for the given organization.",
@@ -136479,14 +135918,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "budget",
-        "x-flexera-service": "budget",
-        "x-flexera-tf-crud-binding": {
-          "create": "Budget_Budget_create",
-          "delete": "Budget_Budget_delete",
-          "read": "Budget_Budget_show",
-          "update": "Budget_Budget_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "budget"
       }
     },
     "/finops-analytics/v1/orgs/{orgId}/budgets/{id}": {
@@ -136606,14 +136038,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "budget",
-        "x-flexera-service": "budget",
-        "x-flexera-tf-crud-binding": {
-          "create": "Budget_Budget_create",
-          "delete": "Budget_Budget_delete",
-          "read": "Budget_Budget_show",
-          "update": "Budget_Budget_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "budget"
       },
       "get": {
         "description": "Shows a budget for the given organization and budget ID.",
@@ -136787,15 +136212,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "budget",
-        "x-flexera-service": "budget",
-        "x-flexera-tf-crud-binding": {
-          "create": "Budget_Budget_create",
-          "delete": "Budget_Budget_delete",
-          "read": "Budget_Budget_show",
-          "update": "Budget_Budget_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "budget"
       },
       "put": {
         "description": "Replaces a specific budget for the given organization and budget ID.",
@@ -136963,14 +136380,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "budget",
-        "x-flexera-service": "budget",
-        "x-flexera-tf-crud-binding": {
-          "create": "Budget_Budget_create",
-          "delete": "Budget_Budget_delete",
-          "read": "Budget_Budget_show",
-          "update": "Budget_Budget_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "budget"
       }
     },
     "/finops-analytics/v1/orgs/{orgId}/budgets/{id}/report": {
@@ -151852,14 +151262,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "rule-based-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_create",
-          "delete": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_delete",
-          "read": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_show",
-          "update": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_customizations"
       }
     },
     "/finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}": {
@@ -151980,14 +151383,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "rule-based-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_create",
-          "delete": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_delete",
-          "read": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_show",
-          "update": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_customizations"
       },
       "get": {
         "description": "Shows a rule-based dimension",
@@ -152142,15 +151538,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "rule-based-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_create",
-          "delete": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_delete",
-          "read": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_show",
-          "update": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "finops_customizations"
       },
       "patch": {
         "description": "Updates the rule-based dimension with the given ID.",
@@ -152282,14 +151670,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "rule-based-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_create",
-          "delete": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_delete",
-          "read": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_show",
-          "update": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_customizations"
       },
       "post": {
         "description": "Creates a rule-based dimension using the ID provided in the path.",
@@ -152421,14 +151802,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "rule-based-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_create",
-          "delete": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_delete",
-          "read": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_show",
-          "update": "FinopsCustomizations_Rule_Based_Dimension_rule_based_dimension_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_customizations"
       }
     },
     "/finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}/rules/{effectiveAt}": {
@@ -152562,14 +151936,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "rule-based-dimension-rules-list",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Rule_Based_Dimension_rules_list_replace",
-          "delete": "FinopsCustomizations_Rule_Based_Dimension_rules_list_delete",
-          "read": "FinopsCustomizations_Rule_Based_Dimension_rules_list_show",
-          "update": "FinopsCustomizations_Rule_Based_Dimension_rules_list_replace"
-        },
-        "x-flexera-tf-id-field": "effectiveAt"
+        "x-flexera-service": "finops_customizations"
       },
       "get": {
         "description": "Show the rules list for the given rule-based dimension and effectiveAt date.",
@@ -152742,18 +152109,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "rule-based-dimension-rules-list",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Rule_Based_Dimension_rules_list_replace",
-          "delete": "FinopsCustomizations_Rule_Based_Dimension_rules_list_delete",
-          "read": "FinopsCustomizations_Rule_Based_Dimension_rules_list_show",
-          "update": "FinopsCustomizations_Rule_Based_Dimension_rules_list_replace"
-        },
-        "x-flexera-tf-id-field": "effectiveAt",
-        "x-flexera-tf-import-id": "{orgId}/{dimension}/{effectiveAt}",
-        "x-flexera-tf-scope-vars": {
-          "id": "dimension"
-        }
+        "x-flexera-service": "finops_customizations"
       },
       "put": {
         "description": "Create or replace a single rules list for the given rule-based dimension and effectiveAt date.",
@@ -152909,17 +152265,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "rule-based-dimension-rules-list",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Rule_Based_Dimension_rules_list_replace",
-          "delete": "FinopsCustomizations_Rule_Based_Dimension_rules_list_delete",
-          "read": "FinopsCustomizations_Rule_Based_Dimension_rules_list_show",
-          "update": "FinopsCustomizations_Rule_Based_Dimension_rules_list_replace"
-        },
-        "x-flexera-tf-id-field": "effectiveAt",
-        "x-flexera-tf-immutable": [
-          "dimension"
-        ]
+        "x-flexera-service": "finops_customizations"
       }
     },
     "/finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}/summary": {
@@ -154562,14 +153908,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "tag-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Tag_Dimension_create",
-          "delete": "FinopsCustomizations_Tag_Dimension_delete",
-          "read": "FinopsCustomizations_Tag_Dimension_show",
-          "update": "FinopsCustomizations_Tag_Dimension_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_customizations"
       },
       "post": {
         "description": "Creates a tag dimension in the organization.",
@@ -154723,14 +154062,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "tag-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Tag_Dimension_create",
-          "delete": "FinopsCustomizations_Tag_Dimension_delete",
-          "read": "FinopsCustomizations_Tag_Dimension_show",
-          "update": "FinopsCustomizations_Tag_Dimension_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_customizations"
       }
     },
     "/finops-customizations/v1/orgs/{orgId}/tag-dimensions/{id}": {
@@ -154850,14 +154182,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "tag-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Tag_Dimension_create",
-          "delete": "FinopsCustomizations_Tag_Dimension_delete",
-          "read": "FinopsCustomizations_Tag_Dimension_show",
-          "update": "FinopsCustomizations_Tag_Dimension_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_customizations"
       },
       "get": {
         "description": "Shows a specified tag dimension in the organization.",
@@ -155002,15 +154327,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "tag-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Tag_Dimension_create",
-          "delete": "FinopsCustomizations_Tag_Dimension_delete",
-          "read": "FinopsCustomizations_Tag_Dimension_show",
-          "update": "FinopsCustomizations_Tag_Dimension_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "finops_customizations"
       },
       "put": {
         "description": "Updates a tag dimension in the organization.\n\nNote, the `id` is derived from the `name`. Therefore, changing the `name` could also change the `id`, which will be provided in the response.",
@@ -155186,14 +154503,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "tag-dimension",
-        "x-flexera-service": "finops_customizations",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsCustomizations_Tag_Dimension_create",
-          "delete": "FinopsCustomizations_Tag_Dimension_delete",
-          "read": "FinopsCustomizations_Tag_Dimension_show",
-          "update": "FinopsCustomizations_Tag_Dimension_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_customizations"
       }
     },
     "/finops-customizations/v1/orgs/{orgId}/tag-observations": {
@@ -155750,17 +155060,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "bill-connect-aws-iam-role",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_AWS_createIAMRole",
-          "delete": "FinopsOnboarding_Bill_Connect_AWS_delete",
-          "read": "FinopsOnboarding_Bill_Connect_AWS_show",
-          "update": "FinopsOnboarding_Bill_Connect_AWS_updateIAMRole"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-sensitive": [
-          "stsExternalId"
-        ]
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/aws/iam-role/{id}": {
@@ -155908,14 +155208,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "bill-connect-aws-iam-role",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_AWS_createIAMRole",
-          "delete": "FinopsOnboarding_Bill_Connect_AWS_delete",
-          "read": "FinopsOnboarding_Bill_Connect_AWS_show",
-          "update": "FinopsOnboarding_Bill_Connect_AWS_updateIAMRole"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/aws/iam-user": {
@@ -156078,22 +155371,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "bill-connect-aws-iam-user",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_AWS_createIAMUser",
-          "delete": "FinopsOnboarding_Bill_Connect_AWS_delete",
-          "read": "FinopsOnboarding_Bill_Connect_AWS_show",
-          "update": "FinopsOnboarding_Bill_Connect_AWS_updateIAMUser"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-sensitive": [
-          "accessKey",
-          "secretAccessKey"
-        ],
-        "x-flexera-tf-write-only": [
-          "accessKey",
-          "secretAccessKey"
-        ]
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/aws/iam-user/{id}": {
@@ -156240,14 +155518,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "bill-connect-aws-iam-user",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_AWS_createIAMUser",
-          "delete": "FinopsOnboarding_Bill_Connect_AWS_delete",
-          "read": "FinopsOnboarding_Bill_Connect_AWS_show",
-          "update": "FinopsOnboarding_Bill_Connect_AWS_updateIAMUser"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/aws/{id}": {
@@ -156367,12 +155638,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "bill-connect-aws",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "bill-connect-aws-iam-role",
-          "bill-connect-aws-iam-user"
-        ]
+        "x-flexera-service": "finops_onboarding"
       },
       "get": {
         "description": "Shows the details of an AWS bill connect associated with a given bill connect ID.",
@@ -156521,13 +155787,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "bill-connect-aws",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-resource-aliases": [
-          "bill-connect-aws-iam-role",
-          "bill-connect-aws-iam-user"
-        ]
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/aws/{id}/validation": {
@@ -156850,23 +156110,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "bill-connect-azure-csp",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_CSP_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_CSP_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_CSP_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_CSP_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "scopeDetails"
-        ],
-        "x-flexera-tf-sensitive": [
-          "clientSecret"
-        ],
-        "x-flexera-tf-write-only": [
-          "clientSecret"
-        ]
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/azure-csp/{id}": {
@@ -156986,14 +156230,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "bill-connect-azure-csp",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_CSP_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_CSP_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_CSP_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_CSP_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       },
       "get": {
         "description": "Shows the details of an Azure CSP bill connect associated with a given bill connect ID.",
@@ -157152,15 +156389,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "bill-connect-azure-csp",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_CSP_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_CSP_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_CSP_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_CSP_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "finops_onboarding"
       },
       "patch": {
         "description": "Updates an Azure CSP bill connect using the provided credentials.\nBill Connects provisioned through Unified Onboarding are read-only in this API. Update and delete operations will be rejected with a 403 Forbidden. Use Unified Onboarding to manage these resources.\nYou can identify these Bill Connects by the onboardingOrigin field:\n- \"platform\": created via Unified Onboarding\n- \"finops\": created and managed through this API (default)",
@@ -157312,14 +156541,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "bill-connect-azure-csp",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_CSP_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_CSP_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_CSP_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_CSP_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/azure-csp/{id}/validation": {
@@ -157622,23 +156844,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "bill-connect-azure-ea-management",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "scopeDetails"
-        ],
-        "x-flexera-tf-sensitive": [
-          "clientSecret"
-        ],
-        "x-flexera-tf-write-only": [
-          "clientSecret"
-        ]
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/azure-ea-management/{id}": {
@@ -157758,14 +156964,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "bill-connect-azure-ea-management",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       },
       "get": {
         "description": "Shows the details of an Azure EA (Enterprise Agreement) Management bill connect associated with a given bill connect ID.",
@@ -157914,15 +157113,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "bill-connect-azure-ea-management",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "finops_onboarding"
       },
       "patch": {
         "description": "Modifies an existing Azure EA (Enterprise Agreement) Management bill connect associated with a given bill connect ID.\nBill Connects provisioned through Unified Onboarding are read-only in this API. Update and delete operations will be rejected with a 403 Forbidden. Use Unified Onboarding to manage these resources.\nYou can identify these Bill Connects by the onboardingOrigin field:\n- \"platform\": created via Unified Onboarding\n- \"finops\": created and managed through this API (default)",
@@ -158072,14 +157263,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "bill-connect-azure-ea-management",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_EA_Management_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/azure-ea-management/{id}/validation": {
@@ -158393,24 +157577,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "bill-connect-azure-mca",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_MCA_createMcaBillConnect",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_MCA_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_MCA_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_MCA_updateMcaBillConnect"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "scopeDetails",
-          "cloudInstance"
-        ],
-        "x-flexera-tf-sensitive": [
-          "clientSecret"
-        ],
-        "x-flexera-tf-write-only": [
-          "clientSecret"
-        ]
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/azure-mca/{id}": {
@@ -158530,14 +157697,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "bill-connect-azure-mca",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_MCA_createMcaBillConnect",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_MCA_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_MCA_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_MCA_updateMcaBillConnect"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       },
       "get": {
         "description": "Shows the details of an Azure MCA bill connect associated with a given bill connect ID.",
@@ -158692,15 +157852,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "bill-connect-azure-mca",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_MCA_createMcaBillConnect",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_MCA_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_MCA_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_MCA_updateMcaBillConnect"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "finops_onboarding"
       },
       "patch": {
         "description": "Modifies an existing Azure MCA bill connect associated with a given bill connect ID.\nBill Connects provisioned through Unified Onboarding are read-only in this API. Update and delete operations will be rejected with a 403 Forbidden. Use Unified Onboarding to manage these resources.\nYou can identify these Bill Connects by the onboardingOrigin field:\n- \"platform\": created via Unified Onboarding\n- \"finops\": created and managed through this API (default)",
@@ -158850,14 +158002,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "bill-connect-azure-mca",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Azure_MCA_createMcaBillConnect",
-          "delete": "FinopsOnboarding_Bill_Connect_Azure_MCA_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Azure_MCA_show",
-          "update": "FinopsOnboarding_Bill_Connect_Azure_MCA_updateMcaBillConnect"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/azure-mca/{id}/validation": {
@@ -159143,14 +158288,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "bill-connect-cbi",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_show",
-          "update": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/cbi/{id}": {
@@ -159270,14 +158408,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "bill-connect-cbi",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_show",
-          "update": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       },
       "get": {
         "description": "Shows the details of a CBI bill connect associated with a given bill connect ID.",
@@ -159417,18 +158548,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "bill-connect-cbi",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_show",
-          "update": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-volatile": [
-          "cbi"
-        ]
+        "x-flexera-service": "finops_onboarding"
       },
       "patch": {
         "description": "Modifies an existing CBI bill connect associated with a given bill connect ID, e.g. to change the name.",
@@ -159573,14 +158693,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "bill-connect-cbi",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_show",
-          "update": "FinopsOnboarding_Bill_Connect_Common_Bill_Ingestion_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/cbi/{id}/validation": {
@@ -159861,20 +158974,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "bill-connect-databricks",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Databricks_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Databricks_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Databricks_show",
-          "update": "FinopsOnboarding_Bill_Connect_Databricks_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-sensitive": [
-          "clientSecret"
-        ],
-        "x-flexera-tf-write-only": [
-          "clientSecret"
-        ]
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/databricks/{id}": {
@@ -159994,14 +159094,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "bill-connect-databricks",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Databricks_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Databricks_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Databricks_show",
-          "update": "FinopsOnboarding_Bill_Connect_Databricks_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       },
       "get": {
         "description": "Shows the details of a Databricks bill connect associated with a given bill connect ID.",
@@ -160143,15 +159236,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "bill-connect-databricks",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Databricks_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Databricks_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Databricks_show",
-          "update": "FinopsOnboarding_Bill_Connect_Databricks_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "finops_onboarding"
       },
       "patch": {
         "description": "Updates an existing Databricks bill connect.",
@@ -160305,14 +159390,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "bill-connect-databricks",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_Databricks_create",
-          "delete": "FinopsOnboarding_Bill_Connect_Databricks_delete",
-          "read": "FinopsOnboarding_Bill_Connect_Databricks_show",
-          "update": "FinopsOnboarding_Bill_Connect_Databricks_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/databricks/{id}/validation": {
@@ -160625,20 +159703,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "bill-connect-gcp",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_GCP_create",
-          "delete": "FinopsOnboarding_Bill_Connect_GCP_delete",
-          "read": "FinopsOnboarding_Bill_Connect_GCP_show",
-          "update": "FinopsOnboarding_Bill_Connect_GCP_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-sensitive": [
-          "credentials"
-        ],
-        "x-flexera-tf-write-only": [
-          "credentials"
-        ]
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/gcp/{id}": {
@@ -160758,14 +159823,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "bill-connect-gcp",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_GCP_create",
-          "delete": "FinopsOnboarding_Bill_Connect_GCP_delete",
-          "read": "FinopsOnboarding_Bill_Connect_GCP_show",
-          "update": "FinopsOnboarding_Bill_Connect_GCP_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       },
       "get": {
         "description": "Shows the details of a GCP bill connect associated with a given bill connect ID.",
@@ -160903,15 +159961,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "bill-connect-gcp",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_GCP_create",
-          "delete": "FinopsOnboarding_Bill_Connect_GCP_delete",
-          "read": "FinopsOnboarding_Bill_Connect_GCP_show",
-          "update": "FinopsOnboarding_Bill_Connect_GCP_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "finops_onboarding"
       },
       "patch": {
         "description": "Modifies an existing GCP bill connect associated with a given bill connect ID.\nBill Connects provisioned through Unified Onboarding are read-only in this API. Update and delete operations will be rejected with a 403 Forbidden. Use Unified Onboarding to manage these resources.\nYou can identify these Bill Connects by the onboardingOrigin field:\n- \"platform\": created via Unified Onboarding\n- \"finops\": created and managed through this API (default)",
@@ -161059,14 +160109,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "bill-connect-gcp",
-        "x-flexera-service": "finops_onboarding",
-        "x-flexera-tf-crud-binding": {
-          "create": "FinopsOnboarding_Bill_Connect_GCP_create",
-          "delete": "FinopsOnboarding_Bill_Connect_GCP_delete",
-          "read": "FinopsOnboarding_Bill_Connect_GCP_show",
-          "update": "FinopsOnboarding_Bill_Connect_GCP_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "finops_onboarding"
       }
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/gcp/{id}/validation": {
@@ -163910,14 +162953,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "invitation",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Organization_Invitation_create",
-          "delete": "Iam_Organization_Invitation_delete",
-          "read": "Iam_Organization_Invitation_show",
-          "update": "Iam_Organization_Invitation_resend"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/invitations/{id}": {
@@ -164248,14 +163284,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "invitation",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Organization_Invitation_create",
-          "delete": "Iam_Organization_Invitation_delete",
-          "read": "Iam_Organization_Invitation_show",
-          "update": "Iam_Organization_Invitation_resend"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/invitations/{id}/accept": {
@@ -166391,15 +165420,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "access-rule",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Access_Rule_grant",
-          "delete": "Iam_Access_Rule_revoke",
-          "read": "Iam_Access_Rule_index"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{role.name}/{scope.ref}/{subject.ref}",
-        "x-flexera-tf-list-resource": true
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/access-rules/grant": {
@@ -166566,16 +165587,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "access-rule-grant",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "role",
-          "scope",
-          "subject"
-        ],
-        "x-flexera-tf-resource-aliases": [
-          "access-rule"
-        ]
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/access-rules/revoke": {
@@ -166742,11 +165754,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "access-rule-revoke",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-resource-aliases": [
-          "access-rule"
-        ]
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/api-events": {
@@ -168371,14 +167379,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "contract",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Contracts_create",
-          "delete": "Iam_Contracts_delete",
-          "read": "Iam_Contracts_show",
-          "update": "Iam_Contracts_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "post": {
         "description": "Creates a new contract between two organizations. if there is an existing contract between the two organizations, it will be updated",
@@ -168646,17 +167647,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "contract",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Contracts_create",
-          "delete": "Iam_Contracts_delete",
-          "read": "Iam_Contracts_show",
-          "update": "Iam_Contracts_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "description"
-        ]
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/contracts/{id}": {
@@ -168823,14 +167814,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "contract",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Contracts_create",
-          "delete": "Iam_Contracts_delete",
-          "read": "Iam_Contracts_show",
-          "update": "Iam_Contracts_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Shows a single contract",
@@ -169162,15 +168146,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "contract",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Contracts_create",
-          "delete": "Iam_Contracts_delete",
-          "read": "Iam_Contracts_show",
-          "update": "Iam_Contracts_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "iam"
       },
       "patch": {
         "description": "Updates the last seen date of the contract",
@@ -169348,14 +168324,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "contract",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Contracts_create",
-          "delete": "Iam_Contracts_delete",
-          "read": "Iam_Contracts_show",
-          "update": "Iam_Contracts_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/contracts/{id}/activation": {
@@ -171040,14 +170009,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "group",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Group_create",
-          "delete": "Iam_Group_Delete",
-          "read": "Iam_Group_show",
-          "update": "Iam_Group_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "post": {
         "description": "Creates a new Group in an Org.",
@@ -171242,14 +170204,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "group",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Group_create",
-          "delete": "Iam_Group_Delete",
-          "read": "Iam_Group_show",
-          "update": "Iam_Group_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/groups/{groupId}/memberships": {
@@ -172323,14 +171278,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "group",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Group_create",
-          "delete": "Iam_Group_Delete",
-          "read": "Iam_Group_show",
-          "update": "Iam_Group_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Shows a single Group in an Org.",
@@ -172540,15 +171488,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "group",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Group_create",
-          "delete": "Iam_Group_Delete",
-          "read": "Iam_Group_show",
-          "update": "Iam_Group_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "iam"
       },
       "patch": {
         "description": "Updates an existing Group in an Org.",
@@ -172773,14 +171713,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "group",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Group_create",
-          "delete": "Iam_Group_Delete",
-          "read": "Iam_Group_show",
-          "update": "Iam_Group_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/idp": {
@@ -172972,14 +171905,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "idp",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_SAML2_Identity_Provider_create",
-          "delete": "Iam_SAML2_Identity_Provider_delete",
-          "read": "Iam_SAML2_Identity_Provider_show",
-          "update": "Iam_SAML2_Identity_Provider_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/idps": {
@@ -173567,14 +172493,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "idp",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_SAML2_Identity_Provider_create",
-          "delete": "Iam_SAML2_Identity_Provider_delete",
-          "read": "Iam_SAML2_Identity_Provider_show",
-          "update": "Iam_SAML2_Identity_Provider_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "post": {
         "description": "Create an identity provider that can be used to authenticate users.",
@@ -173783,20 +172702,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "idp",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_SAML2_Identity_Provider_create",
-          "delete": "Iam_SAML2_Identity_Provider_delete",
-          "read": "Iam_SAML2_Identity_Provider_show",
-          "update": "Iam_SAML2_Identity_Provider_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-sensitive": [
-          "certificatePublicKey"
-        ],
-        "x-flexera-tf-write-only": [
-          "certificatePublicKey"
-        ]
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/idps/{identityProviderId}/domains": {
@@ -174000,13 +172906,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "idp-domains",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_SAML2_Domain_register",
-          "delete": "Iam_SAML2_Domain_delete",
-          "read": "Iam_SAML2_Domain_show"
-        },
-        "x-flexera-tf-id-field": "name"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/idps/{identityProviderId}/domains/register": {
@@ -174223,11 +173123,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "idp-domains-register",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-id-field": "name",
-        "x-flexera-tf-resource-aliases": [
-          "idp-domains"
-        ]
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/idps/{identityProviderId}/domains/{name}": {
@@ -174418,13 +173314,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "idp-domains",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_SAML2_Domain_register",
-          "delete": "Iam_SAML2_Domain_delete",
-          "read": "Iam_SAML2_Domain_show"
-        },
-        "x-flexera-tf-id-field": "name"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Show an existing domain belonging to an IDP.",
@@ -174629,14 +173519,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "idp-domains",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_SAML2_Domain_register",
-          "delete": "Iam_SAML2_Domain_delete",
-          "read": "Iam_SAML2_Domain_show"
-        },
-        "x-flexera-tf-id-field": "name",
-        "x-flexera-tf-import-id": "{orgId}/{identityProviderId}/{name}"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/idps/{identityProviderId}/domains/{name}/verify": {
@@ -175665,14 +174548,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "idp",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_SAML2_Identity_Provider_create",
-          "delete": "Iam_SAML2_Identity_Provider_delete",
-          "read": "Iam_SAML2_Identity_Provider_show",
-          "update": "Iam_SAML2_Identity_Provider_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Show an existing identity provider.",
@@ -175976,15 +174852,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "idp",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_SAML2_Identity_Provider_create",
-          "delete": "Iam_SAML2_Identity_Provider_delete",
-          "read": "Iam_SAML2_Identity_Provider_show",
-          "update": "Iam_SAML2_Identity_Provider_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "iam"
       },
       "patch": {
         "description": "Update the given properties of an existing identity provider.",
@@ -176203,14 +175071,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "idp",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_SAML2_Identity_Provider_create",
-          "delete": "Iam_SAML2_Identity_Provider_delete",
-          "read": "Iam_SAML2_Identity_Provider_show",
-          "update": "Iam_SAML2_Identity_Provider_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/idps/{id}/metadata.xml": {
@@ -177193,14 +176054,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "invitation",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Organization_Invitation_create",
-          "delete": "Iam_Organization_Invitation_delete",
-          "read": "Iam_Organization_Invitation_show",
-          "update": "Iam_Organization_Invitation_resend"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "post": {
         "description": "Create an invitation to an organization, which granting roles or membership to groups within an org.\nThe invitation may also grant access to select projects within the org.",
@@ -177447,23 +176301,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "invitation",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Organization_Invitation_create",
-          "delete": "Iam_Organization_Invitation_delete",
-          "read": "Iam_Organization_Invitation_show",
-          "update": "Iam_Organization_Invitation_resend"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "groupIds",
-          "inviteeFirstName",
-          "inviteeLastName",
-          "isSso",
-          "orgRoleIds",
-          "projects",
-          "skipEmailNotification"
-        ]
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/invitations/{id}": {
@@ -177639,14 +176477,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "invitation",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Organization_Invitation_create",
-          "delete": "Iam_Organization_Invitation_delete",
-          "read": "Iam_Organization_Invitation_show",
-          "update": "Iam_Organization_Invitation_resend"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Show an invitation.",
@@ -177960,15 +176791,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "invitation",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Organization_Invitation_create",
-          "delete": "Iam_Organization_Invitation_delete",
-          "read": "Iam_Organization_Invitation_show",
-          "update": "Iam_Organization_Invitation_resend"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "iam"
       },
       "patch": {
         "description": "Resend an invitation created in an org if original invitation expired or was lost.",
@@ -178160,14 +176983,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "invitation",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Organization_Invitation_create",
-          "delete": "Iam_Organization_Invitation_delete",
-          "read": "Iam_Organization_Invitation_show",
-          "update": "Iam_Organization_Invitation_resend"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/ip-access-control/rules": {
@@ -179912,14 +178728,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "service-account",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Service_Account_Create",
-          "delete": "Iam_Service_Account_Delete",
-          "read": "Iam_Service_Account_Show",
-          "update": "Iam_Service_Account_Update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "post": {
         "description": "Create adds a new service account to an org. A maximum of 20 service accounts may exist in an org at\nany one time.",
@@ -180089,14 +178898,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "service-account",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Service_Account_Create",
-          "delete": "Iam_Service_Account_Delete",
-          "read": "Iam_Service_Account_Show",
-          "update": "Iam_Service_Account_Update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/service-accounts/{id}": {
@@ -180273,14 +179075,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "service-account",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Service_Account_Create",
-          "delete": "Iam_Service_Account_Delete",
-          "read": "Iam_Service_Account_Show",
-          "update": "Iam_Service_Account_Update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Show returns detail for a specific service account.",
@@ -180489,15 +179284,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "service-account",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Service_Account_Create",
-          "delete": "Iam_Service_Account_Delete",
-          "read": "Iam_Service_Account_Show",
-          "update": "Iam_Service_Account_Update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "iam"
       },
       "patch": {
         "description": "Update modifies a service account.",
@@ -180686,14 +179473,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "service-account",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Service_Account_Create",
-          "delete": "Iam_Service_Account_Delete",
-          "read": "Iam_Service_Account_Show",
-          "update": "Iam_Service_Account_Update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/service-accounts/{serviceAccountId}/clients": {
@@ -180894,13 +179674,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "service-account-clients",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Service_Account_Client_Create",
-          "delete": "Iam_Service_Account_Client_Delete",
-          "read": "Iam_Service_Account_Client_Show"
-        },
-        "x-flexera-tf-id-field": "clientId"
+        "x-flexera-service": "iam"
       },
       "post": {
         "description": "Create adds a new service account client. The create response is the only time\nthat the sensitive client secret is available. A maximum of 2 service account clients may exist\nfor each service account at any one time.",
@@ -181105,19 +179879,7 @@
         ],
         "x-flexera-action": "action",
         "x-flexera-resource": "service-account-clients",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Service_Account_Client_Create",
-          "delete": "Iam_Service_Account_Client_Delete",
-          "read": "Iam_Service_Account_Client_Show"
-        },
-        "x-flexera-tf-id-field": "clientId",
-        "x-flexera-tf-sensitive": [
-          "clientSecret"
-        ],
-        "x-flexera-tf-write-only": [
-          "clientSecret"
-        ]
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/service-accounts/{serviceAccountId}/clients/{clientId}": {
@@ -181308,13 +180070,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "service-account-clients",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Service_Account_Client_Create",
-          "delete": "Iam_Service_Account_Client_Delete",
-          "read": "Iam_Service_Account_Client_Show"
-        },
-        "x-flexera-tf-id-field": "clientId"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Show returns detail for a specific client.",
@@ -181521,14 +180277,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "service-account-clients",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Service_Account_Client_Create",
-          "delete": "Iam_Service_Account_Client_Delete",
-          "read": "Iam_Service_Account_Client_Show"
-        },
-        "x-flexera-tf-id-field": "clientId",
-        "x-flexera-tf-import-id": "{orgId}/{serviceAccountId}/{clientId}"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/service-accounts/{serviceAccountId}/clients/{clientId}/client-secret": {
@@ -182414,13 +181163,7 @@
         "x-flexera-list-item-ref": "#/components/schemas/Iam_FlexeraIamUser",
         "x-flexera-paginated": true,
         "x-flexera-resource": "user",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_User_create",
-          "delete": "Iam_User_Delete",
-          "read": "Iam_User_show"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "post": {
         "description": "Creates and affiliates a user to an org. The user's email domain must match a verified domain in the organization's Identity Providers. \nIf the user already exists, they are affiliated with the organization. Only user's email is required.\nIf the user does not exist, a new user is created and affiliated to the organization. In this case, User's email, first name and last name are required.",
@@ -182607,13 +181350,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "user",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_User_create",
-          "delete": "Iam_User_Delete",
-          "read": "Iam_User_show"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/users/{id}": {
@@ -182790,13 +181527,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "user",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_User_create",
-          "delete": "Iam_User_Delete",
-          "read": "Iam_User_show"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Returns details for a specific user affiliated to an org.",
@@ -182996,14 +181727,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "user",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_User_create",
-          "delete": "Iam_User_Delete",
-          "read": "Iam_User_show"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "iam"
       },
       "patch": {
         "description": "Updates the first name and/or last name of a user affiliated to an org.\n\n**Required privilege**: iam:org_user:update (org_owner or equivalent).\n\n**Multi-org security**: The caller must have admin access in *every* org the target user\nbelongs to. If the user is affiliated with orgs A, B, and C, the caller needs access\nin all three — not just the org specified in the request. This prevents an admin in one\norg from modifying a shared user's name without consent from admins in other orgs.\n\n**Sync guard**: A successful update sets an internal `updated_by` marker\n(`admin:{callerID}`) on the user record. The User Management Service uses this\nmarker to reject subsequent AD/SAML sync writes that would overwrite the manually-set\nname. The marker is cleared when the IdP profile master sync next runs with a value\nthat matches the current name.\n\n**isNameManagedByIDP**: The response includes this flag. When `true`, the org's SAML\nIDP has profile-master enabled, meaning the name edit may be overridden on the user's\nnext SSO login if the AD/SAML attribute mapping still points to a different value.",
@@ -183217,13 +181941,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "user",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_User_create",
-          "delete": "Iam_User_Delete",
-          "read": "Iam_User_show"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/orgs/{orgId}/users/{id}/groups": {
@@ -183432,14 +182150,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "group",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_Group_create",
-          "delete": "Iam_Group_Delete",
-          "read": "Iam_Group_show",
-          "update": "Iam_Group_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/iam/v1/refresh-tokens": {
@@ -185793,14 +184504,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "post": {
         "description": "Create provisions a new customer tenant for a managed service provider.",
@@ -186017,14 +184721,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/msp/v1/orgs/{orgId}/customers/tags": {
@@ -186389,14 +185086,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Show details for a managed service provider's customer tenant.",
@@ -186633,14 +185323,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "patch": {
         "description": "Update modifies a managed service provider's customer tenant.",
@@ -186876,14 +185559,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/msp/v1/orgs/{orgId}/customers/{customerId}/idps/{identityProviderId}/domains/{name}/verify": {
@@ -187927,14 +186603,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "post": {
         "description": "Create provisions a new customer tenant for a managed service provider.\n\nThis endpoint creates a new customer organization under the specified MSP parent organization. \nThe newly created organization is immediately available and functional. Owners specified in the request \nare granted administrator access to the new customer organization.\n\nV2 API enhancements over v1:\n* Validates MSP capability hierarchy constraints (max_depth, max_width) before creation\n* Enforces hierarchy depth limits - prevents creating MSP children if parent's max_depth is 0\n* Enforces hierarchy width limits - prevents creation if parent has reached max_width children\n* Returns specific error codes for constraint violations to help diagnose issues\n\nNote: Capabilities granted to the customer organization must be a subset of the capabilities \navailable to the MSP parent organization.",
@@ -188165,14 +186834,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/msp/v2/orgs/{orgId}/customers/bulk": {
@@ -188882,14 +187544,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       },
       "get": {
         "description": "Show details for a managed service provider's customer tenant.\n\nV2 API enhancements over v1:\n* Includes numberOfCustomers field showing the count of direct children\n* Added inUseByCustomers field in capabilities to indicate whether this capability is currently being used by any child customer organizations\n",
@@ -189128,15 +187783,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{customerId}"
+        "x-flexera-service": "iam"
       },
       "patch": {
         "description": "Update modifies a managed service provider's customer tenant.\n\nV2 API enhancements over v1:\n* Validates MSP capability hierarchy constraints when adding or modifying MSP capability\n* Prevents removal of capabilities if any child organizations currently have those capabilities\n* Returns specific error codes indicating which constraints were violated\n* Ensures hierarchy integrity is maintained across all updates\n\nImportant: Capabilities can only be removed if no child organizations currently depend on them. \nIf you need to remove a capability that children have, you must first remove it from all children \nor delete the child organizations.",
@@ -189386,14 +188033,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "customer",
-        "x-flexera-service": "iam",
-        "x-flexera-tf-crud-binding": {
-          "create": "Iam_MSP_Customer_V2_CreateV2",
-          "delete": "Iam_MSP_Customer_V2_DeleteV2",
-          "read": "Iam_MSP_Customer_V2_ShowV2",
-          "update": "Iam_MSP_Customer_V2_UpdateV2"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "iam"
       }
     },
     "/oidc/token": {
@@ -192420,13 +191060,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "customization-value",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Customization_Value_upsert",
-          "delete": "Policy_Customization_Value_delete",
-          "read": "Policy_Customization_Value_show"
-        },
-        "x-flexera-tf-id-field": "customizationTypeId"
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/customization-values/{customizationTypeId}": {
@@ -192604,13 +191238,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "customization-value",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Customization_Value_upsert",
-          "delete": "Policy_Customization_Value_delete",
-          "read": "Policy_Customization_Value_show"
-        },
-        "x-flexera-tf-id-field": "customizationTypeId"
+        "x-flexera-service": "policy"
       },
       "get": {
         "description": "Retrieves a customization value identified by customization type ID",
@@ -192812,14 +191440,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "customization-value",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Customization_Value_upsert",
-          "delete": "Policy_Customization_Value_delete",
-          "read": "Policy_Customization_Value_show"
-        },
-        "x-flexera-tf-id-field": "customizationTypeId",
-        "x-flexera-tf-import-id": "{orgId}/{customizationTypeId}"
+        "x-flexera-service": "policy"
       },
       "put": {
         "description": "Creates or updates a customization value identified by customization type ID. The applied changes will take effect immediately. Some changes, such as those to the emails, will not affect existing assets, but will be applied to all items created after the fact.",
@@ -193008,13 +191629,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "customization-value",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Customization_Value_upsert",
-          "delete": "Policy_Customization_Value_delete",
-          "read": "Policy_Customization_Value_show"
-        },
-        "x-flexera-tf-id-field": "customizationTypeId"
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/incident-aggregates": {
@@ -195100,17 +193715,7 @@
         "x-flexera-action": "list",
         "x-flexera-paginated": true,
         "x-flexera-resource": "policy-aggregate",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Aggregate_create",
-          "delete": "Policy_Policy_Aggregate_delete",
-          "read": "Policy_Policy_Aggregate_show",
-          "update": "Policy_Policy_Aggregate_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        }
+        "x-flexera-service": "policy"
       },
       "post": {
         "description": "Creates a policy aggregate for an org which will create and manage an applied policy in each project included.\n        Changes to the list of projects will result in policies being created or terminated.\n        The aggregate will continue to run until terminated or all projects are removed.\n        If terminated while it is managing one or more applied policies, the aggregate will enter a \"stopping\" state and ensure all\n        managed applied policies are terminated before deleting itself.",
@@ -195327,28 +193932,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "policy-aggregate",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Aggregate_create",
-          "delete": "Policy_Policy_Aggregate_delete",
-          "read": "Policy_Policy_Aggregate_show",
-          "update": "Policy_Policy_Aggregate_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "credentials",
-          "allProjects"
-        ],
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        },
-        "x-flexera-tf-sensitive": [
-          "credentials"
-        ],
-        "x-flexera-tf-write-only": [
-          "credentials",
-          "templateRef"
-        ]
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/policy-aggregates/{policyAggregateId}": {
@@ -195525,17 +194109,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "policy-aggregate",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Aggregate_create",
-          "delete": "Policy_Policy_Aggregate_delete",
-          "read": "Policy_Policy_Aggregate_show",
-          "update": "Policy_Policy_Aggregate_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        }
+        "x-flexera-service": "policy"
       },
       "get": {
         "description": "Show retrieves the details of a policy aggregate.",
@@ -195873,18 +194447,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "policy-aggregate",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Aggregate_create",
-          "delete": "Policy_Policy_Aggregate_delete",
-          "read": "Policy_Policy_Aggregate_show",
-          "update": "Policy_Policy_Aggregate_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{policyAggregateId}",
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        }
+        "x-flexera-service": "policy"
       },
       "patch": {
         "description": "Update enables users to change attributes of the managed applied policies and to add or remove projects to manage\n        applied policies in. Changes to the list of projects will result in policies being created or terminated. Changes to configuration\n        options will result in all managed policies being updated. This will happen asynchronously. Changes to the the schedule will result in\n        applied policies being rescheduled.",
@@ -196115,17 +194678,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "policy-aggregate",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Aggregate_create",
-          "delete": "Policy_Policy_Aggregate_delete",
-          "read": "Policy_Policy_Aggregate_show",
-          "update": "Policy_Policy_Aggregate_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        }
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/policy-managers": {
@@ -196444,17 +194997,7 @@
         "x-flexera-action": "list",
         "x-flexera-paginated": true,
         "x-flexera-resource": "policy-manager",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Manager_create",
-          "delete": "Policy_Policy_Manager_delete",
-          "read": "Policy_Policy_Manager_show",
-          "update": "Policy_Policy_Manager_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        }
+        "x-flexera-service": "policy"
       },
       "post": {
         "description": "Creates a Policy Manager. After the manager is created an asynchronous process will start and discover which child orgs the manager will manage applied policies in. It will then create applied policies in them. The operation is asynchronous, and will continue in the background after the request is accepted. It may take some time to start. The status of the managed applied policies can be accessed by viewing the [summary](#/Policy%20Manager/Policy%20Manager%23summary) of the policy manager. This will also include information about applied policies the manager was unable to create and what the error was. An example might be the creator of the manager does not have the needed permissions in the child org to create an applied policy there.",
@@ -196667,27 +195210,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "policy-manager",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Manager_create",
-          "delete": "Policy_Policy_Manager_delete",
-          "read": "Policy_Policy_Manager_show",
-          "update": "Policy_Policy_Manager_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "credentials"
-        ],
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        },
-        "x-flexera-tf-sensitive": [
-          "credentials"
-        ],
-        "x-flexera-tf-write-only": [
-          "credentials",
-          "templateRef"
-        ]
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/policy-managers/{id}": {
@@ -196865,17 +195388,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "policy-manager",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Manager_create",
-          "delete": "Policy_Policy_Manager_delete",
-          "read": "Policy_Policy_Manager_show",
-          "update": "Policy_Policy_Manager_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        }
+        "x-flexera-service": "policy"
       },
       "get": {
         "description": "Retrieves a specific policy manager.",
@@ -197150,18 +195663,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "policy-manager",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Manager_create",
-          "delete": "Policy_Policy_Manager_delete",
-          "read": "Policy_Policy_Manager_show",
-          "update": "Policy_Policy_Manager_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}",
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        }
+        "x-flexera-service": "policy"
       },
       "patch": {
         "description": "Updates the properties of the managed applied policies or the criteria used to determine which child orgs should have a managed applied policy running in them. These changes will be applied to manager immediately and adjustments will be made at the child org level asynchronously.",
@@ -197385,17 +195887,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "policy-manager",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Manager_create",
-          "delete": "Policy_Policy_Manager_delete",
-          "read": "Policy_Policy_Manager_show",
-          "update": "Policy_Policy_Manager_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-rename": {
-          "count": "total_count"
-        }
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/policy-managers/{id}/summary": {
@@ -199190,14 +197682,7 @@
         "x-flexera-action": "list",
         "x-flexera-paginated": true,
         "x-flexera-resource": "applied-policy",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Applied_Policy_create",
-          "delete": "Policy_Applied_Policy_delete",
-          "read": "Policy_Applied_Policy_show",
-          "update": "Policy_Applied_Policy_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       },
       "post": {
         "description": "Create applies a policy template to a given project. The applied policy will continually run until deleted.",
@@ -199509,24 +197994,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "applied-policy",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Applied_Policy_create",
-          "delete": "Policy_Applied_Policy_delete",
-          "read": "Policy_Applied_Policy_show",
-          "update": "Policy_Applied_Policy_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "credentials"
-        ],
-        "x-flexera-tf-sensitive": [
-          "credentials"
-        ],
-        "x-flexera-tf-write-only": [
-          "credentials",
-          "templateRef"
-        ]
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/projects/{projectId}/applied-policies/{appliedPolicyId}": {
@@ -199717,14 +198185,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "applied-policy",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Applied_Policy_create",
-          "delete": "Policy_Applied_Policy_delete",
-          "read": "Policy_Applied_Policy_show",
-          "update": "Policy_Applied_Policy_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       },
       "get": {
         "description": "Show retrieves the details of an applied policy.",
@@ -200023,15 +198484,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "applied-policy",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Applied_Policy_create",
-          "delete": "Policy_Applied_Policy_delete",
-          "read": "Policy_Applied_Policy_show",
-          "update": "Policy_Applied_Policy_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{projectId}/{appliedPolicyId}"
+        "x-flexera-service": "policy"
       },
       "patch": {
         "description": "Updates attributes of an applied policy and immediately evaluates it. It only affects the normal execution schedule, if the frequency changes",
@@ -200272,14 +198725,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "applied-policy",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Applied_Policy_create",
-          "delete": "Policy_Applied_Policy_delete",
-          "read": "Policy_Applied_Policy_show",
-          "update": "Policy_Applied_Policy_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/projects/{projectId}/applied-policies/{appliedPolicyId}/evaluate": {
@@ -202341,14 +200787,7 @@
         "x-flexera-action": "list",
         "x-flexera-paginated": true,
         "x-flexera-resource": "policy-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Template_create",
-          "delete": "Policy_Policy_Template_delete",
-          "read": "Policy_Policy_Template_show",
-          "update": "Policy_Policy_Template_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       },
       "post": {
         "description": "Creates a policy template for a project, first compiling it. On failure, an array of syntax errors will be returned.\n        The created policy template can be applied or published in the automation catalog.",
@@ -202605,18 +201044,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "policy-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Template_create",
-          "delete": "Policy_Policy_Template_delete",
-          "read": "Policy_Policy_Template_show",
-          "update": "Policy_Policy_Template_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-write-only": [
-          "source",
-          "filename"
-        ]
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/projects/{projectId}/policy-templates/validate": {
@@ -203014,14 +201442,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "policy-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Template_create",
-          "delete": "Policy_Policy_Template_delete",
-          "read": "Policy_Policy_Template_show",
-          "update": "Policy_Policy_Template_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       },
       "get": {
         "description": "Show retrieves the details of a policy template.",
@@ -203313,15 +201734,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "policy-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Template_create",
-          "delete": "Policy_Policy_Template_delete",
-          "read": "Policy_Policy_Template_show",
-          "update": "Policy_Policy_Template_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{projectId}/{policyTemplateId}"
+        "x-flexera-service": "policy"
       },
       "put": {
         "description": "Update modifies a policy template by replacing it in place for a project. Updating a policy template will not change the\n        behavior of existing applied policies or policy aggregates. They will continue to run using the version of the template that existed when they were applied.\n        To update existing applied policies to use the newer version, terminate and reapply.",
@@ -203568,14 +201981,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "policy-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Policy_Template_create",
-          "delete": "Policy_Policy_Template_delete",
-          "read": "Policy_Policy_Template_show",
-          "update": "Policy_Policy_Template_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/projects/{projectId}/policy-templates/{policyTemplateId}/evaluate": {
@@ -204420,14 +202826,7 @@
         "x-flexera-action": "list",
         "x-flexera-paginated": true,
         "x-flexera-resource": "published-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Published_Template_create",
-          "delete": "Policy_Published_Template_delete",
-          "read": "Policy_Published_Template_show",
-          "update": "Policy_Published_Template_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       },
       "post": {
         "description": "Create creates an organization-scoped published template from a project-scoped policy template.",
@@ -204643,14 +203042,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "published-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Published_Template_create",
-          "delete": "Policy_Published_Template_delete",
-          "read": "Policy_Published_Template_show",
-          "update": "Policy_Published_Template_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/published-templates/{publishedTemplateId}": {
@@ -204827,14 +203219,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "published-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Published_Template_create",
-          "delete": "Policy_Published_Template_delete",
-          "read": "Policy_Published_Template_show",
-          "update": "Policy_Published_Template_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       },
       "get": {
         "description": "Show retrieves the details of a published template.",
@@ -205125,15 +203510,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "published-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Published_Template_create",
-          "delete": "Policy_Published_Template_delete",
-          "read": "Policy_Published_Template_show",
-          "update": "Policy_Published_Template_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{publishedTemplateId}"
+        "x-flexera-service": "policy"
       },
       "put": {
         "description": "Update modifies a published template by replacing it in place for an organization. Updating a published template will not change the \nbehavior of existing applied policies or policy aggregates. They will continue to run using the version of the template that existed when they were applied. \nTo update existing applied policies to use the newer version, terminate and reapply.",
@@ -205339,14 +203716,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "published-template",
-        "x-flexera-service": "policy",
-        "x-flexera-tf-crud-binding": {
-          "create": "Policy_Published_Template_create",
-          "delete": "Policy_Published_Template_delete",
-          "read": "Policy_Published_Template_show",
-          "update": "Policy_Published_Template_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "policy"
       }
     },
     "/policy/v1/orgs/{orgId}/published-templates/{publishedTemplateId}/hide": {
@@ -216123,8 +214493,7 @@
         "x-flexera-list-item-ref": "#/components/schemas/Saas_FlexeraFsmDenormalizedlicenseagreement",
         "x-flexera-paginated": true,
         "x-flexera-resource": "licens",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-skip": true
+        "x-flexera-service": "saas"
       },
       "post": {
         "description": "Creates a license agreement.",
@@ -216225,8 +214594,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "licens",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-skip": true
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}": {
@@ -216297,8 +214665,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "licens",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-skip": true
+        "x-flexera-service": "saas"
       },
       "get": {
         "description": "Retrieves a license identified by ID.",
@@ -216798,8 +215165,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "licens",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-skip": true
+        "x-flexera-service": "saas"
       },
       "patch": {
         "description": "Updates a license agreement.",
@@ -217224,8 +215590,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "licens",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-skip": true
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}/fees": {
@@ -217392,14 +215757,7 @@
         "x-flexera-list-item-ref": "#/components/schemas/Saas_FlexeraFsmLicenseagreementmiscfee",
         "x-flexera-paginated": true,
         "x-flexera-resource": "licens-fees",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_fee_create",
-          "delete": "Saas_License_fee_delete",
-          "read": "Saas_License_fee_show",
-          "update": "Saas_License_fee_update"
-        },
-        "x-flexera-tf-id-field": "feeId"
+        "x-flexera-service": "saas"
       },
       "post": {
         "description": "Creates a license fee associated with license agreement.",
@@ -217508,14 +215866,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "licens-fees",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_fee_create",
-          "delete": "Saas_License_fee_delete",
-          "read": "Saas_License_fee_show",
-          "update": "Saas_License_fee_update"
-        },
-        "x-flexera-tf-id-field": "feeId"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}/fees/{feeId}": {
@@ -217599,14 +215950,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "licens-fees",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_fee_create",
-          "delete": "Saas_License_fee_delete",
-          "read": "Saas_License_fee_show",
-          "update": "Saas_License_fee_update"
-        },
-        "x-flexera-tf-id-field": "feeId"
+        "x-flexera-service": "saas"
       },
       "get": {
         "description": "Retrieves a license agreement fee identified by ID",
@@ -217710,15 +216054,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "licens-fees",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_fee_create",
-          "delete": "Saas_License_fee_delete",
-          "read": "Saas_License_fee_show",
-          "update": "Saas_License_fee_update"
-        },
-        "x-flexera-tf-id-field": "feeId",
-        "x-flexera-tf-import-id": "{orgId}/{licenseId}/{feeId}"
+        "x-flexera-service": "saas"
       },
       "patch": {
         "description": "Updates a license fee associated with license agreement.",
@@ -217818,14 +216154,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "licens-fees",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_fee_create",
-          "delete": "Saas_License_fee_delete",
-          "read": "Saas_License_fee_show",
-          "update": "Saas_License_fee_update"
-        },
-        "x-flexera-tf-id-field": "feeId"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}/notes": {
@@ -218016,14 +216345,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "licens-notes",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_note_create",
-          "delete": "Saas_License_note_delete",
-          "read": "Saas_License_note_show",
-          "update": "Saas_License_note_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       },
       "post": {
         "description": "Creates a note associated to license.",
@@ -218104,14 +216426,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "licens-notes",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_note_create",
-          "delete": "Saas_License_note_delete",
-          "read": "Saas_License_note_show",
-          "update": "Saas_License_note_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}/notes/{id}": {
@@ -218193,14 +216508,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "licens-notes",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_note_create",
-          "delete": "Saas_License_note_delete",
-          "read": "Saas_License_note_show",
-          "update": "Saas_License_note_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       },
       "get": {
         "description": "Retrieves a notes for given identifier.",
@@ -218296,15 +216604,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "licens-notes",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_note_create",
-          "delete": "Saas_License_note_delete",
-          "read": "Saas_License_note_show",
-          "update": "Saas_License_note_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{licenseId}/{id}"
+        "x-flexera-service": "saas"
       },
       "put": {
         "description": "Update the details of a note associated to resource.",
@@ -218397,14 +216697,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "licens-notes",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_note_create",
-          "delete": "Saas_License_note_delete",
-          "read": "Saas_License_note_show",
-          "update": "Saas_License_note_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}/terms": {
@@ -218862,14 +217155,7 @@
         "x-flexera-list-item-ref": "#/components/schemas/Saas_FlexeraFsmLicenseterm",
         "x-flexera-paginated": true,
         "x-flexera-resource": "licens-terms",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_term_create",
-          "delete": "Saas_License_term_delete",
-          "read": "Saas_License_term_show",
-          "update": "Saas_License_term_update"
-        },
-        "x-flexera-tf-id-field": "termId"
+        "x-flexera-service": "saas"
       },
       "post": {
         "description": "Creates a license term associated with license agreement.",
@@ -219201,14 +217487,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "licens-terms",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_term_create",
-          "delete": "Saas_License_term_delete",
-          "read": "Saas_License_term_show",
-          "update": "Saas_License_term_update"
-        },
-        "x-flexera-tf-id-field": "termId"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}": {
@@ -219292,14 +217571,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "licens-terms",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_term_create",
-          "delete": "Saas_License_term_delete",
-          "read": "Saas_License_term_show",
-          "update": "Saas_License_term_update"
-        },
-        "x-flexera-tf-id-field": "termId"
+        "x-flexera-service": "saas"
       },
       "get": {
         "description": "Retrieves a license term identified by ID",
@@ -219500,15 +217772,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "licens-terms",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_term_create",
-          "delete": "Saas_License_term_delete",
-          "read": "Saas_License_term_show",
-          "update": "Saas_License_term_update"
-        },
-        "x-flexera-tf-id-field": "termId",
-        "x-flexera-tf-import-id": "{orgId}/{licenseId}/{termId}"
+        "x-flexera-service": "saas"
       },
       "patch": {
         "description": "Updates a license term associated with license agreement.",
@@ -219665,14 +217929,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "licens-terms",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_term_create",
-          "delete": "Saas_License_term_delete",
-          "read": "Saas_License_term_show",
-          "update": "Saas_License_term_update"
-        },
-        "x-flexera-tf-id-field": "termId"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}/purchases": {
@@ -219910,14 +218167,7 @@
         ],
         "x-flexera-action": "list",
         "x-flexera-resource": "licens-terms-purchases",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_purchase_create",
-          "delete": "Saas_License_purchase_delete",
-          "read": "Saas_License_purchase_show",
-          "update": "Saas_License_purchase_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       },
       "post": {
         "description": "Creates a purchase associated with license term.",
@@ -220064,14 +218314,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "licens-terms-purchases",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_purchase_create",
-          "delete": "Saas_License_purchase_delete",
-          "read": "Saas_License_purchase_show",
-          "update": "Saas_License_purchase_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}/purchases/{id}": {
@@ -220168,14 +218411,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "licens-terms-purchases",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_purchase_create",
-          "delete": "Saas_License_purchase_delete",
-          "read": "Saas_License_purchase_show",
-          "update": "Saas_License_purchase_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       },
       "get": {
         "description": "Retrieves a purchase identified by ID",
@@ -220305,15 +218541,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "licens-terms-purchases",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_purchase_create",
-          "delete": "Saas_License_purchase_delete",
-          "read": "Saas_License_purchase_show",
-          "update": "Saas_License_purchase_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{licenseId}/{termId}/{id}"
+        "x-flexera-service": "saas"
       },
       "patch": {
         "description": "Updates a purchase for given purchase ID.",
@@ -220437,14 +218665,7 @@
         ],
         "x-flexera-action": "update",
         "x-flexera-resource": "licens-terms-purchases",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_License_purchase_create",
-          "delete": "Saas_License_purchase_delete",
-          "read": "Saas_License_purchase_show",
-          "update": "Saas_License_purchase_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/licenses/{licenseId}/terms/{termId}/purchases/{purchaseId}/allocations": {
@@ -228198,14 +226419,7 @@
         "x-flexera-action": "list",
         "x-flexera-paginated": true,
         "x-flexera-resource": "usage-group",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_Usage_Group_create",
-          "delete": "Saas_Usage_Group_delete",
-          "read": "Saas_Usage_Group_show",
-          "update": "Saas_Usage_Group_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       },
       "post": {
         "description": "Resource to Create a usage group for the specified SaaS object",
@@ -228347,17 +226561,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "usage-group",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_Usage_Group_create",
-          "delete": "Saas_Usage_Group_delete",
-          "read": "Saas_Usage_Group_show",
-          "update": "Saas_Usage_Group_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-immutable": [
-          "costs"
-        ]
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/usage-groups/{id}": {
@@ -228427,14 +226631,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "usage-group",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_Usage_Group_create",
-          "delete": "Saas_Usage_Group_delete",
-          "read": "Saas_Usage_Group_show",
-          "update": "Saas_Usage_Group_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       },
       "get": {
         "description": "Retrieves a existing usage group for the specified SaaS object by ID.",
@@ -228547,15 +226744,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "usage-group",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_Usage_Group_create",
-          "delete": "Saas_Usage_Group_delete",
-          "read": "Saas_Usage_Group_show",
-          "update": "Saas_Usage_Group_update"
-        },
-        "x-flexera-tf-id-field": "id",
-        "x-flexera-tf-import-id": "{orgId}/{id}"
+        "x-flexera-service": "saas"
       },
       "put": {
         "description": "Update an existing usage group for the specified SaaS object.",
@@ -228639,14 +226828,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "usage-group",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_Usage_Group_create",
-          "delete": "Saas_Usage_Group_delete",
-          "read": "Saas_Usage_Group_show",
-          "update": "Saas_Usage_Group_update"
-        },
-        "x-flexera-tf-id-field": "id"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/usage-groups/{usageGroupID}/costs": {
@@ -228758,14 +226940,7 @@
         ],
         "x-flexera-action": "create",
         "x-flexera-resource": "usage-group-costs",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_Usage_Group_createCost",
-          "delete": "Saas_Usage_Group_deleteCost",
-          "read": "Saas_Usage_Group_showCost",
-          "update": "Saas_Usage_Group_updateCost"
-        },
-        "x-flexera-tf-id-field": "costId"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/usage-groups/{usageGroupID}/costs/{costId}": {
@@ -228849,14 +227024,7 @@
         ],
         "x-flexera-action": "delete",
         "x-flexera-resource": "usage-group-costs",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_Usage_Group_createCost",
-          "delete": "Saas_Usage_Group_deleteCost",
-          "read": "Saas_Usage_Group_showCost",
-          "update": "Saas_Usage_Group_updateCost"
-        },
-        "x-flexera-tf-id-field": "costId"
+        "x-flexera-service": "saas"
       },
       "get": {
         "description": "Show an existing cost details for the specified Usage group object",
@@ -228953,15 +227121,7 @@
         ],
         "x-flexera-action": "get",
         "x-flexera-resource": "usage-group-costs",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_Usage_Group_createCost",
-          "delete": "Saas_Usage_Group_deleteCost",
-          "read": "Saas_Usage_Group_showCost",
-          "update": "Saas_Usage_Group_updateCost"
-        },
-        "x-flexera-tf-id-field": "costId",
-        "x-flexera-tf-import-id": "{orgId}/{usageGroupID}/{costId}"
+        "x-flexera-service": "saas"
       },
       "put": {
         "description": "Update an existing cost object for the specified Usage group object",
@@ -229059,14 +227219,7 @@
         ],
         "x-flexera-action": "replace",
         "x-flexera-resource": "usage-group-costs",
-        "x-flexera-service": "saas",
-        "x-flexera-tf-crud-binding": {
-          "create": "Saas_Usage_Group_createCost",
-          "delete": "Saas_Usage_Group_deleteCost",
-          "read": "Saas_Usage_Group_showCost",
-          "update": "Saas_Usage_Group_updateCost"
-        },
-        "x-flexera-tf-id-field": "costId"
+        "x-flexera-service": "saas"
       }
     },
     "/saas/v1/orgs/{orgId}/usage-over-time": {
