@@ -269,7 +269,7 @@ Usage:
 
 Global Flags:
   --openapi_specs_dir <path>  Base directory for specs.yaml config, sources, and
-                              tf-overrides files (default: current directory).
+                              generator inputs (default: current directory).
                               Can also be set via OPENAPI_SPECS_DIR env var.
   --output-dir <path>         Directory where openapi3.json/yaml are written
                               (default: same as --openapi_specs_dir).

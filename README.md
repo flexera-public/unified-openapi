@@ -23,9 +23,7 @@ unified-openapi/
     ├── main.go
     ├── merge.go
     ├── specs.yaml      ← spec source config (hand-maintained)
-    ├── sources/        ← per-service upstream spec snapshots (see below)
-    ├── tf-overrides.yaml.example  ← Terraform provider override config example
-    └── tf-overrides.yaml          ← active overrides (copy from .example; gitignored)
+    └── sources/        ← per-service upstream spec snapshots (see below)
 ```
 
 #### Source spec snapshots
@@ -59,11 +57,9 @@ make generate   # rebuild artifacts from local snapshots
 make tidy       # tidy go.mod / go.sum
 ```
 
-### Terraform provider overrides
-
-A downstream Terraform Provider for Flexera references [generator/tf-overrides.yaml](generator/tf-overrides.yaml) for resource and property overrides.
-
-We plan to move this downstream to the terraform-provider-flexera repository when it's ready.
+Terraform-specific overrides are maintained by the downstream
+`terraform-provider-flexera` repository and are not part of this OpenAPI
+spec generator.
 
 ### License
 

@@ -147,15 +147,6 @@ func buildUnifiedSpec(baseDir string, specs []SpecConfig) (map[string]interface{
 		return nil, err
 	}
 
-	// Apply optional TF override file (tf-overrides.yaml). Missing file =
-	// pure heuristic mode (default). Present file MUST validate.
-	overrides, err := loadTFOverrides(baseDir)
-	if err != nil {
-		return nil, fmt.Errorf("load tf overrides: %w", err)
-	}
-	if err := applyTFOverrides(unified, overrides); err != nil {
-		return nil, fmt.Errorf("apply tf overrides: %w", err)
-	}
 	return unified, nil
 }
 

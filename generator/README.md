@@ -185,18 +185,6 @@ hand, reviews the diff against the committed file, hand-edits
 Current manual specs: `flexera-grs` (legacy service with no real upstream
 spec) and `rightscale-bill-analysis` (see below).
 
-## Terraform provider overrides
-
-An optional `tf-overrides.yaml` (gitignored; copy from `tf-overrides.yaml.example`)
-controls Terraform-specific metadata added to the merged spec:
-
-```sh
-cp tf-overrides.yaml.example tf-overrides.yaml
-```
-
-See `tf-overrides.yaml.example` for a fully annotated example covering CRUD
-bindings, field renames, write-only secrets, volatile fields, and scope variables.
-
 ## Development
 
 ```sh
@@ -227,8 +215,7 @@ cd generator && go run . validate enabled-flexera
 6. Merges all service documents into a single spec with one canonical `servers` entry.
 7. Annotates each operation with extensions: `x-flexera-resource`, `x-flexera-action`, `x-flexera-paginated`, `x-flexera-list-item-ref`; then applies any exact `cli_action_overrides` and `schema_format_removals` from `specs.yaml`.
 8. Records service metadata (`x-flexera-service`, `x-flexera-services`, `x-tagGroups`); see [Service metadata](#service-metadata).
-9. Optionally applies Terraform provider overrides from `tf-overrides.yaml`.
-10. Writes `openapi3.json` and `openapi3.yaml` to `--output-dir`.
+9. Writes `openapi3.json` and `openapi3.yaml` to `--output-dir`.
 
 ## Adding a new API
 
