@@ -507,6 +507,7 @@
         "description": "SnowflakeGenericBillConnect contains the fields unique to Snowflake in a bill connect",
         "example": {
           "accountId": "TYTMXEN-RS68134",
+          "onboardingOrigin": "finops",
           "role": "SF_BILL_CONNECT_ROLE",
           "user": "SF_BILL_CONNECT_USER",
           "warehouse": "SF_BILL_CONNECT_WH"
@@ -515,6 +516,16 @@
           "accountId": {
             "description": "Snowflake account identifier in the format of organization and account name",
             "example": "TYTMXEN-RS68134",
+            "type": "string"
+          },
+          "onboardingOrigin": {
+            "default": "finops",
+            "description": "Origin of the bill connect. Possible values: \"finops\" (onboarded through FinOps), \"platform\" (onboarded through unified Platform onboarding). Defaults to \"finops\" when omitted.",
+            "enum": [
+              "finops",
+              "platform"
+            ],
+            "example": "finops",
             "type": "string"
           },
           "role": {
@@ -698,7 +709,7 @@
         "example": {
           "actualCostExportURL": "https://exportname.blob.core.windows.net/export-container/test/test-export-billingMonthToDate-actual-partitioned",
           "amortizedCostExportURL": "https://exportname.blob.core.windows.net/export-container/test/test-export-billingMonthToDate-amortized-partitioned",
-          "enableOOBExports": true,
+          "enableOOBExports": false,
           "storageTenantID": "12345678-1234-1234-1234-123456789012"
         },
         "properties": {
@@ -717,7 +728,7 @@
           "enableOOBExports": {
             "default": false,
             "description": "Enable Flexera to trigger Out-of-band (OOB) exports to generate cost data more frequently than once per day.",
-            "example": false,
+            "example": true,
             "type": "boolean"
           },
           "storageTenantID": {
@@ -1334,12 +1345,6 @@
       },
       "BillConnectCredentialValidationCollection": {
         "example": [
-          {
-            "billId": "aws-20194320903",
-            "error": "Invalid",
-            "kind": "finops:bill-connect-aws-validation",
-            "valid": true
-          },
           {
             "billId": "aws-20194320903",
             "error": "Invalid",
@@ -2316,7 +2321,7 @@
               "billMonth": "202506",
               "lastProcessEndAt": "2025-08-16T00:00:00Z",
               "lastProcessStartAt": "2025-08-16T00:00:00Z",
-              "status": "processing"
+              "status": "completed"
             }
           ]
         },
@@ -2386,6 +2391,404 @@
         ],
         "type": "object"
       },
+      "EnterpriseProcessingDetailsError": {
+        "description": "Customer-safe failure details for a processing stage",
+        "example": {
+          "code": "processingFailed",
+          "description": "We couldn't complete this processing step."
+        },
+        "properties": {
+          "code": {
+            "description": "Code identifying the failure",
+            "example": "processingFailed",
+            "type": "string"
+          },
+          "description": {
+            "description": "Human-readable description of the failure",
+            "example": "We couldn't complete this processing step.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "description"
+        ],
+        "type": "object"
+      },
+      "EnterpriseProcessingDetailsResponse": {
+        "example": {
+          "kind": "finops:enterprise-bill-month-processing-details",
+          "tasks": [
+            {
+              "errors": [],
+              "status": "completed",
+              "taskName": "Running Validations",
+              "warnings": []
+            },
+            {
+              "errors": [],
+              "status": "completed",
+              "taskName": "Applying Currency",
+              "warnings": []
+            },
+            {
+              "errors": [],
+              "status": "completed",
+              "taskName": "Applying Custom Dimensions",
+              "warnings": [
+                {
+                  "code": "missingReference",
+                  "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                  "type": "ruleBasedDimensions"
+                }
+              ]
+            },
+            {
+              "errors": [],
+              "status": "completed",
+              "taskName": "Applying Billing Rules",
+              "warnings": []
+            },
+            {
+              "errors": [],
+              "status": "completed",
+              "taskName": "Finalizing Reports",
+              "warnings": []
+            },
+            {
+              "errors": [],
+              "status": "inProgress",
+              "taskName": "Finishing Up",
+              "warnings": []
+            }
+          ]
+        },
+        "properties": {
+          "kind": {
+            "description": "The resource's type",
+            "enum": [
+              "finops:enterprise-bill-month-processing-details"
+            ],
+            "example": "finops:enterprise-bill-month-processing-details",
+            "type": "string"
+          },
+          "tasks": {
+            "description": "Applicable processing stages in execution order",
+            "example": [
+              {
+                "errors": [
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  },
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  },
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  }
+                ],
+                "status": "completed",
+                "taskName": "Applying Currency",
+                "warnings": [
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  }
+                ]
+              },
+              {
+                "errors": [
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  },
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  },
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  }
+                ],
+                "status": "completed",
+                "taskName": "Applying Currency",
+                "warnings": [
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  }
+                ]
+              },
+              {
+                "errors": [
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  },
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  },
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  }
+                ],
+                "status": "completed",
+                "taskName": "Applying Currency",
+                "warnings": [
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  }
+                ]
+              },
+              {
+                "errors": [
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  },
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  },
+                  {
+                    "code": "processingFailed",
+                    "description": "We couldn't complete this processing step."
+                  }
+                ],
+                "status": "completed",
+                "taskName": "Applying Currency",
+                "warnings": [
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  },
+                  {
+                    "code": "missingReference",
+                    "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                    "type": "ruleBasedDimensions"
+                  }
+                ]
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EnterpriseProcessingDetailsTask"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "kind",
+          "tasks"
+        ],
+        "type": "object"
+      },
+      "EnterpriseProcessingDetailsTask": {
+        "description": "One applicable processing stage for the selected enterprise bill month execution",
+        "example": {
+          "errors": [
+            {
+              "code": "processingFailed",
+              "description": "We couldn't complete this processing step."
+            },
+            {
+              "code": "processingFailed",
+              "description": "We couldn't complete this processing step."
+            }
+          ],
+          "status": "completed",
+          "taskName": "Applying Currency",
+          "warnings": [
+            {
+              "code": "missingReference",
+              "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+              "type": "ruleBasedDimensions"
+            },
+            {
+              "code": "missingReference",
+              "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+              "type": "ruleBasedDimensions"
+            },
+            {
+              "code": "missingReference",
+              "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+              "type": "ruleBasedDimensions"
+            },
+            {
+              "code": "missingReference",
+              "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+              "type": "ruleBasedDimensions"
+            }
+          ]
+        },
+        "properties": {
+          "errors": {
+            "description": "Customer-safe failure details. Empty unless the stage has failed.",
+            "example": [
+              {
+                "code": "processingFailed",
+                "description": "We couldn't complete this processing step."
+              },
+              {
+                "code": "processingFailed",
+                "description": "We couldn't complete this processing step."
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EnterpriseProcessingDetailsError"
+            },
+            "type": "array"
+          },
+          "status": {
+            "description": "Stage status. Known values: pending (not yet reached), inProgress (next expected or ongoing work), completed (successful, possibly with warnings), failed (current failure with nonempty errors). A current failure prevents another stage from being in progress.",
+            "enum": [
+              "pending",
+              "inProgress",
+              "completed",
+              "failed"
+            ],
+            "example": "completed",
+            "type": "string"
+          },
+          "taskName": {
+            "description": "Known names: Running Validations, Loading Bill Month Data, Applying Currency, Applying Custom Dimensions, Applying Billing Rules, Finalizing Reports, Finishing Up. Inapplicable stages are omitted.",
+            "example": "Applying Currency",
+            "type": "string"
+          },
+          "warnings": {
+            "description": "Non-fatal warning details. Always present, including when empty.",
+            "example": [
+              {
+                "code": "missingReference",
+                "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                "type": "ruleBasedDimensions"
+              },
+              {
+                "code": "missingReference",
+                "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                "type": "ruleBasedDimensions"
+              },
+              {
+                "code": "missingReference",
+                "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                "type": "ruleBasedDimensions"
+              },
+              {
+                "code": "missingReference",
+                "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                "type": "ruleBasedDimensions"
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EnterpriseProcessingDetailsWarning"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "taskName",
+          "status",
+          "errors",
+          "warnings"
+        ],
+        "type": "object"
+      },
+      "EnterpriseProcessingDetailsWarning": {
+        "description": "Non-fatal warning details for a processing stage",
+        "example": {
+          "code": "missingReference",
+          "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+          "type": "ruleBasedDimensions"
+        },
+        "properties": {
+          "code": {
+            "description": "Code identifying the warning",
+            "example": "missingReference",
+            "type": "string"
+          },
+          "description": {
+            "description": "Human-readable description of the warning",
+            "example": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+            "type": "string"
+          },
+          "type": {
+            "description": "Category of the warning",
+            "example": "ruleBasedDimensions",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "type",
+          "description"
+        ],
+        "type": "object"
+      },
       "EnterpriseReprocessItem": {
         "description": "Individual bill month item to reprocess",
         "example": {
@@ -2434,18 +2837,6 @@
           "items": {
             "description": "Results for each bill month item",
             "example": [
-              {
-                "billConnectId": "aws-91123443",
-                "billMonth": "202506",
-                "result": "reprocessRequestSuccessful",
-                "state": "processing"
-              },
-              {
-                "billConnectId": "aws-91123443",
-                "billMonth": "202506",
-                "result": "reprocessRequestSuccessful",
-                "state": "processing"
-              },
               {
                 "billConnectId": "aws-91123443",
                 "billMonth": "202506",
@@ -2552,7 +2943,7 @@
           },
           "temporary": {
             "description": "Is the error temporary?",
-            "example": true,
+            "example": false,
             "type": "boolean"
           },
           "timeout": {
@@ -2594,7 +2985,7 @@
           "enableOOBExports": {
             "default": false,
             "description": "Enable Flexera to trigger Out-of-band (OOB) exports to generate cost data more frequently than once per day.",
-            "example": false,
+            "example": true,
             "type": "boolean"
           }
         },
@@ -2697,7 +3088,14 @@
             "type": "string"
           },
           "status": {
-            "description": "Processing status of this bill month. Known values: processing, processed.",
+            "description": "Bill locking service processing outcome of this bill month: processing (work is in progress), warning (completed with non-fatal issues), error (processing failed), or completed (processing succeeded). The legacy value processed is retained in the enum for compatibility; current bill-month status responses use completed for success. The separate reprocess response state continues to use processed. This outcome is independent of reprocess action state.",
+            "enum": [
+              "processing",
+              "warning",
+              "error",
+              "completed",
+              "processed"
+            ],
             "example": "processing",
             "type": "string"
           }
@@ -2829,6 +3227,7 @@
           "kind": "finops:bill-connect-aws",
           "snowflake": {
             "accountId": "TYTMXEN-RS68134",
+            "onboardingOrigin": "finops",
             "role": "SF_BILL_CONNECT_ROLE",
             "user": "SF_BILL_CONNECT_USER",
             "warehouse": "SF_BILL_CONNECT_WH"
@@ -3135,6 +3534,7 @@
             "kind": "finops:bill-connect-aws",
             "snowflake": {
               "accountId": "TYTMXEN-RS68134",
+              "onboardingOrigin": "finops",
               "role": "SF_BILL_CONNECT_ROLE",
               "user": "SF_BILL_CONNECT_USER",
               "warehouse": "SF_BILL_CONNECT_WH"
@@ -3260,6 +3660,7 @@
             "kind": "finops:bill-connect-aws",
             "snowflake": {
               "accountId": "TYTMXEN-RS68134",
+              "onboardingOrigin": "finops",
               "role": "SF_BILL_CONNECT_ROLE",
               "user": "SF_BILL_CONNECT_USER",
               "warehouse": "SF_BILL_CONNECT_WH"
@@ -3349,6 +3750,7 @@
               "kind": "finops:bill-connect-paas-snowflake",
               "snowflake": {
                 "accountId": "TYTMXEN-RS68134",
+                "onboardingOrigin": "finops",
                 "role": "SF_BILL_CONNECT_ROLE",
                 "user": "SF_BILL_CONNECT_USER",
                 "warehouse": "SF_BILL_CONNECT_WH"
@@ -3394,10 +3796,6 @@
           "items": {
             "description": "List of bill months to reprocess",
             "example": [
-              {
-                "billConnectId": "aws-91123443",
-                "billMonth": "202506"
-              },
               {
                 "billConnectId": "aws-91123443",
                 "billMonth": "202506"
@@ -3461,6 +3859,7 @@
           "kind": "finops:bill-connect-paas-snowflake",
           "snowflake": {
             "accountId": "TYTMXEN-RS68134",
+            "onboardingOrigin": "finops",
             "role": "SF_BILL_CONNECT_ROLE",
             "user": "SF_BILL_CONNECT_USER",
             "warehouse": "SF_BILL_CONNECT_WH"
@@ -3667,7 +4066,7 @@
       },
       "UpdateRequestBody": {
         "example": {
-          "billingAccountId": "Et facere eveniet.",
+          "billingAccountId": "Ex nisi aut est suscipit.",
           "clientId": "56fff7875-b6d7-7f5j-zx77-977df67fdfc7",
           "clientSecret": "MHfd8t~acbdefghijklmnnopfjyebfdhtdtdfx",
           "exportDetails": {
@@ -3681,7 +4080,7 @@
         "properties": {
           "billingAccountId": {
             "description": "Azure Billing Account ID cannot be updated",
-            "example": "Ducimus saepe error ea.",
+            "example": "Ab fuga veniam illum neque.",
             "type": "string"
           },
           "clientId": {
@@ -3957,7 +4356,7 @@
   "info": {
     "description": "The FinOps Onboarding API allows customers to connect and manage cloud bills by providing\nrequired billing information and/or credentials to their cloud vendors. The API returns conflict upon registering the same\ncloud account in an organization if it is already registered.\n\nThe API is available at the following endpoints, dependent upon the user/tenant zone:\n| Zone        | Base URL    |\n| ----------- | ----------- |\n| NAM         | https://api.flexera.com |\n| EU          | https://api.flexera.eu/ |\n| APAC        | https://api.flexera.au |\n\n",
     "title": "FinOps Onboarding API",
-    "version": "1.0.0"
+    "version": "1.2.0"
   },
   "openapi": "3.0.3",
   "paths": {
@@ -4063,6 +4462,7 @@
                           "kind": "finops:bill-connect-paas-snowflake",
                           "snowflake": {
                             "accountId": "TYTMXEN-RS68134",
+                            "onboardingOrigin": "finops",
                             "role": "SF_BILL_CONNECT_ROLE",
                             "user": "SF_BILL_CONNECT_USER",
                             "warehouse": "SF_BILL_CONNECT_WH"
@@ -9738,6 +10138,7 @@
                       "kind": "finops:bill-connect-paas-snowflake",
                       "snowflake": {
                         "accountId": "TYTMXEN-RS68134",
+                        "onboardingOrigin": "finops",
                         "role": "SF_BILL_CONNECT_ROLE",
                         "user": "SF_BILL_CONNECT_USER",
                         "warehouse": "SF_BILL_CONNECT_WH"
@@ -9855,7 +10256,7 @@
     },
     "/finops-onboarding/v1/orgs/{orgId}/bill-connects/snowflake/{id}": {
       "delete": {
-        "description": "Deletes a Snowflake bill connect.",
+        "description": "Deletes a Snowflake bill connect.\nBill Connects provisioned through Unified Onboarding are read-only in this API. Update and delete operations will be rejected with a 403 Forbidden. Use Unified Onboarding to manage these resources.\nYou can identify these Bill Connects by the onboardingOrigin field:\n- \"platform\": created via Unified Onboarding\n- \"finops\": created and managed through this API (default)",
         "operationId": "Bill Connect - Snowflake#delete",
         "parameters": [
           {
@@ -10020,6 +10421,7 @@
                       "kind": "finops:bill-connect-paas-snowflake",
                       "snowflake": {
                         "accountId": "TYTMXEN-RS68134",
+                        "onboardingOrigin": "finops",
                         "role": "SF_BILL_CONNECT_ROLE",
                         "user": "SF_BILL_CONNECT_USER",
                         "warehouse": "SF_BILL_CONNECT_WH"
@@ -10125,7 +10527,7 @@
         ]
       },
       "patch": {
-        "description": "Updates an existing Snowflake bill connect.",
+        "description": "Updates an existing Snowflake bill connect.\nBill Connects provisioned through Unified Onboarding are read-only in this API. Update and delete operations will be rejected with a 403 Forbidden. Use Unified Onboarding to manage these resources.\nYou can identify these Bill Connects by the onboardingOrigin field:\n- \"platform\": created via Unified Onboarding\n- \"finops\": created and managed through this API (default)",
         "operationId": "Bill Connect - Snowflake#update",
         "parameters": [
           {
@@ -10567,9 +10969,207 @@
         ]
       }
     },
+    "/finops-onboarding/v1/orgs/{orgId}/processing/bill-connects/{billConnectId}/bill-months/{billMonth}": {
+      "get": {
+        "description": "Returns the ordered processing stages, customer-safe errors, and warnings for the selected enterprise bill month execution.\n\nOnly stages applicable to that execution are returned. Loading Bill Month Data is included when the execution loads or normalizes bill data and is omitted for reprocessing that starts at currency conversion. Currency conversion is omitted when confirmed unnecessary.\n\nAn inProgress stage identifies the next expected work and does not necessarily mean a worker is running. Warnings do not prevent a stage from completing. Finishing Up completes only when the processing request or importer execution has completed.\n\nThis operation is read-only and is available only to enterprise organizations without the Billing capability.",
+        "operationId": "Processing History#show",
+        "parameters": [
+          {
+            "description": "The unique identifier for the organization",
+            "example": 100,
+            "in": "path",
+            "name": "orgId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the organization",
+              "example": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Bill connect identifier",
+            "example": "aws-91123443",
+            "in": "path",
+            "name": "billConnectId",
+            "required": true,
+            "schema": {
+              "description": "Bill connect identifier",
+              "example": "aws-91123443",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Bill month in YYYYMM format",
+            "example": "202506",
+            "in": "path",
+            "name": "billMonth",
+            "required": true,
+            "schema": {
+              "description": "Bill month in YYYYMM format",
+              "example": "202506",
+              "pattern": "^20[\\d]{2}((0[1-9])|(1[012]))$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "default": {
+                    "summary": "default",
+                    "value": {
+                      "kind": "finops:enterprise-bill-month-processing-details",
+                      "tasks": [
+                        {
+                          "errors": [],
+                          "status": "completed",
+                          "taskName": "Running Validations",
+                          "warnings": []
+                        },
+                        {
+                          "errors": [],
+                          "status": "completed",
+                          "taskName": "Applying Currency",
+                          "warnings": []
+                        },
+                        {
+                          "errors": [],
+                          "status": "completed",
+                          "taskName": "Applying Custom Dimensions",
+                          "warnings": [
+                            {
+                              "code": "missingReference",
+                              "description": "The following rule-based dimensions don't have dependent references: \"Business Unit\", \"Orion\".",
+                              "type": "ruleBasedDimensions"
+                            }
+                          ]
+                        },
+                        {
+                          "errors": [],
+                          "status": "completed",
+                          "taskName": "Applying Billing Rules",
+                          "warnings": []
+                        },
+                        {
+                          "errors": [],
+                          "status": "completed",
+                          "taskName": "Finalizing Reports",
+                          "warnings": []
+                        },
+                        {
+                          "errors": [],
+                          "status": "inProgress",
+                          "taskName": "Finishing Up",
+                          "warnings": []
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EnterpriseProcessingDetailsResponse"
+                }
+              }
+            },
+            "description": "OK response."
+          },
+          "400": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_request: Bad Request response."
+          },
+          "401": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unauthorized: Unauthorized response."
+          },
+          "403": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "forbidden: Forbidden response."
+          },
+          "404": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "not_found: Not Found response."
+          },
+          "429": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "too_many_requests: Too Many Requests response."
+          },
+          "500": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "internal_error: Internal Server Error response."
+          },
+          "502": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_gateway: Bad Gateway response."
+          }
+        },
+        "security": [
+          {
+            "JWTAuth_header_Authorization": [
+              "optima:bill_connect:create||common:org:own",
+              "optima:bill_connect:delete||common:org:own",
+              "optima:bill_connect:index||common:org:own",
+              "optima:bill_connect:show||common:org:own",
+              "optima:bill_connect:update||common:org:own",
+              "optima:enterprise_history:show||common:org:own",
+              "optima:enterprise_history:manage||common:org:own"
+            ]
+          }
+        ],
+        "summary": "Get enterprise bill processing details",
+        "tags": [
+          "Processing History"
+        ]
+      }
+    },
     "/finops-onboarding/v1/orgs/{orgId}/processing/bill-months": {
       "get": {
-        "description": "Lists all enterprise bill months",
+        "description": "Lists enterprise bill months with their BLS processing outcomes: processing, warning, error, or completed. Clear skipToken when changing filters or sorting so a new search is performed.",
         "operationId": "Processing History#index",
         "parameters": [
           {
@@ -10601,12 +11201,12 @@
           },
           {
             "allowEmptyValue": true,
-            "description": "Supports operators: eq, ne, gt, ge, lt, le, co, sw, ew, in, nin, and, or and parentheses for grouping.",
+            "description": "Supports operators: eq, ne, gt, ge, lt, le, co, sw, ew, in, nin, and, or and nested parentheses for grouping. AND takes precedence over OR. Filterable fields are billConnectId, billMonth, status, lastProcessStartAt, lastProcessEndAt, and lastProcessedAt. Membership values use a quoted comma-separated list. Status outcomes are processing, warning, error, and completed.",
             "example": "(billConnectId sw 'cbi-oi-gcp') and (billMonth eq '202507' or billMonth eq '202506') and (status eq 'processing')",
             "in": "query",
             "name": "filter",
             "schema": {
-              "description": "Supports operators: eq, ne, gt, ge, lt, le, co, sw, ew, in, nin, and, or and parentheses for grouping.",
+              "description": "Supports operators: eq, ne, gt, ge, lt, le, co, sw, ew, in, nin, and, or and nested parentheses for grouping. AND takes precedence over OR. Filterable fields are billConnectId, billMonth, status, lastProcessStartAt, lastProcessEndAt, and lastProcessedAt. Membership values use a quoted comma-separated list. Status outcomes are processing, warning, error, and completed.",
               "example": "(billConnectId sw 'cbi-oi-gcp') and (billMonth eq '202507' or billMonth eq '202506') and (status eq 'processing')",
               "type": "string"
             }
@@ -10664,7 +11264,7 @@
                           "billMonth": "202506",
                           "lastProcessEndAt": "2025-08-16T00:00:00Z",
                           "lastProcessStartAt": "2025-08-16T00:00:00Z",
-                          "status": "processing"
+                          "status": "completed"
                         }
                       ]
                     }
@@ -10956,11 +11556,11 @@
             "headers": {
               "Content-Disposition": {
                 "description": "Download header",
-                "example": "Fuga non eius magni.",
+                "example": "Placeat qui nulla.",
                 "required": true,
                 "schema": {
                   "description": "Download header",
-                  "example": "Et enim sequi natus.",
+                  "example": "Sapiente laboriosam modi.",
                   "type": "string"
                 }
               }
