@@ -87,6 +87,12 @@
                 "dimensionName": "Team",
                 "percentage": 50,
                 "value": "Orion"
+              },
+              {
+                "dimensionId": "rbd_team",
+                "dimensionName": "Team",
+                "percentage": 50,
+                "value": "Orion"
               }
             ],
             "items": {
@@ -185,11 +191,6 @@
               "dimensionId": "rbd_team",
               "percentage": 50,
               "value": "Orion"
-            },
-            {
-              "dimensionId": "rbd_team",
-              "percentage": 50,
-              "value": "Orion"
             }
           ],
           "type": "equalSplit"
@@ -198,16 +199,6 @@
           "destinations": {
             "description": "The destination inputs that receive the reallocated costs.",
             "example": [
-              {
-                "dimensionId": "rbd_team",
-                "percentage": 50,
-                "value": "Orion"
-              },
-              {
-                "dimensionId": "rbd_team",
-                "percentage": 50,
-                "value": "Orion"
-              },
               {
                 "dimensionId": "rbd_team",
                 "percentage": 50,
@@ -1041,10 +1032,11 @@
       "BillingInvoiceCustomer": {
         "description": "Customer recipient for invoice export creation.",
         "example": {
-          "customerBillingPlan": "Quia hic facere porro maiores.",
-          "customerId": 3799256290115060000,
-          "customerName": "Rem voluptatem possimus vitae.",
-          "invoiceNumber": "u8f"
+          "customerBillingPlan": "Maiores quia iusto.",
+          "customerId": 7047915467522901000,
+          "customerName": "Quia placeat quia hic.",
+          "invoiceNumber": "c4g",
+          "invoiceNumberPrefix": "f6e"
         },
         "properties": {
           "customerBillingPlan": {
@@ -1063,7 +1055,14 @@
             "type": "string"
           },
           "invoiceNumber": {
-            "description": "Optional invoice number (Invoice ID) for this customer's invoice. Immutable after creation. Duplicates are allowed. An empty string means absent.",
+            "description": "Optional number for this customer's invoice, placed after invoiceNumberPrefix, which it requires (400 invoice_number_prefix_required otherwise). The combined value is immutable after creation, must not exceed 29 characters, and duplicates are allowed. An empty string means absent.",
+            "example": "st3",
+            "maxLength": 20,
+            "pattern": "^[A-Za-z0-9_-]*$",
+            "type": "string"
+          },
+          "invoiceNumberPrefix": {
+            "description": "Optional prefix for this customer's invoice number (Invoice ID); the required part of an invoice number. Placed before invoiceNumber; on its own it is the whole invoice number. An empty string means no invoice number.",
             "example": "yh1",
             "maxLength": 20,
             "pattern": "^[A-Za-z0-9_-]*$",
@@ -1581,9 +1580,10 @@
             },
             "invoiceNumberBase": "000001",
             "invoiceNumberLastUsed": "000041",
-            "invoiceNumberNext": "000042",
+            "invoiceNumberNext": "INV-000042",
             "invoiceNumberPrefix": "INV-",
             "invoiceNumberingEnabled": true,
+            "invoiceNumberingMode": "sequential",
             "invoiceTemplateId": "tmpl_9001",
             "kind": "finops:invoice-schedule",
             "nextInvoiceDate": "2026-09-05",
@@ -1710,9 +1710,10 @@
             },
             "invoiceNumberBase": "000001",
             "invoiceNumberLastUsed": "000041",
-            "invoiceNumberNext": "000042",
+            "invoiceNumberNext": "INV-000042",
             "invoiceNumberPrefix": "INV-",
             "invoiceNumberingEnabled": true,
+            "invoiceNumberingMode": "sequential",
             "invoiceTemplateId": "tmpl_9001",
             "kind": "finops:invoice-schedule",
             "nextInvoiceDate": "2026-09-05",
@@ -1839,9 +1840,10 @@
             },
             "invoiceNumberBase": "000001",
             "invoiceNumberLastUsed": "000041",
-            "invoiceNumberNext": "000042",
+            "invoiceNumberNext": "INV-000042",
             "invoiceNumberPrefix": "INV-",
             "invoiceNumberingEnabled": true,
+            "invoiceNumberingMode": "sequential",
             "invoiceTemplateId": "tmpl_9001",
             "kind": "finops:invoice-schedule",
             "nextInvoiceDate": "2026-09-05",
@@ -2341,9 +2343,10 @@
               },
               "invoiceNumberBase": "000001",
               "invoiceNumberLastUsed": "000041",
-              "invoiceNumberNext": "000042",
+              "invoiceNumberNext": "INV-000042",
               "invoiceNumberPrefix": "INV-",
               "invoiceNumberingEnabled": true,
+              "invoiceNumberingMode": "sequential",
               "invoiceTemplateId": "tmpl_9001",
               "kind": "finops:invoice-schedule",
               "nextInvoiceDate": "2026-09-05",
@@ -2470,9 +2473,10 @@
               },
               "invoiceNumberBase": "000001",
               "invoiceNumberLastUsed": "000041",
-              "invoiceNumberNext": "000042",
+              "invoiceNumberNext": "INV-000042",
               "invoiceNumberPrefix": "INV-",
               "invoiceNumberingEnabled": true,
+              "invoiceNumberingMode": "sequential",
               "invoiceTemplateId": "tmpl_9001",
               "kind": "finops:invoice-schedule",
               "nextInvoiceDate": "2026-09-05",
@@ -2653,9 +2657,10 @@
           },
           "invoiceNumberBase": "wzm",
           "invoiceNumberLastUsed": "000041",
-          "invoiceNumberNext": "000042",
+          "invoiceNumberNext": "INV-000042",
           "invoiceNumberPrefix": "qk9",
           "invoiceNumberingEnabled": true,
+          "invoiceNumberingMode": "sequential",
           "invoiceTemplateId": "tmpl_9001",
           "kind": "finops:invoice-schedule",
           "nextInvoiceDate": "2026-09-05",
@@ -2798,35 +2803,46 @@
             "$ref": "#/components/schemas/BillingInvoiceIssueDateRule"
           },
           "invoiceNumberBase": {
-            "description": "First sequence number of the schedule's numbering. Absent when numbering is disabled.",
+            "description": "First sequence number of the schedule's numbering. Absent when the schedule does not sequence (no numbering, or prefix-only).",
             "example": "edj",
             "maxLength": 9,
             "pattern": "^0*[1-9][0-9]*$",
             "type": "string"
           },
           "invoiceNumberLastUsed": {
-            "description": "Sequence number most recently allocated by the schedule. Absent until the first allocation. The counter is retained when the schedule is soft-deleted, and re-adding numbering continues from last used + 1.",
+            "description": "Sequence number most recently allocated by the schedule. Absent until the first allocation, and absent while the schedule does not sequence (no numbering, or prefix-only). The counter is retained when the schedule is soft-deleted.",
             "example": "000041",
             "pattern": "^[0-9]{1,9}$",
             "type": "string"
           },
           "invoiceNumberNext": {
-            "description": "Sequence number the next generated invoice will receive. Absent when numbering is disabled.",
-            "example": "000042",
-            "pattern": "^[0-9]{1,9}$",
+            "description": "Full invoice number the next generated invoice will receive, including its prefix. Absent when the schedule does not sequence (no numbering, or prefix-only) and once the sequence is exhausted (after 999999999 has been allocated), when numbering stays enabled but no next value exists; do not read an omitted value as numbering being disabled, check invoiceNumberingMode instead.",
+            "example": "INV-000042",
+            "maxLength": 29,
+            "pattern": "^[A-Za-z0-9_-]+$",
             "type": "string"
           },
           "invoiceNumberPrefix": {
-            "description": "Prefix placed before the sequence number. Empty or absent when there is no prefix.",
+            "description": "Prefix placed before the sequence number, or the whole invoice number when the schedule has no base. Absent when the schedule has no numbering.",
             "example": "4nf",
             "maxLength": 20,
             "pattern": "^[A-Za-z0-9_-]*$",
             "type": "string"
           },
           "invoiceNumberingEnabled": {
-            "description": "Whether the schedule numbers the invoices it generates.",
+            "description": "Whether the schedule allocates a sequence number to the invoices it generates: true only in the sequential mode. Prefer invoiceNumberingMode.",
             "example": true,
             "type": "boolean"
+          },
+          "invoiceNumberingMode": {
+            "description": "How the schedule numbers the invoices it generates: none (no prefix, invoices are not numbered), prefixOnly (every invoice receives the prefix as its invoice number, no sequence), sequential (prefix followed by the next sequence number). The mode is fixed once the prefix or base is set, or once the schedule has generated its first invoice.",
+            "enum": [
+              "none",
+              "prefixOnly",
+              "sequential"
+            ],
+            "example": "sequential",
+            "type": "string"
           },
           "invoiceTemplateId": {
             "description": "Identifier of the invoice template shared by every customer on this schedule. Absent when the schedule was created without a template.",
@@ -4266,14 +4282,14 @@
             "$ref": "#/components/schemas/BillingInvoiceIssueDateRule"
           },
           "invoiceNumberBase": {
-            "description": "Optional first sequence number for the invoice numbers this schedule generates.",
+            "description": "Optional first sequence number for the invoice numbers this schedule generates. Requires invoiceNumberPrefix (400 invoice_number_prefix_required otherwise). Once set it cannot be changed or cleared.",
             "example": "uf4",
             "maxLength": 9,
             "pattern": "^0*[1-9][0-9]*$",
             "type": "string"
           },
           "invoiceNumberPrefix": {
-            "description": "Optional prefix for the invoice numbers this schedule generates. Requires invoiceNumberBase.",
+            "description": "Optional prefix for the invoice numbers this schedule generates; the required part of an invoice number. Without invoiceNumberBase it is the whole invoice number of every invoice the schedule generates. Once set it cannot be changed or cleared.",
             "example": "zel",
             "maxLength": 20,
             "pattern": "^[A-Za-z0-9_-]*$",
@@ -4428,30 +4444,39 @@
       },
       "CreateRequestBody3": {
         "example": {
-          "costMetric": "modifiedBilledCost",
+          "costMetric": "effectiveCost",
           "customers": [
             {
               "customerBillingPlan": "Pariatur necessitatibus corrupti.",
               "customerId": 7491482402168278000,
               "customerName": "Officiis eum.",
-              "invoiceNumber": "y0u"
+              "invoiceNumber": "1zi",
+              "invoiceNumberPrefix": "y0u"
             },
             {
               "customerBillingPlan": "Pariatur necessitatibus corrupti.",
               "customerId": 7491482402168278000,
               "customerName": "Officiis eum.",
-              "invoiceNumber": "y0u"
+              "invoiceNumber": "1zi",
+              "invoiceNumberPrefix": "y0u"
+            },
+            {
+              "customerBillingPlan": "Pariatur necessitatibus corrupti.",
+              "customerId": 7491482402168278000,
+              "customerName": "Officiis eum.",
+              "invoiceNumber": "1zi",
+              "invoiceNumberPrefix": "y0u"
             }
           ],
           "dimensions": [
-            "Dolore possimus ex aut voluptatem.",
-            "Velit a distinctio qui distinctio.",
-            "Totam et perspiciatis."
+            "Non illum enim ab.",
+            "Possimus ex aut voluptatem nostrum velit.",
+            "Distinctio qui distinctio."
           ],
           "displayLogoWithinPdf": false,
-          "dueDate": "1970-12-15",
-          "endDate": "2008-03-08",
-          "exportLayout": "flatten",
+          "dueDate": "2001-02-03",
+          "endDate": "1993-09-27",
+          "exportLayout": "nested",
           "exportType": "csv",
           "filter": {
             "dimension": "Aut facilis autem non non eum.",
@@ -4464,13 +4489,13 @@
             "type": "equal",
             "value": "Voluptatem eius."
           },
-          "freeText": "Culpa aut hic.",
-          "invoiceTemplateId": "Qui quibusdam.",
+          "freeText": "Modi culpa aut hic incidunt qui quibusdam.",
+          "invoiceTemplateId": "Expedita esse officia eligendi sed quod.",
           "isCreateTemplate": false,
-          "issueDate": "1997-12-14",
-          "logo": "Fugit et fugit enim.",
+          "issueDate": "2005-05-28",
+          "logo": "Et perspiciatis consequuntur et fugit et fugit.",
           "periodType": "billPeriod",
-          "startDate": "2005-07-08",
+          "startDate": "1982-07-13",
           "template": {
             "costMetric": "billedCost",
             "dimensions": [
@@ -4507,7 +4532,7 @@
               "modifiedBilledCost",
               "modifiedEffectiveCost"
             ],
-            "example": "effectiveCost",
+            "example": "modifiedBilledCost",
             "type": "string"
           },
           "customers": {
@@ -4517,7 +4542,15 @@
                 "customerBillingPlan": "Pariatur necessitatibus corrupti.",
                 "customerId": 7491482402168278000,
                 "customerName": "Officiis eum.",
-                "invoiceNumber": "y0u"
+                "invoiceNumber": "1zi",
+                "invoiceNumberPrefix": "y0u"
+              },
+              {
+                "customerBillingPlan": "Pariatur necessitatibus corrupti.",
+                "customerId": 7491482402168278000,
+                "customerName": "Officiis eum.",
+                "invoiceNumber": "1zi",
+                "invoiceNumberPrefix": "y0u"
               }
             ],
             "items": {
@@ -4529,12 +4562,12 @@
           "dimensions": {
             "description": "Dimensions to include in export.",
             "example": [
-              "Eius porro tempore nemo quidem voluptas.",
-              "Et distinctio eum.",
-              "Eos eveniet eaque fuga iste et ratione."
+              "Tempore nemo quidem.",
+              "Voluptates et.",
+              "Eum distinctio eos eveniet."
             ],
             "items": {
-              "example": "Expedita facere dolorum est velit adipisci.",
+              "example": "Tenetur et.",
               "type": "string"
             },
             "maxItems": 10,
@@ -4547,13 +4580,13 @@
           },
           "dueDate": {
             "description": "Invoice due date.",
-            "example": "1988-11-28",
+            "example": "1984-08-16",
             "format": "date",
             "type": "string"
           },
           "endDate": {
             "description": "Invoice range end date.",
-            "example": "1988-05-11",
+            "example": "1985-06-14",
             "format": "date",
             "type": "string"
           },
@@ -4572,7 +4605,7 @@
               "pdf",
               "csv"
             ],
-            "example": "pdf",
+            "example": "csv",
             "type": "string"
           },
           "filter": {
@@ -4580,12 +4613,12 @@
           },
           "freeText": {
             "description": "Optional free text.",
-            "example": "Est est illo nisi.",
+            "example": "Tenetur aperiam est.",
             "type": "string"
           },
           "invoiceTemplateId": {
             "description": "Optional saved invoice template to source default field values from. Cannot be combined with template. Opaque ID; resolved server-side and snapshotted into the invoice.",
-            "example": "Quo dolorum adipisci est cumque dolor.",
+            "example": "Illo nisi nihil quo dolorum.",
             "type": "string"
           },
           "isCreateTemplate": {
@@ -4596,13 +4629,13 @@
           },
           "issueDate": {
             "description": "Invoice issue date.",
-            "example": "1995-07-16",
+            "example": "1977-01-03",
             "format": "date",
             "type": "string"
           },
           "logo": {
             "description": "Optional logo payload.",
-            "example": "Sunt sunt mollitia tenetur.",
+            "example": "Iste et ratione aut illum sunt sunt.",
             "type": "string"
           },
           "periodType": {
@@ -4612,12 +4645,12 @@
               "billPeriod",
               "billingPeriod"
             ],
-            "example": "chargePeriod",
+            "example": "billPeriod",
             "type": "string"
           },
           "startDate": {
             "description": "Invoice range start date.",
-            "example": "1979-06-22",
+            "example": "1997-01-03",
             "format": "date",
             "type": "string"
           },
@@ -4691,15 +4724,6 @@
           "source": {
             "description": "Dimensions that identify the costs to be reallocated. Multiple dimensions are combined using AND logic; only costs that satisfy every dimension are included. At least one dimension is required.",
             "example": [
-              {
-                "dimensionId": "vendor",
-                "valueListCondition": {
-                  "values": [
-                    "AWS",
-                    "Azure"
-                  ]
-                }
-              },
               {
                 "dimensionId": "vendor",
                 "valueListCondition": {
@@ -6560,7 +6584,7 @@
             "type": "string"
           },
           "invoiceNumber": {
-            "description": "Invoice number (Invoice ID), scoped to the owning organization. Absent when the invoice has no number. The number is allocated only after bill-lock passes; a failed generation keeps its number and a retry reuses it.",
+            "description": "Invoice number (Invoice ID), scoped to the owning organization. Always present: an empty string means the invoice has no number. The number is allocated only after bill-lock passes; a failed generation keeps its number and a retry reuses it.",
             "example": "uni",
             "maxLength": 29,
             "type": "string"
@@ -6634,6 +6658,7 @@
           "status",
           "attempts",
           "invoiceAmount",
+          "invoiceNumber",
           "invoiceTemplateId",
           "isCreateTemplate",
           "template",
@@ -6726,9 +6751,10 @@
           },
           "invoiceNumberBase": "9py",
           "invoiceNumberLastUsed": "000041",
-          "invoiceNumberNext": "000042",
+          "invoiceNumberNext": "INV-000042",
           "invoiceNumberPrefix": "n03",
           "invoiceNumberingEnabled": true,
+          "invoiceNumberingMode": "sequential",
           "invoiceTemplateId": "tmpl_9001",
           "kind": "finops:invoice-schedule",
           "nextInvoiceDate": "2026-09-05",
@@ -6871,35 +6897,46 @@
             "$ref": "#/components/schemas/BillingInvoiceIssueDateRule"
           },
           "invoiceNumberBase": {
-            "description": "First sequence number of the schedule's numbering. Absent when numbering is disabled.",
+            "description": "First sequence number of the schedule's numbering. Absent when the schedule does not sequence (no numbering, or prefix-only).",
             "example": "alx",
             "maxLength": 9,
             "pattern": "^0*[1-9][0-9]*$",
             "type": "string"
           },
           "invoiceNumberLastUsed": {
-            "description": "Sequence number most recently allocated by the schedule. Absent until the first allocation. The counter is retained when the schedule is soft-deleted, and re-adding numbering continues from last used + 1.",
+            "description": "Sequence number most recently allocated by the schedule. Absent until the first allocation, and absent while the schedule does not sequence (no numbering, or prefix-only). The counter is retained when the schedule is soft-deleted.",
             "example": "000041",
             "pattern": "^[0-9]{1,9}$",
             "type": "string"
           },
           "invoiceNumberNext": {
-            "description": "Sequence number the next generated invoice will receive. Absent when numbering is disabled.",
-            "example": "000042",
-            "pattern": "^[0-9]{1,9}$",
+            "description": "Full invoice number the next generated invoice will receive, including its prefix. Absent when the schedule does not sequence (no numbering, or prefix-only) and once the sequence is exhausted (after 999999999 has been allocated), when numbering stays enabled but no next value exists; do not read an omitted value as numbering being disabled, check invoiceNumberingMode instead.",
+            "example": "INV-000042",
+            "maxLength": 29,
+            "pattern": "^[A-Za-z0-9_-]+$",
             "type": "string"
           },
           "invoiceNumberPrefix": {
-            "description": "Prefix placed before the sequence number. Empty or absent when there is no prefix.",
+            "description": "Prefix placed before the sequence number, or the whole invoice number when the schedule has no base. Absent when the schedule has no numbering.",
             "example": "83g",
             "maxLength": 20,
             "pattern": "^[A-Za-z0-9_-]*$",
             "type": "string"
           },
           "invoiceNumberingEnabled": {
-            "description": "Whether the schedule numbers the invoices it generates.",
+            "description": "Whether the schedule allocates a sequence number to the invoices it generates: true only in the sequential mode. Prefer invoiceNumberingMode.",
             "example": true,
             "type": "boolean"
+          },
+          "invoiceNumberingMode": {
+            "description": "How the schedule numbers the invoices it generates: none (no prefix, invoices are not numbered), prefixOnly (every invoice receives the prefix as its invoice number, no sequence), sequential (prefix followed by the next sequence number). The mode is fixed once the prefix or base is set, or once the schedule has generated its first invoice.",
+            "enum": [
+              "none",
+              "prefixOnly",
+              "sequential"
+            ],
+            "example": "sequential",
+            "type": "string"
           },
           "invoiceTemplateId": {
             "description": "Identifier of the invoice template shared by every customer on this schedule. Absent when the schedule was created without a template.",
@@ -7173,7 +7210,7 @@
             "type": "string"
           },
           "invoiceNumber": {
-            "description": "Invoice number (Invoice ID), scoped to the owning organization. Absent when the invoice has no number. The number is allocated only after bill-lock passes; a failed generation keeps its number and a retry reuses it.",
+            "description": "Invoice number (Invoice ID), scoped to the owning organization. Always present: an empty string means the invoice has no number. The number is allocated only after bill-lock passes; a failed generation keeps its number and a retry reuses it.",
             "example": "uz2",
             "maxLength": 29,
             "type": "string"
@@ -7244,6 +7281,7 @@
           "status",
           "attempts",
           "invoiceAmount",
+          "invoiceNumber",
           "createdAt",
           "updatedAt",
           "scheduleId",
@@ -7711,6 +7749,7 @@
             ],
             "items": {
               "enum": [
+                "credit",
                 "edpDiscount",
                 "sppDiscount",
                 "privateRateDiscount",
@@ -7719,7 +7758,7 @@
                 "bundledDiscount",
                 "distributorDiscount"
               ],
-              "example": "taxRefunds",
+              "example": "cloudfrontSecurityBundles",
               "type": "string"
             },
             "type": "array"
@@ -9157,7 +9196,98 @@
           },
           "values": {
             "description": "The shared cost rules.",
-            "example": [],
+            "example": [
+              {
+                "allocation": {
+                  "destinations": [
+                    {
+                      "dimensionId": "rbd_team",
+                      "dimensionName": "Team",
+                      "percentage": 50,
+                      "value": "Orion"
+                    },
+                    {
+                      "dimensionId": "rbd_team",
+                      "dimensionName": "Team",
+                      "percentage": 50,
+                      "value": "Orion"
+                    },
+                    {
+                      "dimensionId": "rbd_team",
+                      "dimensionName": "Team",
+                      "percentage": 50,
+                      "value": "Orion"
+                    }
+                  ],
+                  "type": "equalSplit"
+                },
+                "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8f%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
+                "createdAt": "2020-11-26T12:17:38.369Z",
+                "createdBy": {
+                  "id": 1234,
+                  "kind": "iam:user",
+                  "ref": "iam:user:123"
+                },
+                "effectiveFrom": "2025-07",
+                "effectiveTo": "2025-12",
+                "id": "68f2a91c4b3d2e1f5a6b7c8d",
+                "kind": "finops:billing-shared-cost-rule",
+                "name": "Platform Services Recovery",
+                "priority": 1,
+                "status": "active",
+                "updatedAt": "2020-11-26T12:17:38.369Z",
+                "updatedBy": {
+                  "id": 1234,
+                  "kind": "iam:user",
+                  "ref": "iam:user:123"
+                }
+              },
+              {
+                "allocation": {
+                  "destinations": [
+                    {
+                      "dimensionId": "rbd_team",
+                      "dimensionName": "Team",
+                      "percentage": 50,
+                      "value": "Orion"
+                    },
+                    {
+                      "dimensionId": "rbd_team",
+                      "dimensionName": "Team",
+                      "percentage": 50,
+                      "value": "Orion"
+                    },
+                    {
+                      "dimensionId": "rbd_team",
+                      "dimensionName": "Team",
+                      "percentage": 50,
+                      "value": "Orion"
+                    }
+                  ],
+                  "type": "equalSplit"
+                },
+                "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8f%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
+                "createdAt": "2020-11-26T12:17:38.369Z",
+                "createdBy": {
+                  "id": 1234,
+                  "kind": "iam:user",
+                  "ref": "iam:user:123"
+                },
+                "effectiveFrom": "2025-07",
+                "effectiveTo": "2025-12",
+                "id": "68f2a91c4b3d2e1f5a6b7c8d",
+                "kind": "finops:billing-shared-cost-rule",
+                "name": "Platform Services Recovery",
+                "priority": 1,
+                "status": "active",
+                "updatedAt": "2020-11-26T12:17:38.369Z",
+                "updatedBy": {
+                  "id": 1234,
+                  "kind": "iam:user",
+                  "ref": "iam:user:123"
+                }
+              }
+            ],
             "items": {
               "$ref": "#/components/schemas/FlexeraFinopsBillingSharedCostRuleSummary"
             },
@@ -9302,10 +9432,6 @@
       "ReorderRequestBody": {
         "example": {
           "rules": [
-            {
-              "priority": 1,
-              "ruleId": "68f2a91c4b3d2e1f5a6b7c8d"
-            },
             {
               "priority": 1,
               "ruleId": "68f2a91c4b3d2e1f5a6b7c8d"
@@ -9843,7 +9969,7 @@
               "billedCost",
               "modifiedCost"
             ],
-            "example": "listCost",
+            "example": "observedCosts",
             "type": "string"
           }
         },
@@ -10206,7 +10332,7 @@
               "billedCost",
               "modifiedCost"
             ],
-            "example": "modifiedCost",
+            "example": "listCost",
             "type": "string"
           }
         },
@@ -10783,14 +10909,14 @@
             "$ref": "#/components/schemas/BillingInvoiceIssueDateRule"
           },
           "invoiceNumberBase": {
-            "description": "Optional updated first sequence number for the invoice numbers this schedule generates.",
+            "description": "First sequence number for the invoice numbers this schedule generates. Can be set only on a schedule whose numbering is not set yet and that has not generated an invoice, together with invoiceNumberPrefix (400 invoice_number_prefix_required without it). Once numbering is set, sending the field again at all, even with the same value or \"\", is rejected with 400 invoice_numbering_locked.",
             "example": "n3b",
             "maxLength": 9,
             "pattern": "^$|^0*[1-9][0-9]*$",
             "type": "string"
           },
           "invoiceNumberPrefix": {
-            "description": "Optional updated prefix for the invoice numbers this schedule generates. Requires invoiceNumberBase.",
+            "description": "Prefix for the invoice numbers this schedule generates. Can be set only on a schedule whose numbering is not set yet and that has not generated an invoice; without a base it is the whole invoice number of every invoice the schedule generates. Once set, sending the field again at all, even with the same value or \"\", is rejected with 400 invoice_numbering_locked.",
             "example": "xkx",
             "maxLength": 20,
             "pattern": "^[A-Za-z0-9_-]*$",
@@ -10816,7 +10942,7 @@
             "type": "string"
           },
           "status": {
-            "description": "Updated lifecycle status. PATCH accepts only inactive; use the activate endpoint to reactivate a schedule.",
+            "description": "Updated lifecycle status. PATCH accepts only inactive, which stops future runs without changing endMonthYear (the deactivate endpoint also sets it); use the activate endpoint to reactivate a schedule.",
             "enum": [
               "inactive"
             ],
@@ -11005,15 +11131,6 @@
                     "Azure"
                   ]
                 }
-              },
-              {
-                "dimensionId": "vendor",
-                "valueListCondition": {
-                  "values": [
-                    "AWS",
-                    "Azure"
-                  ]
-                }
               }
             ],
             "items": {
@@ -11049,7 +11166,7 @@
               "Azure"
             ],
             "items": {
-              "example": "Quod qui nulla.",
+              "example": "Veritatis non voluptatum enim sed.",
               "type": "string"
             },
             "minItems": 1,
@@ -11297,7 +11414,7 @@
   "info": {
     "description": "With the FinOps Billing API, customers can adjust their billing data to fit their\nspecific needs. This flexibility supports chargebacks, reselling, and other transformations.\n\nInvoice schedules and schedule-generated invoices support OData-style expressions\nthrough the filter query parameter. Invoice templates retain their existing filter\ngrammar. Invoice lists use expressionFilter for expressions while preserving filter\nas a legacy substring search. Expression and existing filters are combined with AND.\n\nThe API is available at the following endpoints, dependent upon the user/tenant zone:\n| Zone        | Base URL    |\n| ----------- | ----------- |\n| NAM         | https://api.flexera.com/finops-billing |\n| EU          | https://api.flexera.eu/finops-billing  |\n| APAC        | https://api.flexera.au/finops-billing  |\n\n",
     "title": "FinOps Billing API",
-    "version": "1.11.0"
+    "version": "1.12.0"
   },
   "openapi": "3.0.3",
   "paths": {
@@ -19196,13 +19313,13 @@
           {
             "allowEmptyValue": true,
             "description": "Page size (default 50, max 200)",
-            "example": 118,
+            "example": 111,
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 50,
               "description": "Page size (default 50, max 200)",
-              "example": 62,
+              "example": 94,
               "maximum": 200,
               "minimum": 1,
               "type": "integer"
@@ -19251,12 +19368,12 @@
           {
             "allowEmptyValue": true,
             "description": "Optional exact-match filter on schedule name.",
-            "example": "Saepe facere veritatis.",
+            "example": "Repudiandae incidunt sunt dolores.",
             "in": "query",
             "name": "scheduleName",
             "schema": {
               "description": "Optional exact-match filter on schedule name.",
-              "example": "Voluptas dolore explicabo nisi eius.",
+              "example": "Numquam nobis.",
               "type": "string"
             }
           },
@@ -19379,9 +19496,10 @@
                       },
                       "invoiceNumberBase": "000001",
                       "invoiceNumberLastUsed": "000041",
-                      "invoiceNumberNext": "000042",
+                      "invoiceNumberNext": "INV-000042",
                       "invoiceNumberPrefix": "INV-",
                       "invoiceNumberingEnabled": true,
+                      "invoiceNumberingMode": "sequential",
                       "invoiceTemplateId": "tmpl_9001",
                       "kind": "finops:invoice-schedule",
                       "nextInvoiceDate": "2026-09-05",
@@ -19508,9 +19626,10 @@
                       },
                       "invoiceNumberBase": "000001",
                       "invoiceNumberLastUsed": "000041",
-                      "invoiceNumberNext": "000042",
+                      "invoiceNumberNext": "INV-000042",
                       "invoiceNumberPrefix": "INV-",
                       "invoiceNumberingEnabled": true,
+                      "invoiceNumberingMode": "sequential",
                       "invoiceTemplateId": "tmpl_9001",
                       "kind": "finops:invoice-schedule",
                       "nextInvoiceDate": "2026-09-05",
@@ -19676,7 +19795,7 @@
         ]
       },
       "post": {
-        "description": "Creates one invoice schedule covering every customer in the request. Validation applies to the whole request: if any customer is invalid the entire request fails and nothing is created.\n\nThe schedule's invoice template is selected one of three ways:\n\n- link an existing template: isCreateTemplate=false with invoiceTemplateId set\n- create one: isCreateTemplate=true with template set, and the created template's id is returned as the schedule's invoiceTemplateId\n- no template: isCreateTemplate=false with neither field, and the created schedule has no invoiceTemplateId\n\nAny other combination is rejected with 422.\n\nAutomatic invoice numbering is optional. Supply invoiceNumberBase, with an optional invoiceNumberPrefix, to number every invoice the schedule generates; an invoiceNumberPrefix without an invoiceNumberBase is rejected with 400 invoice_number_prefix_requires_base. A number is allocated only after bill-lock passes: a failed generation keeps its number and a retry reuses it. If the sequence is exhausted the whole call fails with 409 invoice_number_sequence_exhausted (not retryable) and work already completed for earlier customers is retained. The schedule's counter is retained when the schedule is soft-deleted.",
+        "description": "Creates one invoice schedule covering every customer in the request. Validation applies to the whole request: if any customer is invalid the entire request fails and nothing is created.\n\nThe schedule's invoice template is selected one of three ways:\n\n- link an existing template: isCreateTemplate=false with invoiceTemplateId set\n- create one: isCreateTemplate=true with template set, and the created template's id is returned as the schedule's invoiceTemplateId\n- no template: isCreateTemplate=false with neither field, and the created schedule has no invoiceTemplateId\n\nAny other combination is rejected with 422.\n\nInvoice numbering is optional, and the prefix is its required part. Supply invoiceNumberPrefix alone to give every invoice the schedule generates the prefix as its invoice number, with no sequence (invoiceNumberingMode prefixOnly). Supply invoiceNumberPrefix with invoiceNumberBase to give every invoice the prefix followed by the next sequence number (invoiceNumberingMode sequential). invoiceNumberBase without invoiceNumberPrefix is rejected with 400 invoice_number_prefix_required. Once set, the prefix and base cannot be changed or cleared (see update). A number is allocated only after bill-lock passes: a failed generation keeps its number and a retry reuses it. If the sequence is exhausted the whole call fails with 409 invoice_number_sequence_exhausted (not retryable) and work already completed for earlier customers is retained. The schedule's counter is retained when the schedule is soft-deleted.",
         "operationId": "Invoice Schedules#create",
         "parameters": [
           {
@@ -19852,9 +19971,10 @@
                   },
                   "invoiceNumberBase": "z5y",
                   "invoiceNumberLastUsed": "000041",
-                  "invoiceNumberNext": "000042",
+                  "invoiceNumberNext": "INV-000042",
                   "invoiceNumberPrefix": "09v",
                   "invoiceNumberingEnabled": true,
+                  "invoiceNumberingMode": "sequential",
                   "invoiceTemplateId": "tmpl_9001",
                   "kind": "finops:invoice-schedule",
                   "nextInvoiceDate": "2026-09-05",
@@ -20176,9 +20296,10 @@
                   },
                   "invoiceNumberBase": "1az",
                   "invoiceNumberLastUsed": "000041",
-                  "invoiceNumberNext": "000042",
+                  "invoiceNumberNext": "INV-000042",
                   "invoiceNumberPrefix": "xja",
                   "invoiceNumberingEnabled": true,
+                  "invoiceNumberingMode": "sequential",
                   "invoiceTemplateId": "tmpl_9001",
                   "kind": "finops:invoice-schedule",
                   "nextInvoiceDate": "2026-09-05",
@@ -20363,7 +20484,7 @@
         ]
       },
       "patch": {
-        "description": "Partially updates an invoice schedule using JSON Merge Patch (RFC 7396) semantics: only fields present in the request body are changed and omitted fields remain unchanged. Supports optimistic locking through If-Match.\n\nInvoice numbering: invoiceNumberPrefix and invoiceNumberBase follow the same merge-patch rule, so omitting a field leaves it unchanged. Sending \"\" for both clears numbering and disables it. Sending \"\" for invoiceNumberPrefix alone, with an existing base, removes the prefix only. Re-adding numbering later continues from the last used number + 1. An invoiceNumberPrefix without a base is rejected with 400 invoice_number_prefix_requires_base, and changing the base after the first number was allocated is rejected with 400 invoice_number_base_locked.\n\nAn inactive schedule accepts exactly three fields through this endpoint: status, invoiceNumberPrefix and invoiceNumberBase. Any other field is rejected. Use the activate endpoint to reactivate it.",
+        "description": "Partially updates an invoice schedule using JSON Merge Patch (RFC 7396) semantics: only fields present in the request body are changed and omitted fields remain unchanged. Supports optimistic locking through If-Match.\n\nInvoice numbering: invoiceNumberPrefix and invoiceNumberBase follow the same merge-patch rule, so omitting a field leaves it unchanged. A schedule created without numbering can have it set once through this endpoint, as long as it has not generated an invoice yet: invoiceNumberPrefix alone for prefix-only numbering, or invoiceNumberPrefix together with invoiceNumberBase for sequential numbering; invoiceNumberBase without a prefix is rejected with 400 invoice_number_prefix_required. Once the prefix, or prefix and base, is set, the two fields are frozen: a patch that carries either of them is rejected with 400 invoice_numbering_locked, whether it changes the value, clears it with \"\" or repeats the stored value, and whether or not an invoice was generated yet; leave both fields out to update anything else. Setting numbering on a schedule that already generated unnumbered invoices is rejected with the same error, so every invoice of a schedule carries the numbering mode it was created with.\n\nAn inactive schedule accepts exactly three fields through this endpoint: status, invoiceNumberPrefix and invoiceNumberBase. Any other field is rejected. Use the activate endpoint to reactivate it.\n\nSetting status to inactive through this endpoint stops the schedule's future runs, exactly as the deactivate endpoint does, but it leaves endMonthYear unchanged. Use the deactivate endpoint when the schedule's end month should also be set to the current month in the schedule timezone.",
         "operationId": "Invoice Schedules#update",
         "parameters": [
           {
@@ -20565,9 +20686,10 @@
                   },
                   "invoiceNumberBase": "zbr",
                   "invoiceNumberLastUsed": "000041",
-                  "invoiceNumberNext": "000042",
+                  "invoiceNumberNext": "INV-000042",
                   "invoiceNumberPrefix": "gyp",
                   "invoiceNumberingEnabled": true,
+                  "invoiceNumberingMode": "sequential",
                   "invoiceTemplateId": "tmpl_9001",
                   "kind": "finops:invoice-schedule",
                   "nextInvoiceDate": "2026-09-05",
@@ -20913,9 +21035,10 @@
                   },
                   "invoiceNumberBase": "hpa",
                   "invoiceNumberLastUsed": "000041",
-                  "invoiceNumberNext": "000042",
+                  "invoiceNumberNext": "INV-000042",
                   "invoiceNumberPrefix": "nkl",
                   "invoiceNumberingEnabled": true,
+                  "invoiceNumberingMode": "sequential",
                   "invoiceTemplateId": "tmpl_9001",
                   "kind": "finops:invoice-schedule",
                   "nextInvoiceDate": "2026-09-05",
@@ -21238,9 +21361,10 @@
                   },
                   "invoiceNumberBase": "tf1",
                   "invoiceNumberLastUsed": "000041",
-                  "invoiceNumberNext": "000042",
+                  "invoiceNumberNext": "INV-000042",
                   "invoiceNumberPrefix": "k2p",
                   "invoiceNumberingEnabled": true,
+                  "invoiceNumberingMode": "sequential",
                   "invoiceTemplateId": "tmpl_9001",
                   "kind": "finops:invoice-schedule",
                   "nextInvoiceDate": "2026-09-05",
@@ -21447,7 +21571,7 @@
     },
     "/finops-billing/v1/orgs/{orgId}/invoice-schedules/{scheduleId}/invoices": {
       "get": {
-        "description": "Lists invoices generated by the specified invoice schedule.\n\nThe invoiceNumber query parameter filters on an exact, case-sensitive invoice number. invoiceNumber is also accepted in orderBy, ascending and descending. Invoices sort numerically by their allocated sequence number; invoices without a number come last in both directions, and ties are broken by id.",
+        "description": "Lists invoices generated by the specified invoice schedule.\n\nThe invoiceNumber query parameter filters on an exact, case-sensitive invoice number. invoiceNumber is also accepted in orderBy, ascending and descending. Invoices with a sequence number sort numerically by it; invoices numbered with a prefix only follow, in byte order of the invoice number; invoices without a number come last in both directions, and ties are broken by id.",
         "operationId": "Invoice Schedule Invoices#index",
         "parameters": [
           {
@@ -21465,13 +21589,13 @@
           {
             "allowEmptyValue": true,
             "description": "Page size (default 10, max 200).",
-            "example": 154,
+            "example": 34,
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 10,
               "description": "Page size (default 10, max 200).",
-              "example": 77,
+              "example": 177,
               "maximum": 200,
               "minimum": 1,
               "type": "integer"
@@ -21480,12 +21604,12 @@
           {
             "allowEmptyValue": true,
             "description": "Optional generation status filter.",
-            "example": "Id ea quisquam facilis sint vitae et.",
+            "example": "Aut repellendus.",
             "in": "query",
             "name": "status",
             "schema": {
               "description": "Optional generation status filter.",
-              "example": "Id beatae nemo deserunt cum.",
+              "example": "Facilis sint vitae et quisquam qui doloremque.",
               "type": "string"
             }
           },
@@ -21523,12 +21647,12 @@
           {
             "allowEmptyValue": true,
             "description": "Optional bill month filter.",
-            "example": "Mrs. Emory Hagenes",
+            "example": "Ethel Bruen",
             "in": "query",
             "name": "billMonth",
             "schema": {
               "description": "Optional bill month filter.",
-              "example": "Lizeth Heller",
+              "example": "Marquis Larson",
               "pattern": "^\\d{4}-\\d{2}$",
               "type": "string"
             }
@@ -21536,7 +21660,7 @@
           {
             "allowEmptyValue": true,
             "description": "Optional export type filter.",
-            "example": "pdf",
+            "example": "csv",
             "in": "query",
             "name": "exportType",
             "schema": {
@@ -21545,43 +21669,43 @@
                 "pdf",
                 "csv"
               ],
-              "example": "pdf",
+              "example": "csv",
               "type": "string"
             }
           },
           {
             "allowEmptyValue": true,
             "description": "Optional customer name filter.",
-            "example": "Quo aut qui atque.",
+            "example": "Qui atque quibusdam neque placeat asperiores id.",
             "in": "query",
             "name": "customerName",
             "schema": {
               "description": "Optional customer name filter.",
-              "example": "Iure voluptatem odit eos eveniet quod.",
+              "example": "Quod inventore quo.",
               "type": "string"
             }
           },
           {
             "allowEmptyValue": true,
             "description": "Optional cost metric filter.",
-            "example": "Id repellendus cumque.",
+            "example": "Consequuntur magnam ut nesciunt.",
             "in": "query",
             "name": "costMetric",
             "schema": {
               "description": "Optional cost metric filter.",
-              "example": "Neque placeat.",
+              "example": "Cumque quam.",
               "type": "string"
             }
           },
           {
             "allowEmptyValue": true,
             "description": "Optional billing plan filter.",
-            "example": "Quia exercitationem.",
+            "example": "Eius doloremque saepe facere veritatis molestiae.",
             "in": "query",
             "name": "customerBillingPlan",
             "schema": {
               "description": "Optional billing plan filter.",
-              "example": "Non consequuntur magnam ut.",
+              "example": "Exercitationem exercitationem aliquam aut voluptas dolore explicabo.",
               "type": "string"
             }
           },
@@ -22134,13 +22258,13 @@
           {
             "allowEmptyValue": true,
             "description": "Page size (default 50, max 200)",
-            "example": 94,
+            "example": 50,
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 50,
               "description": "Page size (default 50, max 200)",
-              "example": 143,
+              "example": 136,
               "maximum": 200,
               "minimum": 1,
               "type": "integer"
@@ -23231,13 +23355,13 @@
           {
             "allowEmptyValue": true,
             "description": "Page size (default 10, max 200)",
-            "example": 26,
+            "example": 33,
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 10,
               "description": "Page size (default 10, max 200)",
-              "example": 111,
+              "example": 53,
               "maximum": 200,
               "minimum": 1,
               "type": "integer"
@@ -23246,12 +23370,12 @@
           {
             "allowEmptyValue": true,
             "description": "Optional status filter.",
-            "example": "Veniam ad illo a ipsa eveniet.",
+            "example": "Sed dolorem reprehenderit commodi.",
             "in": "query",
             "name": "status",
             "schema": {
               "description": "Optional status filter.",
-              "example": "Nobis maxime repudiandae incidunt sunt dolores porro.",
+              "example": "A ipsa eveniet dolor odio beatae.",
               "type": "string"
             }
           },
@@ -23289,12 +23413,12 @@
           {
             "allowEmptyValue": true,
             "description": "Optional bill month filter.",
-            "example": "Georgiana Boyle",
+            "example": "Alysson Sporer",
             "in": "query",
             "name": "billMonth",
             "schema": {
               "description": "Optional bill month filter.",
-              "example": "Emmet Hahn",
+              "example": "Wilton Hahn",
               "pattern": "^\\d{4}-\\d{2}$",
               "type": "string"
             }
@@ -23302,7 +23426,7 @@
           {
             "allowEmptyValue": true,
             "description": "Optional export type filter.",
-            "example": "pdf",
+            "example": "csv",
             "in": "query",
             "name": "exportType",
             "schema": {
@@ -23311,31 +23435,31 @@
                 "pdf",
                 "csv"
               ],
-              "example": "pdf",
+              "example": "csv",
               "type": "string"
             }
           },
           {
             "allowEmptyValue": true,
             "description": "Optional customer name filter.",
-            "example": "Ratione atque.",
+            "example": "Vitae maiores.",
             "in": "query",
             "name": "customerName",
             "schema": {
               "description": "Optional customer name filter.",
-              "example": "Saepe a sequi eligendi omnis non.",
+              "example": "Atque dolorum.",
               "type": "string"
             }
           },
           {
             "allowEmptyValue": true,
             "description": "Legacy substring search of the stored invoice generation filter JSON. This parameter does not accept OData expressions.",
-            "example": "Tenetur maxime recusandae.",
+            "example": "Amet deserunt.",
             "in": "query",
             "name": "filter",
             "schema": {
               "description": "Legacy substring search of the stored invoice generation filter JSON. This parameter does not accept OData expressions.",
-              "example": "Est vitae maiores.",
+              "example": "Tenetur maxime recusandae.",
               "type": "string"
             }
           },
@@ -23354,12 +23478,12 @@
           {
             "allowEmptyValue": true,
             "description": "Optional group-by dimension count filter.",
-            "example": 532853165886189060,
+            "example": 8768693368080681000,
             "in": "query",
             "name": "groupByCount",
             "schema": {
               "description": "Optional group-by dimension count filter.",
-              "example": 12305092808851163000,
+              "example": 1752946876092730000,
               "type": "integer"
             }
           },
@@ -23749,7 +23873,7 @@
         ]
       },
       "post": {
-        "description": "Creates invoice exports for one or more customers.\n\nThe invoice configuration can be supplied in one of four ways:\n\n- direct fields: provide exportType, periodType, costMetric, and displayLogoWithinPdf without a template source\n- existing template: provide invoiceTemplateId; omitted root configuration fields use the saved template's values\n- create saved template: provide isCreateTemplate=true and template with templateName; the new template is used and its ID is returned\n- one-time template: provide template without templateName and with isCreateTemplate=false (or omitted); it supplies omitted root configuration fields but is not saved\n\nEach customer may carry an optional invoiceNumber. It is immutable after creation, and duplicates are allowed. The number of a generated invoice is allocated only after bill-lock passes; a failed generation keeps its number and a retry reuses it. If the invoice number sequence is exhausted the whole call fails with 409 invoice_number_sequence_exhausted (not retryable) and work already completed for earlier customers in the call is retained.\n\nRoot configuration fields always override their corresponding template value when present. template cannot be combined with invoiceTemplateId. The four required root configuration fields (exportType, periodType, costMetric, displayLogoWithinPdf) are required only when neither invoiceTemplateId nor template is supplied. exportLayout is optional: PDF exports default to flatten, while nested selects the nested layout. Values are exact lowercase flatten or nested; omit exportLayout for CSV exports.",
+        "description": "Creates invoice exports for one or more customers.\n\nThe invoice configuration can be supplied in one of four ways:\n\n- direct fields: provide exportType, periodType, costMetric, and displayLogoWithinPdf without a template source\n- existing template: provide invoiceTemplateId; omitted root configuration fields use the saved template's values\n- create saved template: provide isCreateTemplate=true and template with templateName; the new template is used and its ID is returned\n- one-time template: provide template without templateName and with isCreateTemplate=false (or omitted); it supplies omitted root configuration fields but is not saved\n\nEach customer may carry an optional invoiceNumberPrefix and, with it, an optional invoiceNumber; the invoice's number is the prefix followed by the number, or the prefix alone, and the combined value must not exceed 29 characters. The prefix is the required part: an invoiceNumber without an invoiceNumberPrefix is rejected with 400 invoice_number_prefix_required. The number is immutable after creation, and duplicates are allowed. The number of a generated invoice is allocated only after bill-lock passes; a failed generation keeps its number and a retry reuses it.\n\nRoot configuration fields always override their corresponding template value when present. template cannot be combined with invoiceTemplateId. The four required root configuration fields (exportType, periodType, costMetric, displayLogoWithinPdf) are required only when neither invoiceTemplateId nor template is supplied. exportLayout is optional: PDF exports default to flatten, while nested selects the nested layout. Values are exact lowercase flatten or nested; omit exportLayout for CSV exports.",
         "operationId": "Invoices#create",
         "parameters": [
           {
@@ -23770,37 +23894,40 @@
           "content": {
             "application/json": {
               "example": {
-                "costMetric": "modifiedEffectiveCost",
+                "costMetric": "billedCost",
                 "customers": [
                   {
                     "customerBillingPlan": "Pariatur necessitatibus corrupti.",
                     "customerId": 7491482402168278000,
                     "customerName": "Officiis eum.",
-                    "invoiceNumber": "y0u"
+                    "invoiceNumber": "1zi",
+                    "invoiceNumberPrefix": "y0u"
                   },
                   {
                     "customerBillingPlan": "Pariatur necessitatibus corrupti.",
                     "customerId": 7491482402168278000,
                     "customerName": "Officiis eum.",
-                    "invoiceNumber": "y0u"
+                    "invoiceNumber": "1zi",
+                    "invoiceNumberPrefix": "y0u"
                   },
                   {
                     "customerBillingPlan": "Pariatur necessitatibus corrupti.",
                     "customerId": 7491482402168278000,
                     "customerName": "Officiis eum.",
-                    "invoiceNumber": "y0u"
+                    "invoiceNumber": "1zi",
+                    "invoiceNumberPrefix": "y0u"
                   }
                 ],
                 "dimensions": [
-                  "Aperiam perspiciatis reiciendis quia omnis praesentium.",
-                  "Pariatur et.",
+                  "Reiciendis quia.",
+                  "Praesentium eaque pariatur et.",
                   "Ab quos fuga."
                 ],
                 "displayLogoWithinPdf": false,
-                "dueDate": "2014-10-11",
-                "endDate": "1977-10-29",
-                "exportLayout": "flatten",
-                "exportType": "csv",
+                "dueDate": "1989-02-23",
+                "endDate": "1999-11-12",
+                "exportLayout": "nested",
+                "exportType": "pdf",
                 "filter": {
                   "dimension": "Aut facilis autem non non eum.",
                   "expressions": [
@@ -23815,10 +23942,10 @@
                 "freeText": "Adipisci hic velit delectus adipisci molestiae.",
                 "invoiceTemplateId": "Consequuntur voluptas aut.",
                 "isCreateTemplate": false,
-                "issueDate": "1978-01-12",
+                "issueDate": "1988-08-26",
                 "logo": "Enim accusamus.",
-                "periodType": "billPeriod",
-                "startDate": "1997-06-30",
+                "periodType": "billingPeriod",
+                "startDate": "1990-11-14",
                 "template": {
                   "costMetric": "billedCost",
                   "dimensions": [
@@ -24151,7 +24278,7 @@
                 }
               }
             },
-            "description": "invoice_number_sequence_exhausted: the invoice number sequence is exhausted. Not retryable: the whole call fails, and work already completed for earlier customers in the call is retained"
+            "description": "conflict: Conflict response."
           },
           "422": {
             "content": {
@@ -24265,13 +24392,13 @@
           },
           {
             "description": "Invoice export identifier",
-            "example": "Quia rem asperiores eos perferendis.",
+            "example": "Voluptas quia.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
               "description": "Invoice export identifier",
-              "example": "Praesentium velit.",
+              "example": "Quia rem asperiores eos perferendis.",
               "type": "string"
             }
           }
@@ -24508,13 +24635,13 @@
           },
           {
             "description": "Invoice export identifier",
-            "example": "Veritatis atque pariatur accusantium corrupti aut.",
+            "example": "Nobis nulla autem.",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
               "description": "Invoice export identifier",
-              "example": "Voluptas quia.",
+              "example": "Veritatis atque pariatur accusantium corrupti aut.",
               "type": "string"
             }
           }
