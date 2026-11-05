@@ -209,7 +209,7 @@ cd generator && go run . validate enabled-flexera
 4. Normalises each service document:
    - strips per-service `servers` blocks (replaced by a single canonical server)
    - collapses OpenAPI 3.1 `anyOf: [..., {type: null}]` to `nullable: true`
-   - stamps `x-go-type: interface{}` on `format: binary` value schemas
+   - stamps `x-go-type: interface{}` on `type: string, format: binary` schemas used as JSON (Goa's `Any`), leaving real file payloads — inline under non-JSON media types, or components referenced only from them — as `openapi_types.File`
    - enriches the OIDC token endpoint with form-encoded request body
 5. Prefixes all component names and operation IDs with the service slug (e.g. `Policy_`, `Budget_`) to avoid cross-spec collisions.
 6. Merges all service documents into a single spec with one canonical `servers` entry.

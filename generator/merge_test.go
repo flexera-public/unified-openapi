@@ -288,6 +288,78 @@ func TestNormalizeBinaryJSONSchemaGoTypes_StampsXGoType(t *testing.T) {
 	}
 }
 
+func TestNormalizeBinaryJSONSchemaGoTypes_SkipsComponentsOnlyReferencedFromNonJSON(t *testing.T) {
+	binary := func() map[string]interface{} {
+		return map[string]interface{}{"type": "string", "format": "binary"}
+	}
+	ref := func(name string) map[string]interface{} {
+		return map[string]interface{}{"$ref": "#/components/schemas/" + name}
+	}
+	withBinary := func(extra map[string]interface{}) map[string]interface{} {
+		props := map[string]interface{}{"file": binary()}
+		for k, v := range extra {
+			props[k] = v
+		}
+		return map[string]interface{}{"type": "object", "properties": props}
+	}
+	content := func(mediaType, schema string) map[string]interface{} {
+		return map[string]interface{}{mediaType: map[string]interface{}{"schema": ref(schema)}}
+	}
+	doc := map[string]interface{}{
+		"paths": map[string]interface{}{
+			"/upload": map[string]interface{}{
+				"post": map[string]interface{}{
+					"requestBody": map[string]interface{}{"content": content("multipart/form-data", "UploadBody")},
+					"responses": map[string]interface{}{
+						"200": map[string]interface{}{"content": content("application/json", "Shared")},
+					},
+				},
+			},
+			"/shared": map[string]interface{}{
+				"post": map[string]interface{}{
+					"requestBody": map[string]interface{}{"content": content("multipart/form-data", "Shared")},
+				},
+			},
+			"/reused": map[string]interface{}{
+				"post": map[string]interface{}{
+					"requestBody": map[string]interface{}{"$ref": "#/components/requestBodies/OctetBody"},
+				},
+			},
+		},
+		"components": map[string]interface{}{
+			"requestBodies": map[string]interface{}{
+				"OctetBody": map[string]interface{}{"content": content("application/octet-stream", "OctetPayload")},
+			},
+			"schemas": map[string]interface{}{
+				"UploadBody":   withBinary(map[string]interface{}{"meta": ref("UploadMeta")}),
+				"UploadMeta":   withBinary(nil),
+				"Shared":       withBinary(nil),
+				"OctetPayload": withBinary(nil),
+				"Unreferenced": withBinary(nil),
+			},
+		},
+	}
+
+	normalizeBinaryJSONSchemaGoTypes(doc)
+
+	schemas := doc["components"].(map[string]interface{})["schemas"].(map[string]interface{})
+	fileStamped := func(name string) bool {
+		file := schemas[name].(map[string]interface{})["properties"].(map[string]interface{})["file"].(map[string]interface{})
+		return file["x-go-type"] == "interface{}"
+	}
+	for name, want := range map[string]bool{
+		"UploadBody":   false, // multipart only
+		"UploadMeta":   false, // reached only through a multipart-only schema
+		"OctetPayload": false, // multipart only, via components/requestBodies
+		"Shared":       true,  // also used as a JSON response
+		"Unreferenced": true,  // default to JSON semantics
+	} {
+		if got := fileStamped(name); got != want {
+			t.Errorf("%s.file stamped = %v, want %v", name, got, want)
+		}
+	}
+}
+
 func TestNormalizeTextTabs_ReplacesTabsRecursively(t *testing.T) {
 	doc := map[string]interface{}{
 		"description": "line one\n\tline two",

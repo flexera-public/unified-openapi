@@ -3910,6 +3910,7 @@ components:
                         foo: bar
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 created_at:
                     description: Creation timestamp
                     example: "2018-01-01T00:00:00Z"
@@ -54133,6 +54134,7 @@ components:
                           tags: {}
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 name:
                     description: name is the unique name of the datasource.
                     example: ds_aws_account
@@ -58612,6 +58614,7 @@ components:
                         example: "80"
                         format: binary
                         type: string
+                        x-go-type: interface{}
                     type: array
                 category:
                     description: The category used to group parameters.
@@ -58626,6 +58629,7 @@ components:
                     example: "8080"
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 description:
                     description: Description of the parameter.
                     example: The TCP/UDP port numbers that are allowed to be open
@@ -68137,6 +68141,7 @@ components:
                     example: eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 annualCost:
                     description: Annual cost for the license term
                     example: 25000
@@ -70976,6 +70981,7 @@ components:
                     example: eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 createdAt:
                     description: Date and time record of creation of license term.
                     example: "2019-10-15T16:05:36.1000Z"
@@ -72257,6 +72263,7 @@ components:
                     example: eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 annualCost:
                     description: Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -> SaaS Settings -> General within app.flexera.com.
                     example: 25000
@@ -73043,6 +73050,7 @@ components:
                     example: eyJhZGRpdGlvbmFsSW5mbzEiOjEsImFkZGl0aW9uYWxJbmZvMiI6InR3byJ9
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 associatedManagedApp:
                     $ref: '#/components/schemas/Saas_FlexeraFsmAssociatedmanagedapp'
                 associatedPerson:
@@ -79715,6 +79723,7 @@ components:
                     example: eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 annualCost:
                     description: Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -> SaaS Settings -> General within app.flexera.com.
                     example: 25000
@@ -80217,6 +80226,7 @@ components:
                     example: eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 annualCost:
                     description: Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -> SaaS Settings -> General within app.flexera.com.
                     example: 25000
@@ -80666,6 +80676,7 @@ components:
                     example: eyJhZGRpdGlvbmFsSW5mbzEiOjEsImFkZGl0aW9uYWxJbmZvMiI6InR3byJ9
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 associatedManagedApp:
                     $ref: '#/components/schemas/Saas_AssociatedManagedAppResponseBody'
                 deactivatedAt:
@@ -80736,6 +80747,7 @@ components:
                     example: eyJhZGRpdGlvbmFsSW5mbzEiOjEsImFkZGl0aW9uYWxJbmZvMiI6InR3byJ9
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 associatedManagedApp:
                     $ref: '#/components/schemas/Saas_AssociatedManagedAppResponseBody'
                 associatedPerson:
@@ -86106,6 +86118,7 @@ components:
                     example: eyJhZGRpdGlvbmFsSW5mbzEiOjEsImFkZGl0aW9uYWxJbmZvMiI6InR3byJ9
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 associatedManagedApp:
                     $ref: '#/components/schemas/Saas_AssociatedManagedAppResponseBody'
                 associatedPerson:
@@ -86309,6 +86322,7 @@ components:
                     example: '{"product_name":"Sample Product"}'
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 effectiveAt:
                     description: Start date associated with license agreement.
                     example: "2019-10-15T16:05:36.1000Z"
@@ -86519,6 +86533,7 @@ components:
                     example: '{"product_name":"Sample Product"}'
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 effectiveAt:
                     description: Start date associated with license agreement.
                     example: "2019-10-15T16:05:36.1000Z"
@@ -86703,6 +86718,7 @@ components:
                     example: '{"product_name":"Sample Product"}'
                     format: binary
                     type: string
+                    x-go-type: interface{}
                 effectiveAt:
                     description: Start date associated with license agreement.
                     example: "2019-10-15T16:05:36.1000Z"
@@ -124486,6 +124502,7 @@ paths:
                             schema:
                                 format: binary
                                 type: string
+                                x-go-type: interface{}
                     description: OK response.
                     headers:
                         Content-Encoding:
@@ -124675,6 +124692,7 @@ paths:
                             schema:
                                 format: binary
                                 type: string
+                                x-go-type: interface{}
                     description: OK response.
                     headers:
                         Content-Encoding:

@@ -5294,7 +5294,8 @@
               "foo": "bar"
             },
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "created_at": {
             "description": "Creation timestamp",
@@ -70439,7 +70440,8 @@
               }
             ],
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "name": {
             "description": "name is the unique name of the datasource.",
@@ -75891,7 +75893,8 @@
             "items": {
               "example": "80",
               "format": "binary",
-              "type": "string"
+              "type": "string",
+              "x-go-type": "interface{}"
             },
             "type": "array"
           },
@@ -75909,7 +75912,8 @@
             "description": "The default value for the parameter.",
             "example": "8080",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "description": {
             "description": "Description of the parameter.",
@@ -87797,7 +87801,8 @@
             "description": "Base64 encoding of json formatted vendor supplied license term information",
             "example": "eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "annualCost": {
             "description": "Annual cost for the license term",
@@ -91617,7 +91622,8 @@
             "description": "Base64 encoding of json formatted vendor supplied license term information.",
             "example": "eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "createdAt": {
             "description": "Date and time record of creation of license term.",
@@ -93229,7 +93235,8 @@
             "description": "Base64 encoding of json formatted vendor supplied managed application information",
             "example": "eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "annualCost": {
             "description": "Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -\u003e SaaS Settings -\u003e General within app.flexera.com.",
@@ -94235,7 +94242,8 @@
             "description": "Base64 encoding of json formatted vendor supplied managed application user information",
             "example": "eyJhZGRpdGlvbmFsSW5mbzEiOjEsImFkZGl0aW9uYWxJbmZvMiI6InR3byJ9",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "associatedManagedApp": {
             "$ref": "#/components/schemas/Saas_FlexeraFsmAssociatedmanagedapp"
@@ -102894,7 +102902,8 @@
             "description": "Base64 encoding of json formatted vendor supplied managed application information",
             "example": "eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "annualCost": {
             "description": "Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -\u003e SaaS Settings -\u003e General within app.flexera.com.",
@@ -103532,7 +103541,8 @@
             "description": "Base64 encoding of json formatted vendor supplied managed application information",
             "example": "eyJvcmdJZCI6InNmb3JnaWQwMDAxIiwib3JnTmFtZSI6InNmT3JnTmFtZSJ9",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "annualCost": {
             "description": "Annual cost for the managed application. The currency (default is USD) can be set globally in Administration -\u003e SaaS Settings -\u003e General within app.flexera.com.",
@@ -104103,7 +104113,8 @@
             "description": "Base64 encoding of json formatted vendor supplied managed application user information",
             "example": "eyJhZGRpdGlvbmFsSW5mbzEiOjEsImFkZGl0aW9uYWxJbmZvMiI6InR3byJ9",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "associatedManagedApp": {
             "$ref": "#/components/schemas/Saas_AssociatedManagedAppResponseBody"
@@ -104190,7 +104201,8 @@
             "description": "Base64 encoding of json formatted vendor supplied managed application user information",
             "example": "eyJhZGRpdGlvbmFsSW5mbzEiOjEsImFkZGl0aW9uYWxJbmZvMiI6InR3byJ9",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "associatedManagedApp": {
             "$ref": "#/components/schemas/Saas_AssociatedManagedAppResponseBody"
@@ -111283,7 +111295,8 @@
             "description": "Base64 encoding of json formatted vendor supplied managed application user information",
             "example": "eyJhZGRpdGlvbmFsSW5mbzEiOjEsImFkZGl0aW9uYWxJbmZvMiI6InR3byJ9",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "associatedManagedApp": {
             "$ref": "#/components/schemas/Saas_AssociatedManagedAppResponseBody"
@@ -111549,7 +111562,8 @@
             "description": "JSON encoded map of additional license term information (if any).",
             "example": "{\"product_name\":\"Sample Product\"}",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "effectiveAt": {
             "description": "Start date associated with license agreement.",
@@ -111820,7 +111834,8 @@
             "description": "JSON encoded map of additional license term information (if any).",
             "example": "{\"product_name\":\"Sample Product\"}",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "effectiveAt": {
             "description": "Start date associated with license agreement.",
@@ -112058,7 +112073,8 @@
             "description": "JSON encoded map of additional license term information (if any).",
             "example": "{\"product_name\":\"Sample Product\"}",
             "format": "binary",
-            "type": "string"
+            "type": "string",
+            "x-go-type": "interface{}"
           },
           "effectiveAt": {
             "description": "Start date associated with license agreement.",
@@ -165805,7 +165821,8 @@
               "application/json": {
                 "schema": {
                   "format": "binary",
-                  "type": "string"
+                  "type": "string",
+                  "x-go-type": "interface{}"
                 }
               }
             },
@@ -166058,7 +166075,8 @@
               "application/json": {
                 "schema": {
                   "format": "binary",
-                  "type": "string"
+                  "type": "string",
+                  "x-go-type": "interface{}"
                 }
               }
             },

@@ -530,8 +530,36 @@ func normalizeTokenDocument(doc map[string]interface{}) (map[string]interface{},
 // Goa emits its `Any` type that way, but in JSON payloads the API carries
 // arbitrary JSON (objects, arrays, scalars); oapi-codegen would otherwise
 // emit openapi_types.File, which only decodes base64 strings. Real file
-// payloads live under multipart/octet-stream content and are left as-is.
-func normalizeBinaryJSONSchemaGoTypes(obj interface{}) {
+// payloads live under multipart/octet-stream content and are left as-is,
+// whether the schema is inline or a component referenced only from there.
+func normalizeBinaryJSONSchemaGoTypes(doc map[string]interface{}) {
+	skip := nonJSONOnlyComponentSchemas(doc)
+	for key, child := range doc {
+		if key != "components" {
+			stampBinaryJSONSchemas(child)
+			continue
+		}
+		components, ok := child.(map[string]interface{})
+		if !ok {
+			stampBinaryJSONSchemas(child)
+			continue
+		}
+		for section, sectionValue := range components {
+			schemas, ok := sectionValue.(map[string]interface{})
+			if section != "schemas" || !ok {
+				stampBinaryJSONSchemas(sectionValue)
+				continue
+			}
+			for name, schema := range schemas {
+				if !skip[name] {
+					stampBinaryJSONSchemas(schema)
+				}
+			}
+		}
+	}
+}
+
+func stampBinaryJSONSchemas(obj interface{}) {
 	switch v := obj.(type) {
 	case map[string]interface{}:
 		if typ, _ := v["type"].(string); typ == "string" {
@@ -543,20 +571,115 @@ func normalizeBinaryJSONSchemaGoTypes(obj interface{}) {
 			if key == "content" {
 				if media, ok := child.(map[string]interface{}); ok && isMediaTypeMap(media) {
 					for mediaType, mt := range media {
-						if strings.Contains(strings.ToLower(mediaType), "json") {
-							normalizeBinaryJSONSchemaGoTypes(mt)
+						if isJSONMediaType(mediaType) {
+							stampBinaryJSONSchemas(mt)
 						}
 					}
 					continue
 				}
 			}
-			normalizeBinaryJSONSchemaGoTypes(child)
+			stampBinaryJSONSchemas(child)
 		}
 	case []interface{}:
 		for _, child := range v {
-			normalizeBinaryJSONSchemaGoTypes(child)
+			stampBinaryJSONSchemas(child)
 		}
 	}
+}
+
+// nonJSONOnlyComponentSchemas returns the names of components/schemas entries
+// that are reachable (transitively via $ref) from non-JSON media types but not
+// from any JSON or schema-typed context such as parameters or JSON bodies.
+func nonJSONOnlyComponentSchemas(doc map[string]interface{}) map[string]bool {
+	const schemaRefPrefix = "#/components/schemas/"
+	var schemas map[string]interface{}
+	if components, ok := doc["components"].(map[string]interface{}); ok {
+		schemas, _ = components["schemas"].(map[string]interface{})
+	}
+
+	edges := map[string][]string{}
+	var jsonRoots, nonJSONRoots []string
+	var collect func(obj interface{}, nonJSON bool, add func(string, bool))
+	collect = func(obj interface{}, nonJSON bool, add func(string, bool)) {
+		switch v := obj.(type) {
+		case map[string]interface{}:
+			for key, child := range v {
+				if ref, ok := child.(string); ok && key == "$ref" {
+					if name, ok := strings.CutPrefix(ref, schemaRefPrefix); ok {
+						add(name, nonJSON)
+					}
+					continue
+				}
+				if key == "content" {
+					if media, ok := child.(map[string]interface{}); ok && isMediaTypeMap(media) {
+						for mediaType, mt := range media {
+							collect(mt, nonJSON || !isJSONMediaType(mediaType), add)
+						}
+						continue
+					}
+				}
+				collect(child, nonJSON, add)
+			}
+		case []interface{}:
+			for _, child := range v {
+				collect(child, nonJSON, add)
+			}
+		}
+	}
+
+	addRoot := func(name string, nonJSON bool) {
+		if nonJSON {
+			nonJSONRoots = append(nonJSONRoots, name)
+		} else {
+			jsonRoots = append(jsonRoots, name)
+		}
+	}
+	for key, child := range doc {
+		if key != "components" {
+			collect(child, false, addRoot)
+			continue
+		}
+		components, ok := child.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		for section, sectionValue := range components {
+			if section != "schemas" {
+				collect(sectionValue, false, addRoot)
+			}
+		}
+	}
+	for name, schema := range schemas {
+		from := name
+		collect(schema, false, func(to string, _ bool) { edges[from] = append(edges[from], to) })
+	}
+
+	reach := func(roots []string) map[string]bool {
+		seen := map[string]bool{}
+		stack := append([]string(nil), roots...)
+		for len(stack) > 0 {
+			name := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			if seen[name] {
+				continue
+			}
+			seen[name] = true
+			stack = append(stack, edges[name]...)
+		}
+		return seen
+	}
+	fromJSON := reach(jsonRoots)
+	skip := map[string]bool{}
+	for name := range reach(nonJSONRoots) {
+		if !fromJSON[name] {
+			skip[name] = true
+		}
+	}
+	return skip
+}
+
+func isJSONMediaType(mediaType string) bool {
+	return strings.Contains(strings.ToLower(mediaType), "json")
 }
 
 // isMediaTypeMap reports whether m is an OpenAPI `content` map (keys are
