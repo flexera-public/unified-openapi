@@ -464,7 +464,7 @@ func normalizeServiceDocument(doc map[string]interface{}, spec SpecConfig) (map[
 
 	normalizeNullableSchemas(clone)
 	normalizeArrayUnionSchemas(clone)
-	normalizeBinaryValueSchemaGoTypes(clone)
+	normalizeBinaryJSONSchemaGoTypes(clone)
 	normalizeOrgPathParameterName(clone)
 	normalizePathTemplateParameterNames(clone)
 
@@ -515,7 +515,7 @@ func normalizeTokenDocument(doc map[string]interface{}) (map[string]interface{},
 
 	namespace := componentNamespace("auth")
 	normalizeNullableSchemas(normalized)
-	normalizeBinaryValueSchemaGoTypes(normalized)
+	normalizeBinaryJSONSchemaGoTypes(normalized)
 	renameMap := prefixComponentNames(normalized, namespace)
 	rewriteRefs(normalized, renameMap)
 	prefixOperationIDs(normalized, namespace)
@@ -525,33 +525,52 @@ func normalizeTokenDocument(doc map[string]interface{}) (map[string]interface{},
 	return normalized, nil
 }
 
-// normalizeBinaryValueSchemaGoTypes patches schema properties named "value"
-// that are incorrectly modeled as type=string, format=binary while the API
-// actually carries arbitrary JSON scalars/arrays/objects. We keep the OpenAPI
-// shape intact for downstream heuristics, but stamp x-go-type so oapi-codegen
-// emits interface{} instead of openapi_types.File in generated clients.
-func normalizeBinaryValueSchemaGoTypes(obj interface{}) {
+// normalizeBinaryJSONSchemaGoTypes stamps x-go-type: interface{} on every
+// type=string, format=binary schema reachable outside non-JSON media types.
+// Goa emits its `Any` type that way, but in JSON payloads the API carries
+// arbitrary JSON (objects, arrays, scalars); oapi-codegen would otherwise
+// emit openapi_types.File, which only decodes base64 strings. Real file
+// payloads live under multipart/octet-stream content and are left as-is.
+func normalizeBinaryJSONSchemaGoTypes(obj interface{}) {
 	switch v := obj.(type) {
 	case map[string]interface{}:
-		if props, ok := v["properties"].(map[string]interface{}); ok {
-			if rawValueSchema, exists := props["value"]; exists {
-				if valueSchema, ok := rawValueSchema.(map[string]interface{}); ok {
-					if typ, _ := valueSchema["type"].(string); typ == "string" {
-						if format, _ := valueSchema["format"].(string); format == "binary" {
-							valueSchema["x-go-type"] = "interface{}"
-						}
-					}
-				}
+		if typ, _ := v["type"].(string); typ == "string" {
+			if format, _ := v["format"].(string); format == "binary" {
+				v["x-go-type"] = "interface{}"
 			}
 		}
-		for _, child := range v {
-			normalizeBinaryValueSchemaGoTypes(child)
+		for key, child := range v {
+			if key == "content" {
+				if media, ok := child.(map[string]interface{}); ok && isMediaTypeMap(media) {
+					for mediaType, mt := range media {
+						if strings.Contains(strings.ToLower(mediaType), "json") {
+							normalizeBinaryJSONSchemaGoTypes(mt)
+						}
+					}
+					continue
+				}
+			}
+			normalizeBinaryJSONSchemaGoTypes(child)
 		}
 	case []interface{}:
 		for _, child := range v {
-			normalizeBinaryValueSchemaGoTypes(child)
+			normalizeBinaryJSONSchemaGoTypes(child)
 		}
 	}
+}
+
+// isMediaTypeMap reports whether m is an OpenAPI `content` map (keys are
+// MIME types) rather than a schema property that happens to be named content.
+func isMediaTypeMap(m map[string]interface{}) bool {
+	if len(m) == 0 {
+		return false
+	}
+	for k := range m {
+		if !strings.Contains(k, "/") {
+			return false
+		}
+	}
+	return true
 }
 
 func cloneDocument(doc map[string]interface{}) (map[string]interface{}, error) {

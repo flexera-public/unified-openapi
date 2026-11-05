@@ -221,45 +221,70 @@ func TestNormalizeArrayUnionSchemas_CollapsesArrayAnyOf(t *testing.T) {
 	}
 }
 
-func TestNormalizeBinaryValueSchemaGoTypes_StampsXGoType(t *testing.T) {
+func TestNormalizeBinaryJSONSchemaGoTypes_StampsXGoType(t *testing.T) {
+	binary := func() map[string]interface{} {
+		return map[string]interface{}{"type": "string", "format": "binary"}
+	}
 	doc := map[string]interface{}{
-		"components": map[string]interface{}{
-			"schemas": map[string]interface{}{
-				"Policy_ConfigurationOptionCreateType": map[string]interface{}{
-					"type": "object",
-					"properties": map[string]interface{}{
-						"value": map[string]interface{}{
-							"type":   "string",
-							"format": "binary",
-						},
-						"name": map[string]interface{}{
-							"type": "string",
+		"paths": map[string]interface{}{
+			"/upload": map[string]interface{}{
+				"post": map[string]interface{}{
+					"requestBody": map[string]interface{}{
+						"content": map[string]interface{}{
+							"multipart/form-data": map[string]interface{}{
+								"schema": map[string]interface{}{
+									"type":       "object",
+									"properties": map[string]interface{}{"file": binary()},
+								},
+							},
 						},
 					},
 				},
-				"UnrelatedSchema": map[string]interface{}{
+			},
+		},
+		"components": map[string]interface{}{
+			"schemas": map[string]interface{}{
+				"Policy_ConfigurationOptionCreateType": map[string]interface{}{
+					"type":       "object",
+					"properties": map[string]interface{}{"value": binary(), "name": map[string]interface{}{"type": "string"}},
+				},
+				"Dashboard": map[string]interface{}{
 					"type": "object",
 					"properties": map[string]interface{}{
-						"value": map[string]interface{}{
-							"type": "string",
-						},
+						"config":  binary(),
+						"allowed": map[string]interface{}{"type": "array", "items": binary()},
+						"content": map[string]interface{}{"type": "object", "properties": map[string]interface{}{"blob": binary()}},
 					},
 				},
 			},
 		},
 	}
 
-	normalizeBinaryValueSchemaGoTypes(doc)
+	normalizeBinaryJSONSchemaGoTypes(doc)
 
+	stamped := func(m map[string]interface{}) bool { return m["x-go-type"] == "interface{}" }
 	schemas := doc["components"].(map[string]interface{})["schemas"].(map[string]interface{})
-	valueSchema := schemas["Policy_ConfigurationOptionCreateType"].(map[string]interface{})["properties"].(map[string]interface{})["value"].(map[string]interface{})
-	if got := valueSchema["x-go-type"]; got != "interface{}" {
-		t.Fatalf("expected x-go-type interface{}, got %v", got)
+	policyProps := schemas["Policy_ConfigurationOptionCreateType"].(map[string]interface{})["properties"].(map[string]interface{})
+	if !stamped(policyProps["value"].(map[string]interface{})) {
+		t.Errorf("value: expected x-go-type interface{}")
 	}
-
-	unrelatedValue := schemas["UnrelatedSchema"].(map[string]interface{})["properties"].(map[string]interface{})["value"].(map[string]interface{})
-	if _, exists := unrelatedValue["x-go-type"]; exists {
-		t.Fatalf("did not expect x-go-type on non-binary value schema")
+	if _, ok := policyProps["name"].(map[string]interface{})["x-go-type"]; ok {
+		t.Errorf("name: did not expect x-go-type on plain string")
+	}
+	dashProps := schemas["Dashboard"].(map[string]interface{})["properties"].(map[string]interface{})
+	if !stamped(dashProps["config"].(map[string]interface{})) {
+		t.Errorf("config: expected x-go-type interface{}")
+	}
+	if !stamped(dashProps["allowed"].(map[string]interface{})["items"].(map[string]interface{})) {
+		t.Errorf("allowed[]: expected x-go-type interface{} on array items")
+	}
+	blob := dashProps["content"].(map[string]interface{})["properties"].(map[string]interface{})["blob"].(map[string]interface{})
+	if !stamped(blob) {
+		t.Errorf("content.blob: property named content must not be treated as a media-type map")
+	}
+	file := doc["paths"].(map[string]interface{})["/upload"].(map[string]interface{})["post"].(map[string]interface{})["requestBody"].(map[string]interface{})["content"].(map[string]interface{})["multipart/form-data"].(map[string]interface{})["schema"].(map[string]interface{})["properties"].(map[string]interface{})["file"].(map[string]interface{})
+	if _, ok := file["x-go-type"]; ok {
+		t.Errorf("multipart file: did not expect x-go-type (real file upload)")
 	}
 }
 
