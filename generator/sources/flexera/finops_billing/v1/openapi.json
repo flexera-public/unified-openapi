@@ -134,13 +134,14 @@
             "type": "number"
           },
           "value": {
-            "description": "The specific dimension value that receives costs. Omitted for dynamicProportionateSplit, whose values come from telemetry.",
+            "description": "The specific dimension value that receives costs. Empty for dynamicProportionateSplit, whose destination names only the dimension and takes its values from telemetry.",
             "example": "Orion",
             "type": "string"
           }
         },
         "required": [
-          "dimensionId"
+          "dimensionId",
+          "value"
         ],
         "type": "object"
       },
@@ -165,7 +166,7 @@
             "type": "number"
           },
           "value": {
-            "description": "The specific dimension value that receives costs. Required for every type except dynamicProportionateSplit, where it must be omitted: that type names only the dimension.",
+            "description": "The specific dimension value that receives costs. Required for every type except dynamicProportionateSplit, where it is ignored: that type takes exactly one destination naming only the dimension, and its values come from telemetry.",
             "example": "Orion",
             "type": "string"
           }
@@ -10460,17 +10461,10 @@
               {
                 "dimensionId": "rbd_team",
                 "dimensionName": "Team",
-                "percentage": 50,
-                "value": "Orion"
-              },
-              {
-                "dimensionId": "rbd_team",
-                "dimensionName": "Team",
-                "percentage": 50,
-                "value": "Atlas"
+                "value": ""
               }
             ],
-            "type": "fixedPercentageSplit"
+            "type": "dynamicProportionateSplit"
           },
           "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8f%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
           "createdAt": "2020-11-26T12:17:38.369Z",
@@ -10560,7 +10554,7 @@
             "type": "integer"
           },
           "source": {
-            "description": "Dimensions that identify the costs to be reallocated. Multiple dimensions are combined using AND logic; only costs that satisfy every dimension are included. A rule has exactly one of source and sourceCondition.",
+            "description": "Dimensions that identify the costs to be reallocated. Multiple dimensions are combined using AND logic; only costs that satisfy every dimension are included. Empty when the rule uses sourceCondition, which then identifies the costs instead.",
             "example": [
               {
                 "dimensionId": "vendor",
@@ -10622,6 +10616,7 @@
           "name",
           "status",
           "effectiveFrom",
+          "source",
           "allocation",
           "priority",
           "createdAt",
@@ -10936,7 +10931,7 @@
           },
           "baseMonths": {
             "additionalProperties": true,
-            "description": "For every month (YYYYMM) with a valid row, the upload that last changed it when the diff was computed, or null if the month had no data. Empty for a new rule. A save that applies the upload fails with telemetry_upload_stale if any of these months has moved since.",
+            "description": "For every month (YYYYMM) with a valid row, the upload that last changed it when the diff was computed, or null if the month had no data. For a reset (the destination dimension differs from the rule's), every month the rule has stored. Empty for a new rule. A save that applies the upload fails with telemetry_upload_stale if any of these months has moved since.",
             "example": {
               "202609": "tu_01J9ZQ4M1A",
               "202610": null
@@ -11034,7 +11029,7 @@
             "type": "string"
           },
           "status": {
-            "description": "valid when the file has no errors, otherwise invalid. Further statuses may be added, so consumers must tolerate a value they do not recognize.",
+            "description": "valid when the file has no errors, otherwise invalid.",
             "enum": [
               "valid",
               "invalid"
@@ -11205,7 +11200,7 @@
             "type": "string"
           },
           "monthsTouched": {
-            "description": "Bill months (YYYY-MM) with at least one added, modified or deleted row, ascending. Reprocess these months to apply the change.",
+            "description": "Bill months (YYYY-MM) with at least one added, modified or deleted row, ascending. For a reset (the destination dimension changed), also every month the rule had stored before. Reprocess these months to apply the change.",
             "example": [
               "2026-09",
               "2026-10"
@@ -11362,7 +11357,7 @@
           },
           "baseMonths": {
             "additionalProperties": true,
-            "description": "For every month (YYYYMM) with a valid row, the upload that last changed it when the diff was computed, or null if the month had no data. Empty for a new rule. A save that applies the upload fails with telemetry_upload_stale if any of these months has moved since.",
+            "description": "For every month (YYYYMM) with a valid row, the upload that last changed it when the diff was computed, or null if the month had no data. For a reset (the destination dimension differs from the rule's), every month the rule has stored. Empty for a new rule. A save that applies the upload fails with telemetry_upload_stale if any of these months has moved since.",
             "example": {
               "202609": "tu_01J9ZQ4M1A",
               "202610": null
@@ -11427,7 +11422,7 @@
             "type": "string"
           },
           "status": {
-            "description": "valid when the file has no errors, otherwise invalid. Further statuses may be added, so consumers must tolerate a value they do not recognize.",
+            "description": "valid when the file has no errors, otherwise invalid.",
             "enum": [
               "valid",
               "invalid"
@@ -12276,7 +12271,7 @@
             "type": "string"
           },
           "telemetryUploadId": {
-            "description": "A valid staged telemetry upload for this rule, applied in the same save. Required when the save changes the type to dynamicProportionateSplit or changes a dynamic rule's destination dimension; not allowed when the rule's type after the save is not dynamicProportionateSplit.",
+            "description": "A valid staged telemetry upload for this rule, applied in the same save. Required when the save changes the type to dynamicProportionateSplit or changes a dynamic rule's destination dimension; not allowed when the rule's type after the save is not dynamicProportionateSplit. Saving again with an upload this rule already applied succeeds without applying it again.",
             "example": "tu_01JAB3K9Q2X7V5R8M4N6P0T1W3",
             "type": "string"
           }
@@ -12575,9 +12570,9 @@
     }
   },
   "info": {
-    "description": "With the FinOps Billing API, customers can adjust their billing data to fit their\nspecific needs. This flexibility supports chargebacks, reselling, and other transformations.\n\nInvoice schedules and schedule-generated invoices support OData-style expressions\nthrough the filter query parameter. Invoice templates retain their existing filter\ngrammar. Invoice lists use expressionFilter for expressions while preserving filter\nas a legacy substring search. Expression and existing filters are combined with AND.\n\nThe API is available at the following endpoints, dependent upon the user/tenant zone:\n| Zone        | Base URL    |\n| ----------- | ----------- |\n| NAM         | https://api.flexera.com/finops-billing |\n| EU          | https://api.flexera.eu/finops-billing  |\n| APAC        | https://api.flexera.au/finops-billing  |\n\n",
+    "description": "With the FinOps Billing API, customers can adjust their billing data to fit their\nspecific needs. This flexibility supports chargebacks, reselling, and other transformations.\n\nInvoice schedules and schedule-generated invoices support OData-style expressions\nthrough the filter query parameter. Invoice templates retain their existing filter\ngrammar. Invoice lists use expressionFilter for expressions while preserving filter\nas a legacy substring search. Expression and existing filters are combined with AND.\n\nSince 1.14, a shared cost rule defined with sourceCondition returns an empty source,\nand the destination of a dynamicProportionateSplit rule returns an empty value. Rules\ndefined with source and the other allocation types are returned as before.\n\nThe API is available at the following endpoints, dependent upon the user/tenant zone:\n| Zone        | Base URL    |\n| ----------- | ----------- |\n| NAM         | https://api.flexera.com/finops-billing |\n| EU          | https://api.flexera.eu/finops-billing  |\n| APAC        | https://api.flexera.au/finops-billing  |\n\n",
     "title": "FinOps Billing API",
-    "version": "1.12.0"
+    "version": "1.14.0"
   },
   "openapi": "3.0.3",
   "paths": {
@@ -12709,6 +12704,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -12953,6 +12949,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -13186,6 +13183,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -13366,6 +13364,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -13609,6 +13608,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -13850,6 +13850,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -14110,6 +14111,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -14730,6 +14732,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -14923,6 +14926,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -15188,6 +15192,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -15441,6 +15446,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -15824,6 +15830,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -16004,6 +16011,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -16217,6 +16225,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -16470,6 +16479,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -16853,6 +16863,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -17033,6 +17044,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -17246,6 +17258,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -17507,6 +17520,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -17919,6 +17933,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -18126,6 +18141,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -18306,6 +18322,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -18522,6 +18539,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -18685,6 +18703,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -18871,6 +18890,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -19092,6 +19112,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -19343,6 +19364,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -19556,6 +19578,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -19736,6 +19759,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -19963,6 +19987,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -20210,6 +20235,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -20430,6 +20456,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -20932,6 +20959,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -21316,6 +21344,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -21621,6 +21650,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -22051,6 +22081,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -22390,6 +22421,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -22706,6 +22738,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -22874,12 +22907,12 @@
           },
           {
             "allowEmptyValue": true,
-            "description": "OData-style expression evaluated against each returned resource. Attribute names are case-sensitive and operators are case-insensitive. String eq, ne, and in comparisons are case-sensitive; co performs case-insensitive substring matching. Date values use YYYY-MM-DD; date-time values use ISO-8601 and are normalized to UTC; billMonth uses YYYY-MM. Missing fields are treated as null; only eq null and ne null support null operands. Literal values must be on the right side of an operator.\n\nSupported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.\n\nFilterable fields: scheduleId, customerName, customerBillingPlan, costMetric, status, deliveryStatus, currency, periodType, exportType, invoiceAmount (string); customerId, attempts, filterCount, groupByCount (integer); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with discrete filters using AND.",
+            "description": "OData-style expression evaluated against each returned resource. Attribute names are case-sensitive and operators are case-insensitive. String eq, ne, and in comparisons are case-sensitive; co performs case-insensitive substring matching. Date values use YYYY-MM-DD; date-time values use ISO-8601 and are normalized to UTC; billMonth uses YYYY-MM. Missing fields are treated as null; only eq null and ne null support null operands. Literal values must be on the right side of an operator.\n\nSupported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.\n\nFilterable fields: invoiceNumber, scheduleId, customerName, customerBillingPlan, costMetric, status, deliveryStatus, currency, periodType, exportType, invoiceAmount (string); customerId, attempts, filterCount, groupByCount (integer); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with discrete filters using AND. invoiceNumber is the invoice's Invoice ID: eq, ne and in match it exactly and case-sensitively, co matches part of it case-insensitively, and invoiceNumber eq null selects invoices without one.",
             "example": "deliveryStatus eq 'success' and billMonth eq '2026-09'",
             "in": "query",
             "name": "filter",
             "schema": {
-              "description": "OData-style expression evaluated against each returned resource. Attribute names are case-sensitive and operators are case-insensitive. String eq, ne, and in comparisons are case-sensitive; co performs case-insensitive substring matching. Date values use YYYY-MM-DD; date-time values use ISO-8601 and are normalized to UTC; billMonth uses YYYY-MM. Missing fields are treated as null; only eq null and ne null support null operands. Literal values must be on the right side of an operator.\n\nSupported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.\n\nFilterable fields: scheduleId, customerName, customerBillingPlan, costMetric, status, deliveryStatus, currency, periodType, exportType, invoiceAmount (string); customerId, attempts, filterCount, groupByCount (integer); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with discrete filters using AND.",
+              "description": "OData-style expression evaluated against each returned resource. Attribute names are case-sensitive and operators are case-insensitive. String eq, ne, and in comparisons are case-sensitive; co performs case-insensitive substring matching. Date values use YYYY-MM-DD; date-time values use ISO-8601 and are normalized to UTC; billMonth uses YYYY-MM. Missing fields are treated as null; only eq null and ne null support null operands. Literal values must be on the right side of an operator.\n\nSupported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.\n\nFilterable fields: invoiceNumber, scheduleId, customerName, customerBillingPlan, costMetric, status, deliveryStatus, currency, periodType, exportType, invoiceAmount (string); customerId, attempts, filterCount, groupByCount (integer); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with discrete filters using AND. invoiceNumber is the invoice's Invoice ID: eq, ne and in match it exactly and case-sensitively, co matches part of it case-insensitively, and invoiceNumber eq null selects invoices without one.",
               "example": "deliveryStatus eq 'success' and billMonth eq '2026-09'",
               "type": "string"
             }
@@ -23142,6 +23175,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -23375,6 +23409,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -23708,6 +23743,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -23957,6 +23993,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -24176,6 +24213,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -24472,6 +24510,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -24628,12 +24667,12 @@
           },
           {
             "allowEmptyValue": true,
-            "description": "OData-style expression evaluated against each returned resource. Attribute names are case-sensitive and operators are case-insensitive. String eq, ne, and in comparisons are case-sensitive; co performs case-insensitive substring matching. Date values use YYYY-MM-DD; date-time values use ISO-8601 and are normalized to UTC; billMonth uses YYYY-MM. Missing fields are treated as null; only eq null and ne null support null operands. Literal values must be on the right side of an operator.\n\nSupported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.\n\nFilterable fields: customerId, attempts, filterCount, and groupByCount (integer); customerName, customerBillingPlan, currency, invoiceAmount, status, costMetric, periodType, and exportType (string); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with the legacy filter and discrete filters using AND.",
+            "description": "OData-style expression evaluated against each returned resource. Attribute names are case-sensitive and operators are case-insensitive. String eq, ne, and in comparisons are case-sensitive; co performs case-insensitive substring matching. Date values use YYYY-MM-DD; date-time values use ISO-8601 and are normalized to UTC; billMonth uses YYYY-MM. Missing fields are treated as null; only eq null and ne null support null operands. Literal values must be on the right side of an operator.\n\nSupported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.\n\nFilterable fields: customerId, attempts, filterCount, and groupByCount (integer); invoiceNumber, customerName, customerBillingPlan, currency, invoiceAmount, status, costMetric, periodType, and exportType (string); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with the legacy filter and discrete filters using AND. invoiceNumber is the invoice's Invoice ID: eq, ne and in match it exactly and case-sensitively, co matches part of it case-insensitively, and invoiceNumber eq null selects invoices without one.",
             "example": "customerName co 'Acme' and exportType eq 'pdf'",
             "in": "query",
             "name": "expressionFilter",
             "schema": {
-              "description": "OData-style expression evaluated against each returned resource. Attribute names are case-sensitive and operators are case-insensitive. String eq, ne, and in comparisons are case-sensitive; co performs case-insensitive substring matching. Date values use YYYY-MM-DD; date-time values use ISO-8601 and are normalized to UTC; billMonth uses YYYY-MM. Missing fields are treated as null; only eq null and ne null support null operands. Literal values must be on the right side of an operator.\n\nSupported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.\n\nFilterable fields: customerId, attempts, filterCount, and groupByCount (integer); customerName, customerBillingPlan, currency, invoiceAmount, status, costMetric, periodType, and exportType (string); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with the legacy filter and discrete filters using AND.",
+              "description": "OData-style expression evaluated against each returned resource. Attribute names are case-sensitive and operators are case-insensitive. String eq, ne, and in comparisons are case-sensitive; co performs case-insensitive substring matching. Date values use YYYY-MM-DD; date-time values use ISO-8601 and are normalized to UTC; billMonth uses YYYY-MM. Missing fields are treated as null; only eq null and ne null support null operands. Literal values must be on the right side of an operator.\n\nSupported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.\n\nFilterable fields: customerId, attempts, filterCount, and groupByCount (integer); invoiceNumber, customerName, customerBillingPlan, currency, invoiceAmount, status, costMetric, periodType, and exportType (string); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with the legacy filter and discrete filters using AND. invoiceNumber is the invoice's Invoice ID: eq, ne and in match it exactly and case-sensitively, co matches part of it case-insensitively, and invoiceNumber eq null selects invoices without one.",
               "example": "customerName co 'Acme' and exportType eq 'pdf'",
               "type": "string"
             }
@@ -25010,6 +25049,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -25509,6 +25549,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -25752,6 +25793,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -26165,6 +26207,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -26405,6 +26448,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -26943,6 +26987,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -27134,6 +27179,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -27162,7 +27208,7 @@
     },
     "/finops-billing/v1/orgs/{orgId}/shared-cost-rules/telemetry-uploads": {
       "post": {
-        "description": "Validates a telemetry CSV for a dynamicProportionateSplit rule, compares it with the rule's saved telemetry and stages the result for 24 hours. Returns the summary and every error and warning in the file, without rows; showTelemetryUpload pages the rows. Staging changes nothing; an upload is applied only by a rule save that names it. The request body must not exceed 50 MB.",
+        "description": "Validates a telemetry CSV for a dynamicProportionateSplit rule, compares it with the rule's saved telemetry and stages the result for 24 hours. Returns the summary and every error and warning in the file, without rows; showTelemetryUpload pages the rows. Staging changes nothing; an upload is applied only by a rule save that names it. The request body must not exceed 50 MB. Either the create or the update privilege can stage a file; saving the rule that names it still needs create (new rule) or update (existing rule).",
         "operationId": "Shared Cost Rules#uploadTelemetry",
         "parameters": [
           {
@@ -28124,6 +28170,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -28493,6 +28540,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -28672,6 +28720,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -28732,8 +28781,55 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "default": {
-                    "summary": "default",
+                  "Dynamic proportionate split": {
+                    "summary": "Dynamic proportionate split",
+                    "value": {
+                      "allocation": {
+                        "destinations": [
+                          {
+                            "dimensionId": "rbd_team",
+                            "dimensionName": "Team",
+                            "value": ""
+                          }
+                        ],
+                        "type": "dynamicProportionateSplit"
+                      },
+                      "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8f%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
+                      "createdAt": "2020-11-26T12:17:38.369Z",
+                      "createdBy": {
+                        "id": 1234,
+                        "kind": "iam:user",
+                        "ref": "iam:user:1234"
+                      },
+                      "effectiveFrom": "2025-07",
+                      "effectiveTo": "2025-12",
+                      "id": "68f2a91c4b3d2e1f5a6b7c8d",
+                      "kind": "finops:billing-shared-cost-rule",
+                      "name": "Platform Services Recovery",
+                      "priority": 1,
+                      "source": [
+                        {
+                          "dimensionId": "vendor",
+                          "dimensionName": "Cloud Vendor",
+                          "valueListCondition": {
+                            "values": [
+                              "AWS",
+                              "Azure"
+                            ]
+                          }
+                        }
+                      ],
+                      "status": "active",
+                      "updatedAt": "2020-11-26T12:17:38.369Z",
+                      "updatedBy": {
+                        "id": 1234,
+                        "kind": "iam:user",
+                        "ref": "iam:user:1234"
+                      }
+                    }
+                  },
+                  "Rule with source": {
+                    "summary": "Rule with source",
                     "value": {
                       "allocation": {
                         "destinations": [
@@ -28777,6 +28873,84 @@
                           }
                         }
                       ],
+                      "status": "active",
+                      "updatedAt": "2020-11-26T12:17:38.369Z",
+                      "updatedBy": {
+                        "id": 1234,
+                        "kind": "iam:user",
+                        "ref": "iam:user:1234"
+                      }
+                    }
+                  },
+                  "Rule with sourceCondition": {
+                    "summary": "Rule with sourceCondition",
+                    "value": {
+                      "allocation": {
+                        "destinations": [
+                          {
+                            "dimensionId": "rbd_team",
+                            "dimensionName": "Team",
+                            "percentage": 50,
+                            "value": "Orion"
+                          },
+                          {
+                            "dimensionId": "rbd_team",
+                            "dimensionName": "Team",
+                            "percentage": 50,
+                            "value": "Atlas"
+                          }
+                        ],
+                        "type": "fixedPercentageSplit"
+                      },
+                      "analyzeSpendQuery": "costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8f%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D",
+                      "createdAt": "2020-11-26T12:17:38.369Z",
+                      "createdBy": {
+                        "id": 1234,
+                        "kind": "iam:user",
+                        "ref": "iam:user:1234"
+                      },
+                      "effectiveFrom": "2025-07",
+                      "effectiveTo": "2025-12",
+                      "id": "68f2a91c4b3d2e1f5a6b7c8d",
+                      "kind": "finops:billing-shared-cost-rule",
+                      "name": "Platform Services Recovery",
+                      "priority": 1,
+                      "source": [],
+                      "sourceCondition": {
+                        "expressions": [
+                          {
+                            "expressions": [
+                              {
+                                "dimension": "vendor",
+                                "type": "equals",
+                                "value": "AWS"
+                              },
+                              {
+                                "dimension": "vendor",
+                                "type": "equals",
+                                "value": "Azure"
+                              }
+                            ],
+                            "type": "or"
+                          },
+                          {
+                            "expressions": [
+                              {
+                                "dimension": "tag_dim_env",
+                                "type": "equals",
+                                "value": "staging"
+                              },
+                              {
+                                "dimension": "tag_dim_env",
+                                "type": "equals",
+                                "value": "production"
+                              }
+                            ],
+                            "type": "or"
+                          }
+                        ],
+                        "type": "and"
+                      },
                       "status": "active",
                       "updatedAt": "2020-11-26T12:17:38.369Z",
                       "updatedBy": {
@@ -28902,6 +29076,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -29509,6 +29684,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
@@ -29537,7 +29713,7 @@
     },
     "/finops-billing/v1/orgs/{orgId}/shared-cost-rules/{id}/telemetry": {
       "get": {
-        "description": "Downloads the telemetry a dynamicProportionateSplit rule holds now (Download History) as CSV with exactly the upload template's columns: Date (YYYY-MM-DD), the dimension's name and Metrics (>=0). Rows are sorted by date and then dimension value, with dates formatted YYYY-MM-DD; records deleted by an upload are not included. Dimension values starting with =, +, - or @ are written with a leading ' so spreadsheets do not run them as formulas. The file can be uploaded again unchanged. A rule with no stored records downloads as the header alone.",
+        "description": "Downloads the telemetry a dynamicProportionateSplit rule holds now (Download History) as CSV with exactly the upload template's columns: Date (YYYY-MM-DD), the dimension's name and Metrics (>=0). Rows are sorted by date and then dimension value, with dates formatted YYYY-MM-DD; records deleted by an upload are not included. Dimension values starting with =, +, -, @ or ' are written with one extra leading ' so spreadsheets do not run them as formulas; an upload strips exactly one leading ' that comes before any of those characters, so the file can be uploaded again unchanged. A rule with no stored records downloads as the header alone.",
         "operationId": "Shared Cost Rules#downloadTelemetry",
         "parameters": [
           {
@@ -29678,6 +29854,7 @@
               "optima:shared_cost_rules:create||common:org:own",
               "optima:shared_cost_rules:update||common:org:own",
               "optima:shared_cost_rules:delete||common:org:own",
+              "optima:shared_cost_rules:create||optima:shared_cost_rules:update||common:org:own",
               "optima:enterprise_rules:index||common:org:own",
               "optima:enterprise_rules:create||common:org:own",
               "optima:enterprise_rules:replace||common:org:own",
