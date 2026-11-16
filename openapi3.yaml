@@ -18883,11 +18883,12 @@ components:
                     minimum: 0
                     type: number
                 value:
-                    description: The specific dimension value that receives costs. Omitted for dynamicProportionateSplit, whose values come from telemetry.
+                    description: The specific dimension value that receives costs. Empty for dynamicProportionateSplit, whose destination names only the dimension and takes its values from telemetry.
                     example: Orion
                     type: string
             required:
                 - dimensionId
+                - value
             type: object
         FinopsBilling_AllocationDestinationPayload:
             description: A destination input used when creating or updating a shared cost rule.
@@ -18907,7 +18908,7 @@ components:
                     minimum: 0
                     type: number
                 value:
-                    description: 'The specific dimension value that receives costs. Required for every type except dynamicProportionateSplit, where it must be omitted: that type names only the dimension.'
+                    description: 'The specific dimension value that receives costs. Required for every type except dynamicProportionateSplit, where it is ignored: that type takes exactly one destination naming only the dimension, and its values come from telemetry.'
                     example: Orion
                     type: string
             required:
@@ -26979,13 +26980,8 @@ components:
                     destinations:
                         - dimensionId: rbd_team
                           dimensionName: Team
-                          percentage: 50
-                          value: Orion
-                        - dimensionId: rbd_team
-                          dimensionName: Team
-                          percentage: 50
-                          value: Atlas
-                    type: fixedPercentageSplit
+                          value: ""
+                    type: dynamicProportionateSplit
                 analyzeSpendQuery: costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8f%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D
                 createdAt: "2020-11-26T12:17:38.369Z"
                 createdBy:
@@ -27055,7 +27051,7 @@ components:
                     minimum: 1
                     type: integer
                 source:
-                    description: Dimensions that identify the costs to be reallocated. Multiple dimensions are combined using AND logic; only costs that satisfy every dimension are included. A rule has exactly one of source and sourceCondition.
+                    description: Dimensions that identify the costs to be reallocated. Multiple dimensions are combined using AND logic; only costs that satisfy every dimension are included. Empty when the rule uses sourceCondition, which then identifies the costs instead.
                     example:
                         - dimensionId: vendor
                           dimensionName: Cloud Vendor
@@ -27097,6 +27093,7 @@ components:
                 - name
                 - status
                 - effectiveFrom
+                - source
                 - allocation
                 - priority
                 - createdAt
@@ -27340,7 +27337,7 @@ components:
                     $ref: '#/components/schemas/FinopsBilling_TelemetryUploadApplied'
                 baseMonths:
                     additionalProperties: true
-                    description: For every month (YYYYMM) with a valid row, the upload that last changed it when the diff was computed, or null if the month had no data. Empty for a new rule. A save that applies the upload fails with telemetry_upload_stale if any of these months has moved since.
+                    description: For every month (YYYYMM) with a valid row, the upload that last changed it when the diff was computed, or null if the month had no data. For a reset (the destination dimension differs from the rule's), every month the rule has stored. Empty for a new rule. A save that applies the upload fails with telemetry_upload_stale if any of these months has moved since.
                     example:
                         "202609": tu_01J9ZQ4M1A
                         "202610": null
@@ -27407,7 +27404,7 @@ components:
                     example: 68f2a91c4b3d2e1f5a6b7c8d
                     type: string
                 status:
-                    description: valid when the file has no errors, otherwise invalid. Further statuses may be added, so consumers must tolerate a value they do not recognize.
+                    description: valid when the file has no errors, otherwise invalid.
                     enum:
                         - valid
                         - invalid
@@ -27524,7 +27521,7 @@ components:
                     example: iam:user:42
                     type: string
                 monthsTouched:
-                    description: Bill months (YYYY-MM) with at least one added, modified or deleted row, ascending. Reprocess these months to apply the change.
+                    description: Bill months (YYYY-MM) with at least one added, modified or deleted row, ascending. For a reset (the destination dimension changed), also every month the rule had stored before. Reprocess these months to apply the change.
                     example:
                         - 2026-09
                         - 2026-10
@@ -27646,7 +27643,7 @@ components:
                     $ref: '#/components/schemas/FinopsBilling_TelemetryUploadApplied'
                 baseMonths:
                     additionalProperties: true
-                    description: For every month (YYYYMM) with a valid row, the upload that last changed it when the diff was computed, or null if the month had no data. Empty for a new rule. A save that applies the upload fails with telemetry_upload_stale if any of these months has moved since.
+                    description: For every month (YYYYMM) with a valid row, the upload that last changed it when the diff was computed, or null if the month had no data. For a reset (the destination dimension differs from the rule's), every month the rule has stored. Empty for a new rule. A save that applies the upload fails with telemetry_upload_stale if any of these months has moved since.
                     example:
                         "202609": tu_01J9ZQ4M1A
                         "202610": null
@@ -27695,7 +27692,7 @@ components:
                     example: 68f2a91c4b3d2e1f5a6b7c8d
                     type: string
                 status:
-                    description: valid when the file has no errors, otherwise invalid. Further statuses may be added, so consumers must tolerate a value they do not recognize.
+                    description: valid when the file has no errors, otherwise invalid.
                     enum:
                         - valid
                         - invalid
@@ -28314,7 +28311,7 @@ components:
                     example: active
                     type: string
                 telemetryUploadId:
-                    description: A valid staged telemetry upload for this rule, applied in the same save. Required when the save changes the type to dynamicProportionateSplit or changes a dynamic rule's destination dimension; not allowed when the rule's type after the save is not dynamicProportionateSplit.
+                    description: A valid staged telemetry upload for this rule, applied in the same save. Required when the save changes the type to dynamicProportionateSplit or changes a dynamic rule's destination dimension; not allowed when the rule's type after the save is not dynamicProportionateSplit. Saving again with an upload this rule already applied succeeds without applying it again.
                     example: tu_01JAB3K9Q2X7V5R8M4N6P0T1W3
                     type: string
             type: object
@@ -34849,33 +34846,6 @@ components:
                         httpCode: 200
                         httpStatus: Ok
                       timestamp: "1985-04-07T08:12:52Z"
-                    - eventType: api.event
-                      kind: iam:api-event
-                      principal:
-                        email: someone@SomeWhere.com
-                        firstName: Jane
-                        id: 12345
-                        kind: iam:user
-                        lastName: Smith
-                        name: Jane Smith
-                        ref: ref:nam:::iam:user:12345
-                      request:
-                        bodyBytes: 20
-                        httpHost: api.flexera.com
-                        httpMethod: GET
-                        httpPath: /iam/v1/orgs/100/users
-                        id: 7bfcf75b8c4b4b5d9d9f05937f039307
-                        ip: 1.2.3.4
-                        userAgent:
-                            browser: Chrome
-                            os: Mac OS X
-                            raw: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
-                      response:
-                        bodyBytes: 100
-                        durationMs: 300
-                        httpCode: 200
-                        httpStatus: Ok
-                      timestamp: "1985-04-07T08:12:52Z"
             properties:
                 kind:
                     description: The resource's type
@@ -35057,7 +35027,7 @@ components:
                         - 2001
                         - 2002
                     items:
-                        example: 1.0350574219687018e+19
+                        example: 1.775539926171112e+19
                         type: integer
                     type: array
                 description:
@@ -35070,7 +35040,7 @@ components:
                         - 1234
                         - 5678
                     items:
-                        example: 7.967003050873464e+18
+                        example: 1.2044837464767205e+19
                         type: integer
                     type: array
                 groups:
@@ -35797,6 +35767,20 @@ components:
                         - dashboards
                     Number Of Computers: 500
                   updatedAt: "2006-10-02T13:28:02Z"
+                - capabilityName: iam
+                  createdAt: "2001-11-25T19:59:41Z"
+                  description: d02
+                  expiresAt: "1996-04-11T15:49:23Z"
+                  kind: iam#capability
+                  onboardingStatus: pending
+                  orgId: 100
+                  terms:
+                    Embedded Monitoring: "true"
+                    Features:
+                        - monitoring
+                        - dashboards
+                    Number Of Computers: 500
+                  updatedAt: "2006-10-02T13:28:02Z"
             items:
                 $ref: '#/components/schemas/Iam_FlexeraIamCapability'
             type: array
@@ -35804,10 +35788,10 @@ components:
             description: An association between an Organization and a Capability (index view)
             example:
                 capabilityName: iam
-                createdAt: "1981-04-08T22:09:55Z"
+                createdAt: "1991-12-11T19:52:10Z"
                 kind: iam#capability
                 orgId: 100
-                updatedAt: "1983-11-16T06:21:21Z"
+                updatedAt: "1979-09-10T13:59:24Z"
             properties:
                 capabilityName:
                     description: The name of the Capability, which must be unique
@@ -35816,7 +35800,7 @@ components:
                     type: string
                 createdAt:
                     description: Creation timestamp in UTC
-                    example: "1988-02-11T02:27:02Z"
+                    example: "1991-08-30T17:04:46Z"
                     format: date-time
                     type: string
                 kind:
@@ -35832,7 +35816,7 @@ components:
                     type: integer
                 updatedAt:
                     description: Last update timestamp in UTC
-                    example: "1973-05-31T07:07:34Z"
+                    example: "2011-04-27T06:15:08Z"
                     format: date-time
                     type: string
             required:
@@ -35846,25 +35830,15 @@ components:
             description: IndexResponseBody is the result type for an array of CapabilityResponse (index view)
             example:
                 - capabilityName: iam
-                  createdAt: "2000-01-01T02:53:10Z"
+                  createdAt: "2015-01-18T03:06:11Z"
                   kind: iam#capability
                   orgId: 100
-                  updatedAt: "1988-09-05T23:26:43Z"
+                  updatedAt: "2012-09-27T21:10:09Z"
                 - capabilityName: iam
-                  createdAt: "2000-01-01T02:53:10Z"
+                  createdAt: "2015-01-18T03:06:11Z"
                   kind: iam#capability
                   orgId: 100
-                  updatedAt: "1988-09-05T23:26:43Z"
-                - capabilityName: iam
-                  createdAt: "2000-01-01T02:53:10Z"
-                  kind: iam#capability
-                  orgId: 100
-                  updatedAt: "1988-09-05T23:26:43Z"
-                - capabilityName: iam
-                  createdAt: "2000-01-01T02:53:10Z"
-                  kind: iam#capability
-                  orgId: 100
-                  updatedAt: "1988-09-05T23:26:43Z"
+                  updatedAt: "2012-09-27T21:10:09Z"
             items:
                 $ref: '#/components/schemas/Iam_CapabilityResponseIndex'
             type: array
@@ -35918,6 +35892,38 @@ components:
                           privileges:
                             - acme:widget:update
                           role_name: policy_approver
+                        - category: Automation
+                          description: Can view organization resources
+                          displayName: Approve policies
+                          privileges:
+                            - acme:widget:update
+                          role_name: policy_approver
+                    - capability: iam
+                      roles:
+                        - category: Automation
+                          description: Can view organization resources
+                          displayName: Approve policies
+                          privileges:
+                            - acme:widget:update
+                          role_name: policy_approver
+                        - category: Automation
+                          description: Can view organization resources
+                          displayName: Approve policies
+                          privileges:
+                            - acme:widget:update
+                          role_name: policy_approver
+                        - category: Automation
+                          description: Can view organization resources
+                          displayName: Approve policies
+                          privileges:
+                            - acme:widget:update
+                          role_name: policy_approver
+                        - category: Automation
+                          description: Can view organization resources
+                          displayName: Approve policies
+                          privileges:
+                            - acme:widget:update
+                          role_name: policy_approver
                     - capability: iam
                       roles:
                         - category: Automation
@@ -35938,8 +35944,20 @@ components:
                           privileges:
                             - acme:widget:update
                           role_name: policy_approver
+                        - category: Automation
+                          description: Can view organization resources
+                          displayName: Approve policies
+                          privileges:
+                            - acme:widget:update
+                          role_name: policy_approver
                     - capability: iam
                       roles:
+                        - category: Automation
+                          description: Can view organization resources
+                          displayName: Approve policies
+                          privileges:
+                            - acme:widget:update
+                          role_name: policy_approver
                         - category: Automation
                           description: Can view organization resources
                           displayName: Approve policies
@@ -35993,8 +36011,20 @@ components:
                               privileges:
                                 - acme:widget:update
                               role_name: policy_approver
+                            - category: Automation
+                              description: Can view organization resources
+                              displayName: Approve policies
+                              privileges:
+                                - acme:widget:update
+                              role_name: policy_approver
                         - capability: iam
                           roles:
+                            - category: Automation
+                              description: Can view organization resources
+                              displayName: Approve policies
+                              privileges:
+                                - acme:widget:update
+                              role_name: policy_approver
                             - category: Automation
                               description: Can view organization resources
                               displayName: Approve policies
@@ -36155,7 +36185,7 @@ components:
                     example:
                         - iam_admin
                     items:
-                        example: Est odio atque sit saepe quia quia.
+                        example: Minima deserunt iusto ut temporibus.
                         type: string
                     type: array
             type: object
@@ -36185,7 +36215,7 @@ components:
                     example:
                         - acme:widget:update
                     items:
-                        example: Tempore eum.
+                        example: Omnis nisi.
                         type: string
                     type: array
                 role_name:
@@ -36217,7 +36247,7 @@ components:
                         - 2001
                         - 2002
                     items:
-                        example: 1.2044837464767205e+19
+                        example: 1.1727858058066051e+19
                         type: integer
                     type: array
                 description:
@@ -36230,7 +36260,7 @@ components:
                         - 1001
                         - 1002
                     items:
-                        example: 1.3189163157627937e+19
+                        example: 1.3556787324986322e+17
                         type: integer
                     type: array
                 iamRoles:
@@ -36259,6 +36289,9 @@ components:
                     - capability: iam
                       roles:
                         - iam_admin
+                    - capability: iam
+                      roles:
+                        - iam_admin
                 description: Contractor will take core of updating our networking information to latest version
                 target_org_id: 1234
                 title: Contract Example
@@ -36266,6 +36299,9 @@ components:
                 allowed_capabilities:
                     description: List of capabilities and their allowed roles
                     example:
+                        - capability: iam
+                          roles:
+                            - iam_admin
                         - capability: iam
                           roles:
                             - iam_admin
@@ -36334,12 +36370,16 @@ components:
                 projects:
                     - id: 100
                       roleIds:
-                        - 1.2052192460360217e+19
-                        - 2.86687927264239e+18
+                        - 1.0413165004263072e+19
+                        - 1.2828362110696485e+19
+                        - 1.735402245313753e+19
+                        - 7.082601710585481e+18
                     - id: 100
                       roleIds:
-                        - 1.2052192460360217e+19
-                        - 2.86687927264239e+18
+                        - 1.0413165004263072e+19
+                        - 1.2828362110696485e+19
+                        - 1.735402245313753e+19
+                        - 7.082601710585481e+18
                 skipEmailNotification: false
             properties:
                 groupIds:
@@ -36386,20 +36426,28 @@ components:
                     example:
                         - id: 100
                           roleIds:
-                            - 1.2052192460360217e+19
-                            - 2.86687927264239e+18
+                            - 1.0413165004263072e+19
+                            - 1.2828362110696485e+19
+                            - 1.735402245313753e+19
+                            - 7.082601710585481e+18
                         - id: 100
                           roleIds:
-                            - 1.2052192460360217e+19
-                            - 2.86687927264239e+18
+                            - 1.0413165004263072e+19
+                            - 1.2828362110696485e+19
+                            - 1.735402245313753e+19
+                            - 7.082601710585481e+18
                         - id: 100
                           roleIds:
-                            - 1.2052192460360217e+19
-                            - 2.86687927264239e+18
+                            - 1.0413165004263072e+19
+                            - 1.2828362110696485e+19
+                            - 1.735402245313753e+19
+                            - 7.082601710585481e+18
                         - id: 100
                           roleIds:
-                            - 1.2052192460360217e+19
-                            - 2.86687927264239e+18
+                            - 1.0413165004263072e+19
+                            - 1.2828362110696485e+19
+                            - 1.735402245313753e+19
+                            - 7.082601710585481e+18
                     items:
                         $ref: '#/components/schemas/Iam_ProjectInvitationParameters'
                     type: array
@@ -37126,27 +37174,27 @@ components:
         Iam_DomainResponseCollection:
             description: DomainCollectionResponse is the result type for an array of DomainResponse (default view)
             example:
-                - createdAt: "1976-02-09T02:33:41Z"
+                - createdAt: "2011-05-15T04:48:37Z"
                   identityProviderId: 1111aaaa2222bbbb3333cccc
                   kind: iam#saml2-idp-domain
                   name: flexera.com
                   orgId: 100
                   verificationCode: aBcDeFgHiJkLmNoPqRsT
-                  verifiedAt: "2001-08-04T01:36:10Z"
-                - createdAt: "1976-02-09T02:33:41Z"
+                  verifiedAt: "1988-10-09T08:07:13Z"
+                - createdAt: "2011-05-15T04:48:37Z"
                   identityProviderId: 1111aaaa2222bbbb3333cccc
                   kind: iam#saml2-idp-domain
                   name: flexera.com
                   orgId: 100
                   verificationCode: aBcDeFgHiJkLmNoPqRsT
-                  verifiedAt: "2001-08-04T01:36:10Z"
-                - createdAt: "1976-02-09T02:33:41Z"
+                  verifiedAt: "1988-10-09T08:07:13Z"
+                - createdAt: "2011-05-15T04:48:37Z"
                   identityProviderId: 1111aaaa2222bbbb3333cccc
                   kind: iam#saml2-idp-domain
                   name: flexera.com
                   orgId: 100
                   verificationCode: aBcDeFgHiJkLmNoPqRsT
-                  verifiedAt: "2001-08-04T01:36:10Z"
+                  verifiedAt: "1988-10-09T08:07:13Z"
             items:
                 $ref: '#/components/schemas/Iam_DomainResponse'
             type: array
@@ -37181,7 +37229,7 @@ components:
                     type: boolean
                 timeout:
                     description: Is the error a timeout?
-                    example: true
+                    example: false
                     type: boolean
             required:
                 - name
@@ -37549,7 +37597,7 @@ components:
                     durationMs: 300
                     httpCode: 200
                     httpStatus: Ok
-                timestamp: "1995-09-24T05:36:49Z"
+                timestamp: "1996-04-15T06:53:35Z"
             properties:
                 eventType:
                     description: |-
@@ -37572,7 +37620,7 @@ components:
                     $ref: '#/components/schemas/Iam_FlexeraAPIResponseMedia'
                 timestamp:
                     description: The time the API request was received in UTC
-                    example: "1993-07-20T06:02:03Z"
+                    example: "2000-02-17T01:42:55Z"
                     format: date-time
                     type: string
             required:
@@ -37634,9 +37682,9 @@ components:
             description: An association between an Organization and a Capability
             example:
                 capabilityName: iam
-                createdAt: "1976-06-14T09:30:48Z"
-                description: 0gu
-                expiresAt: "2011-03-29T18:15:33Z"
+                createdAt: "1991-10-12T08:23:31Z"
+                description: 7s7
+                expiresAt: "1986-06-11T03:04:48Z"
                 kind: iam#capability
                 onboardingStatus: pending
                 orgId: 100
@@ -37646,7 +37694,7 @@ components:
                         - monitoring
                         - dashboards
                     Number Of Computers: 500
-                updatedAt: "1970-07-01T05:29:54Z"
+                updatedAt: "1970-11-13T17:58:57Z"
             properties:
                 capabilityName:
                     description: The name of the Capability, which must be unique
@@ -37655,18 +37703,18 @@ components:
                     type: string
                 createdAt:
                     description: Creation timestamp in UTC
-                    example: "1972-07-22T21:58:50Z"
+                    example: "1974-08-14T13:22:11Z"
                     format: date-time
                     type: string
                 description:
                     description: A description of the Capability
-                    example: k
+                    example: i
                     maxLength: 65536
                     minLength: 1
                     type: string
                 expiresAt:
                     description: Expiration date in UTC
-                    example: "1977-03-12T13:07:59Z"
+                    example: "1990-05-31T03:28:59Z"
                     format: date-time
                     type: string
                 kind:
@@ -37696,7 +37744,7 @@ components:
                     type: object
                 updatedAt:
                     description: Last update timestamp in UTC
-                    example: "1985-07-01T22:25:49Z"
+                    example: "1996-12-01T02:17:44Z"
                     format: date-time
                     type: string
             required:
@@ -37830,7 +37878,7 @@ components:
                         Customization types which require authentication may apply only after the users have logged in (e.g. on
                         the Flexera One home page). Customization types which do not require authentication may apply to users who have not
                         logged in (e.g. on the Flexera One login page).
-                    example: false
+                    example: true
                     type: boolean
                 description:
                     description: |-
@@ -38003,12 +38051,13 @@ components:
                     items:
                         additionalProperties: true
                         example:
+                            Natus ipsum ipsam omnis.: Minus a cum sed recusandae non qui.
                             Qui qui amet autem quis.: Rerum et.
                         type: object
                     type: array
                 timestamp:
                     description: The time the event occurred in UTC
-                    example: "1990-05-23T18:46:50Z"
+                    example: "2006-05-07T05:57:22Z"
                     format: date-time
                     type: string
             required:
@@ -38022,14 +38071,14 @@ components:
         Iam_FlexeraIamEventOutcomeMedia:
             description: Information regarding the outcome of the action taken by the principal
             example:
-                result: failure
+                result: success
             properties:
                 result:
                     description: Whether the action was successful or failed
                     enum:
                         - success
                         - failure
-                    example: failure
+                    example: success
                     type: string
             required:
                 - result
@@ -40351,7 +40400,7 @@ components:
                         - Hardware
                         - Software
                     items:
-                        example: Iste qui eos adipisci.
+                        example: Ipsa et sequi dolorum labore quod voluptatem.
                         type: string
                     type: array
                 roleNames:
@@ -40360,7 +40409,7 @@ components:
                         - org_owner
                         - msp_admin
                     items:
-                        example: Laudantium architecto consequatur deleniti omnis iusto eos.
+                        example: Vel dolore.
                         type: string
                     type: array
             type: object
@@ -40458,6 +40507,24 @@ components:
                 scopedPermissions:
                     description: Flexible granular scoped permissions
                     example:
+                        - description: Access to quarterly and annual reports
+                          granularScope:
+                            description: Scope for finance department access
+                            id: c1d2e3f4-a5b6-7c8d-9e0f-1a2b3c4d5e6f
+                            name: Finance Department Scope
+                            selectedScope:
+                                nodeIds:
+                                    - 2.3.
+                                    - 1.11.12.
+                          id: f1e2d3c4-b5a6-7c8d-9e0f-1a2b3c4d5e6f
+                          name: View Financial Reports
+                          permissionCategory: DataAccess
+                          permissions:
+                            - Hardware
+                            - Software
+                          roleNames:
+                            - org_owner
+                            - msp_admin
                         - description: Access to quarterly and annual reports
                           granularScope:
                             description: Scope for finance department access
@@ -40619,7 +40686,7 @@ components:
                         - 102
                         - 103
                     items:
-                        example: 1.704209524692422e+19
+                        example: 2.1804122574660262e+18
                         type: integer
                     type: array
                 kind:
@@ -40864,7 +40931,7 @@ components:
                         - Hardware
                         - Software
                     items:
-                        example: Provident debitis omnis eum voluptatem necessitatibus.
+                        example: Eos dolores dolor praesentium quidem.
                         type: string
                     type: array
                 roleNames:
@@ -40873,7 +40940,7 @@ components:
                         - org_owner
                         - msp_admin
                     items:
-                        example: Velit magni natus quos.
+                        example: Deleniti nulla itaque molestiae suscipit at.
                         type: string
                     type: array
                 updatedAt:
@@ -40977,7 +41044,7 @@ components:
                         - Hardware
                         - Software
                     items:
-                        example: Commodi illum minus nulla aspernatur.
+                        example: Debitis omnis.
                         type: string
                     type: array
                 roleNames:
@@ -40986,7 +41053,7 @@ components:
                         - org_owner
                         - msp_admin
                     items:
-                        example: Quod ratione hic facilis enim commodi.
+                        example: Voluptatem necessitatibus inventore velit magni natus quos.
                         type: string
                     type: array
                 updatedAt:
@@ -41667,7 +41734,7 @@ components:
                 acsUrl: https://my.domain.com/sso/saml2/randomchars
                 audienceUri: https://my.domain.com/saml2/service-provider/randomchars
                 certificateDetails:
-                    expiresAt: "1976-06-27T15:53:09Z"
+                    expiresAt: "2014-11-25T01:29:05Z"
                     fingerprint: 01:23:45:67:89:AA:BB:CC:DD:EE:FF:90:81:72:63:54:45:AB:CD:EF
                     subject: CN=Dorothy,O=Lions\, Tigers and Bears oh,C=MY
                 certificatePublicKey: |-
@@ -41678,34 +41745,20 @@ components:
                 createdAt: "2001-05-01T08:15:13Z"
                 discoveryHint: my.company.domain.com
                 domains:
-                    - createdAt: "1976-02-09T02:33:41Z"
+                    - createdAt: "2011-05-15T04:48:37Z"
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       kind: iam#saml2-idp-domain
                       name: flexera.com
                       orgId: 100
                       verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
-                    - createdAt: "1976-02-09T02:33:41Z"
+                      verifiedAt: "1988-10-09T08:07:13Z"
+                    - createdAt: "2011-05-15T04:48:37Z"
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       kind: iam#saml2-idp-domain
                       name: flexera.com
                       orgId: 100
                       verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
-                    - createdAt: "1976-02-09T02:33:41Z"
-                      identityProviderId: 1111aaaa2222bbbb3333cccc
-                      kind: iam#saml2-idp-domain
-                      name: flexera.com
-                      orgId: 100
-                      verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
-                    - createdAt: "1976-02-09T02:33:41Z"
-                      identityProviderId: 1111aaaa2222bbbb3333cccc
-                      kind: iam#saml2-idp-domain
-                      name: flexera.com
-                      orgId: 100
-                      verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
+                      verifiedAt: "1988-10-09T08:07:13Z"
                 groupSyncPolicy: APPEND
                 id: 1111aaaa2222bbbb3333cccc
                 issuerUri: mysamlprovider.com/entities/123
@@ -41718,8 +41771,8 @@ components:
                 requestSignatureAlgorithm: SHA-256
                 requestSigningKeyId: 2222bbbb3333cccc4444dddd
                 requestSigningKeys:
-                    - createdAt: "1996-06-19T14:30:24Z"
-                      expiresAt: "1999-01-21T01:33:05Z"
+                    - createdAt: "1971-12-27T22:51:06Z"
+                      expiresAt: "1999-09-24T05:30:18Z"
                       id: 2222bbbb3333cccc4444dddd
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       keyData: |-
@@ -41729,8 +41782,19 @@ components:
                         -----END CERTIFICATE-----
                       kind: iam#saml2-idp-signing-key
                       orgId: 100
-                    - createdAt: "1996-06-19T14:30:24Z"
-                      expiresAt: "1999-01-21T01:33:05Z"
+                    - createdAt: "1971-12-27T22:51:06Z"
+                      expiresAt: "1999-09-24T05:30:18Z"
+                      id: 2222bbbb3333cccc4444dddd
+                      identityProviderId: 1111aaaa2222bbbb3333cccc
+                      keyData: |-
+                        -----BEGIN CERTIFICATE-----
+                        Ab12Cd/Ef+Gh
+                        0123456789==
+                        -----END CERTIFICATE-----
+                      kind: iam#saml2-idp-signing-key
+                      orgId: 100
+                    - createdAt: "1971-12-27T22:51:06Z"
+                      expiresAt: "1999-09-24T05:30:18Z"
                       id: 2222bbbb3333cccc4444dddd
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       keyData: |-
@@ -41915,7 +41979,7 @@ components:
                 - acsUrl: https://my.domain.com/sso/saml2/randomchars
                   audienceUri: https://my.domain.com/saml2/service-provider/randomchars
                   certificateDetails:
-                    expiresAt: "1976-06-27T15:53:09Z"
+                    expiresAt: "2014-11-25T01:29:05Z"
                     fingerprint: 01:23:45:67:89:AA:BB:CC:DD:EE:FF:90:81:72:63:54:45:AB:CD:EF
                     subject: CN=Dorothy,O=Lions\, Tigers and Bears oh,C=MY
                   certificatePublicKey: |-
@@ -41923,37 +41987,23 @@ components:
                     Ab12Cd/Ef+Gh
                     0123456789==
                     -----END CERTIFICATE-----
-                  createdAt: "2013-07-25T14:13:31Z"
+                  createdAt: "1978-10-08T19:33:19Z"
                   discoveryHint: my.company.domain.com
                   domains:
-                    - createdAt: "1976-02-09T02:33:41Z"
+                    - createdAt: "2011-05-15T04:48:37Z"
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       kind: iam#saml2-idp-domain
                       name: flexera.com
                       orgId: 100
                       verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
-                    - createdAt: "1976-02-09T02:33:41Z"
+                      verifiedAt: "1988-10-09T08:07:13Z"
+                    - createdAt: "2011-05-15T04:48:37Z"
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       kind: iam#saml2-idp-domain
                       name: flexera.com
                       orgId: 100
                       verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
-                    - createdAt: "1976-02-09T02:33:41Z"
-                      identityProviderId: 1111aaaa2222bbbb3333cccc
-                      kind: iam#saml2-idp-domain
-                      name: flexera.com
-                      orgId: 100
-                      verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
-                    - createdAt: "1976-02-09T02:33:41Z"
-                      identityProviderId: 1111aaaa2222bbbb3333cccc
-                      kind: iam#saml2-idp-domain
-                      name: flexera.com
-                      orgId: 100
-                      verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
+                      verifiedAt: "1988-10-09T08:07:13Z"
                   groupSyncPolicy: APPEND
                   id: 1111aaaa2222bbbb3333cccc
                   issuerUri: mysamlprovider.com/entities/123
@@ -41966,8 +42016,8 @@ components:
                   requestSignatureAlgorithm: SHA-256
                   requestSigningKeyId: 2222bbbb3333cccc4444dddd
                   requestSigningKeys:
-                    - createdAt: "1996-06-19T14:30:24Z"
-                      expiresAt: "1999-01-21T01:33:05Z"
+                    - createdAt: "1971-12-27T22:51:06Z"
+                      expiresAt: "1999-09-24T05:30:18Z"
                       id: 2222bbbb3333cccc4444dddd
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       keyData: |-
@@ -41977,8 +42027,19 @@ components:
                         -----END CERTIFICATE-----
                       kind: iam#saml2-idp-signing-key
                       orgId: 100
-                    - createdAt: "1996-06-19T14:30:24Z"
-                      expiresAt: "1999-01-21T01:33:05Z"
+                    - createdAt: "1971-12-27T22:51:06Z"
+                      expiresAt: "1999-09-24T05:30:18Z"
+                      id: 2222bbbb3333cccc4444dddd
+                      identityProviderId: 1111aaaa2222bbbb3333cccc
+                      keyData: |-
+                        -----BEGIN CERTIFICATE-----
+                        Ab12Cd/Ef+Gh
+                        0123456789==
+                        -----END CERTIFICATE-----
+                      kind: iam#saml2-idp-signing-key
+                      orgId: 100
+                    - createdAt: "1971-12-27T22:51:06Z"
+                      expiresAt: "1999-09-24T05:30:18Z"
                       id: 2222bbbb3333cccc4444dddd
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       keyData: |-
@@ -41992,11 +42053,11 @@ components:
                   responseSignatureVerification: response
                   signAuthnRequests: "false"
                   ssoUrl: mysamlprovider.com/apps/456
-                  updatedAt: "2012-03-29T13:40:32Z"
+                  updatedAt: "1994-04-10T14:00:10Z"
                 - acsUrl: https://my.domain.com/sso/saml2/randomchars
                   audienceUri: https://my.domain.com/saml2/service-provider/randomchars
                   certificateDetails:
-                    expiresAt: "1976-06-27T15:53:09Z"
+                    expiresAt: "2014-11-25T01:29:05Z"
                     fingerprint: 01:23:45:67:89:AA:BB:CC:DD:EE:FF:90:81:72:63:54:45:AB:CD:EF
                     subject: CN=Dorothy,O=Lions\, Tigers and Bears oh,C=MY
                   certificatePublicKey: |-
@@ -42004,37 +42065,23 @@ components:
                     Ab12Cd/Ef+Gh
                     0123456789==
                     -----END CERTIFICATE-----
-                  createdAt: "2013-07-25T14:13:31Z"
+                  createdAt: "1978-10-08T19:33:19Z"
                   discoveryHint: my.company.domain.com
                   domains:
-                    - createdAt: "1976-02-09T02:33:41Z"
+                    - createdAt: "2011-05-15T04:48:37Z"
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       kind: iam#saml2-idp-domain
                       name: flexera.com
                       orgId: 100
                       verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
-                    - createdAt: "1976-02-09T02:33:41Z"
+                      verifiedAt: "1988-10-09T08:07:13Z"
+                    - createdAt: "2011-05-15T04:48:37Z"
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       kind: iam#saml2-idp-domain
                       name: flexera.com
                       orgId: 100
                       verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
-                    - createdAt: "1976-02-09T02:33:41Z"
-                      identityProviderId: 1111aaaa2222bbbb3333cccc
-                      kind: iam#saml2-idp-domain
-                      name: flexera.com
-                      orgId: 100
-                      verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
-                    - createdAt: "1976-02-09T02:33:41Z"
-                      identityProviderId: 1111aaaa2222bbbb3333cccc
-                      kind: iam#saml2-idp-domain
-                      name: flexera.com
-                      orgId: 100
-                      verificationCode: aBcDeFgHiJkLmNoPqRsT
-                      verifiedAt: "2001-08-04T01:36:10Z"
+                      verifiedAt: "1988-10-09T08:07:13Z"
                   groupSyncPolicy: APPEND
                   id: 1111aaaa2222bbbb3333cccc
                   issuerUri: mysamlprovider.com/entities/123
@@ -42047,8 +42094,8 @@ components:
                   requestSignatureAlgorithm: SHA-256
                   requestSigningKeyId: 2222bbbb3333cccc4444dddd
                   requestSigningKeys:
-                    - createdAt: "1996-06-19T14:30:24Z"
-                      expiresAt: "1999-01-21T01:33:05Z"
+                    - createdAt: "1971-12-27T22:51:06Z"
+                      expiresAt: "1999-09-24T05:30:18Z"
                       id: 2222bbbb3333cccc4444dddd
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       keyData: |-
@@ -42058,8 +42105,19 @@ components:
                         -----END CERTIFICATE-----
                       kind: iam#saml2-idp-signing-key
                       orgId: 100
-                    - createdAt: "1996-06-19T14:30:24Z"
-                      expiresAt: "1999-01-21T01:33:05Z"
+                    - createdAt: "1971-12-27T22:51:06Z"
+                      expiresAt: "1999-09-24T05:30:18Z"
+                      id: 2222bbbb3333cccc4444dddd
+                      identityProviderId: 1111aaaa2222bbbb3333cccc
+                      keyData: |-
+                        -----BEGIN CERTIFICATE-----
+                        Ab12Cd/Ef+Gh
+                        0123456789==
+                        -----END CERTIFICATE-----
+                      kind: iam#saml2-idp-signing-key
+                      orgId: 100
+                    - createdAt: "1971-12-27T22:51:06Z"
+                      expiresAt: "1999-09-24T05:30:18Z"
                       id: 2222bbbb3333cccc4444dddd
                       identityProviderId: 1111aaaa2222bbbb3333cccc
                       keyData: |-
@@ -42073,7 +42131,7 @@ components:
                   responseSignatureVerification: response
                   signAuthnRequests: "false"
                   ssoUrl: mysamlprovider.com/apps/456
-                  updatedAt: "2012-03-29T13:40:32Z"
+                  updatedAt: "1994-04-10T14:00:10Z"
             items:
                 $ref: '#/components/schemas/Iam_IdentityProviderResponseExtended'
             type: array
@@ -42130,30 +42188,30 @@ components:
         Iam_IdentityProviderResponseIndexCollection:
             description: IndexResponseBody is the result type for an array of IdentityProviderResponse (index view)
             example:
-                - createdAt: "2001-09-20T21:43:06Z"
+                - createdAt: "2008-09-14T11:53:46Z"
                   id: 1111aaaa2222bbbb3333cccc
                   kind: iam#saml2-idp
                   name: My trusted IDP
                   orgId: 100
-                  updatedAt: "2013-08-15T01:59:10Z"
-                - createdAt: "2001-09-20T21:43:06Z"
+                  updatedAt: "2014-01-09T04:37:23Z"
+                - createdAt: "2008-09-14T11:53:46Z"
                   id: 1111aaaa2222bbbb3333cccc
                   kind: iam#saml2-idp
                   name: My trusted IDP
                   orgId: 100
-                  updatedAt: "2013-08-15T01:59:10Z"
-                - createdAt: "2001-09-20T21:43:06Z"
+                  updatedAt: "2014-01-09T04:37:23Z"
+                - createdAt: "2008-09-14T11:53:46Z"
                   id: 1111aaaa2222bbbb3333cccc
                   kind: iam#saml2-idp
                   name: My trusted IDP
                   orgId: 100
-                  updatedAt: "2013-08-15T01:59:10Z"
-                - createdAt: "2001-09-20T21:43:06Z"
+                  updatedAt: "2014-01-09T04:37:23Z"
+                - createdAt: "2008-09-14T11:53:46Z"
                   id: 1111aaaa2222bbbb3333cccc
                   kind: iam#saml2-idp
                   name: My trusted IDP
                   orgId: 100
-                  updatedAt: "2013-08-15T01:59:10Z"
+                  updatedAt: "2014-01-09T04:37:23Z"
             items:
                 $ref: '#/components/schemas/Iam_IdentityProviderResponseIndex'
             type: array
@@ -44490,8 +44548,8 @@ components:
         Iam_SAML2IdentityProviderSigningKeyResponseCollection:
             description: SAML2IdentityProviderSigningKeyCollectionResponse is the result type for an array of SAML2IdentityProviderSigningKeyResponse (default view)
             example:
-                - createdAt: "1996-06-19T14:30:24Z"
-                  expiresAt: "1999-01-21T01:33:05Z"
+                - createdAt: "1971-12-27T22:51:06Z"
+                  expiresAt: "1999-09-24T05:30:18Z"
                   id: 2222bbbb3333cccc4444dddd
                   identityProviderId: 1111aaaa2222bbbb3333cccc
                   keyData: |-
@@ -44501,8 +44559,8 @@ components:
                     -----END CERTIFICATE-----
                   kind: iam#saml2-idp-signing-key
                   orgId: 100
-                - createdAt: "1996-06-19T14:30:24Z"
-                  expiresAt: "1999-01-21T01:33:05Z"
+                - createdAt: "1971-12-27T22:51:06Z"
+                  expiresAt: "1999-09-24T05:30:18Z"
                   id: 2222bbbb3333cccc4444dddd
                   identityProviderId: 1111aaaa2222bbbb3333cccc
                   keyData: |-
@@ -44512,8 +44570,8 @@ components:
                     -----END CERTIFICATE-----
                   kind: iam#saml2-idp-signing-key
                   orgId: 100
-                - createdAt: "1996-06-19T14:30:24Z"
-                  expiresAt: "1999-01-21T01:33:05Z"
+                - createdAt: "1971-12-27T22:51:06Z"
+                  expiresAt: "1999-09-24T05:30:18Z"
                   id: 2222bbbb3333cccc4444dddd
                   identityProviderId: 1111aaaa2222bbbb3333cccc
                   keyData: |-
@@ -45208,7 +45266,7 @@ components:
                         - 2.3.
                         - 1.11.12.
                     items:
-                        example: Dolor praesentium.
+                        example: Hic iste qui eos.
                         type: string
                     type: array
                 nodePaths:
@@ -45217,7 +45275,7 @@ components:
                         - Corporate Unit/TI Platform
                         - Location/United States of America/Itasca
                     items:
-                        example: Ipsa deleniti nulla itaque.
+                        example: Sed laudantium.
                         type: string
                     type: array
             required:
@@ -45418,22 +45476,22 @@ components:
                       specUri: http://www.rfc-editor.org/info/rfc2617
                       type: httpbasic
                 bulk:
-                    maxOperations: 8.015853706061573e+18
-                    maxPayloadSize: 8.072921919900716e+18
+                    maxOperations: 4.89048247952211e+18
+                    maxPayloadSize: 1.2474858521459113e+18
                     supported: false
                 changePassword:
-                    supported: true
+                    supported: false
                 documentationUri: Sit non odit.
                 etag:
                     supported: true
                 filter:
-                    maxResults: 3.674344652826584e+18
-                    supported: true
+                    maxResults: 8.679070436434028e+18
+                    supported: false
                 meta:
                     location: https://example.com/scim/v2/ServiceProviderConfig
                     resourceType: ServiceProviderConfig
                 patch:
-                    supported: true
+                    supported: false
                 schemas:
                     - Cumque mollitia qui est molestiae.
                     - Consequatur odio qui id nesciunt quam.
@@ -45623,7 +45681,7 @@ components:
                         - 2001
                         - 2002
                     items:
-                        example: 1.1514042108799853e+19
+                        example: 7.967003050873464e+18
                         type: integer
                     type: array
                 description:
@@ -45823,11 +45881,11 @@ components:
             type: object
         Iam_SingleIdentityProviderID:
             example:
-                id: Sequi dolorum labore quod voluptatem ab.
+                id: Cumque expedita numquam rerum.
             properties:
                 id:
                     description: The unique identifier for the identity provider
-                    example: Occaecati quidem ipsa.
+                    example: Et atque.
                     type: string
             required:
                 - id
@@ -45890,7 +45948,7 @@ components:
             example:
                 loginPolicy:
                     defaultIdpId: 1111aaaa2222bbbb3333cccc
-                    enforceSso: true
+                    enforceSso: false
             properties:
                 loginPolicy:
                     $ref: '#/components/schemas/Iam_OrgLoginPolicyInput'
@@ -46177,11 +46235,13 @@ components:
                 firstName:
                     description: First name to set.
                     example: Jane
+                    maxLength: 256
                     minLength: 1
                     type: string
                 lastName:
                     description: Last name to set.
                     example: Smith
+                    maxLength: 256
                     minLength: 1
                     type: string
             type: object
@@ -46217,7 +46277,7 @@ components:
                         - 102
                         - 103
                     items:
-                        example: 6.877453630190164e+17
+                        example: 1.0350574219687018e+19
                         type: integer
                     type: array
                 kind:
@@ -111998,7 +112058,7 @@ paths:
 
                     Supported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.
 
-                    Filterable fields: scheduleId, customerName, customerBillingPlan, costMetric, status, deliveryStatus, currency, periodType, exportType, invoiceAmount (string); customerId, attempts, filterCount, groupByCount (integer); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with discrete filters using AND.
+                    Filterable fields: invoiceNumber, scheduleId, customerName, customerBillingPlan, costMetric, status, deliveryStatus, currency, periodType, exportType, invoiceAmount (string); customerId, attempts, filterCount, groupByCount (integer); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with discrete filters using AND. invoiceNumber is the invoice's Invoice ID: eq, ne and in match it exactly and case-sensitively, co matches part of it case-insensitively, and invoiceNumber eq null selects invoices without one.
                   example: deliveryStatus eq 'success' and billMonth eq '2026-09'
                   in: query
                   name: filter
@@ -112008,7 +112068,7 @@ paths:
 
                         Supported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.
 
-                        Filterable fields: scheduleId, customerName, customerBillingPlan, costMetric, status, deliveryStatus, currency, periodType, exportType, invoiceAmount (string); customerId, attempts, filterCount, groupByCount (integer); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with discrete filters using AND.
+                        Filterable fields: invoiceNumber, scheduleId, customerName, customerBillingPlan, costMetric, status, deliveryStatus, currency, periodType, exportType, invoiceAmount (string); customerId, attempts, filterCount, groupByCount (integer); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with discrete filters using AND. invoiceNumber is the invoice's Invoice ID: eq, ne and in match it exactly and case-sensitively, co matches part of it case-insensitively, and invoiceNumber eq null selects invoices without one.
                     example: deliveryStatus eq 'success' and billMonth eq '2026-09'
                     type: string
                 - description: The unique identifier for the organization
@@ -113135,7 +113195,7 @@ paths:
 
                     Supported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.
 
-                    Filterable fields: customerId, attempts, filterCount, and groupByCount (integer); customerName, customerBillingPlan, currency, invoiceAmount, status, costMetric, periodType, and exportType (string); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with the legacy filter and discrete filters using AND.
+                    Filterable fields: customerId, attempts, filterCount, and groupByCount (integer); invoiceNumber, customerName, customerBillingPlan, currency, invoiceAmount, status, costMetric, periodType, and exportType (string); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with the legacy filter and discrete filters using AND. invoiceNumber is the invoice's Invoice ID: eq, ne and in match it exactly and case-sensitively, co matches part of it case-insensitively, and invoiceNumber eq null selects invoices without one.
                   example: customerName co 'Acme' and exportType eq 'pdf'
                   in: query
                   name: expressionFilter
@@ -113145,7 +113205,7 @@ paths:
 
                         Supported comparison operators are eq, ne, co, in, gt, ge, lt, and le, subject to the field type. String fields support eq, ne, in, and co; numeric and date fields support eq, ne, in, gt, ge, lt, and le. Boolean operators are and, or, and not. Parentheses group expressions. Expressions are limited to depth 10 and 100 predicates. Malformed syntax, unsupported fields or operators, and limit violations return invalid_filter with HTTP 400.
 
-                        Filterable fields: customerId, attempts, filterCount, and groupByCount (integer); customerName, customerBillingPlan, currency, invoiceAmount, status, costMetric, periodType, and exportType (string); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with the legacy filter and discrete filters using AND.
+                        Filterable fields: customerId, attempts, filterCount, and groupByCount (integer); invoiceNumber, customerName, customerBillingPlan, currency, invoiceAmount, status, costMetric, periodType, and exportType (string); billMonth (YYYY-MM); issueDate and dueDate (date); createdAt and updatedAt (date-time). Combined with the legacy filter and discrete filters using AND. invoiceNumber is the invoice's Invoice ID: eq, ne and in match it exactly and case-sensitively, co matches part of it case-insensitively, and invoiceNumber eq null selects invoices without one.
                     example: customerName co 'Acme' and exportType eq 'pdf'
                     type: string
                 - allowEmptyValue: true
@@ -114840,8 +114900,42 @@ paths:
                     content:
                         application/json:
                             examples:
-                                default:
-                                    summary: default
+                                Dynamic proportionate split:
+                                    summary: Dynamic proportionate split
+                                    value:
+                                        allocation:
+                                            destinations:
+                                                - dimensionId: rbd_team
+                                                  dimensionName: Team
+                                                  value: ""
+                                            type: dynamicProportionateSplit
+                                        analyzeSpendQuery: costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8f%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D
+                                        createdAt: "2020-11-26T12:17:38.369Z"
+                                        createdBy:
+                                            id: 1234
+                                            kind: iam:user
+                                            ref: iam:user:1234
+                                        effectiveFrom: 2025-07
+                                        effectiveTo: 2025-12
+                                        id: 68f2a91c4b3d2e1f5a6b7c8d
+                                        kind: finops:billing-shared-cost-rule
+                                        name: Platform Services Recovery
+                                        priority: 1
+                                        source:
+                                            - dimensionId: vendor
+                                              dimensionName: Cloud Vendor
+                                              valueListCondition:
+                                                values:
+                                                    - AWS
+                                                    - Azure
+                                        status: active
+                                        updatedAt: "2020-11-26T12:17:38.369Z"
+                                        updatedBy:
+                                            id: 1234
+                                            kind: iam:user
+                                            ref: iam:user:1234
+                                Rule with source:
+                                    summary: Rule with source
                                     value:
                                         allocation:
                                             destinations:
@@ -114873,6 +114967,58 @@ paths:
                                                 values:
                                                     - AWS
                                                     - Azure
+                                        status: active
+                                        updatedAt: "2020-11-26T12:17:38.369Z"
+                                        updatedBy:
+                                            id: 1234
+                                            kind: iam:user
+                                            ref: iam:user:1234
+                                Rule with sourceCondition:
+                                    summary: Rule with sourceCondition
+                                    value:
+                                        allocation:
+                                            destinations:
+                                                - dimensionId: rbd_team
+                                                  dimensionName: Team
+                                                  percentage: 50
+                                                  value: Orion
+                                                - dimensionId: rbd_team
+                                                  dimensionName: Team
+                                                  percentage: 50
+                                                  value: Atlas
+                                            type: fixedPercentageSplit
+                                        analyzeSpendQuery: costType=cost_amortized_unblended_adj&dashboardID=default&endDate=2025-12-01&filterBy=filter.AllocatedMethodId.Network%2520Cost%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8f%29%2520%253E%2520Platform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29%7CPlatform%2520Services%2520Recovery%2520%2868f2a91c4b3d2e1f5a6b7c8d%29&granularity=Monthly&groupBy=tabular-view.AllocatedResourceId.0%2Ctabular-view.AllocatedResourceName.1%2Ctabular-view.AllocatedMethodId.2&periodType=charge_period&startDate=2025-07-01&tableCostsVisible=tabular-view&valueFormat=%7B%7D
+                                        createdAt: "2020-11-26T12:17:38.369Z"
+                                        createdBy:
+                                            id: 1234
+                                            kind: iam:user
+                                            ref: iam:user:1234
+                                        effectiveFrom: 2025-07
+                                        effectiveTo: 2025-12
+                                        id: 68f2a91c4b3d2e1f5a6b7c8d
+                                        kind: finops:billing-shared-cost-rule
+                                        name: Platform Services Recovery
+                                        priority: 1
+                                        source: []
+                                        sourceCondition:
+                                            expressions:
+                                                - expressions:
+                                                    - dimension: vendor
+                                                      type: equals
+                                                      value: AWS
+                                                    - dimension: vendor
+                                                      type: equals
+                                                      value: Azure
+                                                  type: or
+                                                - expressions:
+                                                    - dimension: tag_dim_env
+                                                      type: equals
+                                                      value: staging
+                                                    - dimension: tag_dim_env
+                                                      type: equals
+                                                      value: production
+                                                  type: or
+                                            type: and
                                         status: active
                                         updatedAt: "2020-11-26T12:17:38.369Z"
                                         updatedBy:
@@ -115324,7 +115470,7 @@ paths:
             x-flexera-service: finops_billing
     /finops-billing/v1/orgs/{orgId}/shared-cost-rules/{id}/telemetry:
         get:
-            description: 'Downloads the telemetry a dynamicProportionateSplit rule holds now (Download History) as CSV with exactly the upload template''s columns: Date (YYYY-MM-DD), the dimension''s name and Metrics (>=0). Rows are sorted by date and then dimension value, with dates formatted YYYY-MM-DD; records deleted by an upload are not included. Dimension values starting with =, +, - or @ are written with a leading '' so spreadsheets do not run them as formulas. The file can be uploaded again unchanged. A rule with no stored records downloads as the header alone.'
+            description: 'Downloads the telemetry a dynamicProportionateSplit rule holds now (Download History) as CSV with exactly the upload template''s columns: Date (YYYY-MM-DD), the dimension''s name and Metrics (>=0). Rows are sorted by date and then dimension value, with dates formatted YYYY-MM-DD; records deleted by an upload are not included. Dimension values starting with =, +, -, @ or '' are written with one extra leading '' so spreadsheets do not run them as formulas; an upload strips exactly one leading '' that comes before any of those characters, so the file can be uploaded again unchanged. A rule with no stored records downloads as the header alone.'
             operationId: FinopsBilling_Shared_Cost_Rules_downloadTelemetry
             parameters:
                 - description: The unique identifier for the organization
@@ -115514,7 +115660,7 @@ paths:
             x-flexera-service: finops_billing
     /finops-billing/v1/orgs/{orgId}/shared-cost-rules/telemetry-uploads:
         post:
-            description: Validates a telemetry CSV for a dynamicProportionateSplit rule, compares it with the rule's saved telemetry and stages the result for 24 hours. Returns the summary and every error and warning in the file, without rows; showTelemetryUpload pages the rows. Staging changes nothing; an upload is applied only by a rule save that names it. The request body must not exceed 50 MB.
+            description: Validates a telemetry CSV for a dynamicProportionateSplit rule, compares it with the rule's saved telemetry and stages the result for 24 hours. Returns the summary and every error and warning in the file, without rows; showTelemetryUpload pages the rows. Staging changes nothing; an upload is applied only by a rule save that names it. The request body must not exceed 50 MB. Either the create or the update privilege can stage a file; saving the rule that names it still needs create (new rule) or update (existing rule).
             operationId: FinopsBilling_Shared_Cost_Rules_uploadTelemetry
             parameters:
                 - description: The unique identifier for the organization
@@ -125468,8 +125614,8 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "2013-04-22T04:06:01Z"
-                                expiresAt: "2011-08-08T03:52:23Z"
+                                createdAt: "1992-02-04T08:43:07Z"
+                                expiresAt: "1970-01-06T03:33:04Z"
                                 groups:
                                     - id: 456
                                       kind: iam#group
@@ -125566,8 +125712,27 @@ paths:
                                           id: 3
                                           kind: iam#role
                                           name: admin
-                                status: pending
-                                updatedAt: "1991-10-25T01:53:27Z"
+                                    - id: 100
+                                      kind: iam#project-invitation
+                                      name: 'Baker''s Guild Local #55'
+                                      roles:
+                                        - category: Automation
+                                          displayName: Approve policies
+                                          id: 1
+                                          kind: iam#role
+                                          name: policy_approver
+                                        - category: Automation
+                                          displayName: Create policies
+                                          id: 2
+                                          kind: iam#role
+                                          name: policy_designer
+                                        - category: Cloud
+                                          displayName: Administer cloud
+                                          id: 3
+                                          kind: iam#role
+                                          name: admin
+                                status: accepted
+                                updatedAt: "2014-06-13T10:51:54Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_FlexeraIamInvitation'
                                 description: 'Response body may alternatively be #/components/schemas/InvitationResponseTiny'
@@ -125949,7 +126114,7 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "2006-06-17T21:33:25Z"
+                                createdAt: "1997-07-18T12:53:38Z"
                                 id: 1234
                                 kind: iam#org
                                 name: Acme Corp
@@ -125960,7 +126125,7 @@ paths:
                                       name: flx
                                       shouldInherit: true
                                       source: child
-                                updatedAt: "2002-10-17T04:45:24Z"
+                                updatedAt: "1990-05-05T20:05:10Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_Organization'
                     description: OK response.
@@ -127553,6 +127718,33 @@ paths:
                                         httpCode: 200
                                         httpStatus: Ok
                                       timestamp: "1985-04-07T08:12:52Z"
+                                    - eventType: api.event
+                                      kind: iam:api-event
+                                      principal:
+                                        email: someone@SomeWhere.com
+                                        firstName: Jane
+                                        id: 12345
+                                        kind: iam:user
+                                        lastName: Smith
+                                        name: Jane Smith
+                                        ref: ref:nam:::iam:user:12345
+                                      request:
+                                        bodyBytes: 20
+                                        httpHost: api.flexera.com
+                                        httpMethod: GET
+                                        httpPath: /iam/v1/orgs/100/users
+                                        id: 7bfcf75b8c4b4b5d9d9f05937f039307
+                                        ip: 1.2.3.4
+                                        userAgent:
+                                            browser: Chrome
+                                            os: Mac OS X
+                                            raw: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
+                                      response:
+                                        bodyBytes: 100
+                                        durationMs: 300
+                                        httpCode: 200
+                                        httpStatus: Ok
+                                      timestamp: "1985-04-07T08:12:52Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_APIEventCollection'
                     description: OK response.
@@ -127877,9 +128069,9 @@ paths:
                         application/json:
                             example:
                                 capabilityName: iam
-                                createdAt: "1971-10-13T10:52:40Z"
-                                description: wo
-                                expiresAt: "1970-11-08T07:26:54Z"
+                                createdAt: "2006-03-27T09:26:02Z"
+                                description: a
+                                expiresAt: "1990-03-21T20:29:27Z"
                                 kind: iam#capability
                                 onboardingStatus: pending
                                 orgId: 100
@@ -127889,7 +128081,7 @@ paths:
                                         - monitoring
                                         - dashboards
                                     Number Of Computers: 500
-                                updatedAt: "2002-10-30T00:44:33Z"
+                                updatedAt: "1973-09-16T13:54:56Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_FlexeraIamCapability'
                                 description: 'Response body may alternatively be #/components/schemas/CapabilityResponseIndex'
@@ -128600,6 +128792,12 @@ paths:
                                 - capability: iam
                                   roles:
                                     - iam_admin
+                                - capability: iam
+                                  roles:
+                                    - iam_admin
+                                - capability: iam
+                                  roles:
+                                    - iam_admin
                             description: Contractor will take core of updating our networking information to latest version
                             target_org_id: 1234
                             title: Contract Example
@@ -128632,8 +128830,46 @@ paths:
                                           privileges:
                                             - acme:widget:update
                                           role_name: policy_approver
+                                        - category: Automation
+                                          description: Can view organization resources
+                                          displayName: Approve policies
+                                          privileges:
+                                            - acme:widget:update
+                                          role_name: policy_approver
                                     - capability: iam
                                       roles:
+                                        - category: Automation
+                                          description: Can view organization resources
+                                          displayName: Approve policies
+                                          privileges:
+                                            - acme:widget:update
+                                          role_name: policy_approver
+                                        - category: Automation
+                                          description: Can view organization resources
+                                          displayName: Approve policies
+                                          privileges:
+                                            - acme:widget:update
+                                          role_name: policy_approver
+                                        - category: Automation
+                                          description: Can view organization resources
+                                          displayName: Approve policies
+                                          privileges:
+                                            - acme:widget:update
+                                          role_name: policy_approver
+                                        - category: Automation
+                                          description: Can view organization resources
+                                          displayName: Approve policies
+                                          privileges:
+                                            - acme:widget:update
+                                          role_name: policy_approver
+                                    - capability: iam
+                                      roles:
+                                        - category: Automation
+                                          description: Can view organization resources
+                                          displayName: Approve policies
+                                          privileges:
+                                            - acme:widget:update
+                                          role_name: policy_approver
                                         - category: Automation
                                           description: Can view organization resources
                                           displayName: Approve policies
@@ -128659,7 +128895,7 @@ paths:
                                 id: 12345
                                 initiator_org_id: 1234
                                 last_seen: "2020-11-26T12:17:38.369Z"
-                                status: proposed
+                                status: approved
                                 target_org_id: 1234
                                 title: Contract Example
                                 updated_at: "0000-01-01T00:00:00Z"
@@ -128937,20 +129173,6 @@ paths:
                                           privileges:
                                             - acme:widget:update
                                           role_name: policy_approver
-                                    - capability: iam
-                                      roles:
-                                        - category: Automation
-                                          description: Can view organization resources
-                                          displayName: Approve policies
-                                          privileges:
-                                            - acme:widget:update
-                                          role_name: policy_approver
-                                        - category: Automation
-                                          description: Can view organization resources
-                                          displayName: Approve policies
-                                          privileges:
-                                            - acme:widget:update
-                                          role_name: policy_approver
                                         - category: Automation
                                           description: Can view organization resources
                                           displayName: Approve policies
@@ -128977,8 +129199,20 @@ paths:
                                           privileges:
                                             - acme:widget:update
                                           role_name: policy_approver
+                                        - category: Automation
+                                          description: Can view organization resources
+                                          displayName: Approve policies
+                                          privileges:
+                                            - acme:widget:update
+                                          role_name: policy_approver
                                     - capability: iam
                                       roles:
+                                        - category: Automation
+                                          description: Can view organization resources
+                                          displayName: Approve policies
+                                          privileges:
+                                            - acme:widget:update
+                                          role_name: policy_approver
                                         - category: Automation
                                           description: Can view organization resources
                                           displayName: Approve policies
@@ -129004,7 +129238,7 @@ paths:
                                 id: 12345
                                 initiator_org_id: 1234
                                 last_seen: "2020-11-26T12:17:38.369Z"
-                                status: rejected
+                                status: approved
                                 target_org_id: 1234
                                 title: Contract Example
                                 updated_at: "0000-01-01T00:00:00Z"
@@ -129547,7 +129781,7 @@ paths:
                     content:
                         application/json:
                             example:
-                                authenticationRequired: true
+                                authenticationRequired: false
                                 description: Replaces the logo displayed in the top navbar in Flexera One with a logo fetched from the provided URL. The value must be a valid URL.
                                 id: navbar-logo-url
                                 kind: iam#customization-type
@@ -131697,7 +131931,7 @@ paths:
                     content:
                         application/json:
                             example:
-                                id: Autem ea ipsum placeat autem.
+                                id: Eum aut esse sed non consequatur debitis.
                             schema:
                                 $ref: '#/components/schemas/Iam_SingleIdentityProviderID'
                     description: OK response.
@@ -132682,7 +132916,7 @@ paths:
                                     Ab12Cd/Ef+Gh
                                     0123456789==
                                     -----END CERTIFICATE-----
-                                createdAt: "1999-06-16T10:53:25Z"
+                                createdAt: "2003-03-30T08:19:07Z"
                                 discoveryHint: my.company.domain.com
                                 domains:
                                     - createdAt: "1977-05-24T21:25:54Z"
@@ -132771,9 +133005,9 @@ paths:
                                       orgId: 100
                                 responseSignatureAlgorithm: SHA-256
                                 responseSignatureVerification: response
-                                signAuthnRequests: "false"
+                                signAuthnRequests: "true"
                                 ssoUrl: mysamlprovider.com/apps/456
-                                updatedAt: "2005-10-15T01:57:10Z"
+                                updatedAt: "1996-09-30T09:00:53Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_FlexeraIamIdentityProvider'
                                 description: 'Response body may alternatively be one of #/components/schemas/IdentityProviderResponseExtended or #/components/schemas/IdentityProviderResponseIndex'
@@ -132921,7 +133155,7 @@ paths:
                             requestSigningKeyId: 2222bbbb3333cccc4444dddd
                             responseSignatureAlgorithm: SHA-256
                             responseSignatureVerification: response
-                            signAuthnRequests: "true"
+                            signAuthnRequests: "false"
                             ssoUrl: mysamlprovider.com/apps/456
                         schema:
                             $ref: '#/components/schemas/Iam_UpdateRequestBody3'
@@ -133510,13 +133744,13 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "2000-09-27T08:23:55Z"
+                                createdAt: "2003-10-02T12:33:03Z"
                                 identityProviderId: 1111aaaa2222bbbb3333cccc
                                 kind: iam#saml2-idp-domain
                                 name: flexera.com
                                 orgId: 100
                                 verificationCode: aBcDeFgHiJkLmNoPqRsT
-                                verifiedAt: "1976-11-15T17:19:04Z"
+                                verifiedAt: "1988-03-01T16:04:56Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_Domain'
                     description: OK response.
@@ -133660,13 +133894,13 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "2005-09-12T06:33:26Z"
+                                createdAt: "1975-02-08T10:03:40Z"
                                 identityProviderId: 1111aaaa2222bbbb3333cccc
                                 kind: iam#saml2-idp-domain
                                 name: flexera.com
                                 orgId: 100
                                 verificationCode: aBcDeFgHiJkLmNoPqRsT
-                                verifiedAt: "1991-07-20T01:57:00Z"
+                                verifiedAt: "1999-04-14T22:06:24Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_Domain'
                     description: OK response.
@@ -133833,7 +134067,7 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "1982-09-03T07:56:54Z"
+                                createdAt: "1990-12-29T20:39:07Z"
                                 identityProviderId: 1111aaaa2222bbbb3333cccc
                                 kind: iam#saml2-idp-domain
                                 name: flexera.com
@@ -134153,8 +134387,8 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "2011-05-16T04:39:27Z"
-                                expiresAt: "1974-11-19T22:47:24Z"
+                                createdAt: "2002-04-29T08:31:30Z"
+                                expiresAt: "1973-04-07T07:17:50Z"
                                 id: 2222bbbb3333cccc4444dddd
                                 identityProviderId: 1111aaaa2222bbbb3333cccc
                                 keyData: |-
@@ -134297,7 +134531,7 @@ paths:
                 content:
                     application/json:
                         example:
-                            validityYears: 7
+                            validityYears: 3
                         schema:
                             $ref: '#/components/schemas/Iam_GenerateRequestBody'
                 required: true
@@ -134306,8 +134540,8 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "1979-07-27T01:18:44Z"
-                                expiresAt: "2014-06-05T05:52:04Z"
+                                createdAt: "1994-09-12T03:15:50Z"
+                                expiresAt: "1994-02-11T18:45:24Z"
                                 id: 2222bbbb3333cccc4444dddd
                                 identityProviderId: 1111aaaa2222bbbb3333cccc
                                 keyData: |-
@@ -134984,32 +135218,32 @@ paths:
                     application/json:
                         example:
                             groupIds:
-                                - 8.291867469309902e+18
-                                - 6.973290135977388e+18
+                                - 1.5334802045061263e+18
+                                - 1.2052192460360217e+19
+                                - 2.86687927264239e+18
+                                - 3.1527908839786337e+18
                             inviteeEmail: taylor@example.com
                             inviteeFirstName: Jane
                             inviteeLastName: Smith
                             isSso: true
                             orgRoleIds:
-                                - 1.735402245313753e+19
-                                - 7.082601710585481e+18
+                                - 1.6132377155312247e+19
+                                - 1.1623034872084283e+19
+                                - 5.821538630400329e+18
+                                - 1.1244154147991597e+19
                             projects:
                                 - id: 100
                                   roleIds:
-                                    - 1.2052192460360217e+19
-                                    - 2.86687927264239e+18
+                                    - 1.0413165004263072e+19
+                                    - 1.2828362110696485e+19
+                                    - 1.735402245313753e+19
+                                    - 7.082601710585481e+18
                                 - id: 100
                                   roleIds:
-                                    - 1.2052192460360217e+19
-                                    - 2.86687927264239e+18
-                                - id: 100
-                                  roleIds:
-                                    - 1.2052192460360217e+19
-                                    - 2.86687927264239e+18
-                                - id: 100
-                                  roleIds:
-                                    - 1.2052192460360217e+19
-                                    - 2.86687927264239e+18
+                                    - 1.0413165004263072e+19
+                                    - 1.2828362110696485e+19
+                                    - 1.735402245313753e+19
+                                    - 7.082601710585481e+18
                             skipEmailNotification: false
                         schema:
                             $ref: '#/components/schemas/Iam_CreateRequestBody4'
@@ -135304,8 +135538,8 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "2009-05-31T04:43:14Z"
-                                expiresAt: "2001-08-27T19:16:59Z"
+                                createdAt: "1974-05-04T15:14:50Z"
+                                expiresAt: "1993-09-09T19:22:42Z"
                                 groups:
                                     - id: 456
                                       kind: iam#group
@@ -135383,8 +135617,27 @@ paths:
                                           id: 3
                                           kind: iam#role
                                           name: admin
-                                status: pending
-                                updatedAt: "1995-04-18T18:55:35Z"
+                                    - id: 100
+                                      kind: iam#project-invitation
+                                      name: 'Baker''s Guild Local #55'
+                                      roles:
+                                        - category: Automation
+                                          displayName: Approve policies
+                                          id: 1
+                                          kind: iam#role
+                                          name: policy_approver
+                                        - category: Automation
+                                          displayName: Create policies
+                                          id: 2
+                                          kind: iam#role
+                                          name: policy_designer
+                                        - category: Cloud
+                                          displayName: Administer cloud
+                                          id: 3
+                                          kind: iam#role
+                                          name: admin
+                                status: declined
+                                updatedAt: "1986-02-13T01:27:52Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_FlexeraIamInvitation'
                                 description: 'Response body may alternatively be #/components/schemas/InvitationResponseTiny'
@@ -136009,7 +136262,7 @@ paths:
                         example:
                             loginPolicy:
                                 defaultIdpId: 1111aaaa2222bbbb3333cccc
-                                enforceSso: true
+                                enforceSso: false
                         schema:
                             $ref: '#/components/schemas/Iam_UpdateRequestBody2'
                 required: true
@@ -136132,7 +136385,7 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "2014-07-30T06:35:25Z"
+                                createdAt: "2009-07-28T04:08:29Z"
                                 id: 1234
                                 kind: iam#org
                                 name: Acme Corp
@@ -136143,7 +136396,7 @@ paths:
                                       name: flx
                                       shouldInherit: true
                                       source: child
-                                updatedAt: "1991-12-20T16:09:41Z"
+                                updatedAt: "1992-11-20T04:28:01Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_Organization'
                     description: OK response.
@@ -139036,20 +139289,20 @@ paths:
                             example:
                                 accessSource: org_member
                                 accessSourceDisplayName: Org Membership
-                                createdAt: "1974-07-25T11:36:56Z"
+                                createdAt: "1997-10-06T22:56:58Z"
                                 email: someone@SomeWhere.com
                                 firstName: Jane
                                 hasActiveRefreshToken: true
                                 id: 12345
                                 isNameManagedByIDP: false
                                 kind: iam#user
-                                lastAPILogin: "2015-12-21T09:21:55Z"
-                                lastActivity: "2003-07-14T18:14:56Z"
+                                lastAPILogin: "2001-07-14T21:13:12Z"
+                                lastActivity: "2015-03-11T18:08:56Z"
                                 lastName: Smith
-                                lastUILogin: "1973-05-12T09:30:07Z"
+                                lastUILogin: "1986-09-17T16:03:05Z"
                                 ref: iam#user:123
                                 status: active
-                                updatedAt: "2010-03-21T02:57:15Z"
+                                updatedAt: "1998-04-21T09:21:12Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_FlexeraIamUser'
                     description: OK response.
@@ -139210,20 +139463,20 @@ paths:
                             example:
                                 accessSource: org_member
                                 accessSourceDisplayName: Org Membership
-                                createdAt: "1987-08-17T20:30:24Z"
+                                createdAt: "2000-07-10T21:36:27Z"
                                 email: someone@SomeWhere.com
                                 firstName: Jane
                                 hasActiveRefreshToken: true
                                 id: 12345
                                 isNameManagedByIDP: false
                                 kind: iam#user
-                                lastAPILogin: "2004-03-20T12:47:22Z"
-                                lastActivity: "2010-02-15T03:04:35Z"
+                                lastAPILogin: "2010-08-12T23:43:40Z"
+                                lastActivity: "1981-06-02T15:29:08Z"
                                 lastName: Smith
-                                lastUILogin: "1971-02-17T03:59:25Z"
+                                lastUILogin: "2013-10-22T08:23:40Z"
                                 ref: iam#user:123
                                 status: active
-                                updatedAt: "2008-05-14T15:03:18Z"
+                                updatedAt: "1983-10-12T20:06:40Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_FlexeraIamUser'
                     description: OK response.
@@ -139920,8 +140173,8 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "2000-08-08T01:35:21Z"
-                                expiresAt: "2007-05-16T07:47:26Z"
+                                createdAt: "1984-04-09T04:07:36Z"
+                                expiresAt: "1996-07-25T13:20:38Z"
                                 id: a1B2c3D4e5F6g7H8i9J0
                                 isDeletable: true
                                 kind: iam#refresh-token
@@ -140955,7 +141208,7 @@ paths:
                                 id: preferredLoginMethod
                                 kind: iam#user-setting-blob
                                 orgId: 100
-                                type: global
+                                type: org
                                 url: https://iam-user-setting-blob-staging-us-east-1/1101/232323/serid/optima/cloud-dashboards/sdjhdkjahdkja
                             schema:
                                 $ref: '#/components/schemas/Iam_UserSettingBlob'
@@ -141503,7 +141756,7 @@ paths:
                                     - name: fcm
                                     - name: fss
                                     - name: iam
-                                createdAt: "1985-04-30T15:59:50Z"
+                                createdAt: "2004-04-14T23:36:28Z"
                                 description: MSP Customer requires services X, Y, Z.
                                 externalId: W12345
                                 id: 200
@@ -141516,7 +141769,7 @@ paths:
                                     - email: wjohnson@example.com
                                       firstName: Wilson
                                       lastName: Johnson
-                                updatedAt: "1972-02-12T10:53:21Z"
+                                updatedAt: "2015-01-06T05:24:31Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_FlexeraMspCustomer'
                                 description: 'Response body may alternatively be one of #/components/schemas/MSPCustomerResponseIndex or #/components/schemas/MSPCustomerResponseExtended'
@@ -141834,13 +142087,13 @@ paths:
                     content:
                         application/json:
                             example:
-                                createdAt: "1982-02-19T04:06:10Z"
+                                createdAt: "1981-05-05T19:22:21Z"
                                 identityProviderId: 1111aaaa2222bbbb3333cccc
                                 kind: iam#saml2-idp-domain
                                 name: flexera.com
                                 orgId: 100
                                 verificationCode: aBcDeFgHiJkLmNoPqRsT
-                                verifiedAt: "1985-10-25T00:03:57Z"
+                                verifiedAt: "1993-11-05T05:41:21Z"
                             schema:
                                 $ref: '#/components/schemas/Iam_Domain'
                     description: OK response.
@@ -142132,6 +142385,7 @@ paths:
                     application/json:
                         example:
                             tags:
+                                - tag: alpha
                                 - tag: alpha
                                 - tag: alpha
                         schema:
@@ -143382,18 +143636,6 @@ paths:
                                       errorMessage: 'MSP capability hierarchy constraint violated: max_depth is 0, cannot create MSP children'
                                       location: /msp/v2/orgs/1/customers/12345
                                       status: success
-                                    - correlationId: client-ref-001
-                                      customerId: 12345
-                                      errorCode: MSP_CAPABILITY_VALIDATION_FAILED
-                                      errorMessage: 'MSP capability hierarchy constraint violated: max_depth is 0, cannot create MSP children'
-                                      location: /msp/v2/orgs/1/customers/12345
-                                      status: success
-                                    - correlationId: client-ref-001
-                                      customerId: 12345
-                                      errorCode: MSP_CAPABILITY_VALIDATION_FAILED
-                                      errorMessage: 'MSP capability hierarchy constraint violated: max_depth is 0, cannot create MSP children'
-                                      location: /msp/v2/orgs/1/customers/12345
-                                      status: success
                                 totalFailed: 2
                                 totalRequested: 3
                                 totalSuccessful: 1
@@ -143531,7 +143773,9 @@ paths:
                     application/json:
                         example:
                             customerIds:
-                                - 1.7733684063728583e+19
+                                - 1.7083709682642432e+19
+                                - 1.1985142592330068e+19
+                                - 1.738445419790008e+19
                         schema:
                             $ref: '#/components/schemas/Iam_BulkDeleteV2RequestBody'
                 required: true
@@ -174943,22 +175187,22 @@ paths:
                                       specUri: http://www.rfc-editor.org/info/rfc2617
                                       type: httpbasic
                                 bulk:
-                                    maxOperations: 8.015853706061573e+18
-                                    maxPayloadSize: 8.072921919900716e+18
+                                    maxOperations: 4.89048247952211e+18
+                                    maxPayloadSize: 1.2474858521459113e+18
                                     supported: false
                                 changePassword:
-                                    supported: true
+                                    supported: false
                                 documentationUri: Et quas sint ut nobis est.
                                 etag:
                                     supported: true
                                 filter:
-                                    maxResults: 3.674344652826584e+18
-                                    supported: true
+                                    maxResults: 8.679070436434028e+18
+                                    supported: false
                                 meta:
                                     location: https://example.com/scim/v2/ServiceProviderConfig
                                     resourceType: ServiceProviderConfig
                                 patch:
-                                    supported: true
+                                    supported: false
                                 schemas:
                                     - Voluptatem quia inventore voluptatem facilis qui quasi.
                                     - Eveniet repellendus.
