@@ -7,7 +7,7 @@ func TestResourceFromPath(t *testing.T) {
 		{"/budget/v1/orgs/{orgId}/budgets", "budget"},
 		{"/finops-onboarding/v1/orgs/{orgId}/bill-connects/aws/iam-role", "bill-connect-aws-iam-role"},
 		{"/iam/v1/orgs/{orgId}/users/{userId}", "user"},
-		{"/grs/orgs/{orgId}/projects", "project"},
+		{"/iam/v1/orgs/{orgId}/projects", "project"},
 		{"/policy/v1/orgs/{orgId}/projects/{projectId}/applied-policies/{id}/evaluate", "applied-policy-evaluate"},
 		{"/cred/v2/orgs/{orgId}/credentials/api-key/{id}", "credential-api-key"},
 		{"/finops-customizations/v1/orgs/{orgId}/rule-based-dimensions/{id}/rules/{effectiveAt}", "rule-based-dimension-rules-list"},

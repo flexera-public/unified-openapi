@@ -179,22 +179,6 @@ specs:
         method: post
         action: create
         reason: "The POST endpoint creates an adjustment plan rule in the rules sub-collection."
-  - id: flexera-grs
-    name: "Flexera Global Resource Service API"
-    vendor: flexera
-    service: grs
-    version: v2
-    source:
-      type: manual
-      description: "Hand-curated minimal OpenAPI subset for the Flexera Global Resource Service (GRS). GRS is a legacy internal Praxis Ruby app being deprecated; it does not publish a real upstream spec. This file documents only the GRS endpoints that the unified Flexera One SDK helpers depend on (currently project/org lookup by user). Add new endpoints only when an SDK helper requires them; remove this spec once GRS is fully deprecated."
-    format: openapi3-json
-    output:
-      path: "sources/flexera/grs/v2"
-      filename: "openapi.json"
-    processing:
-      - type: manual
-        notes: "Hand-maintained in-repo. Add new endpoints only when a unified SDK helper requires them; remove once GRS is fully deprecated and no helpers depend on it."
-
   # RightScale APIs
   - id: rightscale-governance
     name: "RightScale Governance Policies API"

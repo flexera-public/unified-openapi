@@ -146,8 +146,8 @@ operation IDs, supplies semantic action annotations, and retains the existing
 
 Every merged operation records the API service that contributed it, so
 consumers can group by service without parsing operation IDs. Tags are not
-service-unique after merge (for example `Project` comes from both GRS and IAM),
-so the service is stamped per operation:
+guaranteed to be unique across services after merge, so the service is stamped
+per operation:
 
 | Location | Extension | Value |
 |---|---|---|
@@ -182,8 +182,7 @@ To add or update endpoints, a maintainer fetches the upstream document by
 hand, reviews the diff against the committed file, hand-edits
 `sources/.../openapi.json` with only the approved changes, and opens a PR.
 
-Current manual specs: `flexera-grs` (legacy service with no real upstream
-spec) and `rightscale-bill-analysis` (see below).
+Current manual spec: `rightscale-bill-analysis` (see below).
 
 ## Development
 

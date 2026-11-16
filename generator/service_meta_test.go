@@ -37,14 +37,14 @@ func TestApplyServiceMetadata(t *testing.T) {
 		"/iam/v1/orgs/{orgId}/projects": map[string]interface{}{"get": op("Project")},
 		"/iam/v1/orgs/{orgId}/groups":   map[string]interface{}{"get": op("Group"), "post": op("Group")},
 	}}
-	grsDoc := map[string]interface{}{"paths": map[string]interface{}{
-		"/grs/users/{userId}/projects": map[string]interface{}{"get": op("Project")},
+	otherDoc := map[string]interface{}{"paths": map[string]interface{}{
+		"/other/v1/projects": map[string]interface{}{"get": op("Project")},
 	}}
 	stampOperationService(iamDoc, "iam")
-	stampOperationService(grsDoc, "grs")
+	stampOperationService(otherDoc, "other")
 
 	paths := map[string]interface{}{}
-	for _, d := range []map[string]interface{}{iamDoc, grsDoc} {
+	for _, d := range []map[string]interface{}{iamDoc, otherDoc} {
 		for k, v := range d["paths"].(map[string]interface{}) {
 			paths[k] = v
 		}
@@ -58,7 +58,7 @@ func TestApplyServiceMetadata(t *testing.T) {
 	}
 	services := []serviceInfo{
 		serviceInfoFromSpec(SpecConfig{ID: "flexera-iam-v1", Name: "Flexera Identity and Access Management API", Vendor: "flexera", Service: "iam", Version: "v1"}),
-		serviceInfoFromSpec(SpecConfig{ID: "flexera-grs", Name: "Flexera Global Resource Service API", Vendor: "flexera", Service: "grs", Version: "v2"}),
+		serviceInfoFromSpec(SpecConfig{ID: "other-v1", Name: "Other API", Vendor: "other", Service: "other", Version: "v1"}),
 		// Registered but contributes no operations: omitted from output.
 		serviceInfoFromSpec(SpecConfig{ID: "empty", Name: "Empty API", Service: "empty"}),
 	}
@@ -71,8 +71,8 @@ func TestApplyServiceMetadata(t *testing.T) {
 	}
 
 	tags := doc["tags"].([]interface{})
-	if got := tags[1].(map[string]interface{})[extServices]; !reflect.DeepEqual(got, []interface{}{"grs", "iam"}) {
-		t.Errorf("shared tag services = %v, want [grs iam]", got)
+	if got := tags[1].(map[string]interface{})[extServices]; !reflect.DeepEqual(got, []interface{}{"iam", "other"}) {
+		t.Errorf("shared tag services = %v, want [iam other]", got)
 	}
 	if got := tags[0].(map[string]interface{})[extServices]; !reflect.DeepEqual(got, []interface{}{"iam"}) {
 		t.Errorf("tag services = %v, want [iam]", got)
@@ -93,8 +93,8 @@ func TestApplyServiceMetadata(t *testing.T) {
 	}
 
 	groups := doc[extTagGroups].([]interface{})
-	if len(groups) != 2 || groups[0].(map[string]interface{})["name"] != "Global Resource Service" {
-		t.Errorf("x-tagGroups = %#v, want sorted by title starting with Global Resource Service", groups)
+	if len(groups) != 2 || groups[0].(map[string]interface{})["name"] != "Identity and Access Management" {
+		t.Errorf("x-tagGroups = %#v, want sorted by title starting with Identity and Access Management", groups)
 	}
 }
 

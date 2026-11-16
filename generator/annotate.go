@@ -78,7 +78,7 @@ var pathVarRE = regexp.MustCompile(`^\{[^}]+\}$`)
 //	/finops-onboarding/v1/orgs/{orgId}/bill-connects/aws/iam-role   -> "bill-connect-aws-iam-role"
 //	/iam/v1/orgs/{orgId}/users/{userId}                             -> "user"
 //	/policy/v1/orgs/{orgId}/projects/{projectId}/applied-policies/{id}/evaluate -> "applied-policy-evaluate"
-//	/grs/orgs/{orgId}/projects                                      -> "project"
+//	/iam/v1/orgs/{orgId}/projects                                   -> "project"
 func resourceFromPath(p string) string {
 	// Rule-based-dimension rules are modeled as dated "rules lists"
 	// under /rule-based-dimensions/{id}/rules/{effectiveAt}. Preserve

@@ -9,9 +9,8 @@ import (
 // Service metadata extensions emitted into the unified spec. They let
 // downstream consumers (SDKs, CLIs, documentation renderers) group operations
 // by the API service they came from without inferring it from operationId
-// prefixes or path shapes. Operation tags are NOT service-unique after merge
-// (e.g. "Project" is contributed by both GRS and IAM), so the service is
-// recorded per operation.
+// prefixes or path shapes. Operation tags are not guaranteed to be unique
+// across services, so the service is recorded per operation.
 //
 //	root:      x-flexera-services  map[serviceID]{title,name,vendor,version,specId,operationIdPrefix,sourceUrl,tags}
 //	root:      x-tagGroups         Redoc-style [{name: <title>, tags: [...]}]
