@@ -515,20 +515,37 @@ specs:
   #   processing:
   #     - type: download
 
-  # - id: flexera-fnms-v1
-  #   name: "Flexera IT Asset Management API"
-  #   vendor: flexera
-  #   service: fnms
-  #   version: v1
-  #   source:
-  #     type: url
-  #     url: "https://developer.flexera.com/openapi/services/fnms/v1/openapi.json"
-  #   format: openapi3-json
-  #   output:
-  #     path: "sources/flexera/fnms/v1"
-  #     filename: "openapi.json"
-  #   processing:
-  #     - type: download
+  - id: flexera-fnms-v1
+    name: "Flexera IT Asset Management API"
+    vendor: flexera
+    service: fnms
+    version: v1
+    source:
+      type: url
+      url: "https://developer.flexera.com/openapi/services/fnms/v1/openapi.json"
+    format: openapi3-json
+    output:
+      path: "sources/flexera/fnms/v1"
+      filename: "openapi.json"
+    processing:
+      - type: download
+    merge_exclude_paths:
+      - path: "/fnms/v1/orgs/{orgId}/devices/installed-software"
+        reason: "Deprecated v1 endpoint; use /fnms/v2/orgs/{orgId}/devices/installed-software ."
+      - path: "/fnms/v1/orgs/{orgId}/reports/{id}/execute"
+        reason: "Deprecated synchronous endpoint; use the execute-async start, status, and retrieve workflow ."
+      - path: "/fnms/v1/orgs/{orgId}/installed-applications"
+        reason: "Deprecated endpoint; use /fnms/v1/orgs/{orgId}/installed-applications/execute-async ."
+      - path: "/fnms/v1/orgs/{orgId}/licenses"
+        reason: "Deprecated endpoint; use /fnms/v1/orgs/{orgId}/licenses-async ."
+      - path: "/fnms/v1/orgs/{orgId}/licenses/{licenseId}/consumption"
+        reason: "Deprecated endpoint; use /fnms/v1/orgs/{orgId}/licenses/{licenseId}/consumption-async ."
+      - path: "/fnms/v1/orgs/{orgId}/licenses/{licenseId}/devices"
+        reason: "Deprecated endpoint; use /fnms/v1/orgs/{orgId}/licenses/{licenseId}/devices-async ."
+      - path: "/fnms/v1/orgs/{orgId}/licensed-applications"
+        reason: "Deprecated endpoint; use /fnms/v1/orgs/{orgId}/licensed-applications-async ."
+      - path: "/fnms/v1/orgs/{orgId}/system-tasks"
+        reason: "Deprecated endpoint; use /fnms/v1/orgs/{orgId}/system-tasks/execute-async ."
 
   - id: flexera-vis-v2
     name: "Flexera IT Visibility Insights API"
