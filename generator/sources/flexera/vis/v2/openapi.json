@@ -49,7 +49,8 @@
               "servicenow_device",
               "servicenow_software",
               "servicenow_hardware_inventory",
-              "servicenow_software_inventory"
+              "servicenow_software_inventory",
+              "cellular_network_info"
             ],
             "example": "software_inventory",
             "type": "string"
