@@ -48,6 +48,30 @@ Use the workflow that matches the change you intend to make:
 | `make fetch` | Yes | No | You want to fetch upstream OpenAPI source changes without regenerating `openapi3.json` / `.yaml` artifacts |
 | `make generate` | No | Yes | You want to regenerate `openapi3.json` / `.yaml` artifacts after making changes to the generator code, configuration, or committed upstream OpenAPI specs |
 
+### Change reporting
+
+`make fetch`, `make generate`, and `make refresh` print a structural change
+summary after successful execution. `make refresh` prints one combined report.
+Reports compare against `HEAD` and include preexisting local edits; use
+`make changes BASE_REF=<ref>` to select another baseline without fetching or
+rewriting files. `CHANGE_SCOPE=all|sources|artifacts` and
+`CHANGE_FORMAT=text|markdown|json` select scope and output. Set `REPORT_CHANGES=0`
+to suppress automatic reporting.
+
+“Functional” means any structural change outside OpenAPI/Swagger `example` and
+`examples` metadata, including descriptions and extensions. Actual API fields
+named `example` or `examples` remain significant. Formatting and key order do
+not count. Text/Markdown summaries contain only functional changes, never
+example-update details or raw payloads. JSON additionally carries per-file
+classification and the `has_functional_changes` flag.
+
+The scheduled/manual `refresh-openapi-specs` workflow targets the default branch,
+compares all source snapshots and both unified artifacts, and publishes the
+functional summary to its job summary and PR body. Without functional changes,
+it skips PR creation/update and leaves any existing refresh PR untouched. Mixed
+refreshes retain all changes (including examples) in the PR; only the summary
+is filtered. Comparison errors fail the job. This is not a breaking-change check.
+
 ### Generator Development
 
 ```sh

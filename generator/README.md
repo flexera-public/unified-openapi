@@ -59,6 +59,38 @@ generates `openapi3.json` and `openapi3.yaml`. Prefer `make generate` in CI and
 release verification so builds use reviewed snapshots and do not depend on
 unreviewed upstream changes.
 
+### Structural change reports
+
+`go run . changes` compares `HEAD` to the working tree under `generator/sources`,
+`openapi3.json`, and `openapi3.yaml`, including staged, unstaged, and untracked
+files. It is independent of `specs.yaml` and never modifies those files.
+
+Options:
+
+- `--base-ref <ref>`: committed baseline (default `HEAD`).
+- `--scope all|sources|artifacts`: file scope (default `all`).
+- `--format text|markdown|json`: stdout format (default `text`).
+- `--json-output <file>` / `--markdown-output <file>`: write additional reports;
+  destinations must be new files outside the working tree.
+
+Reports ignore recognized OpenAPI/Swagger example metadata, not arbitrary fields
+named `examples`. Every other structural change counts as functional, including
+nonbreaking and documentation changes. No breaking-change assessment is made.
+Text/Markdown list only functional locations and actions, with at most 100
+records; JSON retains all records and classifications. Equivalent functional
+locations in the unified JSON/YAML companions are listed once. Array order and
+missing versus null remain significant; numbers are compared exactly. Invalid
+JSON/YAML, duplicate keys, unsupported versions/tags, aliases, nonregular files,
+and unreadable baselines fail analysis. Unsupported file types are significant.
+A successful comparison exits zero regardless of whether changes were found;
+automation should use JSON's `has_functional_changes` flag.
+
+The Make targets automatically report after success (`REPORT_CHANGES=0` disables
+this). Baselines include preexisting local edits. Comparison does not remove
+examples from generated output or mixed-change PRs. Ignored-only refreshes leave
+an existing automated PR unchanged. JSON format exposes classifications for
+local investigation; it is not the functional-only PR summary.
+
 ### Metadata fidelity
 
 The merger retains operation descriptions, parameter/schema annotations, named

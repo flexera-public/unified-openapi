@@ -221,6 +221,15 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Comparison is read-only and independent of generator configuration.
+	if os.Args[1] == "changes" {
+		if err := runChanges(os.Args[2:]); err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+			os.Exit(1)
+		}
+		return
+	}
+
 	// Resolve specs directory from flags/env/default
 	baseDir, cleanedArgs, err := resolveSpecsDir(os.Args[1:])
 	if err != nil {
@@ -282,6 +291,11 @@ Commands:
   list                    List all configured specifications
   info <spec-id>          Show detailed information about a specification
   validate <spec-id|all>  Validate specification files exist (or 'unified')
+  changes [flags]         Compare Git baseline to working tree, ignoring examples
+                          --base-ref HEAD --scope all|sources|artifacts
+                          --format text|markdown|json
+                          --json-output <file> --markdown-output <file>
+                          Output files must be new and outside the working tree.
 
 Examples:
   generator merge enabled-flexera
