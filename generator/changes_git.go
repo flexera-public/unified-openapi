@@ -107,13 +107,15 @@ func collectChangeReport(root, ref, scope string) (ChangeReport, error) {
 			} else if after == nil {
 				action = "removed"
 			}
-			file = FileChange{File: name, Status: "functional", Changes: []ChangeRecord{{Path: "/", Action: action}}}
+			file = FileChange{File: name, Status: "functional", Changes: []ChangeRecord{classifyChange("/", action, "opaque", "", nil, nil)}}
 		}
+		file.VersionImpact = fileVersionImpact(file)
 		report.Files = append(report.Files, file)
 		if file.Status == "functional" {
 			report.HasFunctionalChanges = true
 		}
 	}
+	report.VersionImpact = reportVersionImpact(report)
 	return report, nil
 }
 func runChanges(args []string) error {

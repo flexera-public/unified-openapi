@@ -63,14 +63,26 @@ to suppress automatic reporting.
 named `example` or `examples` remain significant. Formatting and key order do
 not count. Text/Markdown summaries contain only functional changes, never
 example-update details or raw payloads. JSON additionally carries per-file
-classification and the `has_functional_changes` flag.
+classification and the `has_functional_changes` flag. Human-readable locations
+use decoded segments separated by ` → `; JSON retains standard JSON Pointers.
+Description metadata changes are consolidated into one nonbreaking count per file.
+
+Reports suggest a `version_impact`: `major` for removals and potentially
+incompatible modifications, `minor` for additions, `patch` for description or
+`info.version` metadata changes and ignored-only updates, or `none` for no
+structural changes. Added requirements, narrowed enums, constraints, and security
+changes are conservatively treated as major. This is advisory, not a complete
+OpenAPI compatibility analysis; it does not rewrite specification versions.
+Descriptions or version metadata in user-defined properties/extensions are not
+mistaken for documentation metadata.
 
 The scheduled/manual `refresh-openapi-specs` workflow targets the default branch,
 compares all source snapshots and both unified artifacts, and publishes the
 functional summary to its job summary and PR body. Without functional changes,
 it skips PR creation/update and leaves any existing refresh PR untouched. Mixed
 refreshes retain all changes (including examples) in the PR; only the summary
-is filtered. Comparison errors fail the job. This is not a breaking-change check.
+is filtered. The suggested bump appears in the PR title, body, and job summary.
+Comparison errors fail the job.
 
 ### Generator Development
 

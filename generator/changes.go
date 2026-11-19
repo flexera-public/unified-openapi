@@ -16,18 +16,22 @@ import (
 )
 
 type ChangeRecord struct {
-	Path   string `json:"path"`
-	Action string `json:"action"`
+	Path          string `json:"path"`
+	Action        string `json:"action"`
+	VersionImpact string `json:"version_impact"`
+	Category      string `json:"category,omitempty"`
 }
 type FileChange struct {
-	File        string         `json:"file"`
-	Status      string         `json:"status"`
-	Changes     []ChangeRecord `json:"changes,omitempty"`
-	fingerprint [32]byte
+	File          string         `json:"file"`
+	Status        string         `json:"status"`
+	Changes       []ChangeRecord `json:"changes,omitempty"`
+	VersionImpact string         `json:"version_impact"`
+	fingerprint   [32]byte
 }
 type ChangeReport struct {
 	HasFunctionalChanges bool         `json:"has_functional_changes"`
 	Files                []FileChange `json:"files"`
+	VersionImpact        string       `json:"version_impact"`
 }
 type exactNumber string
 
@@ -137,6 +141,12 @@ func childChangeRole(role, key string) string {
 	switch role {
 	case "root":
 		switch key {
+		case "info":
+			return "info"
+		case "tags":
+			return "tag"
+		case "securityDefinitions":
+			return "dict:securityScheme"
 		case "paths":
 			return "dict:path"
 		case "components":
@@ -152,6 +162,8 @@ func childChangeRole(role, key string) string {
 		switch key {
 		case "schemas":
 			return "dict:schema"
+		case "securitySchemes":
+			return "dict:securityScheme"
 		case "parameters":
 			return "dict:parameter"
 		case "headers":
@@ -267,6 +279,10 @@ func pointerKey(s string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(s, "~", "~0"), "/", "~1")
 }
 func functionalDiff(before, after any, path string, out *[]ChangeRecord) {
+	functionalDiffRole(before, after, path, "root", out)
+}
+
+func functionalDiffRole(before, after any, path, role string, out *[]ChangeRecord) {
 	if reflect.DeepEqual(before, after) {
 		return
 	}
@@ -289,12 +305,16 @@ func functionalDiff(before, after any, path string, out *[]ChangeRecord) {
 			bv, be := b[k]
 			av, ae := a[k]
 			p := path + "/" + pointerKey(k)
+			action := "modified"
 			if !be {
-				*out = append(*out, ChangeRecord{p, "added"})
+				action = "added"
 			} else if !ae {
-				*out = append(*out, ChangeRecord{p, "removed"})
+				action = "removed"
+			}
+			if !be || !ae || changeMetadataCategory(role, k) != "" || (role == "schema" && (k == "required" || k == "enum")) {
+				*out = append(*out, classifyChange(p, action, role, k, bv, av))
 			} else {
-				functionalDiff(bv, av, p, out)
+				functionalDiffRole(bv, av, p, childChangeRole(role, k), out)
 			}
 		}
 		return
@@ -303,17 +323,17 @@ func functionalDiff(before, after any, path string, out *[]ChangeRecord) {
 	aa, aok := after.([]any)
 	if bok && aok && len(ba) == len(aa) {
 		for i := range ba {
-			functionalDiff(ba[i], aa[i], path+"/"+strconv.Itoa(i), out)
+			functionalDiffRole(ba[i], aa[i], path+"/"+strconv.Itoa(i), role, out)
 		}
 		return
 	}
 	if path == "" {
 		path = "/"
 	}
-	*out = append(*out, ChangeRecord{path, "modified"})
+	*out = append(*out, classifyChange(path, "modified", "opaque", "", before, after))
 }
 func compareSpecBytes(name string, before, after []byte) (FileChange, error) {
-	result := FileChange{File: name, Status: "unchanged"}
+	result := FileChange{File: name, Status: "unchanged", VersionImpact: "none"}
 	if bytes.Equal(before, after) {
 		return result, nil
 	}
@@ -337,7 +357,8 @@ func compareSpecBytes(name string, before, after []byte) (FileChange, error) {
 			action = "removed"
 		}
 		result.Status = "functional"
-		result.Changes = []ChangeRecord{{"/", action}}
+		result.Changes = []ChangeRecord{classifyChange("/", action, "root", "", b, a)}
+		result.VersionImpact = fileVersionImpact(result)
 		return result, nil
 	}
 	if reflect.DeepEqual(b, a) {
@@ -356,21 +377,23 @@ func compareSpecBytes(name string, before, after []byte) (FileChange, error) {
 		}
 		result.fingerprint = sha256.Sum256(canonical)
 	}
+	result.VersionImpact = fileVersionImpact(result)
 	return result, nil
 }
+
 func renderChangeReport(report ChangeReport, markdown bool) string {
-	if !report.HasFunctionalChanges {
-		return "No functional changes detected.\n"
-	}
 	var out strings.Builder
+	fmt.Fprintf(&out, "Suggested version bump: %s (conservative heuristic; review required).\n\n", reportVersionImpact(report))
+	if !report.HasFunctionalChanges {
+		out.WriteString("No functional changes detected.\n")
+		return out.String()
+	}
 	if markdown {
 		out.WriteString("### Functional changes\n\n")
 	} else {
 		out.WriteString("Functional changes:\n")
 	}
-	count := 0
-	omitted := 0
-	// Suppress the companion only when both filtered before/after values match.
+	count, omitted := 0, 0
 	var jsonFingerprint [32]byte
 	for _, f := range report.Files {
 		if f.File == "openapi3.json" {
@@ -384,24 +407,43 @@ func renderChangeReport(report ChangeReport, markdown bool) string {
 		if f.File == "openapi3.yaml" && jsonFingerprint != ([32]byte{}) && f.fingerprint == jsonFingerprint {
 			continue
 		}
-		wroteHeader := false
+		var descriptions int
 		for _, c := range f.Changes {
+			if c.Category == "description" {
+				descriptions++
+			}
+		}
+		wroteHeader := false
+		writeHeader := func() {
+			if wroteHeader {
+				return
+			}
+			if markdown {
+				fmt.Fprintf(&out, "#### %s\n\n", reportLabel(f.File))
+			} else {
+				fmt.Fprintf(&out, "%s\n", strconv.Quote(f.File))
+			}
+			wroteHeader = true
+		}
+		// Documentation gets one low-significance line, regardless of volume.
+		if descriptions > 0 {
+			writeHeader()
+			fmt.Fprintf(&out, "- patch: %d description changes (nonbreaking; consolidated).\n", descriptions)
+		}
+		for _, c := range f.Changes {
+			if c.Category == "description" {
+				continue
+			}
 			if count >= 100 {
 				omitted++
 				continue
 			}
-			if !wroteHeader {
-				if markdown {
-					fmt.Fprintf(&out, "#### %s\n\n", reportLabel(f.File))
-				} else {
-					fmt.Fprintf(&out, "%s\n", strconv.Quote(f.File))
-				}
-				wroteHeader = true
-			}
+			writeHeader()
+			path := humanChangePath(c.Path)
 			if markdown {
-				fmt.Fprintf(&out, "- %s %s\n", c.Action, reportLabel(c.Path))
+				fmt.Fprintf(&out, "- %s: %s %s\n", c.VersionImpact, c.Action, reportLabel(path))
 			} else {
-				fmt.Fprintf(&out, "  %s %s\n", c.Action, strconv.Quote(c.Path))
+				fmt.Fprintf(&out, "  %s: %s %s\n", c.VersionImpact, c.Action, strconv.Quote(path))
 			}
 			count++
 		}
@@ -414,18 +456,38 @@ func renderChangeReport(report ChangeReport, markdown bool) string {
 	}
 	return out.String()
 }
+
+func humanChangePath(pointer string) string {
+	if pointer == "/" {
+		return "(document)"
+	}
+	parts := strings.Split(strings.TrimPrefix(pointer, "/"), "/")
+	for i, part := range parts {
+		parts[i] = strings.ReplaceAll(strings.ReplaceAll(part, "~1", "/"), "~0", "~")
+	}
+	return strings.Join(parts, " → ")
+}
+
 func reportLabel(s string) string {
-	// Escape untrusted upstream names without allowing Markdown/HTML injection.
-	var out strings.Builder
-	for _, r := range s {
-		if strings.ContainsRune("\\`*_{}[]()<>!#|&", r) {
-			out.WriteByte('\\')
+	// Code spans protect tildes, HTML, and other Markdown metacharacters.
+	// A delimiter longer than every embedded backtick run cannot be closed by it.
+	s = strings.Map(func(r rune) rune {
+		if r < 32 || r == 127 {
+			return ' '
 		}
-		if r == '\n' || r == '\r' || r < 32 {
-			out.WriteByte(' ')
+		return r
+	}, s)
+	longest, run := 0, 0
+	for _, r := range s {
+		if r == '`' {
+			run++
+			if run > longest {
+				longest = run
+			}
 		} else {
-			out.WriteRune(r)
+			run = 0
 		}
 	}
-	return out.String()
+	delimiter := strings.Repeat("`", longest+1)
+	return delimiter + " " + s + " " + delimiter
 }

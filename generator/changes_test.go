@@ -76,13 +76,13 @@ func TestFunctionalReportNoExampleLeaks(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	report := ChangeReport{true, []FileChange{file, {File: "SENTINEL_FILE.json", Status: "examples-only"}}}
+	report := ChangeReport{HasFunctionalChanges: true, Files: []FileChange{file, {File: "SENTINEL_FILE.json", Status: "examples-only"}}}
 	for _, markdown := range []bool{false, true} {
 		text := renderChangeReport(report, markdown)
 		if strings.Contains(text, "SENTINEL") || strings.Contains(text, "example") {
 			t.Fatalf("example leak: %s", text)
 		}
-		if !strings.Contains(text, "/components/schemas/A/type") {
+		if !strings.Contains(text, "components → schemas → A → type") {
 			t.Fatalf("missing change: %s", text)
 		}
 	}
@@ -111,10 +111,13 @@ func TestChangePointersAndLimit(t *testing.T) {
 		t.Fatal(changes)
 	}
 	for i := 0; i < 105; i++ {
-		changes = append(changes, ChangeRecord{"/field", "modified"})
+		changes = append(changes, ChangeRecord{Path: "/field", Action: "modified", VersionImpact: "major"})
 	}
-	text := renderChangeReport(ChangeReport{true, []FileChange{{File: "a.json", Status: "functional", Changes: changes}}}, true)
+	text := renderChangeReport(ChangeReport{HasFunctionalChanges: true, Files: []FileChange{{File: "a.json", Status: "functional", Changes: changes}}}, true)
 	if !strings.Contains(text, "6 additional functional changes omitted") {
 		t.Fatal(text)
+	}
+	if strings.Contains(text, "~1") || !strings.Contains(text, "a/b~c") {
+		t.Fatalf("unreadable pointer: %s", text)
 	}
 }

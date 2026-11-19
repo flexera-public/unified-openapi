@@ -41,13 +41,13 @@ func TestGitChangeReport(t *testing.T) {
 	changeTestGit(t, root, "add", ".")
 	changeTestGit(t, root, "commit", "-qm", "baseline")
 	clean, err := collectChangeReport(root, "HEAD", "all")
-	if err != nil || clean.HasFunctionalChanges || len(clean.Files) != 0 {
+	if err != nil || clean.HasFunctionalChanges || len(clean.Files) != 0 || clean.VersionImpact != "none" {
 		t.Fatalf("clean: %+v %v", clean, err)
 	}
 	writeChangeFixture(t, root, source, `{"openapi":"3.0.0","components":{"schemas":{"A":{"type":"string","example":2}}}}`)
 	changeTestGit(t, root, "add", source)
 	only, err := collectChangeReport(root, "HEAD", "all")
-	if err != nil || only.HasFunctionalChanges || len(only.Files) != 1 || only.Files[0].Status != "examples-only" {
+	if err != nil || only.HasFunctionalChanges || len(only.Files) != 1 || only.Files[0].Status != "examples-only" || only.VersionImpact != "patch" {
 		t.Fatalf("examples: %+v %v", only, err)
 	}
 	writeChangeFixture(t, root, "openapi3.json", `{"openapi":"3.0.0","components":{"schemas":{"A":{"type":"number","example":2}}}}`)

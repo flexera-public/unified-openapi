@@ -75,15 +75,28 @@ Options:
 
 Reports ignore recognized OpenAPI/Swagger example metadata, not arbitrary fields
 named `examples`. Every other structural change counts as functional, including
-nonbreaking and documentation changes. No breaking-change assessment is made.
-Text/Markdown list only functional locations and actions, with at most 100
-records; JSON retains all records and classifications. Equivalent functional
-locations in the unified JSON/YAML companions are listed once. Array order and
+nonbreaking and documentation changes. Recognized description metadata is grouped
+into one patch-level count per file, while JSON retains individual records.
+Text/Markdown decode JSON Pointer segments, separate them with ` → `, and use
+Markdown code spans to prevent accidental formatting. At most 100 detailed
+records are shown; JSON retains all records and classifications. Equivalent
+filtered content in the unified JSON/YAML companions is listed once. Array order and
 missing versus null remain significant; numbers are compared exactly. Invalid
 JSON/YAML, duplicate keys, unsupported versions/tags, aliases, nonregular files,
 and unreadable baselines fail analysis. Unsupported file types are significant.
 A successful comparison exits zero regardless of whether changes were found;
 automation should use JSON's `has_functional_changes` flag.
+
+`version_impact` is returned at report, file, and record level. The strongest
+impact wins: `major` (removal or potentially incompatible modification), `minor`
+(addition), `patch` (recognized description/`info.version` metadata or ignored-only
+updates), `none` (no structural changes). Required-list additions and enum
+narrowing are major; relaxing these lists is minor. New schema constraints and
+security changes are conservatively major. User-defined dictionary keys and
+extension payloads do not receive metadata exemptions. Positional array changes
+and unknown modifications are conservatively major. This heuristic does not
+resolve references or perform directional request/response compatibility checks;
+review its recommendation before release. No version values are rewritten.
 
 The Make targets automatically report after success (`REPORT_CHANGES=0` disables
 this). Baselines include preexisting local edits. Comparison does not remove

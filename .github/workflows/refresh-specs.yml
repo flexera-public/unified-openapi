@@ -50,6 +50,7 @@ jobs:
             --json-output "$report_dir/changes.json" \
             --markdown-output "$report_dir/changes.md")
           echo "has-functional-changes=$(jq -er '.has_functional_changes | tostring' "$report_dir/changes.json")" >> "$GITHUB_OUTPUT"
+          echo "version-impact=$(jq -er '.version_impact' "$report_dir/changes.json")" >> "$GITHUB_OUTPUT"
           cat "$report_dir/changes.md" >> "$GITHUB_STEP_SUMMARY"
           {
             echo "## Automated OpenAPI spec refresh"
@@ -67,7 +68,7 @@ jobs:
           commit-message: "chore: refresh upstream OpenAPI specs and regenerate unified spec"
           branch: automated/refresh-openapi-specs
           delete-branch: false
-          title: "chore: automated OpenAPI spec refresh"
+          title: "chore: automated OpenAPI spec refresh (${{ steps.summary.outputs.version-impact }})"
           body-path: /tmp/pr-body.md
           add-paths: |
             generator/sources
