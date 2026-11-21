@@ -771,7 +771,7 @@
     }
   },
   "info": {
-    "description": "Data Inventory Services APIs enable management and tracking of data collection schedules.\n\n## Overview\n\nData Inventory services provide APIs for managing the lifecycle of data collection and processing tasks. The service \norchestrates scheduled and on-demand data gathering operations across multiple cloud providers and external systems.\n\n## Services\n\n### Onboarding Service\nHandles creation, update, and deletion of cloud connectors across supported cloud providers.\n\n### Connector Service\nProvides listing and count of enrolled cloud connectors, grouped by provider and onboarding type. It also providers \ndetails of each connector, including onboarding status and last successful data collection time.\n\nNote - 'Connector Service' APIs are deprecated and will be removed in a future release. Please use the new APIs under\n`Unified Onboarding`.\n",
+    "description": "Data Inventory Services APIs enable management and tracking of data collection schedules.\n\n## Overview\n\nData Inventory services provide APIs for managing the lifecycle of data collection and processing tasks. The service \norchestrates scheduled and on-demand data gathering operations across multiple cloud providers and external systems.\n\n## Services\n\n### Onboarding Service\nHandles creation, update, and deletion of cloud connectors across supported cloud providers.\n\n",
     "title": "Data Inventory APIs",
     "version": "1.0.0"
   },
