@@ -32124,9 +32124,12 @@ components:
             example:
                 dashboardId: dash-8f21
                 dashboardScope: org
-                enabled: true
+                enabled: false
                 name: Weekly Cloud Cost
                 recipients:
+                    - email: finops@example.com
+                      id: "108234"
+                      type: email
                     - email: finops@example.com
                       id: "108234"
                       type: email
@@ -32191,7 +32194,7 @@ components:
                     enum:
                         - private
                         - shared
-                    example: private
+                    example: shared
                     type: string
             required:
                 - name
@@ -32252,7 +32255,7 @@ components:
                         - adZqre9KZci-oC9r_ZcZJw
                         - kQm2Y7pVQoqxN4M8fCyTig
                     items:
-                        example: Illo officia soluta est non pariatur.
+                        example: Sit architecto.
                         type: string
                     maxItems: 100
                     type: array
@@ -32267,7 +32270,7 @@ components:
                         - provider
                         - region
                     items:
-                        example: Doloribus qui.
+                        example: Et non quo doloribus.
                         type: string
                     maxItems: 10
                     type: array
@@ -32311,7 +32314,7 @@ components:
                     maxLength: 64
                     type: string
                 tags:
-                    description: Specifies the resource tag keys used to derive values for this dimension. If a resource has multiple matching tags, the value from the earliest listed tag is used.
+                    description: Specifies tag keys used to derive values for this dimension. Entries with an explicit priority are checked first in ascending numeric order; entries with the same priority are checked in the order listed. Entries without a priority are checked after all explicitly prioritized entries, in alphabetical order by key; exact ties retain their listed order. This ordering also applies when all priorities are omitted.
                     example:
                         - key: env
                         - key: environment
@@ -32387,11 +32390,11 @@ components:
                     type: string
                 temporary:
                     description: Is the error temporary?
-                    example: true
+                    example: false
                     type: boolean
                 timeout:
                     description: Is the error a timeout?
-                    example: false
+                    example: true
                     type: boolean
             required:
                 - name
@@ -32404,77 +32407,91 @@ components:
         FinopsCustomizations_FilterV1:
             description: 'A single filter node: a leaf test (equal, substring) or a boolean combinator (and, or, not).'
             example:
-                dimension: Quis placeat.
+                dimension: Dolore dolor nam.
                 expression:
-                    dimension: Doloremque sint occaecati numquam occaecati repellat.
+                    dimension: Dolorem perferendis eius et nam beatae.
                     expressions:
                         - {}
                         - {}
-                    substring: Aspernatur nemo.
+                        - {}
+                        - {}
+                    substring: Labore nihil voluptas expedita.
                     type: equal
-                    value: Quo dolor reiciendis ut cumque unde sed.
+                    value: Repudiandae beatae voluptatem eius.
                 expressions:
-                    - dimension: Doloremque sint occaecati numquam occaecati repellat.
+                    - dimension: Dolorem perferendis eius et nam beatae.
                       expressions:
                         - {}
                         - {}
-                      substring: Aspernatur nemo.
+                        - {}
+                        - {}
+                      substring: Labore nihil voluptas expedita.
                       type: equal
-                      value: Quo dolor reiciendis ut cumque unde sed.
-                    - dimension: Doloremque sint occaecati numquam occaecati repellat.
+                      value: Repudiandae beatae voluptatem eius.
+                    - dimension: Dolorem perferendis eius et nam beatae.
                       expressions:
                         - {}
                         - {}
-                      substring: Aspernatur nemo.
+                        - {}
+                        - {}
+                      substring: Labore nihil voluptas expedita.
                       type: equal
-                      value: Quo dolor reiciendis ut cumque unde sed.
-                    - dimension: Doloremque sint occaecati numquam occaecati repellat.
+                      value: Repudiandae beatae voluptatem eius.
+                    - dimension: Dolorem perferendis eius et nam beatae.
                       expressions:
                         - {}
                         - {}
-                      substring: Aspernatur nemo.
+                        - {}
+                        - {}
+                      substring: Labore nihil voluptas expedita.
                       type: equal
-                      value: Quo dolor reiciendis ut cumque unde sed.
-                substring: Pariatur animi est quidem nulla.
+                      value: Repudiandae beatae voluptatem eius.
+                substring: Aut quis hic cupiditate.
                 type: equal
-                value: Dolor consequatur quia ea dolore hic.
+                value: Qui fugiat architecto ipsam.
             properties:
                 dimension:
                     description: Column/dimension name; used by leaf nodes (equal, substring)
-                    example: Qui blanditiis tenetur animi harum ea mollitia.
+                    example: Exercitationem aperiam excepturi nostrum quia rerum quibusdam.
                     type: string
                 expression:
                     $ref: '#/components/schemas/FinopsCustomizations_FilterV1'
                 expressions:
                     description: Child expressions; used by and/or nodes
                     example:
-                        - dimension: Doloremque sint occaecati numquam occaecati repellat.
+                        - dimension: Dolorem perferendis eius et nam beatae.
                           expressions:
                             - {}
                             - {}
-                          substring: Aspernatur nemo.
+                            - {}
+                            - {}
+                          substring: Labore nihil voluptas expedita.
                           type: equal
-                          value: Quo dolor reiciendis ut cumque unde sed.
-                        - dimension: Doloremque sint occaecati numquam occaecati repellat.
+                          value: Repudiandae beatae voluptatem eius.
+                        - dimension: Dolorem perferendis eius et nam beatae.
                           expressions:
                             - {}
                             - {}
-                          substring: Aspernatur nemo.
+                            - {}
+                            - {}
+                          substring: Labore nihil voluptas expedita.
                           type: equal
-                          value: Quo dolor reiciendis ut cumque unde sed.
-                        - dimension: Doloremque sint occaecati numquam occaecati repellat.
+                          value: Repudiandae beatae voluptatem eius.
+                        - dimension: Dolorem perferendis eius et nam beatae.
                           expressions:
                             - {}
                             - {}
-                          substring: Aspernatur nemo.
+                            - {}
+                            - {}
+                          substring: Labore nihil voluptas expedita.
                           type: equal
-                          value: Quo dolor reiciendis ut cumque unde sed.
+                          value: Repudiandae beatae voluptatem eius.
                     items:
                         $ref: '#/components/schemas/FinopsCustomizations_FilterV1'
                     type: array
                 substring:
                     description: Substring match value; used by substring nodes
-                    example: Qui quae accusamus doloribus.
+                    example: Sint dolores optio impedit aliquid maiores.
                     type: string
                 type:
                     description: Filter node type
@@ -32488,7 +32505,7 @@ components:
                     type: string
                 value:
                     description: Exact match value; used by equal nodes
-                    example: Corrupti porro velit quae temporibus.
+                    example: Voluptatibus dolores dolore vero iste.
                     type: string
             type: object
         FinopsCustomizations_FlexeraCustomizationsPrincipal:
@@ -32523,15 +32540,17 @@ components:
         FinopsCustomizations_FlexeraFinopsCustomizationsReportSubscription:
             description: A scheduled email report of a dashboard.
             example:
-                createdAt: "1985-09-16T04:56:20Z"
+                createdAt: "1974-12-24T23:20:26Z"
+                createdByEmail: support@flexera.com
                 dashboardId: dash-8f21
                 dashboardScope: org
+                effectiveStatus: active
                 enabled: true
                 id: 550e8400-e29b-41d4-a716-446655440000
                 kind: finops:report-subscription
-                lastError: Ipsa inventore consequuntur in aut enim.
-                lastFailureAt: "2007-07-19T23:23:12Z"
-                lastSuccessAt: "1996-09-07T02:58:36Z"
+                lastError: Et et sint.
+                lastFailureAt: "1970-03-01T14:19:22Z"
+                lastSuccessAt: "2002-02-08T22:42:35Z"
                 name: Weekly Cloud Cost
                 orgId: 100
                 ownerUserId: 1234
@@ -32554,13 +32573,18 @@ components:
                     frequency: weekly
                     timeOfDay: "09:00"
                     timezone: America/New_York
-                updatedAt: "2014-04-29T23:05:04Z"
+                updatedAt: "2003-07-27T04:02:44Z"
+                userNotificationStatus: unmuted
                 visibility: shared
             properties:
                 createdAt:
                     description: ISO-8601 creation timestamp
-                    example: "1996-04-17T12:23:28Z"
+                    example: "1991-09-01T10:58:37Z"
                     format: date-time
+                    type: string
+                createdByEmail:
+                    description: Email address of the user who created the report subscription.
+                    example: support@flexera.com
                     type: string
                 dashboardId:
                     description: Identifier of the dashboard to render and send.
@@ -32572,6 +32596,14 @@ components:
                         - user
                         - org
                     example: org
+                    type: string
+                effectiveStatus:
+                    description: 'Read-only status calculated for the authenticated user, not persisted: paused when enabled is false; otherwise muted when the user''s preference is muted, or active when it is unmuted. This does not indicate whether the user is a recipient.'
+                    enum:
+                        - active
+                        - paused
+                        - muted
+                    example: active
                     type: string
                 enabled:
                     description: Whether the schedule is active.
@@ -32590,16 +32622,16 @@ components:
                     type: string
                 lastError:
                     description: Error from the last failed attempt; a success does not clear it.
-                    example: Quam velit pariatur commodi autem voluptas dolorem.
+                    example: Nesciunt iure fugit.
                     type: string
                 lastFailureAt:
                     description: ISO-8601 timestamp of the last failed send attempt.
-                    example: "2014-12-19T09:09:48Z"
+                    example: "1980-10-11T04:20:40Z"
                     format: date-time
                     type: string
                 lastSuccessAt:
                     description: ISO-8601 timestamp of the last successful send.
-                    example: "2013-12-04T04:33:10Z"
+                    example: "1994-09-13T22:46:17Z"
                     format: date-time
                     type: string
                 name:
@@ -32629,9 +32661,6 @@ components:
                         - email: finops@example.com
                           id: "108234"
                           type: email
-                        - email: finops@example.com
-                          id: "108234"
-                          type: email
                     items:
                         $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionRecipient'
                     type: array
@@ -32639,11 +32668,18 @@ components:
                     $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionSchedule'
                 updatedAt:
                     description: ISO-8601 last-update timestamp
-                    example: "2010-05-27T08:51:38Z"
+                    example: "2003-01-23T11:55:47Z"
                     format: date-time
                     type: string
+                userNotificationStatus:
+                    description: The authenticated user's persisted preference, independent of the global enabled flag. Returns unmuted when no preference has been stored.
+                    enum:
+                        - muted
+                        - unmuted
+                    example: unmuted
+                    type: string
                 visibility:
-                    description: 'Visibility scope: `private` = only visible to the owner; `shared` = visible to other users in the org.'
+                    description: 'Visibility scope: `private` = visible only to the subscription owner and organization administrators (`org_owner`); `shared` = visible to other users in the organization.'
                     enum:
                         - private
                         - shared
@@ -32662,6 +32698,7 @@ components:
                 - visibility
                 - enabled
                 - createdAt
+                - createdByEmail
                 - updatedAt
             type: object
         FinopsCustomizations_FlexeraFinopsCustomizationsRuleBasedDimension:
@@ -32760,12 +32797,12 @@ components:
         FinopsCustomizations_FlexeraFinopsCustomizationsSavedFilterSummary:
             description: Saved filter summary used in list responses (filter field omitted)
             example:
-                createdAt: "1996-12-11T23:44:19Z"
-                description: 1qu
+                createdAt: "1979-05-14T13:09:32Z"
+                description: 2j5
                 dimensions:
-                    - Eum eligendi sit ut saepe dolorem.
-                    - Provident sit a sint sit dolorem.
-                    - Quasi distinctio corrupti harum.
+                    - Atque veritatis impedit quo voluptas.
+                    - Voluptas qui dolor ratione ut ut.
+                    - Voluptas amet aspernatur quaerat porro.
                 displayOptions:
                     hideListCost: false
                     hidePricingQuantity: false
@@ -32785,37 +32822,37 @@ components:
                     showUsage: false
                 downgradedAt: "2026-07-24T12:34:56Z"
                 downgradedByUserId: 1234
-                filterExpressionCount: 1.59625760641131e+18
-                groupByExpressionCount: 1.059474656581482e+19
+                filterExpressionCount: 3.1034303203637187e+18
+                groupByExpressionCount: 7.167210277426505e+18
                 id: 550e8400-e29b-41d4-a716-446655440000
                 isFavorite: false
                 kind: finops:saved-filter
-                name: y2l
+                name: ny2
                 orgId: 100
                 ownerUserId: 12345
                 pageSource: analyzeSpend
-                updatedAt: "1992-10-07T05:30:12Z"
-                visibility: private
+                updatedAt: "1991-07-17T00:24:04Z"
+                visibility: shared
             properties:
                 createdAt:
                     description: ISO-8601 creation timestamp
-                    example: "1995-12-22T11:27:47Z"
+                    example: "1990-02-08T16:17:41Z"
                     format: date-time
                     type: string
                 description:
                     description: Optional description
-                    example: u9g
+                    example: syr
                     maxLength: 1024
                     type: string
                 dimensions:
                     default: []
                     description: Optional list of dimensions for GROUP BY (max 10)
                     example:
-                        - Et omnis et.
-                        - Eos earum ut assumenda pariatur earum.
-                        - Nobis magnam asperiores id ut beatae.
+                        - Assumenda maiores.
+                        - Vel ducimus asperiores et perferendis accusamus aut.
+                        - Eum earum molestias reprehenderit aut a.
                     items:
-                        example: Atque molestiae mollitia.
+                        example: Eius et cupiditate.
                         type: string
                     maxItems: 10
                     type: array
@@ -32833,11 +32870,11 @@ components:
                     type: integer
                 filterExpressionCount:
                     description: Number of filter expressions (leaf predicates) the caller is entitled to see, after Billing Center entitlement filtering
-                    example: 4.720808898573619e+18
+                    example: 1.5958493074083056e+19
                     type: integer
                 groupByExpressionCount:
                     description: Number of GROUP BY expressions (dimensions) the caller is entitled to see, after Billing Center entitlement filtering
-                    example: 2.656793197919665e+18
+                    example: 1.744409859800876e+19
                     type: integer
                 id:
                     description: UUID v4 identifier
@@ -32856,7 +32893,7 @@ components:
                     type: string
                 name:
                     description: Human-readable name
-                    example: k8v
+                    example: yby
                     maxLength: 255
                     type: string
                 orgId:
@@ -32878,7 +32915,7 @@ components:
                     type: string
                 updatedAt:
                     description: ISO-8601 last-update timestamp
-                    example: "2005-02-19T05:39:56Z"
+                    example: "1979-06-06T08:03:30Z"
                     format: date-time
                     type: string
                 visibility:
@@ -32886,7 +32923,7 @@ components:
                     enum:
                         - private
                         - shared
-                    example: shared
+                    example: private
                     type: string
             required:
                 - id
@@ -32933,7 +32970,7 @@ components:
                     example: Environment
                     type: string
                 tags:
-                    description: Specifies the resource tag keys used to derive values for this dimension. If a resource has multiple matching tags, the value from the earliest listed tag is used.
+                    description: Specifies tag keys used to derive values for this dimension. Entries with an explicit priority are checked first in ascending numeric order; entries with the same priority are checked in the order listed. Entries without a priority are checked after all explicitly prioritized entries, in alphabetical order by key; exact ties retain their listed order. This ordering also applies when all priorities are omitted.
                     example:
                         - key: env
                         - key: environment
@@ -32954,7 +32991,7 @@ components:
                 - updatedAt
             type: object
         FinopsCustomizations_FlexeraFinopsCustomizationsTagObservation:
-            description: A resource tag key observed in an organization's cloud cost and usage data.
+            description: A cloud tag key observed for an organization.
             example:
                 distinctResourceCount: 4341
                 distinctValueCount: 28
@@ -32969,7 +33006,7 @@ components:
                 sourceType: awsCostAllocationTag
             properties:
                 distinctResourceCount:
-                    description: Number of distinct billing resources on which the tag key was observed.
+                    description: Number of distinct billing resources associated with this tag key.
                     example: 4341
                     type: integer
                 distinctValueCount:
@@ -33016,11 +33053,16 @@ components:
                     example: user:Customer
                     type: string
                 sourceType:
-                    description: Provider-specific source of the observed tag.
+                    description: Provider-specific category identifying the source of the tag key.
                     enum:
                         - awsResourceTag
                         - awsCostAllocationTag
+                        - awsAccountTag
+                        - awsOuTag
+                        - awsRootTag
                         - azureResourceTag
+                        - azureSubscriptionTag
+                        - azureResourceGroupTag
                         - gcpResourceLabel
                     example: awsCostAllocationTag
                     type: string
@@ -33081,7 +33123,7 @@ components:
             properties:
                 count:
                     description: Number of items in the current page.
-                    example: 1.7771810560693854e+19
+                    example: 3.0192991807924613e+18
                     type: integer
                 errors:
                     $ref: '#/components/schemas/FinopsCustomizations_SavedFilterErrorCollection'
@@ -33103,7 +33145,7 @@ components:
                     type: string
                 total:
                     description: Total number of items matching the current filter.
-                    example: 2.0425538815910774e+18
+                    example: 1.441288526599554e+19
                     type: integer
                 values:
                     $ref: '#/components/schemas/FinopsCustomizations_SavedFilterSummaryCollection'
@@ -33148,7 +33190,7 @@ components:
                     example:
                         - adZqre9KZci-oC9r_ZcZJw
                     items:
-                        example: Omnis dolorem omnis.
+                        example: Et distinctio aliquam assumenda quo.
                         type: string
                     maxItems: 100
                     type: array
@@ -33163,7 +33205,7 @@ components:
                         - vendor
                         - vendor_account
                     items:
-                        example: Consequatur ab.
+                        example: Et aut.
                         type: string
                     maxItems: 10
                     type: array
@@ -33187,8 +33229,10 @@ components:
         FinopsCustomizations_ReportSubscriptionCollection:
             example:
                 - createdAt: "1977-01-08T10:52:57Z"
+                  createdByEmail: support@flexera.com
                   dashboardId: dash-8f21
                   dashboardScope: org
+                  effectiveStatus: active
                   enabled: true
                   id: 550e8400-e29b-41d4-a716-446655440000
                   kind: finops:report-subscription
@@ -33212,10 +33256,13 @@ components:
                     timeOfDay: "09:00"
                     timezone: America/New_York
                   updatedAt: "2006-02-21T00:31:51Z"
+                  userNotificationStatus: unmuted
                   visibility: shared
                 - createdAt: "1977-01-08T10:52:57Z"
+                  createdByEmail: support@flexera.com
                   dashboardId: dash-8f21
                   dashboardScope: org
+                  effectiveStatus: active
                   enabled: true
                   id: 550e8400-e29b-41d4-a716-446655440000
                   kind: finops:report-subscription
@@ -33239,21 +33286,54 @@ components:
                     timeOfDay: "09:00"
                     timezone: America/New_York
                   updatedAt: "2006-02-21T00:31:51Z"
+                  userNotificationStatus: unmuted
+                  visibility: shared
+                - createdAt: "1977-01-08T10:52:57Z"
+                  createdByEmail: support@flexera.com
+                  dashboardId: dash-8f21
+                  dashboardScope: org
+                  effectiveStatus: active
+                  enabled: true
+                  id: 550e8400-e29b-41d4-a716-446655440000
+                  kind: finops:report-subscription
+                  lastError: Qui delectus ut magnam sunt.
+                  lastFailureAt: "1981-04-14T18:58:14Z"
+                  lastSuccessAt: "2001-12-22T09:15:12Z"
+                  name: Weekly Cloud Cost
+                  orgId: 100
+                  ownerUserId: 1234
+                  recipients:
+                    - email: finops@example.com
+                      id: "108234"
+                      type: email
+                    - email: finops@example.com
+                      id: "108234"
+                      type: email
+                  schedule:
+                    dayOfMonth: 15
+                    dayOfWeek: monday
+                    frequency: weekly
+                    timeOfDay: "09:00"
+                    timezone: America/New_York
+                  updatedAt: "2006-02-21T00:31:51Z"
+                  userNotificationStatus: unmuted
                   visibility: shared
             items:
                 $ref: '#/components/schemas/FinopsCustomizations_FlexeraFinopsCustomizationsReportSubscription'
             type: array
         FinopsCustomizations_ReportSubscriptionList:
             example:
-                count: 4.0774338912533407e+18
+                count: 1.3944958213747423e+19
                 kind: finops:report-subscription-list
                 nextPage: /finops-customizations/v1/orgs/100/report-subscriptions?skipToken=19u2349
                 prevPage: /finops-customizations/v1/orgs/100/report-subscriptions?skipToken=8b1750u
-                total: 4.736431079631089e+17
+                total: 5.149174484824992e+18
                 values:
                     - createdAt: "1977-01-08T10:52:57Z"
+                      createdByEmail: support@flexera.com
                       dashboardId: dash-8f21
                       dashboardScope: org
+                      effectiveStatus: active
                       enabled: true
                       id: 550e8400-e29b-41d4-a716-446655440000
                       kind: finops:report-subscription
@@ -33277,10 +33357,13 @@ components:
                         timeOfDay: "09:00"
                         timezone: America/New_York
                       updatedAt: "2006-02-21T00:31:51Z"
+                      userNotificationStatus: unmuted
                       visibility: shared
                     - createdAt: "1977-01-08T10:52:57Z"
+                      createdByEmail: support@flexera.com
                       dashboardId: dash-8f21
                       dashboardScope: org
+                      effectiveStatus: active
                       enabled: true
                       id: 550e8400-e29b-41d4-a716-446655440000
                       kind: finops:report-subscription
@@ -33304,10 +33387,13 @@ components:
                         timeOfDay: "09:00"
                         timezone: America/New_York
                       updatedAt: "2006-02-21T00:31:51Z"
+                      userNotificationStatus: unmuted
                       visibility: shared
                     - createdAt: "1977-01-08T10:52:57Z"
+                      createdByEmail: support@flexera.com
                       dashboardId: dash-8f21
                       dashboardScope: org
+                      effectiveStatus: active
                       enabled: true
                       id: 550e8400-e29b-41d4-a716-446655440000
                       kind: finops:report-subscription
@@ -33331,10 +33417,13 @@ components:
                         timeOfDay: "09:00"
                         timezone: America/New_York
                       updatedAt: "2006-02-21T00:31:51Z"
+                      userNotificationStatus: unmuted
                       visibility: shared
                     - createdAt: "1977-01-08T10:52:57Z"
+                      createdByEmail: support@flexera.com
                       dashboardId: dash-8f21
                       dashboardScope: org
+                      effectiveStatus: active
                       enabled: true
                       id: 550e8400-e29b-41d4-a716-446655440000
                       kind: finops:report-subscription
@@ -33358,11 +33447,12 @@ components:
                         timeOfDay: "09:00"
                         timezone: America/New_York
                       updatedAt: "2006-02-21T00:31:51Z"
+                      userNotificationStatus: unmuted
                       visibility: shared
             properties:
                 count:
                     description: Number of items in the current page.
-                    example: 9.847971447646736e+18
+                    example: 1.2278772516379544e+19
                     type: integer
                 kind:
                     description: The resource's type
@@ -33382,7 +33472,7 @@ components:
                     type: string
                 total:
                     description: Total number of items matching the current filter.
-                    example: 1.6743341716432655e+18
+                    example: 6.378601164857801e+18
                     type: integer
                 values:
                     $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionCollection'
@@ -33418,25 +33508,21 @@ components:
             type: object
         FinopsCustomizations_ReportSubscriptionResult:
             example:
-                createdAt: "1982-07-15T14:31:08Z"
+                createdAt: "2008-07-04T02:48:53Z"
+                createdByEmail: support@flexera.com
                 dashboardId: dash-8f21
                 dashboardScope: org
+                effectiveStatus: active
                 enabled: true
                 id: 550e8400-e29b-41d4-a716-446655440000
                 kind: finops:report-subscription
-                lastError: Voluptas libero ullam nihil.
-                lastFailureAt: "1986-08-13T13:39:23Z"
-                lastSuccessAt: "1980-11-25T10:20:35Z"
+                lastError: Illo officia soluta est non pariatur.
+                lastFailureAt: "1983-04-05T09:01:04Z"
+                lastSuccessAt: "2007-07-27T15:36:12Z"
                 name: Weekly Cloud Cost
                 orgId: 100
                 ownerUserId: 1234
                 recipients:
-                    - email: finops@example.com
-                      id: "108234"
-                      type: email
-                    - email: finops@example.com
-                      id: "108234"
-                      type: email
                     - email: finops@example.com
                       id: "108234"
                       type: email
@@ -33449,13 +33535,18 @@ components:
                     frequency: weekly
                     timeOfDay: "09:00"
                     timezone: America/New_York
-                updatedAt: "2003-06-24T12:05:43Z"
+                updatedAt: "1997-03-04T12:03:39Z"
+                userNotificationStatus: unmuted
                 visibility: shared
             properties:
                 createdAt:
                     description: ISO-8601 creation timestamp
-                    example: "2007-04-23T10:04:28Z"
+                    example: "1997-04-01T17:10:41Z"
                     format: date-time
+                    type: string
+                createdByEmail:
+                    description: Email address of the user who created the report subscription.
+                    example: support@flexera.com
                     type: string
                 dashboardId:
                     description: Identifier of the dashboard to render and send.
@@ -33467,6 +33558,14 @@ components:
                         - user
                         - org
                     example: org
+                    type: string
+                effectiveStatus:
+                    description: 'Read-only status calculated for the authenticated user, not persisted: paused when enabled is false; otherwise muted when the user''s preference is muted, or active when it is unmuted. This does not indicate whether the user is a recipient.'
+                    enum:
+                        - active
+                        - paused
+                        - muted
+                    example: active
                     type: string
                 enabled:
                     description: Whether the schedule is active.
@@ -33485,16 +33584,16 @@ components:
                     type: string
                 lastError:
                     description: Error from the last failed attempt; a success does not clear it.
-                    example: Eius enim alias dolores.
+                    example: Architecto odio ad sed autem.
                     type: string
                 lastFailureAt:
                     description: ISO-8601 timestamp of the last failed send attempt.
-                    example: "1994-05-13T05:53:17Z"
+                    example: "1975-02-10T17:41:33Z"
                     format: date-time
                     type: string
                 lastSuccessAt:
                     description: ISO-8601 timestamp of the last successful send.
-                    example: "1975-07-21T12:28:03Z"
+                    example: "2008-09-06T09:46:30Z"
                     format: date-time
                     type: string
                 name:
@@ -33521,12 +33620,6 @@ components:
                         - email: finops@example.com
                           id: "108234"
                           type: email
-                        - email: finops@example.com
-                          id: "108234"
-                          type: email
-                        - email: finops@example.com
-                          id: "108234"
-                          type: email
                     items:
                         $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionRecipient'
                     type: array
@@ -33534,11 +33627,18 @@ components:
                     $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionSchedule'
                 updatedAt:
                     description: ISO-8601 last-update timestamp
-                    example: "1988-12-15T09:20:46Z"
+                    example: "2009-05-24T03:54:31Z"
                     format: date-time
                     type: string
+                userNotificationStatus:
+                    description: The authenticated user's persisted preference, independent of the global enabled flag. Returns unmuted when no preference has been stored.
+                    enum:
+                        - muted
+                        - unmuted
+                    example: unmuted
+                    type: string
                 visibility:
-                    description: 'Visibility scope: `private` = only visible to the owner; `shared` = visible to other users in the org.'
+                    description: 'Visibility scope: `private` = visible only to the subscription owner and organization administrators (`org_owner`); `shared` = visible to other users in the organization.'
                     enum:
                         - private
                         - shared
@@ -33557,6 +33657,7 @@ components:
                 - visibility
                 - enabled
                 - createdAt
+                - createdByEmail
                 - updatedAt
             type: object
         FinopsCustomizations_ReportSubscriptionSchedule:
@@ -33610,6 +33711,23 @@ components:
             type: object
         FinopsCustomizations_RuleBasedDimensionCollection:
             example:
+                - createdAt: "2020-11-26T12:17:38.369Z"
+                  createdBy:
+                    id: 1234
+                    kind: iam:user
+                    ref: iam:user:123
+                  id: rbd_department
+                  kind: finops:rule-based-dimension
+                  name: Department
+                  ruleListLinks:
+                    - effectiveAt: 2023-01
+                      kind: finops:rule-based-dimension-rule-list-link
+                      rulesCount: 1
+                  updatedAt: "2020-11-26T12:17:38.369Z"
+                  updatedBy:
+                    id: 1234
+                    kind: iam:user
+                    ref: iam:user:123
                 - createdAt: "2020-11-26T12:17:38.369Z"
                   createdBy:
                     id: 1234
@@ -33832,7 +33950,7 @@ components:
             properties:
                 createdAt:
                     description: timestamp from when the dated-rules were created
-                    example: "1985-04-19T06:57:30Z"
+                    example: "2007-04-18T05:00:02Z"
                     format: date-time
                     type: string
                 createdBy:
@@ -33880,7 +33998,7 @@ components:
             example:
                 effectiveAt: 2023-01
                 kind: finops:rule-based-dimension-rule-list-link
-                rulesCount: 1.2577275582454016e+19
+                rulesCount: 7.640143140130161e+18
             properties:
                 effectiveAt:
                     description: The date (year-month) when this rules list takes effect, superseding any previous list. The list remains in effect until a subsequent list is defined to take effect at a later date.
@@ -33895,7 +34013,7 @@ components:
                     type: string
                 rulesCount:
                     description: The count of rules list, identified by its effectiveAt date.
-                    example: 4.549345511427161e+17
+                    example: 9.798080902472665e+18
                     type: integer
             required:
                 - kind
@@ -34193,6 +34311,9 @@ components:
                 - code: 404
                   id: 550e8400-e29b-41d4-a716-446655440000
                   message: Saved filter favorite ID 550e8400-e29b-41d4-a716-446655440000 was not found or is not accessible.
+                - code: 404
+                  id: 550e8400-e29b-41d4-a716-446655440000
+                  message: Saved filter favorite ID 550e8400-e29b-41d4-a716-446655440000 was not found or is not accessible.
             items:
                 $ref: '#/components/schemas/FinopsCustomizations_FlexeraFinopsCustomizationsSavedFilterError'
             type: array
@@ -34201,12 +34322,12 @@ components:
                 billingCenterIds:
                     - adZqre9KZci-oC9r_ZcZJw
                     - kQm2Y7pVQoqxN4M8fCyTig
-                createdAt: "2015-02-27T13:26:37Z"
+                createdAt: "1970-10-01T08:04:03Z"
                 description: Filters for Q4 cloud cost analysis
                 dimensions:
-                    - Quia dolore id aut.
-                    - Saepe laborum.
-                    - Quo fuga perferendis.
+                    - Vel ut.
+                    - Adipisci voluptate provident.
+                    - Voluptatum facere.
                 displayOptions:
                     hideListCost: false
                     hidePricingQuantity: false
@@ -34227,14 +34348,14 @@ components:
                 downgradedAt: "2026-07-24T12:34:56Z"
                 downgradedByUserId: 1234
                 filter:
-                    Omnis explicabo.: Odio sunt in molestiae doloribus.
+                    Repudiandae est labore doloribus quos et.: Ut autem nesciunt maxime.
                 id: 550e8400-e29b-41d4-a716-446655440000
                 kind: finops:saved-filter
                 name: My Q4 Cost Filter
                 orgId: 100
                 ownerUserId: 1234
                 pageSource: analyzeSpend
-                updatedAt: "2008-09-10T08:49:39Z"
+                updatedAt: "1974-04-29T15:05:57Z"
                 visibility: private
             properties:
                 billingCenterIds:
@@ -34244,13 +34365,13 @@ components:
                         - adZqre9KZci-oC9r_ZcZJw
                         - kQm2Y7pVQoqxN4M8fCyTig
                     items:
-                        example: Enim tempora libero sunt alias neque et.
+                        example: Est nemo qui nesciunt hic quo odio.
                         type: string
                     maxItems: 100
                     type: array
                 createdAt:
                     description: ISO-8601 creation timestamp
-                    example: "2005-01-11T01:03:48Z"
+                    example: "1983-08-21T12:55:42Z"
                     format: date-time
                     type: string
                 description:
@@ -34262,11 +34383,11 @@ components:
                     default: []
                     description: Optional list of dimensions for GROUP BY (max 10)
                     example:
-                        - Quaerat autem et alias tenetur est ipsum.
-                        - Fugit tempora et nihil fugiat tempore.
-                        - Facilis repellendus earum eius accusantium.
+                        - Culpa est.
+                        - Magnam facere laboriosam adipisci quasi.
+                        - Voluptas quod.
                     items:
-                        example: Facilis blanditiis.
+                        example: Quod quia aliquam adipisci voluptates.
                         type: string
                     maxItems: 10
                     type: array
@@ -34287,7 +34408,9 @@ components:
                     default: {}
                     description: FOCUS 1.0 filter configuration
                     example:
-                        Asperiores necessitatibus veritatis quis est.: Voluptatem illum quae voluptate eum.
+                        Delectus ipsa quia est veritatis a.: Et vel.
+                        Quas autem expedita rerum.: Omnis dicta similique.
+                        Quia laudantium deleniti.: Praesentium et.
                     type: object
                 id:
                     description: UUID v4 identifier of the saved filter
@@ -34324,7 +34447,7 @@ components:
                     type: string
                 updatedAt:
                     description: ISO-8601 last-update timestamp
-                    example: "1975-12-19T14:33:29Z"
+                    example: "1982-02-02T22:10:03Z"
                     format: date-time
                     type: string
                 visibility:
@@ -34348,12 +34471,12 @@ components:
             type: object
         FinopsCustomizations_SavedFilterSummaryCollection:
             example:
-                - createdAt: "1974-12-11T07:46:55Z"
-                  description: b2t
+                - createdAt: "1997-12-14T00:12:39Z"
+                  description: vn2
                   dimensions:
-                    - Ea ut similique.
-                    - Autem fuga rerum eaque nesciunt saepe iusto.
-                    - Nulla dolore corporis odio.
+                    - Delectus blanditiis necessitatibus ratione dolor provident et.
+                    - Quia veniam similique quidem.
+                    - Nulla vero.
                   displayOptions:
                     hideListCost: false
                     hidePricingQuantity: false
@@ -34373,23 +34496,23 @@ components:
                     showUsage: false
                   downgradedAt: "2026-07-24T12:34:56Z"
                   downgradedByUserId: 1234
-                  filterExpressionCount: 1.6826525429610445e+19
-                  groupByExpressionCount: 1.7160573378343594e+19
+                  filterExpressionCount: 1.7290859937188954e+19
+                  groupByExpressionCount: 2.2776833737296274e+18
                   id: 550e8400-e29b-41d4-a716-446655440000
                   isFavorite: false
                   kind: finops:saved-filter
-                  name: 6ox
+                  name: s5p
                   orgId: 100
                   ownerUserId: 12345
                   pageSource: analyzeSpend
-                  updatedAt: "1985-04-26T08:45:02Z"
+                  updatedAt: "2006-04-15T12:34:30Z"
                   visibility: shared
-                - createdAt: "1974-12-11T07:46:55Z"
-                  description: b2t
+                - createdAt: "1997-12-14T00:12:39Z"
+                  description: vn2
                   dimensions:
-                    - Ea ut similique.
-                    - Autem fuga rerum eaque nesciunt saepe iusto.
-                    - Nulla dolore corporis odio.
+                    - Delectus blanditiis necessitatibus ratione dolor provident et.
+                    - Quia veniam similique quidem.
+                    - Nulla vero.
                   displayOptions:
                     hideListCost: false
                     hidePricingQuantity: false
@@ -34409,23 +34532,23 @@ components:
                     showUsage: false
                   downgradedAt: "2026-07-24T12:34:56Z"
                   downgradedByUserId: 1234
-                  filterExpressionCount: 1.6826525429610445e+19
-                  groupByExpressionCount: 1.7160573378343594e+19
+                  filterExpressionCount: 1.7290859937188954e+19
+                  groupByExpressionCount: 2.2776833737296274e+18
                   id: 550e8400-e29b-41d4-a716-446655440000
                   isFavorite: false
                   kind: finops:saved-filter
-                  name: 6ox
+                  name: s5p
                   orgId: 100
                   ownerUserId: 12345
                   pageSource: analyzeSpend
-                  updatedAt: "1985-04-26T08:45:02Z"
+                  updatedAt: "2006-04-15T12:34:30Z"
                   visibility: shared
-                - createdAt: "1974-12-11T07:46:55Z"
-                  description: b2t
+                - createdAt: "1997-12-14T00:12:39Z"
+                  description: vn2
                   dimensions:
-                    - Ea ut similique.
-                    - Autem fuga rerum eaque nesciunt saepe iusto.
-                    - Nulla dolore corporis odio.
+                    - Delectus blanditiis necessitatibus ratione dolor provident et.
+                    - Quia veniam similique quidem.
+                    - Nulla vero.
                   displayOptions:
                     hideListCost: false
                     hidePricingQuantity: false
@@ -34445,52 +34568,16 @@ components:
                     showUsage: false
                   downgradedAt: "2026-07-24T12:34:56Z"
                   downgradedByUserId: 1234
-                  filterExpressionCount: 1.6826525429610445e+19
-                  groupByExpressionCount: 1.7160573378343594e+19
+                  filterExpressionCount: 1.7290859937188954e+19
+                  groupByExpressionCount: 2.2776833737296274e+18
                   id: 550e8400-e29b-41d4-a716-446655440000
                   isFavorite: false
                   kind: finops:saved-filter
-                  name: 6ox
+                  name: s5p
                   orgId: 100
                   ownerUserId: 12345
                   pageSource: analyzeSpend
-                  updatedAt: "1985-04-26T08:45:02Z"
-                  visibility: shared
-                - createdAt: "1974-12-11T07:46:55Z"
-                  description: b2t
-                  dimensions:
-                    - Ea ut similique.
-                    - Autem fuga rerum eaque nesciunt saepe iusto.
-                    - Nulla dolore corporis odio.
-                  displayOptions:
-                    hideListCost: false
-                    hidePricingQuantity: false
-                    periodType: chargePeriod
-                    showBilledCost: true
-                    showConsumedQuantity: false
-                    showCost: true
-                    showDimensionNames: true
-                    showEffectiveCost: true
-                    showListPrice: true
-                    showMargins: false
-                    showModifiedCosts: false
-                    showPercentChange: true
-                    showPercentages: false
-                    showSavings: false
-                    showSavingsPercent: false
-                    showUsage: false
-                  downgradedAt: "2026-07-24T12:34:56Z"
-                  downgradedByUserId: 1234
-                  filterExpressionCount: 1.6826525429610445e+19
-                  groupByExpressionCount: 1.7160573378343594e+19
-                  id: 550e8400-e29b-41d4-a716-446655440000
-                  isFavorite: false
-                  kind: finops:saved-filter
-                  name: 6ox
-                  orgId: 100
-                  ownerUserId: 12345
-                  pageSource: analyzeSpend
-                  updatedAt: "1985-04-26T08:45:02Z"
+                  updatedAt: "2006-04-15T12:34:30Z"
                   visibility: shared
             items:
                 $ref: '#/components/schemas/FinopsCustomizations_FlexeraFinopsCustomizationsSavedFilterSummary'
@@ -34499,14 +34586,6 @@ components:
             $ref: '#/components/schemas/FinopsCustomizations_SavedFilterHTTPBody'
         FinopsCustomizations_TagDimensionCollection:
             example:
-                - createdAt: "2020-11-26T12:17:38.369Z"
-                  id: tag_environment
-                  kind: finops:tag-dimension
-                  name: Environment
-                  tags:
-                    - key: env
-                    - key: environment
-                  updatedAt: "2020-11-26T12:17:38.369Z"
                 - createdAt: "2020-11-26T12:17:38.369Z"
                   id: tag_environment
                   kind: finops:tag-dimension
@@ -34560,13 +34639,34 @@ components:
                 - values
             type: object
         FinopsCustomizations_TagDimensionTag:
-            description: Contains the resource tag key
+            description: Contains a tag key and its optional source and priority.
             example:
                 key: environment
+                priority: 1
+                sourceType: awsAccountTag
             properties:
                 key:
                     description: Key (the part of the tag before the "=" character).
                     example: environment
+                    type: string
+                priority:
+                    description: Optional positive priority. Explicit priorities are evaluated first in ascending order; ties follow list order. Entries without a priority follow, alphabetically by key; exact ties retain list order.
+                    example: 1
+                    minimum: 1
+                    type: integer
+                sourceType:
+                    description: Source of the tag key; when omitted, the bill line's resource tags are used.
+                    enum:
+                        - awsResourceTag
+                        - awsCostAllocationTag
+                        - awsAccountTag
+                        - awsOuTag
+                        - awsRootTag
+                        - azureResourceTag
+                        - azureSubscriptionTag
+                        - azureResourceGroupTag
+                        - gcpResourceLabel
+                    example: awsAccountTag
                     type: string
             required:
                 - key
@@ -34595,17 +34695,28 @@ components:
                   provider: aws
                   qualifiedKey: user:Customer
                   sourceType: awsCostAllocationTag
+                - distinctResourceCount: 4341
+                  distinctValueCount: 28
+                  id: tag_aws_customer
+                  key: Customer
+                  kind: finops:tag-observation
+                  namespace: user
+                  normalizedKey: customer
+                  orgId: 100
+                  provider: aws
+                  qualifiedKey: user:Customer
+                  sourceType: awsCostAllocationTag
             items:
                 $ref: '#/components/schemas/FinopsCustomizations_FlexeraFinopsCustomizationsTagObservation'
             type: array
         FinopsCustomizations_TagObservationList:
             example:
-                count: 1.1435454474667241e+19
+                count: 1.5300522283679107e+19
                 kind: finops:tag-observation-list
                 nextPage: /finops-customizations/v1/orgs/100/tag-observations?skipToken=19u2349
                 orgId: 100
                 prevPage: /finops-customizations/v1/orgs/100/tag-observations?skipToken=8b1750u
-                total: 1.6240123123778656e+19
+                total: 4.753115054417566e+18
                 values:
                     - distinctResourceCount: 4341
                       distinctValueCount: 28
@@ -34632,7 +34743,7 @@ components:
             properties:
                 count:
                     description: Number of items in the current page.
-                    example: 5.4456228568985e+18
+                    example: 2.3375546624650824e+18
                     type: integer
                 kind:
                     description: The resource's type
@@ -34657,7 +34768,7 @@ components:
                     type: string
                 total:
                     description: Total number of items matching the current filter.
-                    example: 6.187556904105207e+18
+                    example: 6.869532623047985e+18
                     type: integer
                 values:
                     $ref: '#/components/schemas/FinopsCustomizations_TagObservationCollection'
@@ -34687,12 +34798,6 @@ components:
                     - email: finops@example.com
                       id: "108234"
                       type: email
-                    - email: finops@example.com
-                      id: "108234"
-                      type: email
-                    - email: finops@example.com
-                      id: "108234"
-                      type: email
                 schedule:
                     dayOfMonth: 15
                     dayOfWeek: monday
@@ -34703,7 +34808,7 @@ components:
             properties:
                 enabled:
                     description: Updated active state.
-                    example: false
+                    example: true
                     type: boolean
                 name:
                     description: Updated name.
@@ -34713,6 +34818,9 @@ components:
                 recipients:
                     description: Updated delivery targets (must remain non-empty if provided).
                     example:
+                        - email: finops@example.com
+                          id: "108234"
+                          type: email
                         - email: finops@example.com
                           id: "108234"
                           type: email
@@ -34729,10 +34837,26 @@ components:
                     enum:
                         - private
                         - shared
-                    example: shared
+                    example: private
                     type: string
             type: object
         FinopsCustomizations_UpdateRequestBody3:
+            example:
+                action: mute
+            properties:
+                action:
+                    description: Action to apply to the report subscription.
+                    enum:
+                        - pause
+                        - resume
+                        - mute
+                        - unmute
+                    example: mute
+                    type: string
+            required:
+                - action
+            type: object
+        FinopsCustomizations_UpdateRequestBody4:
             example:
                 billingCenterIds:
                     - adZqre9KZci-oC9r_ZcZJw
@@ -34769,7 +34893,7 @@ components:
                     example:
                         - adZqre9KZci-oC9r_ZcZJw
                     items:
-                        example: Tempore doloribus ut et.
+                        example: Rerum facere nemo modi provident error eum.
                         type: string
                     maxItems: 100
                     type: array
@@ -34784,7 +34908,7 @@ components:
                         - vendor
                         - vendor_account
                     items:
-                        example: Quo cum facilis velit.
+                        example: Deleniti vel cum dolores.
                         type: string
                     maxItems: 10
                     type: array
@@ -131681,7 +131805,7 @@ paths:
             x-flexera-service: finops_customizations
     /finops-customizations/v1/orgs/{orgId}/report-subscriptions:
         get:
-            description: Lists report subscriptions in the organization visible to the caller (owned or shared), newest first.
+            description: Lists shared report subscriptions and the caller's own private subscriptions, newest first. Organization administrators (org_owner) see all subscriptions in the organization.
             operationId: FinopsCustomizations_Report_Subscriptions_index
             parameters:
                 - allowEmptyValue: true
@@ -131695,13 +131819,13 @@ paths:
                     type: string
                 - allowEmptyValue: true
                   description: Page size (default 50, max 200)
-                  example: 192
+                  example: 126
                   in: query
                   name: limit
                   schema:
                     default: 50
                     description: Page size (default 50, max 200)
-                    example: 119
+                    example: 131
                     maximum: 200
                     minimum: 1
                     type: integer
@@ -131736,8 +131860,10 @@ paths:
                                 total: 1.5675377271826467e+17
                                 values:
                                     - createdAt: "1977-01-08T10:52:57Z"
+                                      createdByEmail: support@flexera.com
                                       dashboardId: dash-8f21
                                       dashboardScope: org
+                                      effectiveStatus: active
                                       enabled: true
                                       id: 550e8400-e29b-41d4-a716-446655440000
                                       kind: finops:report-subscription
@@ -131761,10 +131887,13 @@ paths:
                                         timeOfDay: "09:00"
                                         timezone: America/New_York
                                       updatedAt: "2006-02-21T00:31:51Z"
+                                      userNotificationStatus: unmuted
                                       visibility: shared
                                     - createdAt: "1977-01-08T10:52:57Z"
+                                      createdByEmail: support@flexera.com
                                       dashboardId: dash-8f21
                                       dashboardScope: org
+                                      effectiveStatus: active
                                       enabled: true
                                       id: 550e8400-e29b-41d4-a716-446655440000
                                       kind: finops:report-subscription
@@ -131788,10 +131917,13 @@ paths:
                                         timeOfDay: "09:00"
                                         timezone: America/New_York
                                       updatedAt: "2006-02-21T00:31:51Z"
+                                      userNotificationStatus: unmuted
                                       visibility: shared
                                     - createdAt: "1977-01-08T10:52:57Z"
+                                      createdByEmail: support@flexera.com
                                       dashboardId: dash-8f21
                                       dashboardScope: org
+                                      effectiveStatus: active
                                       enabled: true
                                       id: 550e8400-e29b-41d4-a716-446655440000
                                       kind: finops:report-subscription
@@ -131815,10 +131947,13 @@ paths:
                                         timeOfDay: "09:00"
                                         timezone: America/New_York
                                       updatedAt: "2006-02-21T00:31:51Z"
+                                      userNotificationStatus: unmuted
                                       visibility: shared
                                     - createdAt: "1977-01-08T10:52:57Z"
+                                      createdByEmail: support@flexera.com
                                       dashboardId: dash-8f21
                                       dashboardScope: org
+                                      effectiveStatus: active
                                       enabled: true
                                       id: 550e8400-e29b-41d4-a716-446655440000
                                       kind: finops:report-subscription
@@ -131842,6 +131977,7 @@ paths:
                                         timeOfDay: "09:00"
                                         timezone: America/New_York
                                       updatedAt: "2006-02-21T00:31:51Z"
+                                      userNotificationStatus: unmuted
                                       visibility: shared
                             schema:
                                 $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionList'
@@ -131936,8 +132072,10 @@ paths:
                         application/json:
                             example:
                                 createdAt: "1976-04-08T03:44:03Z"
+                                createdByEmail: support@flexera.com
                                 dashboardId: dash-8f21
                                 dashboardScope: org
+                                effectiveStatus: active
                                 enabled: true
                                 id: 550e8400-e29b-41d4-a716-446655440000
                                 kind: finops:report-subscription
@@ -131967,6 +132105,7 @@ paths:
                                     timeOfDay: "09:00"
                                     timezone: America/New_York
                                 updatedAt: "2005-05-09T15:35:51Z"
+                                userNotificationStatus: unmuted
                                 visibility: shared
                             schema:
                                 $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionResult'
@@ -132124,7 +132263,7 @@ paths:
             x-flexera-resource: report-subscription
             x-flexera-service: finops_customizations
         get:
-            description: Shows a specified report subscription in the organization.
+            description: Shows a specified report subscription in the organization. Private subscriptions are visible only to their owner and organization administrators (org_owner); other callers receive 404 Not Found.
             operationId: FinopsCustomizations_Report_Subscriptions_show
             parameters:
                 - description: The unique identifier for the organization
@@ -132153,8 +132292,10 @@ paths:
                         application/json:
                             example:
                                 createdAt: "1992-06-21T07:38:42Z"
+                                createdByEmail: support@flexera.com
                                 dashboardId: dash-8f21
                                 dashboardScope: org
+                                effectiveStatus: active
                                 enabled: true
                                 id: 550e8400-e29b-41d4-a716-446655440000
                                 kind: finops:report-subscription
@@ -132181,6 +132322,7 @@ paths:
                                     timeOfDay: "09:00"
                                     timezone: America/New_York
                                 updatedAt: "2016-02-06T18:17:06Z"
+                                userNotificationStatus: unmuted
                                 visibility: shared
                             schema:
                                 $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionResult'
@@ -132312,8 +132454,10 @@ paths:
                         application/json:
                             example:
                                 createdAt: "2000-11-04T13:32:14Z"
+                                createdByEmail: support@flexera.com
                                 dashboardId: dash-8f21
                                 dashboardScope: org
+                                effectiveStatus: active
                                 enabled: true
                                 id: 550e8400-e29b-41d4-a716-446655440000
                                 kind: finops:report-subscription
@@ -132337,6 +132481,7 @@ paths:
                                     timeOfDay: "09:00"
                                     timezone: America/New_York
                                 updatedAt: "2010-05-14T10:39:47Z"
+                                userNotificationStatus: unmuted
                                 visibility: shared
                             schema:
                                 $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionResult'
@@ -132411,6 +132556,168 @@ paths:
                 - Report Subscriptions
             x-flexera-action: update
             x-flexera-resource: report-subscription
+            x-flexera-service: finops_customizations
+    /finops-customizations/v1/orgs/{orgId}/report-subscriptions/{id}/status:
+        patch:
+            description: |-
+                Updates a report subscription's global enabled flag or the authenticated user's personal notification preference.
+                This method requires the scheduled report update privilege, the same privilege used by the report subscription configuration update method. Before applying any action, the service must check that the subscription is visible to the caller under the same rules as the list endpoint: callers can see all shared subscriptions and their own private subscriptions; organization administrators (org_owner) can also see all private subscriptions in the organization.
+                - Callers without the org_owner role can "pause" or "resume" subscriptions they own and "mute" or "unmute" shared subscriptions they do not own. Recipient membership is not required.
+                - Organization administrators (org_owner) can perform all four actions on shared subscriptions but only "pause" or "resume" on private subscriptions in the organization.
+                "Pause" and "resume" affect all recipients. "Mute" and "unmute" change only the authenticated user's preference, including for organization administrators, and do not modify the recipient list.
+                A missing or non-visible subscription returns 404 Not Found. An action not allowed on a visible subscription returns 403 Forbidden. A successful response returns the full subscription and must apply the same field-level read restrictions as the subscription read endpoints.
+                Unmuting does not enable a paused subscription; resuming preserves personal mutes.
+            operationId: FinopsCustomizations_Report_Subscriptions_Status_update
+            parameters:
+                - description: The unique identifier for the organization
+                  example: 100
+                  in: path
+                  name: orgId
+                  required: true
+                  schema:
+                    description: The unique identifier for the organization
+                    example: 100
+                    minimum: 1
+                    type: integer
+                - description: UUID of the report subscription.
+                  example: 550e8400-e29b-41d4-a716-446655440000
+                  in: path
+                  name: id
+                  required: true
+                  schema:
+                    description: UUID of the report subscription.
+                    example: 550e8400-e29b-41d4-a716-446655440000
+                    format: uuid
+                    type: string
+                - allowEmptyValue: true
+                  description: Report subscription ETag. Required for pause and resume; optional for mute and unmute.
+                  example: W/"550e8400-e29b-41d4-a716-446655440000-v3"
+                  in: header
+                  name: If-Match
+                  schema:
+                    description: Report subscription ETag. Required for pause and resume; optional for mute and unmute.
+                    example: W/"550e8400-e29b-41d4-a716-446655440000-v3"
+                    minLength: 1
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        example:
+                            action: mute
+                        schema:
+                            $ref: '#/components/schemas/FinopsCustomizations_UpdateRequestBody3'
+                required: true
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            example:
+                                createdAt: "1989-05-25T17:20:40Z"
+                                createdByEmail: support@flexera.com
+                                dashboardId: dash-8f21
+                                dashboardScope: org
+                                effectiveStatus: active
+                                enabled: true
+                                id: 550e8400-e29b-41d4-a716-446655440000
+                                kind: finops:report-subscription
+                                lastError: Itaque et similique.
+                                lastFailureAt: "2010-12-01T09:41:13Z"
+                                lastSuccessAt: "2012-07-31T16:55:24Z"
+                                name: Weekly Cloud Cost
+                                orgId: 100
+                                ownerUserId: 1234
+                                recipients:
+                                    - email: finops@example.com
+                                      id: "108234"
+                                      type: email
+                                    - email: finops@example.com
+                                      id: "108234"
+                                      type: email
+                                    - email: finops@example.com
+                                      id: "108234"
+                                      type: email
+                                schedule:
+                                    dayOfMonth: 15
+                                    dayOfWeek: monday
+                                    frequency: weekly
+                                    timeOfDay: "09:00"
+                                    timezone: America/New_York
+                                updatedAt: "1994-04-30T09:18:22Z"
+                                userNotificationStatus: unmuted
+                                visibility: shared
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_ReportSubscriptionResult'
+                    description: OK response.
+                    headers:
+                        ETag:
+                            description: Opaque tag representing the current state of the report subscription.
+                            example: W/"550e8400-e29b-41d4-a716-446655440000-v3"
+                            required: true
+                            schema:
+                                description: Opaque tag representing the current state of the report subscription.
+                                example: W/"550e8400-e29b-41d4-a716-446655440000-v3"
+                                type: string
+                "400":
+                    content:
+                        application/vnd.goa.error:
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_Error'
+                    description: 'bad_request: Bad Request response.'
+                "401":
+                    content:
+                        application/vnd.goa.error:
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_Error'
+                    description: 'unauthorized: Unauthorized response.'
+                "403":
+                    content:
+                        application/vnd.goa.error:
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_Error'
+                    description: 'forbidden: Forbidden response.'
+                "404":
+                    content:
+                        application/vnd.goa.error:
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_Error'
+                    description: 'not_found: Not Found response.'
+                "412":
+                    content:
+                        application/vnd.goa.error:
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_Error'
+                    description: 'resource_unmatched: If-Match did not match the current version of the report subscription.'
+                "422":
+                    content:
+                        application/vnd.goa.error:
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_Error'
+                    description: 'unprocessable_entity: Unprocessable Entity response.'
+                "429":
+                    content:
+                        application/vnd.goa.error:
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_Error'
+                    description: 'too_many_requests: Too Many Requests response.'
+                "500":
+                    content:
+                        application/vnd.goa.error:
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_Error'
+                    description: 'internal_error: Internal Server Error response.'
+                "502":
+                    content:
+                        application/vnd.goa.error:
+                            schema:
+                                $ref: '#/components/schemas/FinopsCustomizations_Error'
+                    description: 'bad_gateway: Bad Gateway response.'
+            security:
+                - FlexeraBearerAuth: []
+            summary: Update report subscription status
+            tags:
+                - Report Subscriptions Status
+            x-flexera-action: update
+            x-flexera-resource: report-subscription-status
             x-flexera-service: finops_customizations
     /finops-customizations/v1/orgs/{orgId}/rule-based-dimensions:
         get:
@@ -133266,13 +133573,13 @@ paths:
                     type: string
                 - allowEmptyValue: true
                   description: Page size (default 10, max 200)
-                  example: 120
+                  example: 21
                   in: query
                   name: limit
                   schema:
                     default: 10
                     description: Page size (default 10, max 200)
-                    example: 102
+                    example: 105
                     maximum: 200
                     minimum: 1
                     type: integer
@@ -133366,7 +133673,7 @@ paths:
                     type: string
                 - allowEmptyValue: true
                   description: Optional visibility filter for results.
-                  example: shared
+                  example: private
                   in: query
                   name: visibility
                   schema:
@@ -133374,16 +133681,16 @@ paths:
                     enum:
                         - shared
                         - private
-                    example: shared
+                    example: private
                     type: string
                 - allowEmptyValue: true
                   description: Comma-separated saved filter IDs marked as favorites, max 50.
-                  example: Reiciendis consequuntur.
+                  example: Vero molestiae dolores rem consequatur laborum.
                   in: query
                   name: favoriteIds
                   schema:
                     description: Comma-separated saved filter IDs marked as favorites, max 50.
-                    example: Architecto accusantium omnis aperiam et.
+                    example: Tenetur repellendus beatae recusandae laudantium.
                     type: string
                 - description: The unique identifier for the organization
                   example: 100
@@ -133801,12 +134108,12 @@ paths:
                                 billingCenterIds:
                                     - adZqre9KZci-oC9r_ZcZJw
                                     - kQm2Y7pVQoqxN4M8fCyTig
-                                createdAt: "1989-09-22T11:59:34Z"
+                                createdAt: "1983-01-16T09:40:12Z"
                                 description: Filters for Q4 cloud cost analysis
                                 dimensions:
-                                    - Quisquam qui dolor voluptatibus illum.
-                                    - Quibusdam aut.
-                                    - Animi omnis fugiat pariatur dignissimos.
+                                    - Sint tenetur est repellendus dicta.
+                                    - Ullam quia itaque cupiditate ducimus.
+                                    - Iusto provident est distinctio qui et.
                                 displayOptions:
                                     hideListCost: false
                                     hidePricingQuantity: false
@@ -133827,15 +134134,16 @@ paths:
                                 downgradedAt: "2026-07-24T12:34:56Z"
                                 downgradedByUserId: 1234
                                 filter:
-                                    Similique est ea mollitia sint.: Aperiam nam.
-                                    Velit dolores architecto exercitationem eveniet.: Doloribus perferendis cumque sunt.
+                                    Alias soluta officiis commodi.: A corrupti est molestiae aut.
+                                    Explicabo earum blanditiis est delectus dolorem.: Quia maiores ea dolores rem.
+                                    Sed labore accusantium.: Eius commodi voluptate.
                                 id: 550e8400-e29b-41d4-a716-446655440000
                                 kind: finops:saved-filter
                                 name: My Q4 Cost Filter
                                 orgId: 100
                                 ownerUserId: 1234
                                 pageSource: analyzeSpend
-                                updatedAt: "2011-02-24T16:37:38Z"
+                                updatedAt: "1976-10-25T22:52:21Z"
                                 visibility: private
                             schema:
                                 $ref: '#/components/schemas/FinopsCustomizations_SavedFiltersshowResponseBody'
@@ -134176,7 +134484,7 @@ paths:
                             name: My Q4 Cost Filter
                             visibility: private
                         schema:
-                            $ref: '#/components/schemas/FinopsCustomizations_UpdateRequestBody3'
+                            $ref: '#/components/schemas/FinopsCustomizations_UpdateRequestBody4'
                 required: true
             responses:
                 "200":
@@ -134802,7 +135110,7 @@ paths:
                     - The 'eq', 'ne', and 'in' operators use exact, case-sensitive matching.
                     - String literals must be single-quoted. Escape an apostrophe by doubling it.
                     - Supported provider values are 'aws', 'azure', and 'gcp'.
-                    - Supported sourceType values are 'awsResourceTag', 'awsCostAllocationTag', 'azureResourceTag', and 'gcpResourceLabel'.
+                    - Supported sourceType values are 'awsResourceTag', 'awsCostAllocationTag', 'awsAccountTag', 'awsOuTag', 'awsRootTag', 'azureResourceTag', 'azureSubscriptionTag', 'azureResourceGroupTag', and 'gcpResourceLabel'.
                     - To search all tag-key representations, combine 'co' expressions for qualifiedKey, key, and normalizedKey using 'or'.
                     - Unsupported fields, unsupported operators, and invalid expressions return HTTP 400.
                     - Filter is a query parameter and must be URL-encoded.
@@ -134830,7 +135138,7 @@ paths:
                         - The 'eq', 'ne', and 'in' operators use exact, case-sensitive matching.
                         - String literals must be single-quoted. Escape an apostrophe by doubling it.
                         - Supported provider values are 'aws', 'azure', and 'gcp'.
-                        - Supported sourceType values are 'awsResourceTag', 'awsCostAllocationTag', 'azureResourceTag', and 'gcpResourceLabel'.
+                        - Supported sourceType values are 'awsResourceTag', 'awsCostAllocationTag', 'awsAccountTag', 'awsOuTag', 'awsRootTag', 'azureResourceTag', 'azureSubscriptionTag', 'azureResourceGroupTag', and 'gcpResourceLabel'.
                         - To search all tag-key representations, combine 'co' expressions for qualifiedKey, key, and normalizedKey using 'or'.
                         - Unsupported fields, unsupported operators, and invalid expressions return HTTP 400.
                         - Filter is a query parameter and must be URL-encoded.
@@ -134839,13 +135147,13 @@ paths:
                     type: string
                 - allowEmptyValue: true
                   description: Page size (default 50, max 200).
-                  example: 131
+                  example: 14
                   in: query
                   name: limit
                   schema:
                     default: 50
                     description: Page size (default 50, max 200).
-                    example: 73
+                    example: 198
                     maximum: 200
                     minimum: 1
                     type: integer
@@ -134873,12 +135181,12 @@ paths:
                     content:
                         application/json:
                             example:
-                                count: 1.081406853547329e+18
+                                count: 2.6200854051287798e+17
                                 kind: finops:tag-observation-list
                                 nextPage: /finops-customizations/v1/orgs/100/tag-observations?skipToken=19u2349
                                 orgId: 100
                                 prevPage: /finops-customizations/v1/orgs/100/tag-observations?skipToken=8b1750u
-                                total: 2.340229585491913e+18
+                                total: 3.33923586316137e+18
                                 values:
                                     - distinctResourceCount: 4341
                                       distinctValueCount: 28
@@ -202901,8 +203209,12 @@ tags:
     - description: |-
         Report Subscriptions schedule a dashboard to be rendered to PDF and emailed to a set of recipients on a recurring cadence (daily, weekly, or monthly) at a wall-clock time in a given IANA timezone. This lets stakeholders receive a cost or usage dashboard on a schedule without logging in.
 
-        Subscriptions are organization-scoped and owned by their creator, which is derived from the JWT subject claim. Each subscription is either private (visible only to its owner) or shared (visible to other users in the organization); creating, updating, and deleting a subscription is restricted to its owner. Updates and deletes support optimistic concurrency through ETag / If-Match, so a stale write is rejected with 412 Precondition Failed.
+        Subscriptions are organization-scoped and owned by their creator, which is derived from the JWT subject claim. Each subscription is either private (visible to its owner and organization administrators with the org_owner role) or shared (visible to other users in the organization). Creating, updating, and deleting subscription configuration is restricted to its owner. Updates and deletes support optimistic concurrency through ETag / If-Match, so a stale write is rejected with 412 Precondition Failed.
       name: Report Subscriptions
+      x-flexera-services:
+        - finops_customizations
+    - description: Report Subscriptions Status manages global and personal notification status independently of report subscription configuration.
+      name: Report Subscriptions Status
       x-flexera-services:
         - finops_customizations
     - description: |
@@ -203037,7 +203349,7 @@ tags:
       name: Tag Dimension
       x-flexera-services:
         - finops_customizations
-    - description: Lists tag keys discovered in an organization's ingested cloud cost and usage data. Each observation summarizes a discovered tag key, including its cloud provider, provider-specific source, original and normalized key representations, and distinct resource and value counts. Observations describe discovered data, not configured tag dimensions or individual billing records.
+    - description: Lists tag keys discovered in an organization's ingested cloud cost and usage data and tags reported by cloud providers. Each observation summarizes a key by its provider, source, original and normalized forms, and distinct resource and value counts. These are discovered keys, not configured tag dimensions or individual billing records.
       name: Tag Observation
       x-flexera-services:
         - finops_customizations
@@ -203317,6 +203629,7 @@ x-flexera-services:
         tags:
             - Currency
             - Report Subscriptions
+            - Report Subscriptions Status
             - Rule-Based Dimension
             - Saved Filters
             - Tag Dimension
@@ -203573,6 +203886,7 @@ x-tagGroups:
       tags:
         - Currency
         - Report Subscriptions
+        - Report Subscriptions Status
         - Rule-Based Dimension
         - Saved Filters
         - Tag Dimension
