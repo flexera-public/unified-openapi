@@ -1,6 +1,197 @@
 {
   "components": {
     "schemas": {
+      "DatabricksOnboardingCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "AccountId": {
+            "description": "Databricks account ID (UUID).",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "title": "Accountid",
+            "type": "string"
+          },
+          "ClientId": {
+            "description": "Service principal client (application) ID.",
+            "minLength": 1,
+            "title": "Clientid",
+            "type": "string"
+          },
+          "ClientSecret": {
+            "description": "Service principal OAuth secret generated in Databricks.",
+            "minLength": 1,
+            "title": "Clientsecret",
+            "type": "string"
+          },
+          "ConnectorName": {
+            "description": "Connector name.",
+            "minLength": 3,
+            "pattern": "^[a-zA-Z0-9._-]+$",
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "IncludeCostAndUsage": {
+            "const": "true",
+            "description": "Must be 'true': Cost and Usage is the only Databricks product.",
+            "title": "Includecostandusage",
+            "type": "string"
+          },
+          "SqlWarehouseId": {
+            "description": "ID of the SQL warehouse Flexera runs its queries on.",
+            "pattern": "^[A-Za-z0-9_-]{1,128}$",
+            "title": "Sqlwarehouseid",
+            "type": "string"
+          },
+          "WorkspaceUrl": {
+            "description": "URL of a Databricks workspace in the account, e.g. https://adb-123.4.azuredatabricks.net.",
+            "pattern": "^https://[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)?\\.(cloud\\.databricks\\.com|azuredatabricks\\.net|gcp\\.databricks\\.com)/?$",
+            "title": "Workspaceurl",
+            "type": "string"
+          }
+        },
+        "required": [
+          "AccountId",
+          "WorkspaceUrl",
+          "SqlWarehouseId",
+          "ClientId",
+          "ClientSecret",
+          "ConnectorName",
+          "IncludeCostAndUsage"
+        ],
+        "title": "DatabricksOnboardingCreateRequest",
+        "type": "object"
+      },
+      "DatabricksOnboardingUpdateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "ClientId": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "New service principal client ID. Supply with ClientSecret.",
+            "title": "Clientid"
+          },
+          "ClientSecret": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "New service principal secret. Supply with ClientId.",
+            "title": "Clientsecret"
+          },
+          "ConnectorName": {
+            "anyOf": [
+              {
+                "minLength": 3,
+                "pattern": "^[a-zA-Z0-9._-]+$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Connector name.",
+            "title": "Connectorname"
+          },
+          "IncludeCostAndUsage": {
+            "anyOf": [
+              {
+                "enum": [
+                  "true",
+                  "false"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Enable or disable Cost and Usage for this connector.",
+            "title": "Includecostandusage"
+          },
+          "SqlWarehouseId": {
+            "anyOf": [
+              {
+                "pattern": "^[A-Za-z0-9_-]{1,128}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "SQL warehouse ID.",
+            "title": "Sqlwarehouseid"
+          },
+          "WorkspaceUrl": {
+            "anyOf": [
+              {
+                "pattern": "^https://[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)?\\.(cloud\\.databricks\\.com|azuredatabricks\\.net|gcp\\.databricks\\.com)/?$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Workspace URL.",
+            "title": "Workspaceurl"
+          }
+        },
+        "title": "DatabricksOnboardingUpdateRequest",
+        "type": "object"
+      },
+      "DatabricksValidateRequest": {
+        "properties": {
+          "AccountId": {
+            "description": "Databricks account ID (UUID).",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "title": "Accountid",
+            "type": "string"
+          },
+          "ClientId": {
+            "description": "Service principal client (application) ID.",
+            "minLength": 1,
+            "title": "Clientid",
+            "type": "string"
+          },
+          "ClientSecret": {
+            "description": "Service principal OAuth secret generated in Databricks.",
+            "minLength": 1,
+            "title": "Clientsecret",
+            "type": "string"
+          },
+          "SqlWarehouseId": {
+            "description": "ID of the SQL warehouse Flexera runs its queries on.",
+            "pattern": "^[A-Za-z0-9_-]{1,128}$",
+            "title": "Sqlwarehouseid",
+            "type": "string"
+          },
+          "WorkspaceUrl": {
+            "description": "URL of a Databricks workspace in the account, e.g. https://adb-123.4.azuredatabricks.net.",
+            "pattern": "^https://[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)?\\.(cloud\\.databricks\\.com|azuredatabricks\\.net|gcp\\.databricks\\.com)/?$",
+            "title": "Workspaceurl",
+            "type": "string"
+          }
+        },
+        "required": [
+          "AccountId",
+          "WorkspaceUrl",
+          "SqlWarehouseId",
+          "ClientId",
+          "ClientSecret"
+        ],
+        "title": "DatabricksValidateRequest",
+        "type": "object"
+      },
       "ErrorResponse": {
         "properties": {
           "fault": {
@@ -754,7 +945,7 @@
                 "type": "null"
               }
             ],
-            "description": "On failure, the vendor's real HTTP status (e.g. 401/403), or 502 (could not reach the vendor) / 504 (vendor timed out). Absent on success.",
+            "description": "On failure, the vendor's real HTTP status (e.g. 401/403), or 502 (could not reach the vendor) / 504 (vendor timed out). Absent on success, and when the credentials work but a vendor account setting blocks the connector.",
             "title": "Code"
           },
           "detail": {
@@ -1709,9 +1900,185 @@
         ]
       }
     },
+    "/uobs/v1/orgs/{org_id}/cloud/databricks/validate": {
+      "post": {
+        "description": "Synchronously test **submitted** Databricks credentials and configuration. Returns HTTP 200 for every outcome: `success:true` when Databricks accepts them, otherwise `success:false` with the vendor HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. A malformed body is a 422.",
+        "operationId": "validate_databricks_uobs_v1_orgs__org_id__cloud_databricks_validate_post",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatabricksValidateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_ValidationResult_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "request is invalid",
+                  "name": "bad_request",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "server is unable to handle the request",
+                  "name": "bad_gateway",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Databricks Onboarding: Validate connection",
+        "tags": [
+          "Onboarding"
+        ]
+      }
+    },
     "/uobs/v1/orgs/{org_id}/cloud/onboarding": {
       "delete": {
-        "description": "Remove an existing cloud connector for AWS, Azure, GCP, or Snowflake.",
+        "description": "Remove an existing cloud connector for AWS, Azure, GCP, Snowflake, or Databricks.",
         "operationId": "trigger_onboarding_delete_uobs_v1_orgs__org_id__cloud_onboarding_delete",
         "parameters": [
           {
@@ -1726,12 +2093,12 @@
             }
           },
           {
-            "description": "Provider (aws/azure/gcp/snowflake)",
+            "description": "Provider (aws/azure/gcp/snowflake/databricks)",
             "in": "query",
             "name": "provider",
             "required": true,
             "schema": {
-              "description": "Provider (aws/azure/gcp/snowflake)",
+              "description": "Provider (aws/azure/gcp/snowflake/databricks)",
               "title": "Provider",
               "type": "string"
             }
@@ -1901,6 +2268,344 @@
           }
         ],
         "summary": "Onboarding: Delete",
+        "tags": [
+          "Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/databricks": {
+      "post": {
+        "description": "Onboard a new Databricks connector. The service principal client secret is stored by the subscriber and never echoed back.",
+        "operationId": "trigger_onboarding_post_databricks_uobs_v1_orgs__org_id__cloud_onboarding_databricks_post",
+        "parameters": [
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "databricks": {
+                  "summary": "Databricks onboarding",
+                  "value": {
+                    "AccountId": "f4cedc87-3ba3-470c-9331-2eb8a28e7d06",
+                    "ClientId": "<service principal client id>",
+                    "ClientSecret": "<service principal client secret>",
+                    "ConnectorName": "databricks-prod",
+                    "IncludeCostAndUsage": "true",
+                    "SqlWarehouseId": "abc123def456",
+                    "WorkspaceUrl": "https://adb-1234567890123456.7.azuredatabricks.net"
+                  }
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/DatabricksOnboardingCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "kind": "onboarding:publish",
+                  "values": [
+                    {
+                      "stackId": "<unique Identifier>",
+                      "status": "accepted"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Onboarding request accepted and queued for processing"
+          },
+          "400": {
+            "description": "Databricks rejected the submitted credentials or configuration"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "resource not found",
+                  "name": "not_found",
+                  "temporary": true,
+                  "timeout": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found response"
+          },
+          "409": {
+            "description": "An active connector already exists for this Databricks account"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "description": "Could not reach Databricks"
+          },
+          "504": {
+            "description": "Databricks validation timed out"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Onboarding Databricks: Create",
+        "tags": [
+          "Onboarding"
+        ]
+      }
+    },
+    "/uobs/v1/orgs/{org_id}/cloud/onboarding/databricks/{connector_id}": {
+      "put": {
+        "description": "Update an existing Databricks connector. Supply `ClientId` and `ClientSecret` together to rotate the stored credential. `AccountId` cannot be changed.",
+        "operationId": "trigger_onboarding_put_databricks_uobs_v1_orgs__org_id__cloud_onboarding_databricks__connector_id__put",
+        "parameters": [
+          {
+            "description": "Connector ID",
+            "in": "path",
+            "name": "connector_id",
+            "required": true,
+            "schema": {
+              "description": "Connector ID",
+              "title": "Connector Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID",
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "description": "Organization ID",
+              "title": "Org Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "update": {
+                  "summary": "Update a Databricks connector",
+                  "value": {
+                    "ConnectorName": "databricks-prod-2",
+                    "SqlWarehouseId": "def456abc123"
+                  }
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/DatabricksOnboardingUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "kind": "onboarding:publish",
+                  "values": [
+                    {
+                      "stackId": "<unique Identifier>",
+                      "status": "accepted"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse_Any_"
+                }
+              }
+            },
+            "description": "Onboarding update request accepted and queued for processing"
+          },
+          "400": {
+            "description": "Databricks rejected the new client credentials or configuration"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token is invalid",
+                  "name": "unauthorized",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "access token does not have sufficient privileges",
+                  "name": "forbidden",
+                  "temporary": false,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden response"
+          },
+          "404": {
+            "description": "No active Databricks connector with this id"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": false,
+                  "id": "123abc",
+                  "message": "too many requests, for more information: https://developer.flexera.com/docs/page/rate-limiting",
+                  "name": "too_many_requests",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "fault": true,
+                  "id": "123abc",
+                  "message": "something went wrong in the server",
+                  "name": "internal_error",
+                  "temporary": true,
+                  "timeout": false
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error response"
+          },
+          "502": {
+            "description": "Could not reach Databricks"
+          },
+          "504": {
+            "description": "Databricks validation timed out"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Onboarding Databricks: Update",
         "tags": [
           "Onboarding"
         ]
@@ -3997,7 +4702,7 @@
     },
     "/uobs/v1/orgs/{org_id}/saas/onboarding/validate": {
       "post": {
-        "description": "Synchronously test a SaaS connector's **submitted** credentials against the vendor. Unlike create/update this is not fire-and-forget: it returns a verdict at HTTP 200 for every outcome — `success:true` when the vendor accepts the credentials, otherwise `success:false` with the vendor's HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. A malformed/missing body is a 422. Keyed on `provider`; tests submitted values only (no stored-credential testing).",
+        "description": "Synchronously test a SaaS connector's **submitted** credentials against the vendor. Unlike create/update this is not fire-and-forget: it returns a verdict at HTTP 200 for every outcome — `success:true` when the vendor accepts the credentials, otherwise `success:false` with the vendor's HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. When the credentials work but a vendor account setting blocks the connector, `code` is absent and `detail` names the setting. A malformed/missing body is a 422. Keyed on `provider`; tests submitted values only (no stored-credential testing).",
         "operationId": "validate_saas_connection_uobs_v1_orgs__org_id__saas_onboarding_validate_post",
         "parameters": [
           {
