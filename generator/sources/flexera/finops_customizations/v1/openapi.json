@@ -5,9 +5,14 @@
         "example": {
           "dashboardId": "dash-8f21",
           "dashboardScope": "org",
-          "enabled": true,
+          "enabled": false,
           "name": "Weekly Cloud Cost",
           "recipients": [
+            {
+              "email": "finops@example.com",
+              "id": "108234",
+              "type": "email"
+            },
             {
               "email": "finops@example.com",
               "id": "108234",
@@ -99,7 +104,7 @@
               "private",
               "shared"
             ],
-            "example": "private",
+            "example": "shared",
             "type": "string"
           }
         },
@@ -181,7 +186,7 @@
               "kQm2Y7pVQoqxN4M8fCyTig"
             ],
             "items": {
-              "example": "Illo officia soluta est non pariatur.",
+              "example": "Sit architecto.",
               "type": "string"
             },
             "maxItems": 100,
@@ -200,7 +205,7 @@
               "region"
             ],
             "items": {
-              "example": "Doloribus qui.",
+              "example": "Et non quo doloribus.",
               "type": "string"
             },
             "maxItems": 10,
@@ -263,7 +268,7 @@
             "type": "string"
           },
           "tags": {
-            "description": "Specifies the resource tag keys used to derive values for this dimension. If a resource has multiple matching tags, the value from the earliest listed tag is used.",
+            "description": "Specifies tag keys used to derive values for this dimension. Entries with an explicit priority are checked first in ascending numeric order; entries with the same priority are checked in the order listed. Entries without a priority are checked after all explicitly prioritized entries, in alphabetical order by key; exact ties retain their listed order. This ordering also applies when all priorities are omitted.",
             "example": [
               {
                 "key": "env"
@@ -368,12 +373,12 @@
           },
           "temporary": {
             "description": "Is the error temporary?",
-            "example": true,
+            "example": false,
             "type": "boolean"
           },
           "timeout": {
             "description": "Is the error a timeout?",
-            "example": false,
+            "example": true,
             "type": "boolean"
           }
         },
@@ -390,57 +395,65 @@
       "FilterV1": {
         "description": "A single filter node: a leaf test (equal, substring) or a boolean combinator (and, or, not).",
         "example": {
-          "dimension": "Quis placeat.",
+          "dimension": "Dolore dolor nam.",
           "expression": {
-            "dimension": "Doloremque sint occaecati numquam occaecati repellat.",
+            "dimension": "Dolorem perferendis eius et nam beatae.",
             "expressions": [
+              {},
+              {},
               {},
               {}
             ],
-            "substring": "Aspernatur nemo.",
+            "substring": "Labore nihil voluptas expedita.",
             "type": "equal",
-            "value": "Quo dolor reiciendis ut cumque unde sed."
+            "value": "Repudiandae beatae voluptatem eius."
           },
           "expressions": [
             {
-              "dimension": "Doloremque sint occaecati numquam occaecati repellat.",
+              "dimension": "Dolorem perferendis eius et nam beatae.",
               "expressions": [
+                {},
+                {},
                 {},
                 {}
               ],
-              "substring": "Aspernatur nemo.",
+              "substring": "Labore nihil voluptas expedita.",
               "type": "equal",
-              "value": "Quo dolor reiciendis ut cumque unde sed."
+              "value": "Repudiandae beatae voluptatem eius."
             },
             {
-              "dimension": "Doloremque sint occaecati numquam occaecati repellat.",
+              "dimension": "Dolorem perferendis eius et nam beatae.",
               "expressions": [
+                {},
+                {},
                 {},
                 {}
               ],
-              "substring": "Aspernatur nemo.",
+              "substring": "Labore nihil voluptas expedita.",
               "type": "equal",
-              "value": "Quo dolor reiciendis ut cumque unde sed."
+              "value": "Repudiandae beatae voluptatem eius."
             },
             {
-              "dimension": "Doloremque sint occaecati numquam occaecati repellat.",
+              "dimension": "Dolorem perferendis eius et nam beatae.",
               "expressions": [
+                {},
+                {},
                 {},
                 {}
               ],
-              "substring": "Aspernatur nemo.",
+              "substring": "Labore nihil voluptas expedita.",
               "type": "equal",
-              "value": "Quo dolor reiciendis ut cumque unde sed."
+              "value": "Repudiandae beatae voluptatem eius."
             }
           ],
-          "substring": "Pariatur animi est quidem nulla.",
+          "substring": "Aut quis hic cupiditate.",
           "type": "equal",
-          "value": "Dolor consequatur quia ea dolore hic."
+          "value": "Qui fugiat architecto ipsam."
         },
         "properties": {
           "dimension": {
             "description": "Column/dimension name; used by leaf nodes (equal, substring)",
-            "example": "Qui blanditiis tenetur animi harum ea mollitia.",
+            "example": "Exercitationem aperiam excepturi nostrum quia rerum quibusdam.",
             "type": "string"
           },
           "expression": {
@@ -450,34 +463,40 @@
             "description": "Child expressions; used by and/or nodes",
             "example": [
               {
-                "dimension": "Doloremque sint occaecati numquam occaecati repellat.",
+                "dimension": "Dolorem perferendis eius et nam beatae.",
                 "expressions": [
+                  {},
+                  {},
                   {},
                   {}
                 ],
-                "substring": "Aspernatur nemo.",
+                "substring": "Labore nihil voluptas expedita.",
                 "type": "equal",
-                "value": "Quo dolor reiciendis ut cumque unde sed."
+                "value": "Repudiandae beatae voluptatem eius."
               },
               {
-                "dimension": "Doloremque sint occaecati numquam occaecati repellat.",
+                "dimension": "Dolorem perferendis eius et nam beatae.",
                 "expressions": [
+                  {},
+                  {},
                   {},
                   {}
                 ],
-                "substring": "Aspernatur nemo.",
+                "substring": "Labore nihil voluptas expedita.",
                 "type": "equal",
-                "value": "Quo dolor reiciendis ut cumque unde sed."
+                "value": "Repudiandae beatae voluptatem eius."
               },
               {
-                "dimension": "Doloremque sint occaecati numquam occaecati repellat.",
+                "dimension": "Dolorem perferendis eius et nam beatae.",
                 "expressions": [
+                  {},
+                  {},
                   {},
                   {}
                 ],
-                "substring": "Aspernatur nemo.",
+                "substring": "Labore nihil voluptas expedita.",
                 "type": "equal",
-                "value": "Quo dolor reiciendis ut cumque unde sed."
+                "value": "Repudiandae beatae voluptatem eius."
               }
             ],
             "items": {
@@ -487,7 +506,7 @@
           },
           "substring": {
             "description": "Substring match value; used by substring nodes",
-            "example": "Qui quae accusamus doloribus.",
+            "example": "Sint dolores optio impedit aliquid maiores.",
             "type": "string"
           },
           "type": {
@@ -504,7 +523,7 @@
           },
           "value": {
             "description": "Exact match value; used by equal nodes",
-            "example": "Corrupti porro velit quae temporibus.",
+            "example": "Voluptatibus dolores dolore vero iste.",
             "type": "string"
           }
         },
@@ -550,15 +569,17 @@
       "FlexeraFinopsCustomizationsReportSubscription": {
         "description": "A scheduled email report of a dashboard.",
         "example": {
-          "createdAt": "1985-09-16T04:56:20Z",
+          "createdAt": "1974-12-24T23:20:26Z",
+          "createdByEmail": "support@flexera.com",
           "dashboardId": "dash-8f21",
           "dashboardScope": "org",
+          "effectiveStatus": "active",
           "enabled": true,
           "id": "550e8400-e29b-41d4-a716-446655440000",
           "kind": "finops:report-subscription",
-          "lastError": "Ipsa inventore consequuntur in aut enim.",
-          "lastFailureAt": "2007-07-19T23:23:12Z",
-          "lastSuccessAt": "1996-09-07T02:58:36Z",
+          "lastError": "Et et sint.",
+          "lastFailureAt": "1970-03-01T14:19:22Z",
+          "lastSuccessAt": "2002-02-08T22:42:35Z",
           "name": "Weekly Cloud Cost",
           "orgId": 100,
           "ownerUserId": 1234,
@@ -591,14 +612,20 @@
             "timeOfDay": "09:00",
             "timezone": "America/New_York"
           },
-          "updatedAt": "2014-04-29T23:05:04Z",
+          "updatedAt": "2003-07-27T04:02:44Z",
+          "userNotificationStatus": "unmuted",
           "visibility": "shared"
         },
         "properties": {
           "createdAt": {
             "description": "ISO-8601 creation timestamp",
-            "example": "1996-04-17T12:23:28Z",
+            "example": "1991-09-01T10:58:37Z",
             "format": "date-time",
+            "type": "string"
+          },
+          "createdByEmail": {
+            "description": "Email address of the user who created the report subscription.",
+            "example": "support@flexera.com",
             "type": "string"
           },
           "dashboardId": {
@@ -613,6 +640,16 @@
               "org"
             ],
             "example": "org",
+            "type": "string"
+          },
+          "effectiveStatus": {
+            "description": "Read-only status calculated for the authenticated user, not persisted: paused when enabled is false; otherwise muted when the user's preference is muted, or active when it is unmuted. This does not indicate whether the user is a recipient.",
+            "enum": [
+              "active",
+              "paused",
+              "muted"
+            ],
+            "example": "active",
             "type": "string"
           },
           "enabled": {
@@ -636,18 +673,18 @@
           },
           "lastError": {
             "description": "Error from the last failed attempt; a success does not clear it.",
-            "example": "Quam velit pariatur commodi autem voluptas dolorem.",
+            "example": "Nesciunt iure fugit.",
             "type": "string"
           },
           "lastFailureAt": {
             "description": "ISO-8601 timestamp of the last failed send attempt.",
-            "example": "2014-12-19T09:09:48Z",
+            "example": "1980-10-11T04:20:40Z",
             "format": "date-time",
             "type": "string"
           },
           "lastSuccessAt": {
             "description": "ISO-8601 timestamp of the last successful send.",
-            "example": "2013-12-04T04:33:10Z",
+            "example": "1994-09-13T22:46:17Z",
             "format": "date-time",
             "type": "string"
           },
@@ -686,11 +723,6 @@
                 "email": "finops@example.com",
                 "id": "108234",
                 "type": "email"
-              },
-              {
-                "email": "finops@example.com",
-                "id": "108234",
-                "type": "email"
               }
             ],
             "items": {
@@ -703,12 +735,21 @@
           },
           "updatedAt": {
             "description": "ISO-8601 last-update timestamp",
-            "example": "2010-05-27T08:51:38Z",
+            "example": "2003-01-23T11:55:47Z",
             "format": "date-time",
             "type": "string"
           },
+          "userNotificationStatus": {
+            "description": "The authenticated user's persisted preference, independent of the global enabled flag. Returns unmuted when no preference has been stored.",
+            "enum": [
+              "muted",
+              "unmuted"
+            ],
+            "example": "unmuted",
+            "type": "string"
+          },
           "visibility": {
-            "description": "Visibility scope: `private` = only visible to the owner; `shared` = visible to other users in the org.",
+            "description": "Visibility scope: `private` = visible only to the subscription owner and organization administrators (`org_owner`); `shared` = visible to other users in the organization.",
             "enum": [
               "private",
               "shared"
@@ -730,6 +771,7 @@
           "visibility",
           "enabled",
           "createdAt",
+          "createdByEmail",
           "updatedAt"
         ],
         "type": "object"
@@ -859,12 +901,12 @@
       "FlexeraFinopsCustomizationsSavedFilterSummary": {
         "description": "Saved filter summary used in list responses (filter field omitted)",
         "example": {
-          "createdAt": "1996-12-11T23:44:19Z",
-          "description": "1qu",
+          "createdAt": "1979-05-14T13:09:32Z",
+          "description": "2j5",
           "dimensions": [
-            "Eum eligendi sit ut saepe dolorem.",
-            "Provident sit a sint sit dolorem.",
-            "Quasi distinctio corrupti harum."
+            "Atque veritatis impedit quo voluptas.",
+            "Voluptas qui dolor ratione ut ut.",
+            "Voluptas amet aspernatur quaerat porro."
           ],
           "displayOptions": {
             "hideListCost": false,
@@ -886,28 +928,28 @@
           },
           "downgradedAt": "2026-07-24T12:34:56Z",
           "downgradedByUserId": 1234,
-          "filterExpressionCount": 1596257606411310000,
-          "groupByExpressionCount": 10594746565814820000,
+          "filterExpressionCount": 3103430320363718700,
+          "groupByExpressionCount": 7167210277426505000,
           "id": "550e8400-e29b-41d4-a716-446655440000",
           "isFavorite": false,
           "kind": "finops:saved-filter",
-          "name": "y2l",
+          "name": "ny2",
           "orgId": 100,
           "ownerUserId": 12345,
           "pageSource": "analyzeSpend",
-          "updatedAt": "1992-10-07T05:30:12Z",
-          "visibility": "private"
+          "updatedAt": "1991-07-17T00:24:04Z",
+          "visibility": "shared"
         },
         "properties": {
           "createdAt": {
             "description": "ISO-8601 creation timestamp",
-            "example": "1995-12-22T11:27:47Z",
+            "example": "1990-02-08T16:17:41Z",
             "format": "date-time",
             "type": "string"
           },
           "description": {
             "description": "Optional description",
-            "example": "u9g",
+            "example": "syr",
             "maxLength": 1024,
             "type": "string"
           },
@@ -915,12 +957,12 @@
             "default": [],
             "description": "Optional list of dimensions for GROUP BY (max 10)",
             "example": [
-              "Et omnis et.",
-              "Eos earum ut assumenda pariatur earum.",
-              "Nobis magnam asperiores id ut beatae."
+              "Assumenda maiores.",
+              "Vel ducimus asperiores et perferendis accusamus aut.",
+              "Eum earum molestias reprehenderit aut a."
             ],
             "items": {
-              "example": "Atque molestiae mollitia.",
+              "example": "Eius et cupiditate.",
               "type": "string"
             },
             "maxItems": 10,
@@ -943,12 +985,12 @@
           },
           "filterExpressionCount": {
             "description": "Number of filter expressions (leaf predicates) the caller is entitled to see, after Billing Center entitlement filtering",
-            "example": 4720808898573619000,
+            "example": 15958493074083056000,
             "type": "integer"
           },
           "groupByExpressionCount": {
             "description": "Number of GROUP BY expressions (dimensions) the caller is entitled to see, after Billing Center entitlement filtering",
-            "example": 2656793197919665000,
+            "example": 17444098598008760000,
             "type": "integer"
           },
           "id": {
@@ -972,7 +1014,7 @@
           },
           "name": {
             "description": "Human-readable name",
-            "example": "k8v",
+            "example": "yby",
             "maxLength": 255,
             "type": "string"
           },
@@ -999,7 +1041,7 @@
           },
           "updatedAt": {
             "description": "ISO-8601 last-update timestamp",
-            "example": "2005-02-19T05:39:56Z",
+            "example": "1979-06-06T08:03:30Z",
             "format": "date-time",
             "type": "string"
           },
@@ -1009,7 +1051,7 @@
               "private",
               "shared"
             ],
-            "example": "shared",
+            "example": "private",
             "type": "string"
           }
         },
@@ -1071,7 +1113,7 @@
             "type": "string"
           },
           "tags": {
-            "description": "Specifies the resource tag keys used to derive values for this dimension. If a resource has multiple matching tags, the value from the earliest listed tag is used.",
+            "description": "Specifies tag keys used to derive values for this dimension. Entries with an explicit priority are checked first in ascending numeric order; entries with the same priority are checked in the order listed. Entries without a priority are checked after all explicitly prioritized entries, in alphabetical order by key; exact ties retain their listed order. This ordering also applies when all priorities are omitted.",
             "example": [
               {
                 "key": "env"
@@ -1103,7 +1145,7 @@
         "type": "object"
       },
       "FlexeraFinopsCustomizationsTagObservation": {
-        "description": "A resource tag key observed in an organization's cloud cost and usage data.",
+        "description": "A cloud tag key observed for an organization.",
         "example": {
           "distinctResourceCount": 4341,
           "distinctValueCount": 28,
@@ -1119,7 +1161,7 @@
         },
         "properties": {
           "distinctResourceCount": {
-            "description": "Number of distinct billing resources on which the tag key was observed.",
+            "description": "Number of distinct billing resources associated with this tag key.",
             "example": 4341,
             "type": "integer"
           },
@@ -1178,11 +1220,16 @@
             "type": "string"
           },
           "sourceType": {
-            "description": "Provider-specific source of the observed tag.",
+            "description": "Provider-specific category identifying the source of the tag key.",
             "enum": [
               "awsResourceTag",
               "awsCostAllocationTag",
+              "awsAccountTag",
+              "awsOuTag",
+              "awsRootTag",
               "azureResourceTag",
+              "azureSubscriptionTag",
+              "azureResourceGroupTag",
               "gcpResourceLabel"
             ],
             "example": "awsCostAllocationTag",
@@ -1257,7 +1304,7 @@
         "properties": {
           "count": {
             "description": "Number of items in the current page.",
-            "example": 17771810560693854000,
+            "example": 3019299180792461300,
             "type": "integer"
           },
           "errors": {
@@ -1285,7 +1332,7 @@
           },
           "total": {
             "description": "Total number of items matching the current filter.",
-            "example": 2042553881591077400,
+            "example": 14412885265995540000,
             "type": "integer"
           },
           "values": {
@@ -1341,7 +1388,7 @@
               "adZqre9KZci-oC9r_ZcZJw"
             ],
             "items": {
-              "example": "Omnis dolorem omnis.",
+              "example": "Et distinctio aliquam assumenda quo.",
               "type": "string"
             },
             "maxItems": 100,
@@ -1360,7 +1407,7 @@
               "vendor_account"
             ],
             "items": {
-              "example": "Consequatur ab.",
+              "example": "Et aut.",
               "type": "string"
             },
             "maxItems": 10,
@@ -1394,8 +1441,10 @@
         "example": [
           {
             "createdAt": "1977-01-08T10:52:57Z",
+            "createdByEmail": "support@flexera.com",
             "dashboardId": "dash-8f21",
             "dashboardScope": "org",
+            "effectiveStatus": "active",
             "enabled": true,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "kind": "finops:report-subscription",
@@ -1425,12 +1474,15 @@
               "timezone": "America/New_York"
             },
             "updatedAt": "2006-02-21T00:31:51Z",
+            "userNotificationStatus": "unmuted",
             "visibility": "shared"
           },
           {
             "createdAt": "1977-01-08T10:52:57Z",
+            "createdByEmail": "support@flexera.com",
             "dashboardId": "dash-8f21",
             "dashboardScope": "org",
+            "effectiveStatus": "active",
             "enabled": true,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "kind": "finops:report-subscription",
@@ -1460,6 +1512,45 @@
               "timezone": "America/New_York"
             },
             "updatedAt": "2006-02-21T00:31:51Z",
+            "userNotificationStatus": "unmuted",
+            "visibility": "shared"
+          },
+          {
+            "createdAt": "1977-01-08T10:52:57Z",
+            "createdByEmail": "support@flexera.com",
+            "dashboardId": "dash-8f21",
+            "dashboardScope": "org",
+            "effectiveStatus": "active",
+            "enabled": true,
+            "id": "550e8400-e29b-41d4-a716-446655440000",
+            "kind": "finops:report-subscription",
+            "lastError": "Qui delectus ut magnam sunt.",
+            "lastFailureAt": "1981-04-14T18:58:14Z",
+            "lastSuccessAt": "2001-12-22T09:15:12Z",
+            "name": "Weekly Cloud Cost",
+            "orgId": 100,
+            "ownerUserId": 1234,
+            "recipients": [
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
+              },
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
+              }
+            ],
+            "schedule": {
+              "dayOfMonth": 15,
+              "dayOfWeek": "monday",
+              "frequency": "weekly",
+              "timeOfDay": "09:00",
+              "timezone": "America/New_York"
+            },
+            "updatedAt": "2006-02-21T00:31:51Z",
+            "userNotificationStatus": "unmuted",
             "visibility": "shared"
           }
         ],
@@ -1470,16 +1561,18 @@
       },
       "ReportSubscriptionList": {
         "example": {
-          "count": 4077433891253340700,
+          "count": 13944958213747423000,
           "kind": "finops:report-subscription-list",
           "nextPage": "/finops-customizations/v1/orgs/100/report-subscriptions?skipToken=19u2349",
           "prevPage": "/finops-customizations/v1/orgs/100/report-subscriptions?skipToken=8b1750u",
-          "total": 473643107963108900,
+          "total": 5149174484824992000,
           "values": [
             {
               "createdAt": "1977-01-08T10:52:57Z",
+              "createdByEmail": "support@flexera.com",
               "dashboardId": "dash-8f21",
               "dashboardScope": "org",
+              "effectiveStatus": "active",
               "enabled": true,
               "id": "550e8400-e29b-41d4-a716-446655440000",
               "kind": "finops:report-subscription",
@@ -1509,12 +1602,15 @@
                 "timezone": "America/New_York"
               },
               "updatedAt": "2006-02-21T00:31:51Z",
+              "userNotificationStatus": "unmuted",
               "visibility": "shared"
             },
             {
               "createdAt": "1977-01-08T10:52:57Z",
+              "createdByEmail": "support@flexera.com",
               "dashboardId": "dash-8f21",
               "dashboardScope": "org",
+              "effectiveStatus": "active",
               "enabled": true,
               "id": "550e8400-e29b-41d4-a716-446655440000",
               "kind": "finops:report-subscription",
@@ -1544,12 +1640,15 @@
                 "timezone": "America/New_York"
               },
               "updatedAt": "2006-02-21T00:31:51Z",
+              "userNotificationStatus": "unmuted",
               "visibility": "shared"
             },
             {
               "createdAt": "1977-01-08T10:52:57Z",
+              "createdByEmail": "support@flexera.com",
               "dashboardId": "dash-8f21",
               "dashboardScope": "org",
+              "effectiveStatus": "active",
               "enabled": true,
               "id": "550e8400-e29b-41d4-a716-446655440000",
               "kind": "finops:report-subscription",
@@ -1579,12 +1678,15 @@
                 "timezone": "America/New_York"
               },
               "updatedAt": "2006-02-21T00:31:51Z",
+              "userNotificationStatus": "unmuted",
               "visibility": "shared"
             },
             {
               "createdAt": "1977-01-08T10:52:57Z",
+              "createdByEmail": "support@flexera.com",
               "dashboardId": "dash-8f21",
               "dashboardScope": "org",
+              "effectiveStatus": "active",
               "enabled": true,
               "id": "550e8400-e29b-41d4-a716-446655440000",
               "kind": "finops:report-subscription",
@@ -1614,6 +1716,7 @@
                 "timezone": "America/New_York"
               },
               "updatedAt": "2006-02-21T00:31:51Z",
+              "userNotificationStatus": "unmuted",
               "visibility": "shared"
             }
           ]
@@ -1621,7 +1724,7 @@
         "properties": {
           "count": {
             "description": "Number of items in the current page.",
-            "example": 9847971447646736000,
+            "example": 12278772516379544000,
             "type": "integer"
           },
           "kind": {
@@ -1646,7 +1749,7 @@
           },
           "total": {
             "description": "Total number of items matching the current filter.",
-            "example": 1674334171643265500,
+            "example": 6378601164857801000,
             "type": "integer"
           },
           "values": {
@@ -1695,29 +1798,21 @@
       },
       "ReportSubscriptionResult": {
         "example": {
-          "createdAt": "1982-07-15T14:31:08Z",
+          "createdAt": "2008-07-04T02:48:53Z",
+          "createdByEmail": "support@flexera.com",
           "dashboardId": "dash-8f21",
           "dashboardScope": "org",
+          "effectiveStatus": "active",
           "enabled": true,
           "id": "550e8400-e29b-41d4-a716-446655440000",
           "kind": "finops:report-subscription",
-          "lastError": "Voluptas libero ullam nihil.",
-          "lastFailureAt": "1986-08-13T13:39:23Z",
-          "lastSuccessAt": "1980-11-25T10:20:35Z",
+          "lastError": "Illo officia soluta est non pariatur.",
+          "lastFailureAt": "1983-04-05T09:01:04Z",
+          "lastSuccessAt": "2007-07-27T15:36:12Z",
           "name": "Weekly Cloud Cost",
           "orgId": 100,
           "ownerUserId": 1234,
           "recipients": [
-            {
-              "email": "finops@example.com",
-              "id": "108234",
-              "type": "email"
-            },
-            {
-              "email": "finops@example.com",
-              "id": "108234",
-              "type": "email"
-            },
             {
               "email": "finops@example.com",
               "id": "108234",
@@ -1736,14 +1831,20 @@
             "timeOfDay": "09:00",
             "timezone": "America/New_York"
           },
-          "updatedAt": "2003-06-24T12:05:43Z",
+          "updatedAt": "1997-03-04T12:03:39Z",
+          "userNotificationStatus": "unmuted",
           "visibility": "shared"
         },
         "properties": {
           "createdAt": {
             "description": "ISO-8601 creation timestamp",
-            "example": "2007-04-23T10:04:28Z",
+            "example": "1997-04-01T17:10:41Z",
             "format": "date-time",
+            "type": "string"
+          },
+          "createdByEmail": {
+            "description": "Email address of the user who created the report subscription.",
+            "example": "support@flexera.com",
             "type": "string"
           },
           "dashboardId": {
@@ -1758,6 +1859,16 @@
               "org"
             ],
             "example": "org",
+            "type": "string"
+          },
+          "effectiveStatus": {
+            "description": "Read-only status calculated for the authenticated user, not persisted: paused when enabled is false; otherwise muted when the user's preference is muted, or active when it is unmuted. This does not indicate whether the user is a recipient.",
+            "enum": [
+              "active",
+              "paused",
+              "muted"
+            ],
+            "example": "active",
             "type": "string"
           },
           "enabled": {
@@ -1781,18 +1892,18 @@
           },
           "lastError": {
             "description": "Error from the last failed attempt; a success does not clear it.",
-            "example": "Eius enim alias dolores.",
+            "example": "Architecto odio ad sed autem.",
             "type": "string"
           },
           "lastFailureAt": {
             "description": "ISO-8601 timestamp of the last failed send attempt.",
-            "example": "1994-05-13T05:53:17Z",
+            "example": "1975-02-10T17:41:33Z",
             "format": "date-time",
             "type": "string"
           },
           "lastSuccessAt": {
             "description": "ISO-8601 timestamp of the last successful send.",
-            "example": "1975-07-21T12:28:03Z",
+            "example": "2008-09-06T09:46:30Z",
             "format": "date-time",
             "type": "string"
           },
@@ -1826,16 +1937,6 @@
                 "email": "finops@example.com",
                 "id": "108234",
                 "type": "email"
-              },
-              {
-                "email": "finops@example.com",
-                "id": "108234",
-                "type": "email"
-              },
-              {
-                "email": "finops@example.com",
-                "id": "108234",
-                "type": "email"
               }
             ],
             "items": {
@@ -1848,12 +1949,21 @@
           },
           "updatedAt": {
             "description": "ISO-8601 last-update timestamp",
-            "example": "1988-12-15T09:20:46Z",
+            "example": "2009-05-24T03:54:31Z",
             "format": "date-time",
             "type": "string"
           },
+          "userNotificationStatus": {
+            "description": "The authenticated user's persisted preference, independent of the global enabled flag. Returns unmuted when no preference has been stored.",
+            "enum": [
+              "muted",
+              "unmuted"
+            ],
+            "example": "unmuted",
+            "type": "string"
+          },
           "visibility": {
-            "description": "Visibility scope: `private` = only visible to the owner; `shared` = visible to other users in the org.",
+            "description": "Visibility scope: `private` = visible only to the subscription owner and organization administrators (`org_owner`); `shared` = visible to other users in the organization.",
             "enum": [
               "private",
               "shared"
@@ -1875,6 +1985,7 @@
           "visibility",
           "enabled",
           "createdAt",
+          "createdByEmail",
           "updatedAt"
         ],
         "type": "object"
@@ -1941,6 +2052,30 @@
       },
       "RuleBasedDimensionCollection": {
         "example": [
+          {
+            "createdAt": "2020-11-26T12:17:38.369Z",
+            "createdBy": {
+              "id": 1234,
+              "kind": "iam:user",
+              "ref": "iam:user:123"
+            },
+            "id": "rbd_department",
+            "kind": "finops:rule-based-dimension",
+            "name": "Department",
+            "ruleListLinks": [
+              {
+                "effectiveAt": "2023-01",
+                "kind": "finops:rule-based-dimension-rule-list-link",
+                "rulesCount": 1
+              }
+            ],
+            "updatedAt": "2020-11-26T12:17:38.369Z",
+            "updatedBy": {
+              "id": 1234,
+              "kind": "iam:user",
+              "ref": "iam:user:123"
+            }
+          },
           {
             "createdAt": "2020-11-26T12:17:38.369Z",
             "createdBy": {
@@ -2201,7 +2336,7 @@
         "properties": {
           "createdAt": {
             "description": "timestamp from when the dated-rules were created",
-            "example": "1985-04-19T06:57:30Z",
+            "example": "2007-04-18T05:00:02Z",
             "format": "date-time",
             "type": "string"
           },
@@ -2266,7 +2401,7 @@
         "example": {
           "effectiveAt": "2023-01",
           "kind": "finops:rule-based-dimension-rule-list-link",
-          "rulesCount": 12577275582454016000
+          "rulesCount": 7640143140130161000
         },
         "properties": {
           "effectiveAt": {
@@ -2285,7 +2420,7 @@
           },
           "rulesCount": {
             "description": "The count of rules list, identified by its effectiveAt date.",
-            "example": 454934551142716100,
+            "example": 9798080902472665000,
             "type": "integer"
           }
         },
@@ -2690,6 +2825,11 @@
             "code": 404,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "message": "Saved filter favorite ID 550e8400-e29b-41d4-a716-446655440000 was not found or is not accessible."
+          },
+          {
+            "code": 404,
+            "id": "550e8400-e29b-41d4-a716-446655440000",
+            "message": "Saved filter favorite ID 550e8400-e29b-41d4-a716-446655440000 was not found or is not accessible."
           }
         ],
         "items": {
@@ -2703,12 +2843,12 @@
             "adZqre9KZci-oC9r_ZcZJw",
             "kQm2Y7pVQoqxN4M8fCyTig"
           ],
-          "createdAt": "2015-02-27T13:26:37Z",
+          "createdAt": "1970-10-01T08:04:03Z",
           "description": "Filters for Q4 cloud cost analysis",
           "dimensions": [
-            "Quia dolore id aut.",
-            "Saepe laborum.",
-            "Quo fuga perferendis."
+            "Vel ut.",
+            "Adipisci voluptate provident.",
+            "Voluptatum facere."
           ],
           "displayOptions": {
             "hideListCost": false,
@@ -2731,7 +2871,7 @@
           "downgradedAt": "2026-07-24T12:34:56Z",
           "downgradedByUserId": 1234,
           "filter": {
-            "Omnis explicabo.": "Odio sunt in molestiae doloribus."
+            "Repudiandae est labore doloribus quos et.": "Ut autem nesciunt maxime."
           },
           "id": "550e8400-e29b-41d4-a716-446655440000",
           "kind": "finops:saved-filter",
@@ -2739,7 +2879,7 @@
           "orgId": 100,
           "ownerUserId": 1234,
           "pageSource": "analyzeSpend",
-          "updatedAt": "2008-09-10T08:49:39Z",
+          "updatedAt": "1974-04-29T15:05:57Z",
           "visibility": "private"
         },
         "properties": {
@@ -2751,7 +2891,7 @@
               "kQm2Y7pVQoqxN4M8fCyTig"
             ],
             "items": {
-              "example": "Enim tempora libero sunt alias neque et.",
+              "example": "Est nemo qui nesciunt hic quo odio.",
               "type": "string"
             },
             "maxItems": 100,
@@ -2759,7 +2899,7 @@
           },
           "createdAt": {
             "description": "ISO-8601 creation timestamp",
-            "example": "2005-01-11T01:03:48Z",
+            "example": "1983-08-21T12:55:42Z",
             "format": "date-time",
             "type": "string"
           },
@@ -2773,12 +2913,12 @@
             "default": [],
             "description": "Optional list of dimensions for GROUP BY (max 10)",
             "example": [
-              "Quaerat autem et alias tenetur est ipsum.",
-              "Fugit tempora et nihil fugiat tempore.",
-              "Facilis repellendus earum eius accusantium."
+              "Culpa est.",
+              "Magnam facere laboriosam adipisci quasi.",
+              "Voluptas quod."
             ],
             "items": {
-              "example": "Facilis blanditiis.",
+              "example": "Quod quia aliquam adipisci voluptates.",
               "type": "string"
             },
             "maxItems": 10,
@@ -2804,7 +2944,9 @@
             "default": {},
             "description": "FOCUS 1.0 filter configuration",
             "example": {
-              "Asperiores necessitatibus veritatis quis est.": "Voluptatem illum quae voluptate eum."
+              "Delectus ipsa quia est veritatis a.": "Et vel.",
+              "Quas autem expedita rerum.": "Omnis dicta similique.",
+              "Quia laudantium deleniti.": "Praesentium et."
             },
             "type": "object"
           },
@@ -2851,7 +2993,7 @@
           },
           "updatedAt": {
             "description": "ISO-8601 last-update timestamp",
-            "example": "1975-12-19T14:33:29Z",
+            "example": "1982-02-02T22:10:03Z",
             "format": "date-time",
             "type": "string"
           },
@@ -2882,12 +3024,12 @@
       "SavedFilterSummaryCollection": {
         "example": [
           {
-            "createdAt": "1974-12-11T07:46:55Z",
-            "description": "b2t",
+            "createdAt": "1997-12-14T00:12:39Z",
+            "description": "vn2",
             "dimensions": [
-              "Ea ut similique.",
-              "Autem fuga rerum eaque nesciunt saepe iusto.",
-              "Nulla dolore corporis odio."
+              "Delectus blanditiis necessitatibus ratione dolor provident et.",
+              "Quia veniam similique quidem.",
+              "Nulla vero."
             ],
             "displayOptions": {
               "hideListCost": false,
@@ -2909,25 +3051,25 @@
             },
             "downgradedAt": "2026-07-24T12:34:56Z",
             "downgradedByUserId": 1234,
-            "filterExpressionCount": 16826525429610445000,
-            "groupByExpressionCount": 17160573378343594000,
+            "filterExpressionCount": 17290859937188954000,
+            "groupByExpressionCount": 2277683373729627400,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "isFavorite": false,
             "kind": "finops:saved-filter",
-            "name": "6ox",
+            "name": "s5p",
             "orgId": 100,
             "ownerUserId": 12345,
             "pageSource": "analyzeSpend",
-            "updatedAt": "1985-04-26T08:45:02Z",
+            "updatedAt": "2006-04-15T12:34:30Z",
             "visibility": "shared"
           },
           {
-            "createdAt": "1974-12-11T07:46:55Z",
-            "description": "b2t",
+            "createdAt": "1997-12-14T00:12:39Z",
+            "description": "vn2",
             "dimensions": [
-              "Ea ut similique.",
-              "Autem fuga rerum eaque nesciunt saepe iusto.",
-              "Nulla dolore corporis odio."
+              "Delectus blanditiis necessitatibus ratione dolor provident et.",
+              "Quia veniam similique quidem.",
+              "Nulla vero."
             ],
             "displayOptions": {
               "hideListCost": false,
@@ -2949,25 +3091,25 @@
             },
             "downgradedAt": "2026-07-24T12:34:56Z",
             "downgradedByUserId": 1234,
-            "filterExpressionCount": 16826525429610445000,
-            "groupByExpressionCount": 17160573378343594000,
+            "filterExpressionCount": 17290859937188954000,
+            "groupByExpressionCount": 2277683373729627400,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "isFavorite": false,
             "kind": "finops:saved-filter",
-            "name": "6ox",
+            "name": "s5p",
             "orgId": 100,
             "ownerUserId": 12345,
             "pageSource": "analyzeSpend",
-            "updatedAt": "1985-04-26T08:45:02Z",
+            "updatedAt": "2006-04-15T12:34:30Z",
             "visibility": "shared"
           },
           {
-            "createdAt": "1974-12-11T07:46:55Z",
-            "description": "b2t",
+            "createdAt": "1997-12-14T00:12:39Z",
+            "description": "vn2",
             "dimensions": [
-              "Ea ut similique.",
-              "Autem fuga rerum eaque nesciunt saepe iusto.",
-              "Nulla dolore corporis odio."
+              "Delectus blanditiis necessitatibus ratione dolor provident et.",
+              "Quia veniam similique quidem.",
+              "Nulla vero."
             ],
             "displayOptions": {
               "hideListCost": false,
@@ -2989,56 +3131,16 @@
             },
             "downgradedAt": "2026-07-24T12:34:56Z",
             "downgradedByUserId": 1234,
-            "filterExpressionCount": 16826525429610445000,
-            "groupByExpressionCount": 17160573378343594000,
+            "filterExpressionCount": 17290859937188954000,
+            "groupByExpressionCount": 2277683373729627400,
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "isFavorite": false,
             "kind": "finops:saved-filter",
-            "name": "6ox",
+            "name": "s5p",
             "orgId": 100,
             "ownerUserId": 12345,
             "pageSource": "analyzeSpend",
-            "updatedAt": "1985-04-26T08:45:02Z",
-            "visibility": "shared"
-          },
-          {
-            "createdAt": "1974-12-11T07:46:55Z",
-            "description": "b2t",
-            "dimensions": [
-              "Ea ut similique.",
-              "Autem fuga rerum eaque nesciunt saepe iusto.",
-              "Nulla dolore corporis odio."
-            ],
-            "displayOptions": {
-              "hideListCost": false,
-              "hidePricingQuantity": false,
-              "periodType": "chargePeriod",
-              "showBilledCost": true,
-              "showConsumedQuantity": false,
-              "showCost": true,
-              "showDimensionNames": true,
-              "showEffectiveCost": true,
-              "showListPrice": true,
-              "showMargins": false,
-              "showModifiedCosts": false,
-              "showPercentChange": true,
-              "showPercentages": false,
-              "showSavings": false,
-              "showSavingsPercent": false,
-              "showUsage": false
-            },
-            "downgradedAt": "2026-07-24T12:34:56Z",
-            "downgradedByUserId": 1234,
-            "filterExpressionCount": 16826525429610445000,
-            "groupByExpressionCount": 17160573378343594000,
-            "id": "550e8400-e29b-41d4-a716-446655440000",
-            "isFavorite": false,
-            "kind": "finops:saved-filter",
-            "name": "6ox",
-            "orgId": 100,
-            "ownerUserId": 12345,
-            "pageSource": "analyzeSpend",
-            "updatedAt": "1985-04-26T08:45:02Z",
+            "updatedAt": "2006-04-15T12:34:30Z",
             "visibility": "shared"
           }
         ],
@@ -3052,21 +3154,6 @@
       },
       "TagDimensionCollection": {
         "example": [
-          {
-            "createdAt": "2020-11-26T12:17:38.369Z",
-            "id": "tag_environment",
-            "kind": "finops:tag-dimension",
-            "name": "Environment",
-            "tags": [
-              {
-                "key": "env"
-              },
-              {
-                "key": "environment"
-              }
-            ],
-            "updatedAt": "2020-11-26T12:17:38.369Z"
-          },
           {
             "createdAt": "2020-11-26T12:17:38.369Z",
             "id": "tag_environment",
@@ -3159,14 +3246,38 @@
         "type": "object"
       },
       "TagDimensionTag": {
-        "description": "Contains the resource tag key",
+        "description": "Contains a tag key and its optional source and priority.",
         "example": {
-          "key": "environment"
+          "key": "environment",
+          "priority": 1,
+          "sourceType": "awsAccountTag"
         },
         "properties": {
           "key": {
             "description": "Key (the part of the tag before the \"=\" character).",
             "example": "environment",
+            "type": "string"
+          },
+          "priority": {
+            "description": "Optional positive priority. Explicit priorities are evaluated first in ascending order; ties follow list order. Entries without a priority follow, alphabetically by key; exact ties retain list order.",
+            "example": 1,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "sourceType": {
+            "description": "Source of the tag key; when omitted, the bill line's resource tags are used.",
+            "enum": [
+              "awsResourceTag",
+              "awsCostAllocationTag",
+              "awsAccountTag",
+              "awsOuTag",
+              "awsRootTag",
+              "azureResourceTag",
+              "azureSubscriptionTag",
+              "azureResourceGroupTag",
+              "gcpResourceLabel"
+            ],
+            "example": "awsAccountTag",
             "type": "string"
           }
         },
@@ -3202,6 +3313,19 @@
             "provider": "aws",
             "qualifiedKey": "user:Customer",
             "sourceType": "awsCostAllocationTag"
+          },
+          {
+            "distinctResourceCount": 4341,
+            "distinctValueCount": 28,
+            "id": "tag_aws_customer",
+            "key": "Customer",
+            "kind": "finops:tag-observation",
+            "namespace": "user",
+            "normalizedKey": "customer",
+            "orgId": 100,
+            "provider": "aws",
+            "qualifiedKey": "user:Customer",
+            "sourceType": "awsCostAllocationTag"
           }
         ],
         "items": {
@@ -3211,12 +3335,12 @@
       },
       "TagObservationList": {
         "example": {
-          "count": 11435454474667241000,
+          "count": 15300522283679107000,
           "kind": "finops:tag-observation-list",
           "nextPage": "/finops-customizations/v1/orgs/100/tag-observations?skipToken=19u2349",
           "orgId": 100,
           "prevPage": "/finops-customizations/v1/orgs/100/tag-observations?skipToken=8b1750u",
-          "total": 16240123123778656000,
+          "total": 4753115054417566000,
           "values": [
             {
               "distinctResourceCount": 4341,
@@ -3249,7 +3373,7 @@
         "properties": {
           "count": {
             "description": "Number of items in the current page.",
-            "example": 5445622856898500000,
+            "example": 2337554662465082400,
             "type": "integer"
           },
           "kind": {
@@ -3280,7 +3404,7 @@
           },
           "total": {
             "description": "Total number of items matching the current filter.",
-            "example": 6187556904105207000,
+            "example": 6869532623047985000,
             "type": "integer"
           },
           "values": {
@@ -3324,16 +3448,6 @@
               "email": "finops@example.com",
               "id": "108234",
               "type": "email"
-            },
-            {
-              "email": "finops@example.com",
-              "id": "108234",
-              "type": "email"
-            },
-            {
-              "email": "finops@example.com",
-              "id": "108234",
-              "type": "email"
             }
           ],
           "schedule": {
@@ -3348,7 +3462,7 @@
         "properties": {
           "enabled": {
             "description": "Updated active state.",
-            "example": false,
+            "example": true,
             "type": "boolean"
           },
           "name": {
@@ -3360,6 +3474,11 @@
           "recipients": {
             "description": "Updated delivery targets (must remain non-empty if provided).",
             "example": [
+              {
+                "email": "finops@example.com",
+                "id": "108234",
+                "type": "email"
+              },
               {
                 "email": "finops@example.com",
                 "id": "108234",
@@ -3385,13 +3504,35 @@
               "private",
               "shared"
             ],
-            "example": "shared",
+            "example": "private",
             "type": "string"
           }
         },
         "type": "object"
       },
       "UpdateRequestBody3": {
+        "example": {
+          "action": "mute"
+        },
+        "properties": {
+          "action": {
+            "description": "Action to apply to the report subscription.",
+            "enum": [
+              "pause",
+              "resume",
+              "mute",
+              "unmute"
+            ],
+            "example": "mute",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "type": "object"
+      },
+      "UpdateRequestBody4": {
         "example": {
           "billingCenterIds": [
             "adZqre9KZci-oC9r_ZcZJw"
@@ -3434,7 +3575,7 @@
               "adZqre9KZci-oC9r_ZcZJw"
             ],
             "items": {
-              "example": "Tempore doloribus ut et.",
+              "example": "Rerum facere nemo modi provident error eum.",
               "type": "string"
             },
             "maxItems": 100,
@@ -3453,7 +3594,7 @@
               "vendor_account"
             ],
             "items": {
-              "example": "Quo cum facilis velit.",
+              "example": "Deleniti vel cum dolores.",
               "type": "string"
             },
             "maxItems": 10,
@@ -3500,7 +3641,7 @@
   "info": {
     "description": "With the FinOps Customization API, customers can adapt the dimensions of their billing data to their\nspecific needs. This flexibility provides a more granular view of cost and usage data, supporting precise and insightful\nfinancial analysis.\n\nThe API is available at the following endpoints, dependent upon the user/tenant zone:\n| Zone        | Base URL    |\n| ----------- | ----------- |\n| NAM         | https://api.flexera.com/finops-customizations |\n| EU          | https://api.flexera.eu/finops-customizations  |\n| APAC        | https://api.flexera.au/finops-customizations  |\n\n",
     "title": "FinOps Customizations API",
-    "version": "2.1.0"
+    "version": "2.3.0"
   },
   "openapi": "3.0.3",
   "paths": {
@@ -3801,7 +3942,7 @@
     },
     "/finops-customizations/v1/orgs/{orgId}/report-subscriptions": {
       "get": {
-        "description": "Lists report subscriptions in the organization visible to the caller (owned or shared), newest first.",
+        "description": "Lists shared report subscriptions and the caller's own private subscriptions, newest first. Organization administrators (org_owner) see all subscriptions in the organization.",
         "operationId": "Report Subscriptions#index",
         "parameters": [
           {
@@ -3819,13 +3960,13 @@
           {
             "allowEmptyValue": true,
             "description": "Page size (default 50, max 200)",
-            "example": 192,
+            "example": 126,
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 50,
               "description": "Page size (default 50, max 200)",
-              "example": 119,
+              "example": 131,
               "maximum": 200,
               "minimum": 1,
               "type": "integer"
@@ -3870,8 +4011,10 @@
                   "values": [
                     {
                       "createdAt": "1977-01-08T10:52:57Z",
+                      "createdByEmail": "support@flexera.com",
                       "dashboardId": "dash-8f21",
                       "dashboardScope": "org",
+                      "effectiveStatus": "active",
                       "enabled": true,
                       "id": "550e8400-e29b-41d4-a716-446655440000",
                       "kind": "finops:report-subscription",
@@ -3901,12 +4044,15 @@
                         "timezone": "America/New_York"
                       },
                       "updatedAt": "2006-02-21T00:31:51Z",
+                      "userNotificationStatus": "unmuted",
                       "visibility": "shared"
                     },
                     {
                       "createdAt": "1977-01-08T10:52:57Z",
+                      "createdByEmail": "support@flexera.com",
                       "dashboardId": "dash-8f21",
                       "dashboardScope": "org",
+                      "effectiveStatus": "active",
                       "enabled": true,
                       "id": "550e8400-e29b-41d4-a716-446655440000",
                       "kind": "finops:report-subscription",
@@ -3936,12 +4082,15 @@
                         "timezone": "America/New_York"
                       },
                       "updatedAt": "2006-02-21T00:31:51Z",
+                      "userNotificationStatus": "unmuted",
                       "visibility": "shared"
                     },
                     {
                       "createdAt": "1977-01-08T10:52:57Z",
+                      "createdByEmail": "support@flexera.com",
                       "dashboardId": "dash-8f21",
                       "dashboardScope": "org",
+                      "effectiveStatus": "active",
                       "enabled": true,
                       "id": "550e8400-e29b-41d4-a716-446655440000",
                       "kind": "finops:report-subscription",
@@ -3971,12 +4120,15 @@
                         "timezone": "America/New_York"
                       },
                       "updatedAt": "2006-02-21T00:31:51Z",
+                      "userNotificationStatus": "unmuted",
                       "visibility": "shared"
                     },
                     {
                       "createdAt": "1977-01-08T10:52:57Z",
+                      "createdByEmail": "support@flexera.com",
                       "dashboardId": "dash-8f21",
                       "dashboardScope": "org",
+                      "effectiveStatus": "active",
                       "enabled": true,
                       "id": "550e8400-e29b-41d4-a716-446655440000",
                       "kind": "finops:report-subscription",
@@ -4006,6 +4158,7 @@
                         "timezone": "America/New_York"
                       },
                       "updatedAt": "2006-02-21T00:31:51Z",
+                      "userNotificationStatus": "unmuted",
                       "visibility": "shared"
                     }
                   ]
@@ -4175,8 +4328,10 @@
               "application/json": {
                 "example": {
                   "createdAt": "1976-04-08T03:44:03Z",
+                  "createdByEmail": "support@flexera.com",
                   "dashboardId": "dash-8f21",
                   "dashboardScope": "org",
+                  "effectiveStatus": "active",
                   "enabled": true,
                   "id": "550e8400-e29b-41d4-a716-446655440000",
                   "kind": "finops:report-subscription",
@@ -4216,6 +4371,7 @@
                     "timezone": "America/New_York"
                   },
                   "updatedAt": "2005-05-09T15:35:51Z",
+                  "userNotificationStatus": "unmuted",
                   "visibility": "shared"
                 },
                 "schema": {
@@ -4513,7 +4669,7 @@
         ]
       },
       "get": {
-        "description": "Shows a specified report subscription in the organization.",
+        "description": "Shows a specified report subscription in the organization. Private subscriptions are visible only to their owner and organization administrators (org_owner); other callers receive 404 Not Found.",
         "operationId": "Report Subscriptions#show",
         "parameters": [
           {
@@ -4549,8 +4705,10 @@
               "application/json": {
                 "example": {
                   "createdAt": "1992-06-21T07:38:42Z",
+                  "createdByEmail": "support@flexera.com",
                   "dashboardId": "dash-8f21",
                   "dashboardScope": "org",
+                  "effectiveStatus": "active",
                   "enabled": true,
                   "id": "550e8400-e29b-41d4-a716-446655440000",
                   "kind": "finops:report-subscription",
@@ -4585,6 +4743,7 @@
                     "timezone": "America/New_York"
                   },
                   "updatedAt": "2016-02-06T18:17:06Z",
+                  "userNotificationStatus": "unmuted",
                   "visibility": "shared"
                 },
                 "schema": {
@@ -4807,8 +4966,10 @@
               "application/json": {
                 "example": {
                   "createdAt": "2000-11-04T13:32:14Z",
+                  "createdByEmail": "support@flexera.com",
                   "dashboardId": "dash-8f21",
                   "dashboardScope": "org",
+                  "effectiveStatus": "active",
                   "enabled": true,
                   "id": "550e8400-e29b-41d4-a716-446655440000",
                   "kind": "finops:report-subscription",
@@ -4838,6 +4999,7 @@
                     "timezone": "America/New_York"
                   },
                   "updatedAt": "2010-05-14T10:39:47Z",
+                  "userNotificationStatus": "unmuted",
                   "visibility": "shared"
                 },
                 "schema": {
@@ -4985,6 +5147,259 @@
         "summary": "Update a report subscription",
         "tags": [
           "Report Subscriptions"
+        ]
+      }
+    },
+    "/finops-customizations/v1/orgs/{orgId}/report-subscriptions/{id}/status": {
+      "patch": {
+        "description": "Updates a report subscription's global enabled flag or the authenticated user's personal notification preference.\nThis method requires the scheduled report update privilege, the same privilege used by the report subscription configuration update method. Before applying any action, the service must check that the subscription is visible to the caller under the same rules as the list endpoint: callers can see all shared subscriptions and their own private subscriptions; organization administrators (org_owner) can also see all private subscriptions in the organization.\n- Callers without the org_owner role can \"pause\" or \"resume\" subscriptions they own and \"mute\" or \"unmute\" shared subscriptions they do not own. Recipient membership is not required.\n- Organization administrators (org_owner) can perform all four actions on shared subscriptions but only \"pause\" or \"resume\" on private subscriptions in the organization.\n\"Pause\" and \"resume\" affect all recipients. \"Mute\" and \"unmute\" change only the authenticated user's preference, including for organization administrators, and do not modify the recipient list.\nA missing or non-visible subscription returns 404 Not Found. An action not allowed on a visible subscription returns 403 Forbidden. A successful response returns the full subscription and must apply the same field-level read restrictions as the subscription read endpoints.\nUnmuting does not enable a paused subscription; resuming preserves personal mutes.",
+        "operationId": "Report Subscriptions Status#update",
+        "parameters": [
+          {
+            "description": "The unique identifier for the organization",
+            "example": 100,
+            "in": "path",
+            "name": "orgId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the organization",
+              "example": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "UUID of the report subscription.",
+            "example": "550e8400-e29b-41d4-a716-446655440000",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "UUID of the report subscription.",
+              "example": "550e8400-e29b-41d4-a716-446655440000",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "allowEmptyValue": true,
+            "description": "Report subscription ETag. Required for pause and resume; optional for mute and unmute.",
+            "example": "W/\"550e8400-e29b-41d4-a716-446655440000-v3\"",
+            "in": "header",
+            "name": "If-Match",
+            "schema": {
+              "description": "Report subscription ETag. Required for pause and resume; optional for mute and unmute.",
+              "example": "W/\"550e8400-e29b-41d4-a716-446655440000-v3\"",
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "action": "mute"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRequestBody3"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "createdAt": "1989-05-25T17:20:40Z",
+                  "createdByEmail": "support@flexera.com",
+                  "dashboardId": "dash-8f21",
+                  "dashboardScope": "org",
+                  "effectiveStatus": "active",
+                  "enabled": true,
+                  "id": "550e8400-e29b-41d4-a716-446655440000",
+                  "kind": "finops:report-subscription",
+                  "lastError": "Itaque et similique.",
+                  "lastFailureAt": "2010-12-01T09:41:13Z",
+                  "lastSuccessAt": "2012-07-31T16:55:24Z",
+                  "name": "Weekly Cloud Cost",
+                  "orgId": 100,
+                  "ownerUserId": 1234,
+                  "recipients": [
+                    {
+                      "email": "finops@example.com",
+                      "id": "108234",
+                      "type": "email"
+                    },
+                    {
+                      "email": "finops@example.com",
+                      "id": "108234",
+                      "type": "email"
+                    },
+                    {
+                      "email": "finops@example.com",
+                      "id": "108234",
+                      "type": "email"
+                    }
+                  ],
+                  "schedule": {
+                    "dayOfMonth": 15,
+                    "dayOfWeek": "monday",
+                    "frequency": "weekly",
+                    "timeOfDay": "09:00",
+                    "timezone": "America/New_York"
+                  },
+                  "updatedAt": "1994-04-30T09:18:22Z",
+                  "userNotificationStatus": "unmuted",
+                  "visibility": "shared"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ReportSubscriptionResult"
+                }
+              }
+            },
+            "description": "OK response.",
+            "headers": {
+              "ETag": {
+                "description": "Opaque tag representing the current state of the report subscription.",
+                "example": "W/\"550e8400-e29b-41d4-a716-446655440000-v3\"",
+                "required": true,
+                "schema": {
+                  "description": "Opaque tag representing the current state of the report subscription.",
+                  "example": "W/\"550e8400-e29b-41d4-a716-446655440000-v3\"",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_request: Bad Request response."
+          },
+          "401": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unauthorized: Unauthorized response."
+          },
+          "403": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "forbidden: Forbidden response."
+          },
+          "404": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "not_found: Not Found response."
+          },
+          "412": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "resource_unmatched: If-Match did not match the current version of the report subscription."
+          },
+          "422": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "unprocessable_entity: Unprocessable Entity response."
+          },
+          "429": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "too_many_requests: Too Many Requests response."
+          },
+          "500": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "internal_error: Internal Server Error response."
+          },
+          "502": {
+            "content": {
+              "application/vnd.goa.error": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "bad_gateway: Bad Gateway response."
+          }
+        },
+        "security": [
+          {
+            "JWTAuth_header_Authorization": [
+              "common:org:affiliated",
+              "optima:currency:update||common:org:own",
+              "optima:custom_dimension:index||common:org:own",
+              "optima:custom_dimension:show||common:org:own",
+              "optima:custom_dimension:create||common:org:own",
+              "optima:custom_dimension:update||common:org:own",
+              "optima:custom_dimension:delete||common:org:own",
+              "optima:tag_observation:index||common:org:own",
+              "optima:rule_based_dimension:index||common:org:own",
+              "optima:rule_based_dimension:show||common:org:own",
+              "optima:rule_based_dimension:create||common:org:own",
+              "optima:rule_based_dimension:delete||common:org:own",
+              "optima:rule_based_dimension:update||common:org:own",
+              "optima:rule_based_dimension_rule_list:show||common:org:own",
+              "optima:rule_based_dimension_rule_list:delete||common:org:own",
+              "optima:rule_based_dimension_rule_list:replace||common:org:own",
+              "optima:saved_filter:index||optima:public_dashboard:index||common:org:own",
+              "optima:saved_filter:show||optima:public_dashboard:show||common:org:own",
+              "optima:saved_filter:create||optima:public_dashboard:create||common:org:own",
+              "optima:saved_filter:update||optima:public_dashboard:update||common:org:own",
+              "optima:saved_filter:delete||optima:public_dashboard:delete||common:org:own",
+              "optima:scheduled_report:index||common:org:own",
+              "optima:scheduled_report:show||common:org:own",
+              "optima:scheduled_report:create||common:org:own",
+              "optima:scheduled_report:update||common:org:own",
+              "optima:scheduled_report:delete||common:org:own"
+            ]
+          }
+        ],
+        "summary": "Update report subscription status",
+        "tags": [
+          "Report Subscriptions Status"
         ]
       }
     },
@@ -6520,13 +6935,13 @@
           {
             "allowEmptyValue": true,
             "description": "Page size (default 10, max 200)",
-            "example": 120,
+            "example": 21,
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 10,
               "description": "Page size (default 10, max 200)",
-              "example": 102,
+              "example": 105,
               "maximum": 200,
               "minimum": 1,
               "type": "integer"
@@ -6559,7 +6974,7 @@
           {
             "allowEmptyValue": true,
             "description": "Optional visibility filter for results.",
-            "example": "shared",
+            "example": "private",
             "in": "query",
             "name": "visibility",
             "schema": {
@@ -6568,19 +6983,19 @@
                 "shared",
                 "private"
               ],
-              "example": "shared",
+              "example": "private",
               "type": "string"
             }
           },
           {
             "allowEmptyValue": true,
             "description": "Comma-separated saved filter IDs marked as favorites, max 50.",
-            "example": "Reiciendis consequuntur.",
+            "example": "Vero molestiae dolores rem consequatur laborum.",
             "in": "query",
             "name": "favoriteIds",
             "schema": {
               "description": "Comma-separated saved filter IDs marked as favorites, max 50.",
-              "example": "Architecto accusantium omnis aperiam et.",
+              "example": "Tenetur repellendus beatae recusandae laudantium.",
               "type": "string"
             }
           },
@@ -7260,12 +7675,12 @@
                     "adZqre9KZci-oC9r_ZcZJw",
                     "kQm2Y7pVQoqxN4M8fCyTig"
                   ],
-                  "createdAt": "1989-09-22T11:59:34Z",
+                  "createdAt": "1983-01-16T09:40:12Z",
                   "description": "Filters for Q4 cloud cost analysis",
                   "dimensions": [
-                    "Quisquam qui dolor voluptatibus illum.",
-                    "Quibusdam aut.",
-                    "Animi omnis fugiat pariatur dignissimos."
+                    "Sint tenetur est repellendus dicta.",
+                    "Ullam quia itaque cupiditate ducimus.",
+                    "Iusto provident est distinctio qui et."
                   ],
                   "displayOptions": {
                     "hideListCost": false,
@@ -7288,8 +7703,9 @@
                   "downgradedAt": "2026-07-24T12:34:56Z",
                   "downgradedByUserId": 1234,
                   "filter": {
-                    "Similique est ea mollitia sint.": "Aperiam nam.",
-                    "Velit dolores architecto exercitationem eveniet.": "Doloribus perferendis cumque sunt."
+                    "Alias soluta officiis commodi.": "A corrupti est molestiae aut.",
+                    "Explicabo earum blanditiis est delectus dolorem.": "Quia maiores ea dolores rem.",
+                    "Sed labore accusantium.": "Eius commodi voluptate."
                   },
                   "id": "550e8400-e29b-41d4-a716-446655440000",
                   "kind": "finops:saved-filter",
@@ -7297,7 +7713,7 @@
                   "orgId": 100,
                   "ownerUserId": 1234,
                   "pageSource": "analyzeSpend",
-                  "updatedAt": "2011-02-24T16:37:38Z",
+                  "updatedAt": "1976-10-25T22:52:21Z",
                   "visibility": "private"
                 },
                 "schema": {
@@ -7830,7 +8246,7 @@
                 "visibility": "private"
               },
               "schema": {
-                "$ref": "#/components/schemas/UpdateRequestBody3"
+                "$ref": "#/components/schemas/UpdateRequestBody4"
               }
             }
           },
@@ -8934,12 +9350,12 @@
         "parameters": [
           {
             "allowEmptyValue": true,
-            "description": "Optional filter for Tag Observations.\n\nThe following filters are supported:\n\n| Filter | Allowed Operators | Example |\n| --- | --- | --- |\n| provider | eq ne in | provider in ['aws', 'azure'] |\n| sourceType | eq ne in | sourceType eq 'awsCostAllocationTag' |\n| qualifiedKey | co eq ne in | qualifiedKey co 'user:Customer' |\n| key | co eq ne in | key co 'Customer' |\n| normalizedKey | co eq ne in | normalizedKey eq 'customer' |\n\n### Filter Notes\n- Filter expressions may be combined using logical 'and', 'or', and 'not' operators and grouped using parentheses.\n- Attribute names are case-sensitive; operator names are case-insensitive.\n- The 'co' operator performs case-insensitive substring matching.\n- The 'eq', 'ne', and 'in' operators use exact, case-sensitive matching.\n- String literals must be single-quoted. Escape an apostrophe by doubling it.\n- Supported provider values are 'aws', 'azure', and 'gcp'.\n- Supported sourceType values are 'awsResourceTag', 'awsCostAllocationTag', 'azureResourceTag', and 'gcpResourceLabel'.\n- To search all tag-key representations, combine 'co' expressions for qualifiedKey, key, and normalizedKey using 'or'.\n- Unsupported fields, unsupported operators, and invalid expressions return HTTP 400.\n- Filter is a query parameter and must be URL-encoded.",
+            "description": "Optional filter for Tag Observations.\n\nThe following filters are supported:\n\n| Filter | Allowed Operators | Example |\n| --- | --- | --- |\n| provider | eq ne in | provider in ['aws', 'azure'] |\n| sourceType | eq ne in | sourceType eq 'awsCostAllocationTag' |\n| qualifiedKey | co eq ne in | qualifiedKey co 'user:Customer' |\n| key | co eq ne in | key co 'Customer' |\n| normalizedKey | co eq ne in | normalizedKey eq 'customer' |\n\n### Filter Notes\n- Filter expressions may be combined using logical 'and', 'or', and 'not' operators and grouped using parentheses.\n- Attribute names are case-sensitive; operator names are case-insensitive.\n- The 'co' operator performs case-insensitive substring matching.\n- The 'eq', 'ne', and 'in' operators use exact, case-sensitive matching.\n- String literals must be single-quoted. Escape an apostrophe by doubling it.\n- Supported provider values are 'aws', 'azure', and 'gcp'.\n- Supported sourceType values are 'awsResourceTag', 'awsCostAllocationTag', 'awsAccountTag', 'awsOuTag', 'awsRootTag', 'azureResourceTag', 'azureSubscriptionTag', 'azureResourceGroupTag', and 'gcpResourceLabel'.\n- To search all tag-key representations, combine 'co' expressions for qualifiedKey, key, and normalizedKey using 'or'.\n- Unsupported fields, unsupported operators, and invalid expressions return HTTP 400.\n- Filter is a query parameter and must be URL-encoded.",
             "example": "provider in ['aws', 'azure'] and (qualifiedKey co 'customer' or key co 'customer' or normalizedKey co 'customer')",
             "in": "query",
             "name": "filter",
             "schema": {
-              "description": "Optional filter for Tag Observations.\n\nThe following filters are supported:\n\n| Filter | Allowed Operators | Example |\n| --- | --- | --- |\n| provider | eq ne in | provider in ['aws', 'azure'] |\n| sourceType | eq ne in | sourceType eq 'awsCostAllocationTag' |\n| qualifiedKey | co eq ne in | qualifiedKey co 'user:Customer' |\n| key | co eq ne in | key co 'Customer' |\n| normalizedKey | co eq ne in | normalizedKey eq 'customer' |\n\n### Filter Notes\n- Filter expressions may be combined using logical 'and', 'or', and 'not' operators and grouped using parentheses.\n- Attribute names are case-sensitive; operator names are case-insensitive.\n- The 'co' operator performs case-insensitive substring matching.\n- The 'eq', 'ne', and 'in' operators use exact, case-sensitive matching.\n- String literals must be single-quoted. Escape an apostrophe by doubling it.\n- Supported provider values are 'aws', 'azure', and 'gcp'.\n- Supported sourceType values are 'awsResourceTag', 'awsCostAllocationTag', 'azureResourceTag', and 'gcpResourceLabel'.\n- To search all tag-key representations, combine 'co' expressions for qualifiedKey, key, and normalizedKey using 'or'.\n- Unsupported fields, unsupported operators, and invalid expressions return HTTP 400.\n- Filter is a query parameter and must be URL-encoded.",
+              "description": "Optional filter for Tag Observations.\n\nThe following filters are supported:\n\n| Filter | Allowed Operators | Example |\n| --- | --- | --- |\n| provider | eq ne in | provider in ['aws', 'azure'] |\n| sourceType | eq ne in | sourceType eq 'awsCostAllocationTag' |\n| qualifiedKey | co eq ne in | qualifiedKey co 'user:Customer' |\n| key | co eq ne in | key co 'Customer' |\n| normalizedKey | co eq ne in | normalizedKey eq 'customer' |\n\n### Filter Notes\n- Filter expressions may be combined using logical 'and', 'or', and 'not' operators and grouped using parentheses.\n- Attribute names are case-sensitive; operator names are case-insensitive.\n- The 'co' operator performs case-insensitive substring matching.\n- The 'eq', 'ne', and 'in' operators use exact, case-sensitive matching.\n- String literals must be single-quoted. Escape an apostrophe by doubling it.\n- Supported provider values are 'aws', 'azure', and 'gcp'.\n- Supported sourceType values are 'awsResourceTag', 'awsCostAllocationTag', 'awsAccountTag', 'awsOuTag', 'awsRootTag', 'azureResourceTag', 'azureSubscriptionTag', 'azureResourceGroupTag', and 'gcpResourceLabel'.\n- To search all tag-key representations, combine 'co' expressions for qualifiedKey, key, and normalizedKey using 'or'.\n- Unsupported fields, unsupported operators, and invalid expressions return HTTP 400.\n- Filter is a query parameter and must be URL-encoded.",
               "example": "provider in ['aws', 'azure'] and (qualifiedKey co 'customer' or key co 'customer' or normalizedKey co 'customer')",
               "maxLength": 8192,
               "type": "string"
@@ -8948,13 +9364,13 @@
           {
             "allowEmptyValue": true,
             "description": "Page size (default 50, max 200).",
-            "example": 131,
+            "example": 14,
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 50,
               "description": "Page size (default 50, max 200).",
-              "example": 73,
+              "example": 198,
               "maximum": 200,
               "minimum": 1,
               "type": "integer"
@@ -8991,12 +9407,12 @@
             "content": {
               "application/json": {
                 "example": {
-                  "count": 1081406853547329000,
+                  "count": 262008540512877980,
                   "kind": "finops:tag-observation-list",
                   "nextPage": "/finops-customizations/v1/orgs/100/tag-observations?skipToken=19u2349",
                   "orgId": 100,
                   "prevPage": "/finops-customizations/v1/orgs/100/tag-observations?skipToken=8b1750u",
-                  "total": 2340229585491913000,
+                  "total": 3339235863161370000,
                   "values": [
                     {
                       "distinctResourceCount": 4341,
@@ -9153,8 +9569,12 @@
       "name": "Currency"
     },
     {
-      "description": "Report Subscriptions schedule a dashboard to be rendered to PDF and emailed to a set of recipients on a recurring cadence (daily, weekly, or monthly) at a wall-clock time in a given IANA timezone. This lets stakeholders receive a cost or usage dashboard on a schedule without logging in.\n\nSubscriptions are organization-scoped and owned by their creator, which is derived from the JWT subject claim. Each subscription is either private (visible only to its owner) or shared (visible to other users in the organization); creating, updating, and deleting a subscription is restricted to its owner. Updates and deletes support optimistic concurrency through ETag / If-Match, so a stale write is rejected with 412 Precondition Failed.",
+      "description": "Report Subscriptions schedule a dashboard to be rendered to PDF and emailed to a set of recipients on a recurring cadence (daily, weekly, or monthly) at a wall-clock time in a given IANA timezone. This lets stakeholders receive a cost or usage dashboard on a schedule without logging in.\n\nSubscriptions are organization-scoped and owned by their creator, which is derived from the JWT subject claim. Each subscription is either private (visible to its owner and organization administrators with the org_owner role) or shared (visible to other users in the organization). Creating, updating, and deleting subscription configuration is restricted to its owner. Updates and deletes support optimistic concurrency through ETag / If-Match, so a stale write is rejected with 412 Precondition Failed.",
       "name": "Report Subscriptions"
+    },
+    {
+      "description": "Report Subscriptions Status manages global and personal notification status independently of report subscription configuration.",
+      "name": "Report Subscriptions Status"
     },
     {
       "description": "\nSee: [https://docs.flexera.com/flexera/EN/Optima/OptimaRuleBasedDimensions.htm](https://docs.flexera.com/flexera/EN/Optima/OptimaRuleBasedDimensions.htm)\n\nThis API lets you create new dimensions that will be populated according to rules you define.\nYou can use these new dimensions to look at your costs from new, meaningful perspectives.\n\nA common use case is to create several dimensions like **Department** or **Environment**, populated based on known account values.\nYou might define a **Department** rule-based dimension with a rule for each known account.\nFor instance, a rule might express: \"If the account is 'aws-123', then use the value 'Finance'\".\nIn that way, all the \"aws-123\" costs will be classified as being in the \"Finance\" Department.\n\n## API\n\nThere are four paths for managing rule-based dimensions, under `/finops-customizations/v1/orgs/{orgId}`:\n  - `/rule-based-dimensions`: List all rule-based dimensions.\n  - `/rule-based-dimensions/{id}`: Show, create, update, delete a single rule-based dimension.\n  - `/rule-based-dimensions/{id}/summary`: Show a summary of distinct rule values and rule-list links.\n  - `/rule-based-dimensions/{id}/rules/{effectiveAt}`: Show, replace, delete a single rules list.\n\nEach rule-based dimension has an `id` and a display `name`.\nIt can also have rule lists describing how to populate the dimension over time.\n\nThere is a prototype rules list UI where you can paste in JSON on the left and view/edit a human-readable version on the right:\n- [Rule List JSON Editor](https://reference.rightscale.com/bill_analysis/rbd_json_editor/index.html)\n\n### Rule List\n\nA rule list describes how a rule-based dimension should be populated.\nA rule simply has a `condition` and a `value`.\nAs each line of your bill data is gathered, the rules will be evaluated in order and the first rule to match will determine the value to populate for that row.\n\nThe `value` field can specify either:\n- A static text value (using `text`), or\n- A dynamic value from another dimension (using `dimension`). \n\t\t\nHere are example rules demonstrating different `value` configurations:\n\n#### Example 1: Static Text Value\nThis rule says: if the vendor account is AWS, populate the rule-based dimension with the static value \"Finance\":\n~~~~\n{\n \"condition\": {\n   \"type\":      \"dimension_equals\",\n   \"dimension\": \"vendor\",\n   \"value\":     \"AWS\"\n },\n \"value\": {\n   \"text\": \"Finance\"\n }\n}\n~~~~\nThe next rule demonstrates a dimension_contains condition.\n\nThe rule says: If a resource type contains the substring \"Compute\", populate the rule-based dimension with the value \"Finance\":\n~~~~\n{\n \"condition\": {\n   \"type\":      \"dimension_contains\",\n   \"dimension\": \"resource_type\",\n   \"substring\": \"Compute\"\n },\n \"value\": {\n   \"text\": \"Finance\"\n }\n}\n~~~~\nIf you're populating a dimension based on 100 different accounts, your rules list might have 100 rules similar to that one, specifying the value to use for each of the 100 accounts.\n\n#### Example 2: Dynamic Dimension Value\nThis rule says: if the \"tag_department\" is not empty or \"None\", populate the rule-based dimension with the value of the \"tag_department\":\n~~~~\n{\n  \"condition\": {\n    \"type\": \"not\",\n    \"expression\": {\n      \"type\": \"or\",\n      \"expressions\": [\n        {\n          \"type\": \"dimension_equals\",\n          \"dimension\": \"tag_department\",\n          \"value\": \"None\",\n          \"caseInsensitive\": false\n        },\n        {\n          \"type\": \"dimension_equals\",\n          \"dimension\": \"tag_department\",\n          \"value\": \"\"\n        }\n      ]\n    }\n  },\n  \"value\": {\n    \"dimension\":  \"tag_department\",\n  }\n}\n~~~~\n\n#### Rule Condition\n\nA rule's condition could be:\n- The `dimension_equals` or `dimension_contains` type\n- A boolean operator type: `and`, `or`, `not`\n- Empty (null), meaning the rule will match unconditionally\n\nA `dimension_equals` condition checks whether a dimension equals a certain value and a `dimension_contains` condition checks whether a dimension contains a certain substring.\nMost dimensions are available to be referenced:\n- Default dimensions:\n  - `availability_zone`\n  - `bill_entity`\n  - `bill_source`\n  - `billing_account`\n  - `commitment_id`\n  - `commitment_name`\n  - `database_edition`\n  - `database_engine`\n  - `deployment_option`\n  - `description`\n  - `instance_type`\n  - `instance_type_family`\n  - `invoice_id`\n  - `license_model`\n  - `line_item_type`\n  - `manufacturer_name`\n  - `meter_category`\n  - `operating_system`\n  - `product_order_name`\n  - `purchase_option`\n  - `region`\n  - `resource_group`\n  - `resource_type`\n  - `service`\n  - `service_family`\n  - `usage_type`\n  - `usage_unit`\n  - `vendor`\n  - `vendor_account`\n  - `vendor_account_name`\n- Any custom tag dimensions\n- Any other rule-based dimensions (as long as the reference doesn't create a circular dependency among the rule-based dimensions)\n\nBy default, the condition is case-sensitive, but it can be made case-insensitive by setting its `caseInsensitive` field to `true`.\nThis applies to both  \"dimension_equals\" and \"dimension_contains\"  condition types.\nFor example:\n\n~~~~\n{\n  \"type\": \"dimension_equals\",\n  \"dimension\": \"vendor\",\n  \"value\": \"AWS\",\n  \"caseInsensitive\": true\n}\n~~~~\n\nA rule's condition could also be more complex, using the boolean operators `and`, `or`, or `not` to build a larger, nested expression.\nFor example:\n\n_\"vendor is AWS **and** service is EC2\":_\n~~~~\n{\n \"type\": \"and\",\n \"expressions\": [\n   {\"type\":\"dimension_equals\", \"dimension\":\"vendor\",  \"value\":\"AWS\"},\n   {\"type\":\"dimension_equals\", \"dimension\":\"service\", \"value\":\"EC2\"}\n ]\n}\n~~~~\n\n_\"vendor is **not** Azure\":_\n~~~~\n{\n \"type\": \"not\",\n \"expression\": {\n   \"type\":\"dimension_equals\", \"dimension\":\"vendor\", \"value\":\"Azure\"\n }\n}\n~~~~\n\nRule conditions must use the underlying cost dimension values, not UI display labels.\nSome UI surfaces show friendlier names for display.\nFor example, the displayed vendor name \"Google\" may correspond to the underlying vendor value \"GCP\", which is the value the rule must use.\nIf a dimension is not offered as a dropdown in the rule editor, inspect your cost data to determine the exact raw values present in your org.\n\n### Rules can change over time\nThe rules for a rule-based dimension are able to change over various time periods — you could define a fresh rules list for each calendar month, if desired.\n\nEach rules list has an `effectiveAt` date, indicating the year-month when the list starts being applicable. \nIt remains in effect until a new rules list is added with a subsequent `effectiveAt` date.\n\nFor example, a rules list might take effect in \"2022-01\" (January). Those rules remain in effect from that month forward, until another rules list is defined for a subsequent month.\nYou might then add a rules list effective \"2023-04\" (April) and those rules would then be used for that month forward.\n\n### Quotas\nAn org may define up to 50 rule-based dimensions. And each dimension may define up to 48 rules lists, meaning the rules list can change over time (at 48 unique \"effectiveAt\" dates).\n\nA rules list normally supports up to 500 rules.\nTo limit the complexity of the condition expressions, there may be 1,000 plain condition elements (whether of type \"dimension_equals\", \"dimension_contains\", \"and\", \"or\", or \"not\") used across the entire list after mapping optimization. That means a list might have 500 simple \"dimension_equals\"/\"dimension_contains\" rules, or on the other extreme, might only be allowed to have one rule if that rule contains 1,000 condition elements (for example, a large \"or\" expression with 999 \"dimension_equals\" checks).\n\n#### Special Case\nThere is also a special case on the number of rules: if a list consists of rules that simply check the value of the same dimension (or set of dimensions), we can optimize that and can allow up to 40,000 raw rules in that list, as long as the optimized representation has no more than 500 rule groups.\n\nA common use case would be to populate a rule-based dimension entirely based on the value of the \"vendor_account\" dimension.\nFor instance, you might know the \"Department\" that should be assigned for every possible account value.\nThe rules list could support mapping up to 40,000 \"vendor_account\" values that exist in the org, following this format:\n~~~\n\"rules\": [\n {\n   \"condition\": {\"type\":\"dimension_equals\", \"dimension\":\"vendor_account\", \"value\":\"account_1\"},\n   \"value\": {\"text\": \"Finance\"}\n },\n {\n   \"condition\": {\"type\":\"dimension_equals\", \"dimension\":\"vendor_account\", \"value\":\"account_2\"},\n   \"value\": {\"text\": \"Engineering\"}\n },\n ...<up to 39,998 more rules like the two above>...\n]\n~~~\nThis same optimization also applies for rules that check the value of multiple dimensions.\nAs long as each rule consists of an `and` expression that checks the value of up to 6 dimensions, we can optimize that mapping and support up to 40,000 rules in that list.\nEach of those rules must be checking the same set of dimensions, for example all the rules might check both the \"vendor_account\" and \"resource_group\" dimensions.\n\nAcross all rule-based dimensions, a single effective month may have up to 400,000 applicable raw rules in total, and up to 2,000 optimized rule groups after mapping optimization.\n## Rule-Based Dimension for Billing Center Allocation\n\nThis section outlines the use of a special rule-based dimension, `rbd_bc`, as a powerful alternative to traditional [billing center allocation rules](https://docs.flexera.com/flexera/EN/Optima/Allocation_Rules.htm).\n\n### Advantages of `rbd_bc`\n\nCompared to traditional allocation rules, using `rbd_bc` provides the following benefits:\n- Enables the rules to change over time, allowing a different rules list for each month.\n- Provides the ability to reference other dimensions that are unavailable to traditional allocation rules, such as other rule-based dimensions, custom tag dimensions, and most built-in dimensions.\n- Simplifies the allocation process because one rules list directly assigns costs to leaf-node billing centers, whereas traditional allocation rules require separate rules lists at each level of the hierarchy.\n\n### How to Use `rbd_bc`\n\nTo use `rbd_bc` for billing center allocation, follow these steps:\n\n1. Create a rule-based dimension `rbd_bc` which will take over assigning billing center allocations.\n   - The `id` must be `rbd_bc`.\n   - The `name` can be anything, like \"BC\", or \"Assign to BC\", etc. Like any other rule-based dimension, it will be visible in the UI.\n1. Choose an `effectiveAt` date for the first rules list. This controls a one-way switchover: starting on that date, the traditional billing center allocation rules will be overridden by this rule-based dimension’s assignments.\n1. Create a rules lists that assign costs to a \"leaf-node\" billing center ID, for example:\n\n       IF vendor_account = \"account1\" THEN \"bc123\"\n\n   The end result is that `rbd_bc` will be populated with the ID of the billing center to assign to.\n   And the billing center should be a leaf node in the hierarchy, allowing you to freely assign to a billing center several layers down.\n\n#### Example `rbd_bc` Configuration\n\nHere’s an example configuration to create the `rbd_bc` dimension:\n~~~\n{\n  \"id\": \"rbd_bc\",\n  \"name\": \"Assign to BC\"\n}\n~~~\nAnd we might create a rules list effective `2023-01`, with two rules that assign an account to a specific billing center\n(this rules list can be pasted into the [prototype editor UI](https://reference.rightscale.com/bill_analysis/rbd_json_editor/index.html) for further editing):\n~~~\n[\n  {\n    \"condition\": {\n      \"type\": \"dimension_equals\",\n      \"dimension\": \"vendor_account\",\n      \"value\": \"798380790996\"\n    },\n    \"value\": {\n      \"text\": \"dmsP6WK7qL6yiluIl_3iOQ\"\n    }\n  },\n  {\n    \"condition\": {\n      \"type\": \"dimension_equals\",\n      \"dimension\": \"vendor_account\",\n      \"value\": \"594348054263\"\n    },\n    \"value\": {\n      \"text\": \"YbPKQSkO_qoE6hJ8nx9vkg\"\n    }\n  }\n]\n~~~\nThe next time costs are imported, the billing center assignments will be driven by the `rbd_bc` values, starting on its earliest effectiveAt date (`2023-01` in this example).\nThe traditional billing center allocation rules will only affect dates before this `rbd_bc` effectiveAt date.\n\n### `rbd_bc` for Recommendations\n\nThe `rbd_bc` dimension will also override billing center allocation on [savings recommendations](https://docs.flexera.com/flexeraone/EN/WhatsNew/FeatureList/CCORecommendations.htm). This works by internally populating the rule-based dimensions (RBDs) on each recommendation and using the `rbd_bc` value to allocate the recommendation to a billing center.\n\nHowever, recommendations are separate from cost data and only have two fields available for RBD rules to reference:\n- `vendor_account`\n- `resource_group`\n\nAny RBD rules checking the recommendation's account or resource group should work, for example:\n- `IF vendor_account == \"A\" THEN \"bc123\"`\n- `IF resource_group == \"B\" THEN \"bc456\"`\n\nIf an RBD rule checks the value of an unsupported dimension, such as `bill_source == \"X\"`, that clause will evaluate to false because the recommendation doesn't have a `bill_source` field.\n\nBut a rule containing an unsupported dimension could still match if it contained an `OR` expression.\nConsider the following example rule condition that checks two fields:\n```\nbill_source == \"X\" OR vendor_account == \"A\"\n```\n\nSince `bill_source` doesn't exist on recommendations, the `bill_source == \"X\"` clause evaluates to false. However, the overall rule can still match if `vendor_account == \"A\"`.\n",
@@ -9169,7 +9589,7 @@
       "name": "Tag Dimension"
     },
     {
-      "description": "Lists tag keys discovered in an organization's ingested cloud cost and usage data. Each observation summarizes a discovered tag key, including its cloud provider, provider-specific source, original and normalized key representations, and distinct resource and value counts. Observations describe discovered data, not configured tag dimensions or individual billing records.",
+      "description": "Lists tag keys discovered in an organization's ingested cloud cost and usage data and tags reported by cloud providers. Each observation summarizes a key by its provider, source, original and normalized forms, and distinct resource and value counts. These are discovered keys, not configured tag dimensions or individual billing records.",
       "name": "Tag Observation"
     }
   ]
