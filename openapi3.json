@@ -130049,6 +130049,34 @@
         "title": "OnboardingUpdateRequest",
         "type": "object"
       },
+      "Uobs_OnboardingValidationRequest": {
+        "additionalProperties": true,
+        "properties": {
+          "connectorName": {
+            "default": "",
+            "description": "Optional display name; not used or persisted by connection validation.",
+            "title": "Connectorname",
+            "type": "string"
+          },
+          "credentials": {
+            "additionalProperties": true,
+            "description": "Write-only secrets for the provider. Never returned on read.",
+            "title": "Credentials",
+            "type": "object"
+          },
+          "provider": {
+            "description": "Connector provider discriminator (e.g. n8n).",
+            "minLength": 1,
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
+        ],
+        "title": "OnboardingValidationRequest",
+        "type": "object"
+      },
       "Uobs_SaasConnectorRead": {
         "properties": {
           "config": {
@@ -267757,12 +267785,12 @@
             }
           },
           {
-            "description": "Advanced filter expression for AICM connectors.\n\n| Field            | Operators | Description |\n|------------------|-----------|-------------|\n| connectorName    | eq, co    | Exact or contains match on connector name |\n| provider         | in        | n8n, anthropic, openAi, cursor, salesforceAgentforce, googleWorkspace, microsoftCopilot, githubCopilot |\n| status           | in        | enrollment status: enabled, failed, deleted, in-progress |\n| executionStatus  | in        | last-run status: COMPLETED, FAILED, RUNNING, QUEUED |\n\nValues must be single-quoted; join conditions with `and`.\n\nExamples:\n- `connectorName co 'prod'`\n- `provider in ['n8n','anthropic']`\n- `status in ['enabled']`\n- `executionStatus in ['FAILED']`\n",
+            "description": "Advanced filter expression for AICM connectors.\n\n| Field            | Operators | Description |\n|------------------|-----------|-------------|\n| connectorName    | eq, co    | Exact or contains match on connector name |\n| provider         | in        | salesforceAgentforce, n8n, googleWorkspace, anthropic, openAi, cursor, microsoftCopilot, githubCopilot, figma |\n| status           | in        | enrollment status: enabled, failed, deleted, in-progress |\n| executionStatus  | in        | last-run status: COMPLETED, FAILED, RUNNING, QUEUED |\n\nValues must be single-quoted; join conditions with `and`.\n\nExamples:\n- `connectorName co 'prod'`\n- `provider in ['n8n','anthropic']`\n- `status in ['enabled']`\n- `executionStatus in ['FAILED']`\n",
             "in": "query",
             "name": "filter",
             "required": false,
             "schema": {
-              "description": "Advanced filter expression for AICM connectors.\n\n| Field            | Operators | Description |\n|------------------|-----------|-------------|\n| connectorName    | eq, co    | Exact or contains match on connector name |\n| provider         | in        | n8n, anthropic, openAi, cursor, salesforceAgentforce, googleWorkspace, microsoftCopilot, githubCopilot |\n| status           | in        | enrollment status: enabled, failed, deleted, in-progress |\n| executionStatus  | in        | last-run status: COMPLETED, FAILED, RUNNING, QUEUED |\n\nValues must be single-quoted; join conditions with `and`.\n\nExamples:\n- `connectorName co 'prod'`\n- `provider in ['n8n','anthropic']`\n- `status in ['enabled']`\n- `executionStatus in ['FAILED']`\n",
+              "description": "Advanced filter expression for AICM connectors.\n\n| Field            | Operators | Description |\n|------------------|-----------|-------------|\n| connectorName    | eq, co    | Exact or contains match on connector name |\n| provider         | in        | salesforceAgentforce, n8n, googleWorkspace, anthropic, openAi, cursor, microsoftCopilot, githubCopilot, figma |\n| status           | in        | enrollment status: enabled, failed, deleted, in-progress |\n| executionStatus  | in        | last-run status: COMPLETED, FAILED, RUNNING, QUEUED |\n\nValues must be single-quoted; join conditions with `and`.\n\nExamples:\n- `connectorName co 'prod'`\n- `provider in ['n8n','anthropic']`\n- `status in ['enabled']`\n- `executionStatus in ['FAILED']`\n",
               "nullable": true,
               "title": "Filter",
               "type": "string"
@@ -268658,7 +268686,7 @@
     },
     "/uobs/v1/orgs/{org_id}/saas/onboarding/validate": {
       "post": {
-        "description": "Synchronously test a SaaS connector's **submitted** credentials against the vendor. Unlike create/update this is not fire-and-forget: it returns a verdict at HTTP 200 for every outcome — `success:true` when the vendor accepts the credentials, otherwise `success:false` with the vendor's HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. When the credentials work but a vendor account setting blocks the connector, `code` is absent and `detail` names the setting. A malformed/missing body is a 422. Keyed on `provider`; tests submitted values only (no stored-credential testing).",
+        "description": "Synchronously test a SaaS connector's **submitted** credentials against the vendor. Unlike create/update this is not fire-and-forget: it returns a verdict at HTTP 200 for every outcome — `success:true` when the vendor accepts the credentials, otherwise `success:false` with the vendor's HTTP `code` (or 502 unreachable / 504 timeout), a normalized `reason` and a specific `detail`. When the credentials work but a vendor account setting blocks the connector, `code` is absent and `detail` names the setting. A malformed/missing body is a 422. Keyed on `provider`; tests submitted values only (no stored-credential testing). `connectorName` is optional and is not used or persisted by validation.",
         "operationId": "Uobs_validate_saas_connection_uobs_v1_orgs_org_id_saas_onboarding_validate_post",
         "parameters": [
           {
@@ -268677,7 +268705,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Uobs_OnboardingCreateRequest"
+                "$ref": "#/components/schemas/Uobs_OnboardingValidationRequest"
               }
             }
           },
